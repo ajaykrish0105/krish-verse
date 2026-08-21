@@ -10,7 +10,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
 :root{
   --bg:#f5f3ee;
@@ -52,7 +56,9 @@ body{
   margin-bottom:8px;
 }
 
-.logo span{color:var(--gold)}
+.logo span{
+  color:var(--gold);
+}
 
 .subtitle{
   text-align:center;
@@ -89,14 +95,16 @@ input{
   font-size:.9rem;
 }
 
-input:focus{border-color:var(--gold)}
+input:focus{
+  border-color:var(--gold);
+}
 
 button{
   width:100%;
   padding:15px;
   border:none;
   background:var(--gold);
-  color:#fff;
+  color:white;
   cursor:pointer;
   font-family:'Syne',sans-serif;
   font-weight:700;
@@ -104,7 +112,9 @@ button{
   text-transform:uppercase;
 }
 
-button:hover{opacity:.9}
+button:hover{
+  opacity:.9;
+}
 
 button:disabled{
   opacity:.6;
@@ -131,7 +141,9 @@ button:disabled{
   font-size:.8rem;
 }
 
-.back:hover{color:var(--text)}
+.back:hover{
+  color:var(--text);
+}
 </style>
 </head>
 
@@ -186,10 +198,10 @@ button:disabled{
 <script>
 
 const SUPABASE_URL =
-'https://idnaxcwiskgzyodrlhzi.supabase.co';
+"https://idnaxcwiskgzyodrlhzi.supabase.co";
 
 const SUPABASE_KEY =
-'sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC';
+"sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC";
 
 const supabaseClient =
 window.supabase.createClient(
@@ -203,12 +215,20 @@ window.supabase.createClient(
 async function checkLogin(){
 
   const {
-    data:{session}
-  } =
-  await supabaseClient.auth.getSession();
+    data,
+    error
+  } = await supabaseClient.auth.getSession();
 
-  if(session){
-    window.location.href='admin.html';
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  if(data.session){
+
+    window.location.href =
+      "admin.html";
+
   }
 
 }
@@ -219,63 +239,84 @@ checkLogin();
 /* LOGIN */
 
 document
-.getElementById('loginForm')
-.addEventListener('submit',async function(e){
+.getElementById("loginForm")
+.addEventListener(
+  "submit",
+  async function(e){
 
-  e.preventDefault();
+    e.preventDefault();
 
-  const email =
-    document.getElementById('email').value.trim();
+    const email =
+      document
+      .getElementById("email")
+      .value
+      .trim();
 
-  const password =
-    document.getElementById('password').value;
+    const password =
+      document
+      .getElementById("password")
+      .value;
 
-  const button =
-    document.getElementById('loginBtn');
+    const button =
+      document
+      .getElementById("loginBtn");
 
-  const error =
-    document.getElementById('errorMsg');
+    const error =
+      document
+      .getElementById("errorMsg");
 
-  error.style.display='none';
+    error.style.display =
+      "none";
 
-  button.disabled=true;
-  button.textContent='Logging in...';
+    button.disabled =
+      true;
 
-  try{
+    button.textContent =
+      "Logging in...";
+
 
     const {
       data,
       error:loginError
     } =
-    await supabaseClient.auth.signInWithPassword({
-      email,
-      password
-    });
+    await supabaseClient.auth
+      .signInWithPassword({
+        email:email,
+        password:password
+      });
+
 
     if(loginError){
-      throw loginError;
+
+      console.error(loginError);
+
+      error.textContent =
+        loginError.message ||
+        "Incorrect email or password.";
+
+      error.style.display =
+        "block";
+
+      button.disabled =
+        false;
+
+      button.textContent =
+        "Login to Dashboard →";
+
+      return;
+
     }
+
 
     if(data.session){
-      window.location.href='admin.html';
+
+      window.location.href =
+        "admin.html";
+
     }
 
-  }catch(err){
-
-    console.error(err);
-
-    error.textContent =
-      err.message ||
-      'Incorrect email or password.';
-
-    error.style.display='block';
-
-    button.disabled=false;
-    button.textContent='Login to Dashboard →';
-
   }
-
-});
+);
 
 </script>
 
