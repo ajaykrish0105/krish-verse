@@ -41,20 +41,15 @@ body.modal-open{
 
 :root{
     --red:#ff1f1f;
-    --red2:#ff3b30;
+    --red-dark:#d90000;
     --black:#050505;
     --dark:#0b0b0b;
     --dark2:#111;
     --white:#fff;
-    --muted:#999;
+    --muted:#888;
     --border:#222;
     --display:'Syne',sans-serif;
 }
-
-
-/* =========================================================
-   GLOBAL
-========================================================= */
 
 a{
     color:inherit;
@@ -68,6 +63,10 @@ textarea{
     font-family:inherit;
 }
 
+button{
+    outline:none;
+}
+
 ::selection{
     background:var(--red);
     color:#fff;
@@ -75,18 +74,18 @@ textarea{
 
 
 /* =========================================================
-   BACKGROUND GLOW
+   BACKGROUND
 ========================================================= */
 
 body::before{
     content:"";
     position:fixed;
-    width:500px;
-    height:500px;
-    top:-250px;
-    right:-200px;
-    background:rgba(255,0,0,.10);
-    filter:blur(100px);
+    width:550px;
+    height:550px;
+    top:-280px;
+    right:-180px;
+    background:rgba(255,0,0,.09);
+    filter:blur(110px);
     border-radius:50%;
     pointer-events:none;
     z-index:-1;
@@ -95,12 +94,12 @@ body::before{
 body::after{
     content:"";
     position:fixed;
-    width:450px;
-    height:450px;
-    bottom:-250px;
-    left:-200px;
-    background:rgba(255,0,0,.06);
-    filter:blur(100px);
+    width:500px;
+    height:500px;
+    bottom:-280px;
+    left:-220px;
+    background:rgba(255,0,0,.055);
+    filter:blur(110px);
     border-radius:50%;
     pointer-events:none;
     z-index:-1;
@@ -126,18 +125,19 @@ nav{
 
     padding:0 50px;
 
-    background:rgba(5,5,5,.82);
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
+    background:rgba(5,5,5,.86);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
 
-    border-bottom:1px solid rgba(255,255,255,.06);
+    border-bottom:1px solid rgba(255,255,255,.07);
 }
 
 .nav-logo{
     font-family:var(--display);
-    font-size:1.35rem;
+    font-size:1.4rem;
     font-weight:800;
-    letter-spacing:-.04em;
+    letter-spacing:-.05em;
+    white-space:nowrap;
 }
 
 .nav-logo span{
@@ -146,19 +146,20 @@ nav{
 
 .nav-links{
     display:flex;
-    gap:35px;
+    gap:38px;
     list-style:none;
 }
 
 .nav-links a{
     position:relative;
 
-    color:#aaa;
-    font-size:.75rem;
-    font-weight:500;
+    color:#999;
+
+    font-size:.72rem;
+    font-weight:600;
 
     text-transform:uppercase;
-    letter-spacing:.12em;
+    letter-spacing:.13em;
 
     transition:.25s;
 }
@@ -168,7 +169,7 @@ nav{
 
     position:absolute;
     left:0;
-    bottom:-8px;
+    bottom:-9px;
 
     width:0;
     height:2px;
@@ -193,8 +194,8 @@ nav{
     color:#fff;
 
     font-family:var(--display);
-    font-size:.72rem;
-    font-weight:700;
+    font-size:.7rem;
+    font-weight:800;
 
     text-transform:uppercase;
     letter-spacing:.08em;
@@ -227,9 +228,9 @@ nav{
 
     background:
         radial-gradient(
-            circle at 75% 40%,
+            circle at 72% 45%,
             rgba(255,20,20,.14),
-            transparent 30%
+            transparent 32%
         ),
         #050505;
 }
@@ -240,12 +241,12 @@ nav{
 
     background-image:
         linear-gradient(
-            rgba(255,255,255,.025) 1px,
+            rgba(255,255,255,.024) 1px,
             transparent 1px
         ),
         linear-gradient(
             90deg,
-            rgba(255,255,255,.025) 1px,
+            rgba(255,255,255,.024) 1px,
             transparent 1px
         );
 
@@ -260,268 +261,30 @@ nav{
     pointer-events:none;
 }
 
-.hero-content{
-    position:relative;
-    z-index:2;
-
-    max-width:1100px;
-}
-
 
 /* =========================================================
-   NEW HERO CREATOR AREA
+   HERO CONTENT
 ========================================================= */
 
-.hero-visual{
-    position:absolute;
-
-    right:6%;
-    top:50%;
-
-    transform:translateY(-50%);
-
-    width:430px;
-    height:620px;
-
-    z-index:1;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    pointer-events:none;
-}
-
-
-/* Creator image */
-
-.creator-image-box{
-
-    position:absolute;
-
-    right:0;
-    bottom:0;
-
-    width:350px;
-    height:520px;
-
-    overflow:hidden;
-
-    border:1px solid rgba(255,255,255,.12);
-
-    background:
-        linear-gradient(
-            145deg,
-            #171717,
-            #070707
-        );
-
-    box-shadow:
-        0 30px 100px rgba(0,0,0,.65);
-
-}
-
-
-/*
-   Put your creator image here:
-
-   images/creator.jpg
-
-   If image is not available,
-   the dark placeholder will remain.
-*/
-
-.creator-image-box img{
+.hero-content{
+    position:relative;
+    z-index:5;
 
     width:100%;
-    height:100%;
-
-    display:block;
-
-    object-fit:cover;
-
-    object-position:center;
-
+    max-width:900px;
 }
-
-
-/* Red glow behind image */
-
-.creator-image-box::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-        linear-gradient(
-            to top,
-            rgba(0,0,0,.65),
-            transparent 55%
-        );
-
-    pointer-events:none;
-
-}
-
-
-/* Adobe logos */
-
-.adobe-logos{
-
-    position:absolute;
-
-    left:0;
-    top:90px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:14px;
-
-}
-
-
-/* Logo card */
-
-.adobe-logo{
-
-    width:72px;
-    height:72px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:#111;
-
-    border:1px solid #292929;
-
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.5);
-
-    transition:.3s;
-
-    pointer-events:auto;
-}
-
-.adobe-logo:hover{
-
-    transform:
-        translateX(6px)
-        scale(1.05);
-
-    border-color:var(--red);
-
-}
-
-
-/* Premiere Pro logo */
-
-.pr-logo{
-
-    position:relative;
-
-    width:44px;
-    height:44px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:#00005b;
-
-    border:2px solid #9999ff;
-
-    color:#9999ff;
-
-    font-family:Arial,sans-serif;
-
-    font-size:19px;
-    font-weight:800;
-
-}
-
-
-/* After Effects logo */
-
-.ae-logo{
-
-    position:relative;
-
-    width:44px;
-    height:44px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:#00005b;
-
-    border:2px solid #9999ff;
-
-    color:#9999ff;
-
-    font-family:Arial,sans-serif;
-
-    font-size:19px;
-    font-weight:800;
-
-}
-
-
-/* Small labels */
-
-.adobe-logo-label{
-
-    position:absolute;
-
-    left:80px;
-
-    white-space:nowrap;
-
-    opacity:0;
-
-    transform:translateX(-5px);
-
-    color:#aaa;
-
-    font-size:.6rem;
-    font-weight:600;
-
-    text-transform:uppercase;
-
-    letter-spacing:.1em;
-
-    transition:.25s;
-
-}
-
-.adobe-logo:hover .adobe-logo-label{
-
-    opacity:1;
-
-    transform:translateX(0);
-
-}
-
-
-/* Hero text */
 
 .hero-eyebrow{
     display:flex;
     align-items:center;
     gap:12px;
 
-    margin-bottom:25px;
+    margin-bottom:26px;
 
     color:var(--red);
 
-    font-size:.7rem;
-    font-weight:600;
+    font-size:.68rem;
+    font-weight:700;
 
     text-transform:uppercase;
     letter-spacing:.2em;
@@ -540,16 +303,16 @@ nav{
     font-family:var(--display);
 
     font-size:clamp(
-        3.5rem,
-        9vw,
-        8.5rem
+        4rem,
+        8vw,
+        8.3rem
     );
 
-    line-height:.88;
+    line-height:.87;
 
-    letter-spacing:-.07em;
+    letter-spacing:-.075em;
 
-    margin-bottom:35px;
+    margin-bottom:36px;
 }
 
 .hero-title .red{
@@ -558,8 +321,7 @@ nav{
 
 .hero-title .outline{
     color:transparent;
-
-    -webkit-text-stroke:1px #fff;
+    -webkit-text-stroke:1px rgba(255,255,255,.9);
 }
 
 .hero-description{
@@ -567,36 +329,40 @@ nav{
 
     color:#999;
 
-    font-size:1rem;
+    font-size:.96rem;
     line-height:1.8;
 
-    margin-bottom:40px;
+    margin-bottom:38px;
 }
 
 .hero-buttons{
     display:flex;
-    gap:14px;
+    gap:13px;
     flex-wrap:wrap;
 }
 
-.btn-red{
+.btn-red,
+.btn-outline{
     display:inline-flex;
     align-items:center;
+    justify-content:center;
     gap:10px;
 
-    padding:16px 28px;
-
-    background:var(--red);
-    color:#fff;
-
     font-family:var(--display);
-    font-size:.76rem;
-    font-weight:700;
+    font-size:.72rem;
+    font-weight:800;
 
     text-transform:uppercase;
     letter-spacing:.08em;
 
     transition:.25s;
+}
+
+.btn-red{
+    padding:16px 27px;
+
+    background:var(--red);
+    color:#fff;
 }
 
 .btn-red:hover{
@@ -606,29 +372,234 @@ nav{
 }
 
 .btn-outline{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-
-    padding:15px 28px;
+    padding:15px 27px;
 
     border:1px solid #333;
 
     color:#fff;
-
-    font-family:var(--display);
-    font-size:.76rem;
-    font-weight:700;
-
-    text-transform:uppercase;
-    letter-spacing:.08em;
-
-    transition:.25s;
 }
 
 .btn-outline:hover{
     border-color:var(--red);
     color:var(--red);
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   HERO CREATOR AREA
+========================================================= */
+
+.hero-visual{
+    position:absolute;
+
+    right:8%;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:470px;
+    height:620px;
+
+    z-index:2;
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   CREATOR PHOTO
+========================================================= */
+
+.creator-image-box{
+
+    position:absolute;
+
+    right:0;
+    bottom:0;
+
+    width:350px;
+    height:520px;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #191919,
+            #070707
+        );
+
+    border:1px solid rgba(255,255,255,.14);
+
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.7);
+
+}
+
+.creator-image-box::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:2;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.75),
+            rgba(0,0,0,0) 55%
+        );
+
+    pointer-events:none;
+}
+
+.creator-image-box img{
+
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+    object-position:center;
+
+    transition:
+        transform .7s ease;
+
+}
+
+.hero-visual:hover
+.creator-image-box img{
+
+    transform:scale(1.025);
+
+}
+
+
+/* =========================================================
+   SOFTWARE LOGOS
+========================================================= */
+
+.adobe-logos{
+
+    position:absolute;
+
+    left:0;
+    top:115px;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:16px;
+
+    z-index:10;
+}
+
+.adobe-logo{
+
+    position:relative;
+
+    width:78px;
+    height:78px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        rgba(16,16,16,.95);
+
+    border:1px solid #2c2c2c;
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.55);
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease;
+
+    pointer-events:auto;
+}
+
+.adobe-logo:hover{
+
+    transform:translateX(8px);
+
+    border-color:var(--red);
+}
+
+
+/* Adobe logo square */
+
+.pr-logo,
+.ae-logo{
+
+    width:46px;
+    height:46px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#08085c;
+
+    border:2px solid #9b9bff;
+
+    color:#aaaaff;
+
+    font-family:Arial,sans-serif;
+
+    font-size:18px;
+    font-weight:800;
+}
+
+
+/* label */
+
+.adobe-logo-label{
+
+    position:absolute;
+
+    left:92px;
+
+    top:50%;
+
+    transform:
+        translate(-8px,-50%);
+
+    white-space:nowrap;
+
+    padding:8px 11px;
+
+    background:#111;
+
+    border:1px solid #292929;
+
+    color:#aaa;
+
+    font-size:.58rem;
+    font-weight:700;
+
+    text-transform:uppercase;
+    letter-spacing:.1em;
+
+    opacity:0;
+
+    transition:.25s;
+
+    pointer-events:none;
+}
+
+.adobe-logo:hover .adobe-logo-label{
+
+    opacity:1;
+
+    transform:
+        translate(0,-50%);
 }
 
 
@@ -637,19 +608,22 @@ nav{
 ========================================================= */
 
 .hero-side{
+
     position:absolute;
 
-    right:45px;
-    bottom:60px;
+    right:40px;
+    bottom:55px;
 
     writing-mode:vertical-rl;
 
-    color:#555;
+    color:#4d4d4d;
 
-    font-size:.65rem;
+    font-size:.61rem;
     letter-spacing:.3em;
 
     text-transform:uppercase;
+
+    z-index:3;
 }
 
 
@@ -664,10 +638,11 @@ section{
 }
 
 .section-label{
+
     color:var(--red);
 
-    font-size:.68rem;
-    font-weight:600;
+    font-size:.66rem;
+    font-weight:700;
 
     text-transform:uppercase;
     letter-spacing:.2em;
@@ -676,17 +651,18 @@ section{
 }
 
 .section-title{
+
     font-family:var(--display);
 
     font-size:clamp(
-        2.5rem,
+        2.7rem,
         5vw,
-        4.5rem
+        4.6rem
     );
 
-    line-height:.95;
+    line-height:.94;
 
-    letter-spacing:-.05em;
+    letter-spacing:-.055em;
 
     margin-bottom:55px;
 }
@@ -701,13 +677,17 @@ section{
 }
 
 .services-grid{
+
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+        repeat(4,1fr);
 
     border:1px solid #222;
 }
 
 .service-card{
+
     padding:42px 30px;
 
     background:#0b0b0b;
@@ -722,39 +702,49 @@ section{
 }
 
 .service-card:hover{
+
     background:#101010;
+
     transform:translateY(-5px);
 }
 
 .service-number{
+
     color:#333;
 
     font-family:var(--display);
+
     font-size:.8rem;
 
     margin-bottom:35px;
 }
 
 .service-icon{
+
     font-size:2rem;
+
     margin-bottom:20px;
 }
 
 .service-card h3{
+
     font-family:var(--display);
-    font-size:1.2rem;
+
+    font-size:1.18rem;
 
     margin-bottom:12px;
 }
 
 .service-card p{
+
     color:#777;
 
-    font-size:.82rem;
-    line-height:1.7;
+    font-size:.81rem;
+    line-height:1.75;
 }
 
 .service-tag{
+
     display:inline-block;
 
     margin-top:22px;
@@ -765,7 +755,7 @@ section{
 
     color:#888;
 
-    font-size:.62rem;
+    font-size:.6rem;
 
     text-transform:uppercase;
     letter-spacing:.1em;
@@ -781,7 +771,9 @@ section{
 }
 
 .portfolio-header{
+
     display:flex;
+
     align-items:flex-end;
     justify-content:space-between;
 
@@ -795,16 +787,20 @@ section{
 }
 
 .instagram-btn{
+
     display:inline-flex;
+
     align-items:center;
+    justify-content:center;
+
     gap:8px;
 
     padding:12px 18px;
 
     border:1px solid #292929;
 
-    font-size:.72rem;
-    font-weight:600;
+    font-size:.69rem;
+    font-weight:700;
 
     text-transform:uppercase;
     letter-spacing:.08em;
@@ -813,13 +809,17 @@ section{
 }
 
 .instagram-btn:hover{
+
     border-color:var(--red);
+
     color:var(--red);
+
+    transform:translateY(-2px);
 }
 
 
 /* =========================================================
-   REEL GRID
+   PORTFOLIO GRID
 ========================================================= */
 
 .portfolio-grid{
@@ -829,11 +829,10 @@ section{
     grid-template-columns:
         repeat(
             auto-fill,
-            minmax(250px,1fr)
+            minmax(240px,1fr)
         );
 
-    gap:16px;
-
+    gap:17px;
 }
 
 .portfolio-item{
@@ -844,7 +843,7 @@ section{
 
     max-height:650px;
 
-    background:#111;
+    background:#0d0d0d;
 
     overflow:hidden;
 
@@ -860,12 +859,12 @@ section{
 
 .portfolio-item:hover{
 
-    transform:translateY(-6px);
+    transform:translateY(-7px);
 
-    border-color:#3b1515;
+    border-color:#451515;
 
     box-shadow:
-        0 25px 60px rgba(0,0,0,.45);
+        0 25px 65px rgba(0,0,0,.5);
 }
 
 .portfolio-item video,
@@ -896,12 +895,12 @@ section{
     right:0;
     bottom:0;
 
-    height:45%;
+    height:48%;
 
     background:
         linear-gradient(
             to top,
-            rgba(0,0,0,.8),
+            rgba(0,0,0,.88),
             transparent
         );
 
@@ -912,11 +911,11 @@ section{
 
     position:absolute;
 
-    top:16px;
-    right:16px;
+    top:14px;
+    right:14px;
 
-    width:38px;
-    height:38px;
+    width:39px;
+    height:39px;
 
     display:flex;
     align-items:center;
@@ -926,15 +925,15 @@ section{
 
     background:rgba(0,0,0,.65);
 
-    border:1px solid rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.16);
 
     color:#fff;
 
-    font-size:.8rem;
+    font-size:.75rem;
 
     z-index:4;
 
-    backdrop-filter:blur(8px);
+    backdrop-filter:blur(10px);
 }
 
 .portfolio-caption{
@@ -950,22 +949,22 @@ section{
     pointer-events:none;
 }
 
-.portfolio-caption .caption-title{
+.caption-title{
 
     font-family:var(--display);
 
-    font-size:1rem;
+    font-size:.98rem;
     font-weight:700;
 
-    margin-bottom:4px;
+    margin-bottom:5px;
 }
 
-.portfolio-caption .caption-type{
+.caption-type{
 
     color:var(--red);
 
-    font-size:.6rem;
-    font-weight:600;
+    font-size:.57rem;
+    font-weight:700;
 
     text-transform:uppercase;
     letter-spacing:.12em;
@@ -1009,9 +1008,9 @@ section{
 
     padding:25px;
 
-    background:rgba(0,0,0,.94);
+    background:rgba(0,0,0,.95);
 
-    backdrop-filter:blur(12px);
+    backdrop-filter:blur(14px);
 }
 
 .video-modal.active{
@@ -1036,15 +1035,9 @@ section{
 
     position:relative;
 
-    width:min(
-        95vw,
-        500px
-    );
+    width:min(95vw,500px);
 
-    height:min(
-        92vh,
-        850px
-    );
+    height:min(92vh,850px);
 
     background:#000;
 
@@ -1114,7 +1107,7 @@ section{
     background:
         linear-gradient(
             to top,
-            rgba(0,0,0,.9),
+            rgba(0,0,0,.92),
             transparent
         );
 
@@ -1152,14 +1145,14 @@ section{
     font-family:var(--display);
 
     font-size:clamp(
-        2.7rem,
+        2.8rem,
         5vw,
-        4.5rem
+        4.6rem
     );
 
     line-height:.95;
 
-    letter-spacing:-.05em;
+    letter-spacing:-.055em;
 
     margin-bottom:25px;
 }
@@ -1196,13 +1189,15 @@ section{
     background:#151515;
 
     border:1px solid #252525;
+
+    flex-shrink:0;
 }
 
 .booking-detail strong{
 
     display:block;
 
-    font-size:.85rem;
+    font-size:.84rem;
 
     margin-bottom:3px;
 }
@@ -1211,11 +1206,13 @@ section{
 
     color:#777;
 
-    font-size:.75rem;
+    font-size:.74rem;
 }
 
 
-/* FORM */
+/* =========================================================
+   FORM
+========================================================= */
 
 form{
 
@@ -1230,7 +1227,8 @@ form{
 
     display:grid;
 
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:
+        1fr 1fr;
 
     gap:16px;
 }
@@ -1243,12 +1241,10 @@ label{
 
     color:#777;
 
-    font-size:.65rem;
-
-    font-weight:600;
+    font-size:.63rem;
+    font-weight:700;
 
     text-transform:uppercase;
-
     letter-spacing:.12em;
 }
 
@@ -1268,14 +1264,13 @@ textarea{
 
     outline:none;
 
-    font-size:.85rem;
+    font-size:.84rem;
 
     transition:.2s;
 }
 
 input::placeholder,
 textarea::placeholder{
-
     color:#555;
 }
 
@@ -1317,7 +1312,7 @@ textarea{
 
     font-family:var(--display);
 
-    font-weight:700;
+    font-weight:800;
 
     text-transform:uppercase;
 
@@ -1395,7 +1390,6 @@ footer{
     display:flex;
 
     align-items:center;
-
     justify-content:space-between;
 
     flex-wrap:wrap;
@@ -1415,7 +1409,6 @@ footer{
 }
 
 .footer-logo span{
-
     color:var(--red);
 }
 
@@ -1432,7 +1425,7 @@ footer{
 
     color:#777;
 
-    font-size:.72rem;
+    font-size:.7rem;
 
     text-transform:uppercase;
 
@@ -1442,7 +1435,6 @@ footer{
 }
 
 .footer-links a:hover{
-
     color:var(--red);
 }
 
@@ -1454,12 +1446,12 @@ footer{
 
     color:#444;
 
-    font-size:.68rem;
+    font-size:.67rem;
 }
 
 
 /* =========================================================
-   REVEAL ANIMATION
+   REVEAL
 ========================================================= */
 
 .reveal{
@@ -1482,52 +1474,46 @@ footer{
 
 
 /* =========================================================
-   RESPONSIVE
+   RESPONSIVE 1100
 ========================================================= */
 
 @media(max-width:1100px){
 
     .hero-visual{
 
-        right:2%;
+        right:1%;
 
         transform:
             translateY(-50%)
-            scale(.85);
+            scale(.84);
 
         transform-origin:center right;
-
     }
 
     .hero-content{
-
-        max-width:750px;
-
+        max-width:760px;
     }
-
 }
 
+
+/* =========================================================
+   RESPONSIVE 1000
+========================================================= */
 
 @media(max-width:1000px){
 
     .services-grid{
-
         grid-template-columns:
             repeat(2,1fr);
-
     }
 
     .service-card:nth-child(2){
-
         border-right:0;
-
     }
 
     .service-card:nth-child(3),
     .service-card:nth-child(4){
-
         border-top:1px solid #222;
-
     }
 
     .booking-inner{
@@ -1535,25 +1521,20 @@ footer{
         grid-template-columns:1fr;
 
         gap:50px;
-
     }
-
-
-    /*
-       Hero visual becomes
-       slightly smaller
-    */
 
     .hero-visual{
 
-        right:-50px;
+        right:-55px;
 
-        opacity:.45;
-
+        opacity:.42;
     }
-
 }
 
+
+/* =========================================================
+   RESPONSIVE 700
+========================================================= */
 
 @media(max-width:700px){
 
@@ -1562,55 +1543,49 @@ footer{
         height:65px;
 
         padding:0 20px;
+    }
 
+    .nav-logo{
+        font-size:1.15rem;
     }
 
     .nav-links{
-
         display:none;
-
     }
 
     .nav-cta{
 
         padding:10px 15px;
 
-        font-size:.65rem;
-
+        font-size:.62rem;
     }
-
 
     #hero{
 
-        min-height:90vh;
+        min-height:92vh;
 
         padding:
             120px
             20px
             70px;
-
     }
 
-
-    /*
-       Mobile hero image
-       stays behind text
-    */
+    .hero-content{
+        z-index:10;
+    }
 
     .hero-visual{
 
-        right:-90px;
+        right:-115px;
 
-        top:55%;
+        top:56%;
 
         transform:
             translateY(-50%)
-            scale(.68);
+            scale(.65);
 
-        opacity:.28;
-
+        opacity:.22;
     }
-
 
     .hero-title{
 
@@ -1620,26 +1595,27 @@ footer{
                 17vw,
                 6rem
             );
+    }
 
+    .hero-description{
+
+        max-width:470px;
+
+        font-size:.88rem;
     }
 
     .hero-side{
-
         display:none;
-
     }
 
     section{
 
         padding:
             80px 20px;
-
     }
 
     .services-grid{
-
         grid-template-columns:1fr;
-
     }
 
     .service-card{
@@ -1647,13 +1623,10 @@ footer{
         border-right:0;
 
         border-bottom:1px solid #222;
-
     }
 
     .service-card:last-child{
-
         border-bottom:0;
-
     }
 
     .portfolio-header{
@@ -1661,7 +1634,6 @@ footer{
         align-items:flex-start;
 
         flex-direction:column;
-
     }
 
     .portfolio-grid{
@@ -1670,13 +1642,10 @@ footer{
             repeat(2,1fr);
 
         gap:10px;
-
     }
 
     .portfolio-item{
-
         aspect-ratio:9/15;
-
     }
 
     .portfolio-caption{
@@ -1684,19 +1653,14 @@ footer{
         left:10px;
         right:10px;
         bottom:10px;
-
     }
 
-    .portfolio-caption .caption-title{
-
-        font-size:.75rem;
-
+    .caption-title{
+        font-size:.73rem;
     }
 
-    .portfolio-caption .caption-type{
-
-        font-size:.5rem;
-
+    .caption-type{
+        font-size:.48rem;
     }
 
     .reel-play{
@@ -1706,20 +1670,15 @@ footer{
 
         width:32px;
         height:32px;
-
     }
 
     .form-row{
-
         grid-template-columns:1fr;
-
     }
 
     footer{
-
         padding:
             45px 20px 25px;
-
     }
 
     .footer-top{
@@ -1727,72 +1686,78 @@ footer{
         align-items:flex-start;
 
         flex-direction:column;
-
     }
-
 }
 
+
+/* =========================================================
+   RESPONSIVE 400
+========================================================= */
 
 @media(max-width:400px){
 
     .portfolio-grid{
-
         grid-template-columns:1fr;
-
     }
 
     .portfolio-item{
-
         aspect-ratio:9/14;
-
     }
 
     .hero-visual{
 
         right:-150px;
 
-        opacity:.2;
-
+        opacity:.17;
     }
 
+    .hero-title{
+        font-size:3.2rem;
+    }
 }
 
 </style>
-
 </head>
+
 
 <body>
 
 
 <!-- =======================================================
-     NAV
+     NAVBAR
 ======================================================= -->
 
 <nav>
 
-<a href="#" class="nav-logo">
-krishhhh<span>.verse</span>
-</a>
+    <a href="#" class="nav-logo">
+        krishhhh<span>.verse</span>
+    </a>
 
-<ul class="nav-links">
+    <ul class="nav-links">
 
-<li>
-<a href="#services">Services</a>
-</li>
+        <li>
+            <a href="#services">
+                Services
+            </a>
+        </li>
 
-<li>
-<a href="#portfolio">Work</a>
-</li>
+        <li>
+            <a href="#portfolio">
+                Work
+            </a>
+        </li>
 
-<li>
-<a href="#booking">Book</a>
-</li>
+        <li>
+            <a href="#booking">
+                Book
+            </a>
+        </li>
 
-</ul>
+    </ul>
 
-<a href="#booking" class="nav-cta">
-Book Now
-</a>
+    <a href="#booking" class="nav-cta">
+        Book Now
+    </a>
 
 </nav>
 
@@ -1803,128 +1768,127 @@ Book Now
 
 <section id="hero">
 
-<div class="hero-grid"></div>
+    <div class="hero-grid"></div>
 
 
-<!-- =====================================================
-     CREATOR IMAGE + ADOBE LOGOS
-===================================================== -->
+    <!-- HERO VISUAL -->
 
-<div class="hero-visual">
-
-    <!--
-        YOUR PHOTO
-
-        Put your photo here:
-
-        images/creator.jpg
-
-        Folder structure:
-
-        index.html
-        images/
-            creator.jpg
-    -->
-
-    <div class="creator-image-box">
-
-        <img
-            src="images/creator.jpg"
-            alt="Krishhhh - Video Editor"
-        >
-
-    </div>
+    <div class="hero-visual">
 
 
-    <!-- Adobe software logos -->
+        <!--
+            HERO IMAGE
 
-    <div class="adobe-logos">
+            Put your image here:
 
+            images/creator.jpg
 
-        <!-- Premiere Pro -->
+            Folder:
 
-        <div class="adobe-logo">
+            index.html
+            images/
+                creator.jpg
+        -->
 
-            <div class="pr-logo">
-                Pr
-            </div>
+        <div class="creator-image-box">
 
-            <span class="adobe-logo-label">
-                Premiere Pro
-            </span>
+            <img
+                src="images/creator.jpg"
+                alt="Krishhhh Video Editor"
+                onerror="this.style.display='none'"
+            >
 
         </div>
 
 
-        <!-- After Effects -->
+        <!-- SOFTWARE -->
 
-        <div class="adobe-logo">
+        <div class="adobe-logos">
 
-            <div class="ae-logo">
-                Ae
+
+            <div class="adobe-logo">
+
+                <div class="pr-logo">
+                    Pr
+                </div>
+
+                <span class="adobe-logo-label">
+                    Premiere Pro
+                </span>
+
             </div>
 
-            <span class="adobe-logo-label">
-                After Effects
-            </span>
+
+            <div class="adobe-logo">
+
+                <div class="ae-logo">
+                    Ae
+                </div>
+
+                <span class="adobe-logo-label">
+                    After Effects
+                </span>
+
+            </div>
+
 
         </div>
 
+    </div>
+
+
+    <!-- HERO TEXT -->
+
+    <div class="hero-content reveal">
+
+        <div class="hero-eyebrow">
+            Video Editor · Visual Creator
+        </div>
+
+        <h1 class="hero-title">
+
+            I MAKE<br>
+
+            <span class="red">
+                VIDEOS
+            </span>
+
+            <br>
+
+            <span class="outline">
+                THAT HIT.
+            </span>
+
+        </h1>
+
+        <p class="hero-description">
+
+            Cinematic edits, reels, motion graphics and
+            visual stories crafted to make your content
+            stand out.
+
+            Every cut has a purpose.
+
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#portfolio" class="btn-red">
+                View My Work →
+            </a>
+
+            <a href="#booking" class="btn-outline">
+                Start a Project
+            </a>
+
+        </div>
 
     </div>
 
-</div>
 
-
-<div class="hero-content reveal">
-
-<div class="hero-eyebrow">
-Video Editor · Visual Creator
-</div>
-
-<h1 class="hero-title">
-
-I MAKE<br>
-
-<span class="red">
-VIDEOS
-</span>
-
-<br>
-
-<span class="outline">
-THAT HIT.
-</span>
-
-</h1>
-
-<p class="hero-description">
-
-Cinematic edits, reels, motion graphics and
-visual stories crafted to make your content
-stand out.
-
-Every cut has a purpose.
-
-</p>
-
-<div class="hero-buttons">
-
-<a href="#portfolio" class="btn-red">
-View My Work →
-</a>
-
-<a href="#booking" class="btn-outline">
-Start a Project
-</a>
-
-</div>
-
-</div>
-
-<div class="hero-side">
-krishhhh.verse · visual storytelling
-</div>
+    <div class="hero-side">
+        krishhhh.verse · visual storytelling
+    </div>
 
 </section>
 
@@ -1935,122 +1899,123 @@ krishhhh.verse · visual storytelling
 
 <section id="services">
 
-<div class="section-label reveal">
-What I Do
-</div>
+    <div class="section-label reveal">
+        What I Do
+    </div>
 
-<h2 class="section-title reveal">
-Services
-</h2>
-
-<div class="services-grid reveal">
+    <h2 class="section-title reveal">
+        Services
+    </h2>
 
 
-<div class="service-card">
-
-<div class="service-number">
-01
-</div>
-
-<div class="service-icon">
-🎬
-</div>
-
-<h3>
-Video Editing
-</h3>
-
-<p>
-High-retention reels, cinematic edits,
-color grading and storytelling.
-</p>
-
-<span class="service-tag">
-Premiere Pro
-</span>
-
-</div>
+    <div class="services-grid reveal">
 
 
-<div class="service-card">
+        <div class="service-card">
 
-<div class="service-number">
-02
-</div>
+            <div class="service-number">
+                01
+            </div>
 
-<div class="service-icon">
-⚡
-</div>
+            <div class="service-icon">
+                🎬
+            </div>
 
-<h3>
-Motion Graphics
-</h3>
+            <h3>
+                Video Editing
+            </h3>
 
-<p>
-Dynamic titles, transitions, effects and
-motion design for modern content.
-</p>
+            <p>
+                High-retention reels, cinematic edits,
+                color grading and storytelling.
+            </p>
 
-<span class="service-tag">
-After Effects
-</span>
+            <span class="service-tag">
+                Premiere Pro
+            </span>
 
-</div>
-
-
-<div class="service-card">
-
-<div class="service-number">
-03
-</div>
-
-<div class="service-icon">
-📸
-</div>
-
-<h3>
-Photo Shoot
-</h3>
-
-<p>
-Portrait, product and lifestyle photography
-for creators and brands.
-</p>
-
-<span class="service-tag">
-Photography
-</span>
-
-</div>
+        </div>
 
 
-<div class="service-card">
+        <div class="service-card">
 
-<div class="service-number">
-04
-</div>
+            <div class="service-number">
+                02
+            </div>
 
-<div class="service-icon">
-🎥
-</div>
+            <div class="service-icon">
+                ⚡
+            </div>
 
-<h3>
-Video Shoot
-</h3>
+            <h3>
+                Motion Graphics
+            </h3>
 
-<p>
-Creative on-location video production for
-events, creators and businesses.
-</p>
+            <p>
+                Dynamic titles, transitions, effects and
+                motion design for modern content.
+            </p>
 
-<span class="service-tag">
-Videography
-</span>
+            <span class="service-tag">
+                After Effects
+            </span>
 
-</div>
+        </div>
 
 
-</div>
+        <div class="service-card">
+
+            <div class="service-number">
+                03
+            </div>
+
+            <div class="service-icon">
+                📸
+            </div>
+
+            <h3>
+                Photo Shoot
+            </h3>
+
+            <p>
+                Portrait, product and lifestyle photography
+                for creators and brands.
+            </p>
+
+            <span class="service-tag">
+                Photography
+            </span>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <div class="service-number">
+                04
+            </div>
+
+            <div class="service-icon">
+                🎥
+            </div>
+
+            <h3>
+                Video Shoot
+            </h3>
+
+            <p>
+                Creative on-location video production for
+                events, creators and businesses.
+            </p>
+
+            <span class="service-tag">
+                Videography
+            </span>
+
+        </div>
+
+
+    </div>
 
 </section>
 
@@ -2061,50 +2026,51 @@ Videography
 
 <section id="portfolio">
 
-<div class="portfolio-header">
+    <div class="portfolio-header">
 
-<div>
+        <div>
 
-<div class="section-label reveal">
-Selected Work
-</div>
+            <div class="section-label reveal">
+                Selected Work
+            </div>
 
-<h2 class="section-title reveal">
-My Reels
-</h2>
+            <h2 class="section-title reveal">
+                My Reels
+            </h2>
 
-</div>
-
-<a
-href="https://www.instagram.com/krishhhh.verse"
-target="_blank"
-rel="noopener"
-class="instagram-btn reveal">
-
-◎ Instagram
-
-</a>
-
-</div>
+        </div>
 
 
-<div
-class="portfolio-grid"
-id="portfolioGrid">
+        <a
+            href="https://www.instagram.com/krishhhh.verse"
+            target="_blank"
+            rel="noopener"
+            class="instagram-btn reveal"
+        >
+            ◎ Instagram
+        </a>
 
-<div class="portfolio-empty">
+    </div>
 
-<div>
-◌
-</div>
 
-<p>
-Loading reels...
-</p>
+    <div
+        class="portfolio-grid"
+        id="portfolioGrid"
+    >
 
-</div>
+        <div class="portfolio-empty">
 
-</div>
+            <div>
+                ◌
+            </div>
+
+            <p>
+                Loading reels...
+            </p>
+
+        </div>
+
+    </div>
 
 </section>
 
@@ -2114,35 +2080,34 @@ Loading reels...
 ======================================================= -->
 
 <div
-class="video-modal"
-id="videoModal"
-aria-hidden="true"
+    class="video-modal"
+    id="videoModal"
+    aria-hidden="true"
 >
 
-<div class="modal-content">
+    <div class="modal-content">
 
-<button
-class="modal-close"
-id="modalClose"
-aria-label="Close video">
+        <button
+            class="modal-close"
+            id="modalClose"
+            aria-label="Close video"
+        >
+            ✕
+        </button>
 
-✕
+        <video
+            id="modalVideo"
+            controls
+            playsinline
+            loop
+        ></video>
 
-</button>
+        <div
+            class="modal-title"
+            id="modalTitle"
+        ></div>
 
-<video
-id="modalVideo"
-controls
-playsinline
-loop
-></video>
-
-<div
-class="modal-title"
-id="modalTitle">
-</div>
-
-</div>
+    </div>
 
 </div>
 
@@ -2153,247 +2118,255 @@ id="modalTitle">
 
 <section id="booking">
 
-<div class="booking-inner">
+    <div class="booking-inner">
 
 
-<div class="booking-left reveal">
+        <div class="booking-left reveal">
 
-<div class="section-label">
-Let's Create
-</div>
+            <div class="section-label">
+                Let's Create
+            </div>
 
-<h2>
-Have a project<br>
-in mind?
-</h2>
+            <h2>
+                Have a project<br>
+                in mind?
+            </h2>
 
-<p>
+            <p>
 
-Tell me what you're working on.
-Whether it's a reel, brand video,
-event shoot or something completely
-different — let's make it happen.
+                Tell me what you're working on.
+                Whether it's a reel, brand video,
+                event shoot or something completely
+                different — let's make it happen.
 
-</p>
+            </p>
 
 
-<div class="booking-detail">
+            <div class="booking-detail">
 
-<div class="booking-detail-icon">
-📍
-</div>
+                <div class="booking-detail-icon">
+                    📍
+                </div>
 
-<div>
+                <div>
 
-<strong>
-Location
-</strong>
+                    <strong>
+                        Location
+                    </strong>
 
-<span>
-On-site & remote projects
-</span>
+                    <span>
+                        On-site & remote projects
+                    </span>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
 
-<div class="booking-detail">
+            <div class="booking-detail">
 
-<div class="booking-detail-icon">
-💬
-</div>
+                <div class="booking-detail-icon">
+                    💬
+                </div>
 
-<div>
+                <div>
 
-<strong>
-WhatsApp
-</strong>
+                    <strong>
+                        WhatsApp
+                    </strong>
 
-<span>
-+91 99408 26494
-</span>
+                    <span>
+                        +91 99408 26494
+                    </span>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
 
-<div class="booking-detail">
+            <div class="booking-detail">
 
-<div class="booking-detail-icon">
-◎
-</div>
+                <div class="booking-detail-icon">
+                    ◎
+                </div>
 
-<div>
+                <div>
 
-<strong>
-Instagram
-</strong>
+                    <strong>
+                        Instagram
+                    </strong>
 
-<span>
-@krishhhh.verse
-</span>
+                    <span>
+                        @krishhhh.verse
+                    </span>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
 
-<div class="reveal">
+        <!-- FORM -->
 
-<form id="bookingForm">
+        <div class="reveal">
 
+            <form id="bookingForm">
 
-<div class="form-row">
 
-<div>
+                <div class="form-row">
 
-<label>
-Your Name
-</label>
+                    <div>
 
-<input
-type="text"
-id="fname"
-placeholder="Full name"
-required>
+                        <label>
+                            Your Name
+                        </label>
 
-</div>
+                        <input
+                            type="text"
+                            id="fname"
+                            placeholder="Full name"
+                            required
+                        >
 
+                    </div>
 
-<div>
 
-<label>
-Phone / WhatsApp
-</label>
+                    <div>
 
-<input
-type="tel"
-id="phone"
-placeholder="+91 00000 00000"
-required>
+                        <label>
+                            Phone / WhatsApp
+                        </label>
 
-</div>
+                        <input
+                            type="tel"
+                            id="phone"
+                            placeholder="+91 00000 00000"
+                            required
+                        >
 
-</div>
+                    </div>
 
+                </div>
 
-<div>
 
-<label>
-Email Address
-</label>
+                <div>
 
-<input
-type="email"
-id="email"
-placeholder="you@email.com"
-required>
+                    <label>
+                        Email Address
+                    </label>
 
-</div>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="you@email.com"
+                        required
+                    >
 
+                </div>
 
-<div>
 
-<label>
-Service Required
-</label>
+                <div>
 
-<select id="service" required>
+                    <label>
+                        Service Required
+                    </label>
 
-<option value="">
-Select a service...
-</option>
+                    <select
+                        id="service"
+                        required
+                    >
 
-<option value="Video Editing">
-Video Editing
-</option>
+                        <option value="">
+                            Select a service...
+                        </option>
 
-<option value="Motion Graphics / After Effects">
-Motion Graphics / After Effects
-</option>
+                        <option value="Video Editing">
+                            Video Editing
+                        </option>
 
-<option value="Photo Shoot">
-Photo Shoot
-</option>
+                        <option value="Motion Graphics / After Effects">
+                            Motion Graphics / After Effects
+                        </option>
 
-<option value="Video Shoot">
-Video Shoot
-</option>
+                        <option value="Photo Shoot">
+                            Photo Shoot
+                        </option>
 
-<option value="Photo + Video Shoot Combo">
-Photo + Video Shoot Combo
-</option>
+                        <option value="Video Shoot">
+                            Video Shoot
+                        </option>
 
-<option value="Full Production Package">
-Full Production Package
-</option>
+                        <option value="Photo + Video Shoot Combo">
+                            Photo + Video Shoot Combo
+                        </option>
 
-</select>
+                        <option value="Full Production Package">
+                            Full Production Package
+                        </option>
 
-</div>
+                    </select>
 
+                </div>
 
-<div>
 
-<label>
-Preferred Date
-</label>
+                <div>
 
-<input
-type="date"
-id="date"
-required>
+                    <label>
+                        Preferred Date
+                    </label>
 
-</div>
+                    <input
+                        type="date"
+                        id="date"
+                        required
+                    >
 
+                </div>
 
-<div>
 
-<label>
-Project Details
-</label>
+                <div>
 
-<textarea
-id="message"
-placeholder="Tell me about your project..."></textarea>
+                    <label>
+                        Project Details
+                    </label>
 
-</div>
+                    <textarea
+                        id="message"
+                        placeholder="Tell me about your project..."
+                    ></textarea>
 
+                </div>
 
-<button
-type="submit"
-class="form-submit">
 
-Continue on WhatsApp →
+                <button
+                    type="submit"
+                    class="form-submit"
+                >
+                    Continue on WhatsApp →
+                </button>
 
-</button>
 
+                <div
+                    class="form-success"
+                    id="formSuccess"
+                >
+                    ✅ Booking saved successfully!
+                    Opening WhatsApp...
+                </div>
 
-<div
-class="form-success"
-id="formSuccess">
 
-✅ Booking saved successfully!
-Opening WhatsApp...
+                <div
+                    class="form-error"
+                    id="formError"
+                ></div>
 
-</div>
 
+            </form>
 
-<div
-class="form-error"
-id="formError">
-</div>
+        </div>
 
-
-</form>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
@@ -2404,52 +2377,52 @@ id="formError">
 
 <footer>
 
-<div class="footer-top">
-
-<div class="footer-logo">
-krishhhh<span>.verse</span>
-</div>
+    <div class="footer-top">
 
 
-<div class="footer-links">
-
-<a href="#services">
-Services
-</a>
-
-<a href="#portfolio">
-Work
-</a>
-
-<a href="#booking">
-Book
-</a>
-
-<a href="admin-login.html">
-Admin
-</a>
-
-</div>
+        <div class="footer-logo">
+            krishhhh<span>.verse</span>
+        </div>
 
 
-<a
-href="https://www.instagram.com/krishhhh.verse"
-target="_blank"
-rel="noopener"
-class="instagram-btn">
+        <div class="footer-links">
 
-Instagram →
+            <a href="#services">
+                Services
+            </a>
 
-</a>
+            <a href="#portfolio">
+                Work
+            </a>
 
-</div>
+            <a href="#booking">
+                Book
+            </a>
+
+            <a href="admin-login.html">
+                Admin
+            </a>
+
+        </div>
 
 
-<div class="footer-copy">
+        <a
+            href="https://www.instagram.com/krishhhh.verse"
+            target="_blank"
+            rel="noopener"
+            class="instagram-btn"
+        >
+            Instagram →
+        </a>
 
-© 2026 krishhhh.verse · All rights reserved.
+    </div>
 
-</div>
+
+    <div class="footer-copy">
+
+        © 2026 krishhhh.verse · All rights reserved.
+
+    </div>
 
 </footer>
 
@@ -2457,7 +2430,7 @@ Instagram →
 <script>
 
 /* =========================================================
-   SUPABASE CONFIG
+   SUPABASE
 ========================================================= */
 
 const SUPABASE_URL =
@@ -2634,6 +2607,10 @@ async function loadPortfolio(){
                     .trim();
 
 
+                /* =========================
+                   LOCAL VIDEO
+                ========================= */
+
                 if(
                     type === "video" ||
                     type === "mp4"
@@ -2642,24 +2619,18 @@ async function loadPortfolio(){
                     div.innerHTML = `
 
                         <video
-
                             muted
                             autoplay
                             loop
                             playsinline
                             preload="metadata"
-
                             src="${escapeHTML(url)}"
-
                             aria-label="${title}"
-
                         ></video>
-
 
                         <div class="reel-play">
                             ▶
                         </div>
-
 
                         <div class="portfolio-caption">
 
@@ -2702,6 +2673,10 @@ async function loadPortfolio(){
                 }
 
 
+                /* =========================
+                   YOUTUBE
+                ========================= */
+
                 else if(
                     type === "youtube"
                 ){
@@ -2717,24 +2692,16 @@ async function loadPortfolio(){
                         div.innerHTML = `
 
                             <iframe
-
                                 src="https://www.youtube.com/embed/${id}?rel=0&modestbranding=1"
-
                                 title="${title}"
-
                                 loading="lazy"
-
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-
                                 allowfullscreen>
-
                             </iframe>
-
 
                             <div class="reel-play">
                                 ▶
                             </div>
-
 
                             <div class="portfolio-caption">
 
@@ -2755,6 +2722,10 @@ async function loadPortfolio(){
                 }
 
 
+                /* =========================
+                   VIMEO
+                ========================= */
+
                 else if(
                     type === "vimeo"
                 ){
@@ -2770,24 +2741,16 @@ async function loadPortfolio(){
                         div.innerHTML = `
 
                             <iframe
-
                                 src="https://player.vimeo.com/video/${id}"
-
                                 title="${title}"
-
                                 loading="lazy"
-
                                 allow="autoplay; fullscreen; picture-in-picture"
-
                                 allowfullscreen>
-
                             </iframe>
-
 
                             <div class="reel-play">
                                 ▶
                             </div>
-
 
                             <div class="portfolio-caption">
 
@@ -2808,6 +2771,10 @@ async function loadPortfolio(){
                 }
 
 
+                /* =========================
+                   INSTAGRAM
+                ========================= */
+
                 else if(
                     type === "instagram" ||
                     type === "insta"
@@ -2816,20 +2783,14 @@ async function loadPortfolio(){
                     div.innerHTML = `
 
                         <iframe
-
                             src="${escapeHTML(url)}"
-
                             title="${title}"
-
                             loading="lazy">
-
                         </iframe>
-
 
                         <div class="reel-play">
                             ◎
                         </div>
-
 
                         <div class="portfolio-caption">
 
@@ -2848,6 +2809,10 @@ async function loadPortfolio(){
                 }
 
 
+                /* =========================
+                   IMAGE
+                ========================= */
+
                 else if(
                     type === "photo" ||
                     type === "image"
@@ -2856,17 +2821,14 @@ async function loadPortfolio(){
                     div.innerHTML = `
 
                         <img
-
                             src="${escapeHTML(url)}"
-
                             alt="${title}"
-
-                            loading="lazy">
+                            loading="lazy"
+                        >
 
                         <div class="reel-play">
                             ↗
                         </div>
-
 
                         <div class="portfolio-caption">
 
@@ -2885,27 +2847,26 @@ async function loadPortfolio(){
                 }
 
 
+                /* =========================
+                   DEFAULT VIDEO
+                ========================= */
+
                 else{
 
                     div.innerHTML = `
 
                         <video
-
                             muted
                             autoplay
                             loop
                             playsinline
                             preload="metadata"
-
                             src="${escapeHTML(url)}">
-
                         </video>
-
 
                         <div class="reel-play">
                             ▶
                         </div>
-
 
                         <div class="portfolio-caption">
 
@@ -3000,7 +2961,7 @@ async function loadPortfolio(){
 
 
 /* =========================================================
-   VIDEO INTERSECTION OBSERVER
+   VIDEO OBSERVER
 ========================================================= */
 
 const videoObserver =
@@ -3043,13 +3004,10 @@ const videoObserver =
     );
 
 
-function setupVideoObserver(
-    video
-){
+function setupVideoObserver(video){
 
     if(!video)
         return;
-
 
     videoObserver.observe(
         video
@@ -3271,10 +3229,8 @@ bookingForm.addEventListener(
         success.style.display =
             "none";
 
-
         errorBox.style.display =
             "none";
-
 
         errorBox.textContent =
             "";
@@ -3301,7 +3257,6 @@ bookingForm.addEventListener(
 
         button.disabled =
             true;
-
 
         button.textContent =
             "Saving booking...";
@@ -3509,7 +3464,7 @@ dateInput.min =
 
 
 /* =========================================================
-   REVEAL OBSERVER
+   REVEAL
 ========================================================= */
 
 const revealObserver =
