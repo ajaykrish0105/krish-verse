@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login — krishhhh.verse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black: #080808; --deep: #0f0f0f; --card: #161616;
+      --border: #222; --gold: #c9a84c; --gold-light: #e8c97a;
+      --white: #f5f5f0; --muted: #888;
+      --font-display: 'Syne', sans-serif; --font-body: 'Inter', sans-serif;
+    }
+    body {
+      background: var(--black); color: var(--white);
+      font-family: var(--font-body);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .bg-glow {
+      position: absolute; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .login-box {
+      position: relative; z-index: 2;
+      background: var(--deep); border: 1px solid var(--border);
+      padding: 56px 48px; width: 420px; max-width: 90vw;
+    }
+    .login-logo {
+      font-family: var(--font-display); font-size: 1.4rem; font-weight: 800;
+      margin-bottom: 8px; text-align: center;
+    }
+    .login-logo span { color: var(--gold); }
+    .login-subtitle {
+      text-align: center; color: var(--muted); font-size: 0.8rem;
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 40px;
+    }
+    label {
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); display: block; margin-bottom: 6px;
+    }
+    input {
+      width: 100%; background: var(--card); border: 1px solid var(--border);
+      color: var(--white); padding: 14px 16px; font-family: var(--font-body);
+      font-size: 0.95rem; border-radius: 2px; margin-bottom: 20px;
+      outline: none; transition: border-color 0.2s;
+    }
+    input:focus { border-color: var(--gold); }
+    button {
+      width: 100%; background: var(--gold); color: var(--black);
+      border: none; padding: 16px; cursor: pointer;
+      font-family: var(--font-display); font-weight: 700;
+      font-size: 0.875rem; letter-spacing: 0.1em; text-transform: uppercase;
+      border-radius: 2px; transition: background 0.2s;
+    }
+    button:hover { background: var(--gold-light); }
+    .error-msg {
+      background: rgba(255,60,60,0.08); border: 1px solid rgba(255,60,60,0.3);
+      color: #ff6b6b; padding: 12px 16px; border-radius: 2px;
+      font-size: 0.85rem; margin-bottom: 16px; display: none; text-align: center;
+    }
+    .back-link {
+      display: block; text-align: center; margin-top: 24px;
+      color: var(--muted); font-size: 0.8rem; text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--white); }
+    .lock-icon { text-align: center; font-size: 2.5rem; margin-bottom: 24px; }
+  </style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="login-box">
+  <div class="lock-icon">🔐</div>
+  <div class="login-logo">krishhhh<span>.verse</span></div>
+  <div class="login-subtitle">Admin Access Only</div>
+  <div class="error-msg" id="errorMsg">Incorrect username or password.</div>
+  <div>
+    <label for="username">Username</label>
+    <input type="text" id="username" placeholder="Enter username" autocomplete="off"/>
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Enter password"/>
+    <button onclick="handleLogin()">Login to Dashboard →</button>
+  </div>
+  <a href="index.html" class="back-link">← Back to website</a>
+</div>
+<script>
+  // ⚠️ CHANGE THESE CREDENTIALS BEFORE GOING LIVE
+  const ADMIN_USER = 'harish';
+  const ADMIN_PASS = 'krishhh@2025';
+
+  if (localStorage.getItem('kv_admin_auth') === 'true') {
+    window.location.href = 'admin.html';
+  }
+
+  function handleLogin() {
+    const u = document.getElementById('username').value;
+    const p = document.getElementById('password').value;
+    if (u === ADMIN_USER && p === ADMIN_PASS) {
+      localStorage.setItem('kv_admin_auth', 'true');
+      window.location.href = 'admin.html';
+    } else {
+      document.getElementById('errorMsg').style.display = 'block';
+    }
+  }
+
+  document.getElementById('password').addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleLogin();
+  });
+</script>
+</body>
+</html>
