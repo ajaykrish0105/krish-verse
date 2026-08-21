@@ -1,297 +1,500 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Admin Login — krishhhh.verse</title>
+  <title>Admin Login — krishhhh.verse</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-:root{
-  --bg:#f7f7f5;
-  --surface:#ffffff;
-  --surface2:#fafaf8;
-  --border:#e8e8e3;
-  --text:#171717;
-  --muted:#777770;
-  --gold:#b28a32;
-  --gold-dark:#967326;
-  --danger:#c94b4b;
-}
+    :root {
+      --cream: #f7f3ec;
+      --cream-dark: #eee7dc;
+      --white: #ffffff;
+      --brown: #2d2924;
+      --brown-light: #6f675d;
+      --gold: #b18a45;
+      --gold-light: #d1b273;
+      --border: #ded6ca;
+      --danger: #c75c5c;
+      --shadow: rgba(45, 41, 36, 0.10);
+    }
 
-body{
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 15% 20%,rgba(178,138,50,.08),transparent 30%),
-    radial-gradient(circle at 85% 80%,rgba(178,138,50,.06),transparent 30%),
-    var(--bg);
-  color:var(--text);
-  font-family:'Inter',sans-serif;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
+    body {
+      min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--brown);
 
-.login-box{
-  width:430px;
-  max-width:100%;
-  background:rgba(255,255,255,.92);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:48px;
-  box-shadow:0 25px 70px rgba(0,0,0,.08);
-}
+      background:
+        radial-gradient(circle at 15% 20%, rgba(177,138,69,0.10), transparent 30%),
+        radial-gradient(circle at 85% 80%, rgba(177,138,69,0.08), transparent 30%),
+        var(--cream);
 
-.logo{
-  text-align:center;
-  font-family:'Syne',sans-serif;
-  font-weight:800;
-  font-size:25px;
-  letter-spacing:-.04em;
-}
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-.logo span{
-  color:var(--gold);
-}
+      padding: 24px;
+    }
 
-.subtitle{
-  text-align:center;
-  color:var(--muted);
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:.16em;
-  margin-top:8px;
-  margin-bottom:38px;
-}
+    .login-wrapper {
+      width: 100%;
+      max-width: 440px;
+    }
 
-.lock{
-  width:58px;
-  height:58px;
-  margin:0 auto 22px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  background:#f6f1e4;
-  border:1px solid #eadfc3;
-  font-size:25px;
-}
+    .brand {
+      text-align: center;
+      margin-bottom: 24px;
+    }
 
-label{
-  display:block;
-  font-size:12px;
-  font-weight:600;
-  color:#55554f;
-  margin-bottom:8px;
-}
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
 
-input{
-  width:100%;
-  height:48px;
-  padding:0 15px;
-  border:1px solid var(--border);
-  border-radius:9px;
-  background:#fff;
-  color:var(--text);
-  font-family:'Inter',sans-serif;
-  outline:none;
-  margin-bottom:20px;
-  transition:.2s;
-}
+    .brand-name span {
+      color: var(--gold);
+    }
 
-input:focus{
-  border-color:var(--gold);
-  box-shadow:0 0 0 3px rgba(178,138,50,.1);
-}
+    .brand-subtitle {
+      margin-top: 5px;
+      color: var(--brown-light);
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
 
-button{
-  width:100%;
-  height:50px;
-  border:0;
-  border-radius:9px;
-  background:var(--gold);
-  color:white;
-  font-family:'Inter',sans-serif;
-  font-size:13px;
-  font-weight:700;
-  letter-spacing:.05em;
-  cursor:pointer;
-  transition:.2s;
-}
+    .login-card {
+      background: rgba(255,255,255,0.90);
+      border: 1px solid var(--border);
+      border-radius: 12px;
 
-button:hover{
-  background:var(--gold-dark);
-  transform:translateY(-1px);
-}
+      padding: 42px;
 
-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-  transform:none;
-}
+      box-shadow:
+        0 20px 60px var(--shadow),
+        0 2px 8px rgba(45,41,36,0.04);
 
-.error{
-  display:none;
-  padding:12px 14px;
-  margin-bottom:18px;
-  border-radius:8px;
-  background:#fff3f3;
-  border:1px solid #f0cccc;
-  color:var(--danger);
-  font-size:13px;
-  text-align:center;
-}
+      backdrop-filter: blur(10px);
+    }
 
-.back{
-  display:block;
-  text-align:center;
-  margin-top:25px;
-  color:var(--muted);
-  text-decoration:none;
-  font-size:13px;
-}
+    .lock {
+      width: 58px;
+      height: 58px;
 
-.back:hover{
-  color:var(--text);
-}
+      margin: 0 auto 24px;
 
-@media(max-width:500px){
-  .login-box{
-    padding:35px 25px;
-  }
-}
-</style>
+      border-radius: 50%;
+
+      background: var(--cream);
+      border: 1px solid var(--border);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 1.6rem;
+    }
+
+    h1 {
+      text-align: center;
+
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+
+      margin-bottom: 8px;
+    }
+
+    .description {
+      text-align: center;
+      color: var(--brown-light);
+      font-size: 0.88rem;
+      line-height: 1.6;
+
+      margin-bottom: 30px;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      font-size: 0.73rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+
+      color: var(--brown-light);
+    }
+
+    input {
+      width: 100%;
+
+      padding: 14px 15px;
+
+      border: 1px solid var(--border);
+      border-radius: 7px;
+
+      background: var(--white);
+      color: var(--brown);
+
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+
+      outline: none;
+
+      transition: all 0.2s;
+    }
+
+    input::placeholder {
+      color: #aaa39a;
+    }
+
+    input:focus {
+      border-color: var(--gold);
+
+      box-shadow:
+        0 0 0 3px rgba(177,138,69,0.10);
+    }
+
+    .error {
+      display: none;
+
+      margin-bottom: 18px;
+
+      padding: 12px 14px;
+
+      background: #fff3f3;
+      border: 1px solid #eccaca;
+      border-radius: 7px;
+
+      color: var(--danger);
+
+      font-size: 0.82rem;
+      line-height: 1.5;
+
+      text-align: center;
+    }
+
+    .error.show {
+      display: block;
+    }
+
+    .login-btn {
+      width: 100%;
+
+      padding: 15px;
+
+      border: none;
+      border-radius: 7px;
+
+      background: var(--brown);
+      color: var(--white);
+
+      cursor: pointer;
+
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+
+      transition: all 0.2s;
+    }
+
+    .login-btn:hover {
+      background: #49423a;
+      transform: translateY(-1px);
+    }
+
+    .login-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .back-link {
+      display: block;
+
+      margin-top: 24px;
+
+      text-align: center;
+
+      color: var(--brown-light);
+      text-decoration: none;
+
+      font-size: 0.82rem;
+
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--gold);
+    }
+
+    .footer {
+      text-align: center;
+
+      margin-top: 22px;
+
+      color: #9b9389;
+
+      font-size: 0.72rem;
+    }
+
+    @media (max-width: 500px) {
+      .login-card {
+        padding: 30px 22px;
+      }
+
+      .brand-name {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="login-box">
+  <div class="login-wrapper">
 
-  <div class="lock">🔐</div>
+    <div class="brand">
+      <div class="brand-name">
+        krishhhh<span>.verse</span>
+      </div>
 
-  <div class="logo">
-    krishhhh<span>.verse</span>
+      <div class="brand-subtitle">
+        Creative Studio
+      </div>
+    </div>
+
+    <div class="login-card">
+
+      <div class="lock">🔐</div>
+
+      <h1>Admin Login</h1>
+
+      <p class="description">
+        Sign in to manage your portfolio and booking requests.
+      </p>
+
+      <div class="error" id="errorMsg"></div>
+
+      <form id="loginForm">
+
+        <div class="field">
+          <label for="email">Email Address</label>
+
+          <input
+            type="email"
+            id="email"
+            placeholder="admin@example.com"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="login-btn"
+          id="loginBtn"
+        >
+          Login to Dashboard →
+        </button>
+
+      </form>
+
+      <a href="index.html" class="back-link">
+        ← Back to website
+      </a>
+
+    </div>
+
+    <div class="footer">
+      © 2026 krishhhh.verse · Admin Portal
+    </div>
+
   </div>
 
-  <div class="subtitle">
-    Admin Portal
-  </div>
+  <script>
 
-  <div class="error" id="errorMsg"></div>
+    // ==========================================
+    // SUPABASE CONFIG
+    // ==========================================
 
-  <form id="loginForm">
+    const SUPABASE_URL =
+      'https://idnaxcwiskgzyodrlhzi.supabase.co';
 
-    <label>Email Address</label>
+    const SUPABASE_KEY =
+      'sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC';
 
-    <input
-      type="email"
-      id="email"
-      placeholder="admin@example.com"
-      required
-    >
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
 
-    <label>Password</label>
 
-    <input
-      type="password"
-      id="password"
-      placeholder="Enter your password"
-      required
-    >
+    // ==========================================
+    // CHECK EXISTING LOGIN
+    // ==========================================
 
-    <button id="loginBtn" type="submit">
-      Login to Dashboard →
-    </button>
+    checkExistingSession();
 
-  </form>
+    async function checkExistingSession() {
 
-  <a href="index.html" class="back">
-    ← Back to website
-  </a>
+      const {
+        data: { session }
+      } = await supabaseClient.auth.getSession();
 
-</div>
+      if (session) {
+        window.location.href = 'admin.html';
+      }
 
-<script>
+    }
 
-const SUPABASE_URL =
-  "https://idnaxcwiskgzyodrlhzi.supabase.co";
 
-const SUPABASE_KEY =
-  "sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC";
+    // ==========================================
+    // LOGIN
+    // ==========================================
 
-const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+    document
+      .getElementById('loginForm')
+      .addEventListener('submit', async function(e) {
 
-const form = document.getElementById("loginForm");
-const errorMsg = document.getElementById("errorMsg");
-const loginBtn = document.getElementById("loginBtn");
+        e.preventDefault();
 
-async function checkSession(){
+        const email =
+          document.getElementById('email').value.trim();
 
-  const {
-    data:{session}
-  } = await supabaseClient.auth.getSession();
+        const password =
+          document.getElementById('password').value;
 
-  if(session){
-    window.location.href="admin.html";
-  }
+        const button =
+          document.getElementById('loginBtn');
 
-}
+        const error =
+          document.getElementById('errorMsg');
 
-checkSession();
 
-form.addEventListener("submit",async(e)=>{
+        // Reset error
+        error.classList.remove('show');
+        error.textContent = '';
 
-  e.preventDefault();
 
-  errorMsg.style.display="none";
+        // Loading
+        button.disabled = true;
+        button.textContent = 'Signing in...';
 
-  loginBtn.disabled=true;
-  loginBtn.textContent="Logging in...";
 
-  const email =
-    document.getElementById("email").value.trim();
+        try {
 
-  const password =
-    document.getElementById("password").value;
+          const {
+            data,
+            error: loginError
+          } = await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+          });
 
-  const {error} =
-    await supabaseClient.auth.signInWithPassword({
-      email,
-      password
-    });
 
-  if(error){
+          if (loginError) {
+            throw loginError;
+          }
 
-    errorMsg.textContent=error.message;
-    errorMsg.style.display="block";
 
-    loginBtn.disabled=false;
-    loginBtn.textContent="Login to Dashboard →";
+          if (data.session) {
 
-    return;
-  }
+            window.location.href = 'admin.html';
 
-  window.location.href="admin.html";
+          } else {
 
-});
+            throw new Error(
+              'Login failed. Please try again.'
+            );
 
-</script>
+          }
+
+        } catch (err) {
+
+          console.error(err);
+
+          error.textContent =
+            getFriendlyError(err);
+
+          error.classList.add('show');
+
+          button.disabled = false;
+          button.textContent =
+            'Login to Dashboard →';
+
+        }
+
+      });
+
+
+    // ==========================================
+    // FRIENDLY ERROR
+    // ==========================================
+
+    function getFriendlyError(error) {
+
+      if (
+        error.message &&
+        error.message.toLowerCase().includes('invalid login')
+      ) {
+        return 'Incorrect email or password.';
+      }
+
+      if (
+        error.message &&
+        error.message.toLowerCase().includes('email not confirmed')
+      ) {
+        return 'Please confirm your email before logging in.';
+      }
+
+      if (!navigator.onLine) {
+        return 'No internet connection. Please check your connection.';
+      }
+
+      return 'Unable to login. Please check your email and password.';
+
+    }
+
+  </script>
 
 </body>
 </html>
