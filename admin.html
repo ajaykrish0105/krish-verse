@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -18,14 +17,13 @@
 
 :root{
   --bg:#f5f3ee;
-  --white:#ffffff;
+  --white:#fff;
   --black:#151515;
   --gold:#b89545;
   --gold2:#d4b76b;
   --text:#222;
   --muted:#777;
   --border:#e5e1d8;
-  --danger:#d9534f;
 }
 
 body{
@@ -44,7 +42,7 @@ body{
   bottom:0;
   width:240px;
   background:#171717;
-  color:white;
+  color:#fff;
   padding:30px 0;
   display:flex;
   flex-direction:column;
@@ -65,7 +63,8 @@ body{
 
 .admin-label{
   display:block;
-  color:#888;
+  color:#888 !important;
+  font-family:'Inter',sans-serif;
   font-size:10px;
   text-transform:uppercase;
   letter-spacing:2px;
@@ -91,7 +90,7 @@ body{
 .nav button:hover,
 .nav button.active{
   background:#222;
-  color:white;
+  color:#fff;
   border-left:3px solid var(--gold2);
 }
 
@@ -111,7 +110,7 @@ body{
 }
 
 .logout button:hover{
-  color:white;
+  color:#fff;
   border-color:#777;
 }
 
@@ -154,7 +153,7 @@ body{
 }
 
 .stat{
-  background:white;
+  background:#fff;
   border:1px solid var(--border);
   padding:25px;
 }
@@ -174,7 +173,7 @@ body{
 /* CARD */
 
 .card{
-  background:white;
+  background:#fff;
   border:1px solid var(--border);
   padding:30px;
   margin-bottom:25px;
@@ -226,7 +225,7 @@ select:focus{
 }
 
 input[type="file"]{
-  background:white;
+  background:#fff;
   padding:12px;
 }
 
@@ -239,7 +238,7 @@ input[type="file"]{
 .btn{
   border:0;
   background:var(--gold);
-  color:white;
+  color:#fff;
   padding:14px 25px;
   font-weight:600;
   cursor:pointer;
@@ -287,7 +286,7 @@ input[type="file"]{
 }
 
 .item{
-  background:white;
+  background:#fff;
   border:1px solid var(--border);
   overflow:hidden;
   position:relative;
@@ -310,8 +309,14 @@ input[type="file"]{
   object-fit:cover;
 }
 
+.item-media iframe{
+  width:100%;
+  height:100%;
+  border:0;
+}
+
 .placeholder{
-  color:white;
+  color:#fff;
   font-size:35px;
 }
 
@@ -340,6 +345,7 @@ input[type="file"]{
   border:0;
   padding:7px 10px;
   cursor:pointer;
+  z-index:5;
 }
 
 /* TABLE */
@@ -387,6 +393,7 @@ td{
 
   .logo{
     font-size:0;
+    padding-left:20px;
   }
 
   .logo span{
@@ -424,8 +431,11 @@ td{
     grid-template-columns:1fr;
   }
 
-}
+  .field.full{
+    grid-column:auto;
+  }
 
+}
 </style>
 </head>
 
@@ -454,7 +464,7 @@ td{
       📋 Bookings
     </button>
 
-    <button onclick="window.open('index.html','_blank')">
+    <button onclick="viewSite()">
       🌐 View Site
     </button>
 
@@ -519,11 +529,10 @@ td{
     <h1>Portfolio Manager</h1>
 
     <p>
-      Upload your videos directly. They will appear on your website.
+      Upload videos and add YouTube, Vimeo or image links.
     </p>
 
   </div>
-
 
   <div class="card">
 
@@ -667,6 +676,10 @@ td{
 
 <script>
 
+/* =========================
+   SUPABASE CONFIG
+========================= */
+
 const SUPABASE_URL =
 'https://idnaxcwiskgzyodrlhzi.supabase.co';
 
@@ -680,63 +693,146 @@ window.supabase.createClient(
 );
 
 
-/* AUTH */
+/* =========================
+   VIEW SITE
+========================= */
+
+function viewSite(){
+
+  /*
+    GitHub Pages:
+    https://ajaykrish0105.github.io/web-admin/
+
+    If your customer website is in another repository,
+    change this URL.
+  */
+
+  window.open(
+    'https://ajaykrish0105.github.io/web-admin/',
+    '_blank'
+  );
+
+}
+
+
+/* =========================
+   AUTH
+========================= */
 
 async function checkAuth(){
 
-  const {
-    data:{session}
-  } = await supabaseClient.auth.getSession();
+  try{
 
-  if(!session){
+    const {
+      data,
+      error
+    } =
+    await supabaseClient.auth.getSession();
 
-    window.location.href='admin-login.html';
+    if(error){
+
+      console.error(error);
+
+      window.location.href =
+        'admin-login.html';
+
+      return false;
+    }
+
+    const session =
+      data?.session;
+
+    if(!session){
+
+      window.location.href =
+        'admin-login.html';
+
+      return false;
+    }
+
+    return true;
+
+  }catch(error){
+
+    console.error(error);
+
+    window.location.href =
+      'admin-login.html';
 
     return false;
+
   }
 
-  return true;
 }
 
+
+/* =========================
+   LOGOUT
+========================= */
 
 async function logout(){
 
-  await supabaseClient.auth.signOut();
+  try{
 
-  window.location.href='admin-login.html';
+    await supabaseClient.auth.signOut();
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+  window.location.href =
+    'admin-login.html';
 
 }
 
 
-/* NAVIGATION */
+/* =========================
+   NAVIGATION
+========================= */
 
 function showPage(page,button){
 
   document.querySelectorAll('.page')
-    .forEach(x=>x.classList.remove('active'));
+    .forEach(x=>{
+      x.classList.remove('active');
+    });
 
   document.querySelectorAll('.nav button')
-    .forEach(x=>x.classList.remove('active'));
+    .forEach(x=>{
+      x.classList.remove('active');
+    });
 
-  document.getElementById(page)
-    .classList.add('active');
+  const target =
+    document.getElementById(page);
 
-  if(button)
+  if(target){
+    target.classList.add('active');
+  }
+
+  if(button){
     button.classList.add('active');
+  }
 
-  if(page==='dashboard')
+  if(page==='dashboard'){
     loadDashboard();
+  }
 
-  if(page==='portfolio')
+  if(page==='portfolio'){
     loadPortfolio();
+  }
 
-  if(page==='bookings')
+  if(page==='bookings'){
     loadBookings();
+  }
 
 }
 
 
-/* TYPE */
+/* =========================
+   TYPE CHANGE
+========================= */
 
 function changeType(){
 
@@ -764,33 +860,41 @@ function changeType(){
 }
 
 
-/* ALERT */
+/* =========================
+   ALERT
+========================= */
 
 function showAlert(message,type){
 
   const alert =
     document.getElementById('alert');
 
-  alert.textContent=message;
+  alert.textContent =
+    message;
 
-  alert.className='alert '+type;
+  alert.className =
+    'alert '+type;
 
   setTimeout(()=>{
 
-    alert.className='alert';
+    alert.className =
+      'alert';
 
   },4000);
 
 }
 
 
-/* ADD PORTFOLIO */
+/* =========================
+   ADD PORTFOLIO
+========================= */
 
 async function addPortfolio(){
 
   const title =
     document.getElementById('title')
-    .value.trim();
+    .value
+    .trim();
 
   const type =
     document.getElementById('type')
@@ -802,7 +906,8 @@ async function addPortfolio(){
 
   const url =
     document.getElementById('url')
-    .value.trim();
+    .value
+    .trim();
 
   const btn =
     document.getElementById('addBtn');
@@ -843,19 +948,23 @@ async function addPortfolio(){
 
   btn.disabled=true;
 
-  btn.textContent='Uploading...';
+  btn.textContent =
+    'Uploading...';
 
 
   try{
 
-    let finalURL=url;
+    let finalURL =
+      url;
 
 
     /* UPLOAD VIDEO */
 
     if(type==='video'){
 
-      if(file.size > 50 * 1024 * 1024){
+      if(file.size >
+        50 * 1024 * 1024
+      ){
 
         throw new Error(
           'Video is larger than 50MB.'
@@ -865,7 +974,10 @@ async function addPortfolio(){
 
 
       const extension =
-        file.name.split('.').pop();
+        file.name
+        .split('.')
+        .pop();
+
 
       const filename =
         Date.now() +
@@ -881,8 +993,10 @@ async function addPortfolio(){
         'videos/' + filename;
 
 
-      const {error:uploadError} =
-        await supabaseClient
+      const {
+        error:uploadError
+      } =
+      await supabaseClient
         .storage
         .from('portfolio')
         .upload(
@@ -895,14 +1009,17 @@ async function addPortfolio(){
         );
 
 
-      if(uploadError)
+      if(uploadError){
+
         throw uploadError;
+
+      }
 
 
       const {
         data:publicData
       } =
-        supabaseClient
+      supabaseClient
         .storage
         .from('portfolio')
         .getPublicUrl(path);
@@ -919,7 +1036,7 @@ async function addPortfolio(){
     const {
       error:dbError
     } =
-      await supabaseClient
+    await supabaseClient
       .from('portfolio')
       .insert({
 
@@ -932,8 +1049,11 @@ async function addPortfolio(){
       });
 
 
-    if(dbError)
+    if(dbError){
+
       throw dbError;
+
+    }
 
 
     showAlert(
@@ -942,14 +1062,22 @@ async function addPortfolio(){
     );
 
 
-    document.getElementById('title').value='';
+    document.getElementById(
+      'title'
+    ).value='';
 
-    document.getElementById('url').value='';
+    document.getElementById(
+      'url'
+    ).value='';
 
-    document.getElementById('videoFile').value='';
+    document.getElementById(
+      'videoFile'
+    ).value='';
 
 
     await loadPortfolio();
+
+    await loadDashboard();
 
 
   }catch(error){
@@ -957,7 +1085,10 @@ async function addPortfolio(){
     console.error(error);
 
     showAlert(
-      '❌ '+error.message,
+      '❌ '+(
+        error.message ||
+        'Something went wrong.'
+      ),
       'error'
     );
 
@@ -966,17 +1097,22 @@ async function addPortfolio(){
 
   btn.disabled=false;
 
-  btn.textContent='Add to Portfolio →';
+  btn.textContent =
+    'Add to Portfolio →';
 
 }
 
 
-/* LOAD PORTFOLIO */
+/* =========================
+   LOAD PORTFOLIO
+========================= */
 
 async function loadPortfolio(){
 
   const grid =
-    document.getElementById('portfolioGrid');
+    document.getElementById(
+      'portfolioGrid'
+    );
 
 
   grid.innerHTML =
@@ -987,43 +1123,53 @@ async function loadPortfolio(){
     data,
     error
   } =
-    await supabaseClient
+  await supabaseClient
     .from('portfolio')
     .select('*')
-    .order('created_at',{
-      ascending:false
-    });
+    .order(
+      'created_at',
+      {
+        ascending:false
+      }
+    );
 
 
   if(error){
 
+    console.error(error);
+
     grid.innerHTML =
       '<div class="loading">Error loading portfolio.</div>';
 
-    console.error(error);
-
     return;
+
   }
+
+
+  const items =
+    data || [];
 
 
   document.getElementById(
     'portfolioCount'
-  ).textContent=data.length;
+  ).textContent =
+    items.length;
 
 
-  if(!data.length){
+  if(!items.length){
 
     grid.innerHTML =
       '<div class="loading">No portfolio items yet.</div>';
 
     return;
+
   }
 
 
   grid.innerHTML='';
 
 
-  data.forEach(item=>{
+  items.forEach(item=>{
 
     const div =
       document.createElement('div');
@@ -1034,6 +1180,8 @@ async function loadPortfolio(){
     let media='';
 
 
+    /* VIDEO */
+
     if(item.type==='video'){
 
       media=`
@@ -1042,11 +1190,11 @@ async function loadPortfolio(){
           controls
           muted
           playsinline
+          preload="metadata"
         >
 
           <source
-            src="${item.url}"
-            type="video/mp4"
+            src="${escapeAttr(item.url)}"
           >
 
         </video>
@@ -1055,30 +1203,94 @@ async function loadPortfolio(){
 
     }
 
+
+    /* YOUTUBE */
+
     else if(item.type==='youtube'){
 
       const id =
-        extractYouTubeId(item.url);
+        extractYouTubeId(
+          item.url
+        );
+
+
+      if(id){
+
+        media=`
+
+          <img
+            src="https://img.youtube.com/vi/${escapeAttr(id)}/hqdefault.jpg"
+            alt="YouTube thumbnail"
+          >
+
+        `;
+
+      }else{
+
+        media=`
+
+          <div class="placeholder">
+            ▶️
+          </div>
+
+        `;
+
+      }
+
+    }
+
+
+    /* VIMEO */
+
+    else if(item.type==='vimeo'){
+
+      const id =
+        extractVimeoId(
+          item.url
+        );
+
+
+      if(id){
+
+        media=`
+
+          <iframe
+            src="https://player.vimeo.com/video/${escapeAttr(id)}"
+            allowfullscreen
+          ></iframe>
+
+        `;
+
+      }else{
+
+        media=`
+
+          <div class="placeholder">
+            🎬
+          </div>
+
+        `;
+
+      }
+
+    }
+
+
+    /* PHOTO */
+
+    else if(item.type==='photo'){
 
       media=`
 
         <img
-          src="https://img.youtube.com/vi/${id}/hqdefault.jpg"
+          src="${escapeAttr(item.url)}"
+          alt="${escapeAttr(item.title)}"
         >
 
       `;
 
     }
 
-    else if(item.type==='photo'){
-
-      media=`
-
-        <img src="${item.url}">
-
-      `;
-
-    }
 
     else{
 
@@ -1097,7 +1309,7 @@ async function loadPortfolio(){
 
       <button
         class="delete"
-        onclick="deletePortfolio('${item.id}','${item.url}','${item.type}')"
+        data-id="${escapeAttr(item.id)}"
       >
         ✕ Remove
       </button>
@@ -1113,12 +1325,30 @@ async function loadPortfolio(){
         </div>
 
         <div class="item-type">
-          ${item.type}
+          ${escapeHTML(item.type)}
         </div>
 
       </div>
 
     `;
+
+
+    const deleteBtn =
+      div.querySelector(
+        '.delete'
+      );
+
+
+    deleteBtn.addEventListener(
+      'click',
+      ()=>{
+        deletePortfolio(
+          item.id,
+          item.url,
+          item.type
+        );
+      }
+    );
 
 
     grid.appendChild(div);
@@ -1128,21 +1358,51 @@ async function loadPortfolio(){
 }
 
 
-/* YOUTUBE ID */
+/* =========================
+   YOUTUBE ID
+========================= */
 
 function extractYouTubeId(url){
 
+  if(!url)
+    return '';
+
   const match =
     url.match(
-      /(?:v=|youtu\.be\/|embed\/)([^&\n?#]+)/
+      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&\n?#]+)/
     );
 
-  return match ? match[1] : '';
+  return match
+    ? match[1]
+    : '';
 
 }
 
 
-/* DELETE */
+/* =========================
+   VIMEO ID
+========================= */
+
+function extractVimeoId(url){
+
+  if(!url)
+    return '';
+
+  const match =
+    url.match(
+      /vimeo\.com\/(?:video\/)?(\d+)/
+    );
+
+  return match
+    ? match[1]
+    : '';
+
+}
+
+
+/* =========================
+   DELETE PORTFOLIO
+========================= */
 
 async function deletePortfolio(
   id,
@@ -1150,17 +1410,19 @@ async function deletePortfolio(
   type
 ){
 
-  if(
-    !confirm(
+  const confirmed =
+    confirm(
       'Remove this portfolio item?'
-    )
-  )
+    );
+
+
+  if(!confirmed)
     return;
 
 
   try{
 
-    /* Delete storage file */
+    /* Delete storage video */
 
     if(type==='video'){
 
@@ -1179,36 +1441,62 @@ async function deletePortfolio(
           );
 
 
+        const {
+          error
+        } =
         await supabaseClient
           .storage
           .from('portfolio')
           .remove([path]);
+
+
+        if(error){
+
+          console.warn(
+            'Storage delete warning:',
+            error
+          );
+
+        }
 
       }
 
     }
 
 
-    /* Delete DB row */
+    /* Delete database row */
 
-    const {error} =
-      await supabaseClient
+    const {
+      error:dbError
+    } =
+    await supabaseClient
       .from('portfolio')
       .delete()
       .eq('id',id);
 
 
-    if(error)
-      throw error;
+    if(dbError){
+
+      throw dbError;
+
+    }
 
 
     await loadPortfolio();
 
+    await loadDashboard();
+
 
   }catch(error){
 
+    console.error(error);
+
     alert(
-      'Delete failed: '+error.message
+      'Delete failed: ' +
+      (
+        error.message ||
+        'Unknown error'
+      )
     );
 
   }
@@ -1216,7 +1504,9 @@ async function deletePortfolio(
 }
 
 
-/* BOOKINGS */
+/* =========================
+   BOOKINGS
+========================= */
 
 async function loadBookings(){
 
@@ -1234,25 +1524,30 @@ async function loadBookings(){
     data,
     error
   } =
-    await supabaseClient
+  await supabaseClient
     .from('bookings')
     .select('*')
-    .order('created_at',{
-      ascending:false
-    });
+    .order(
+      'created_at',
+      {
+        ascending:false
+      }
+    );
 
 
   if(error){
 
+    console.error(error);
+
     table.innerHTML =
-      '<div class="loading">No bookings table/data found.</div>';
+      '<div class="loading">Unable to load bookings.</div>';
 
     return;
 
   }
 
 
-  if(!data.length){
+  if(!data || !data.length){
 
     table.innerHTML =
       '<div class="loading">No booking requests yet.</div>';
@@ -1287,17 +1582,29 @@ async function loadBookings(){
 
           <tr>
 
-            <td>${escapeHTML(b.name||'')}</td>
+            <td>
+              ${escapeHTML(b.name || '')}
+            </td>
 
-            <td>${escapeHTML(b.service||'')}</td>
+            <td>
+              ${escapeHTML(b.service || '')}
+            </td>
 
-            <td>${escapeHTML(b.date||'')}</td>
+            <td>
+              ${escapeHTML(b.date || '')}
+            </td>
 
-            <td>${escapeHTML(b.phone||'')}</td>
+            <td>
+              ${escapeHTML(b.phone || '')}
+            </td>
 
-            <td>${escapeHTML(b.email||'')}</td>
+            <td>
+              ${escapeHTML(b.email || '')}
+            </td>
 
-            <td>${escapeHTML(b.message||'')}</td>
+            <td>
+              ${escapeHTML(b.message || '')}
+            </td>
 
           </tr>
 
@@ -1312,23 +1619,28 @@ async function loadBookings(){
 }
 
 
-/* DASHBOARD */
+/* =========================
+   DASHBOARD
+========================= */
 
 async function loadDashboard(){
 
   const portfolio =
     await supabaseClient
-    .from('portfolio')
-    .select('id');
+      .from('portfolio')
+      .select('id');
 
 
   const bookings =
     await supabaseClient
-    .from('bookings')
-    .select('*')
-    .order('created_at',{
-      ascending:false
-    });
+      .from('bookings')
+      .select('*')
+      .order(
+        'created_at',
+        {
+          ascending:false
+        }
+      );
 
 
   document.getElementById(
@@ -1345,21 +1657,24 @@ async function loadDashboard(){
 
   const week =
     Date.now() -
-    7*24*60*60*1000;
+    7 * 24 * 60 * 60 * 1000;
 
 
   const newBookings =
-    (bookings.data||[])
-    .filter(x=>{
+    (bookings.data || [])
+      .filter(x=>{
 
-      const d =
-        new Date(
-          x.created_at
-        ).getTime();
+        if(!x.created_at)
+          return false;
 
-      return d > week;
+        const d =
+          new Date(
+            x.created_at
+          ).getTime();
 
-    });
+        return d > week;
+
+      });
 
 
   document.getElementById(
@@ -1374,9 +1689,12 @@ async function loadDashboard(){
     );
 
 
-  if(!bookings.data?.length){
+  if(
+    !bookings.data ||
+    !bookings.data.length
+  ){
 
-    recent.innerHTML=
+    recent.innerHTML =
       '<div class="loading">No bookings yet.</div>';
 
     return;
@@ -1405,19 +1723,27 @@ async function loadDashboard(){
 
         <tbody>
 
-          ${(bookings.data||[])
+          ${(bookings.data || [])
             .slice(0,5)
             .map(b=>`
 
               <tr>
 
-                <td>${escapeHTML(b.name||'')}</td>
+                <td>
+                  ${escapeHTML(b.name || '')}
+                </td>
 
-                <td>${escapeHTML(b.service||'')}</td>
+                <td>
+                  ${escapeHTML(b.service || '')}
+                </td>
 
-                <td>${escapeHTML(b.date||'')}</td>
+                <td>
+                  ${escapeHTML(b.date || '')}
+                </td>
 
-                <td>${escapeHTML(b.phone||'')}</td>
+                <td>
+                  ${escapeHTML(b.phone || '')}
+                </td>
 
               </tr>
 
@@ -1434,11 +1760,13 @@ async function loadDashboard(){
 }
 
 
-/* ESCAPE */
+/* =========================
+   SECURITY HELPERS
+========================= */
 
 function escapeHTML(value){
 
-  return String(value)
+  return String(value ?? '')
     .replaceAll('&','&amp;')
     .replaceAll('<','&lt;')
     .replaceAll('>','&gt;')
@@ -1448,12 +1776,22 @@ function escapeHTML(value){
 }
 
 
-/* START */
+function escapeAttr(value){
+
+  return escapeHTML(value);
+
+}
+
+
+/* =========================
+   START
+========================= */
 
 (async function(){
 
   const authenticated =
     await checkAuth();
+
 
   if(authenticated){
 
