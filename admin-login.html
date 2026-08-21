@@ -1,116 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Login — krishhhh.verse</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --black: #080808; --deep: #0f0f0f; --card: #161616;
-      --border: #222; --gold: #c9a84c; --gold-light: #e8c97a;
-      --white: #f5f5f0; --muted: #888;
-      --font-display: 'Syne', sans-serif; --font-body: 'Inter', sans-serif;
-    }
-    body {
-      background: var(--black); color: var(--white);
-      font-family: var(--font-body);
-      min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
-    }
-    .bg-glow {
-      position: absolute; width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
-      top: 50%; left: 50%; transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
-    .login-box {
-      position: relative; z-index: 2;
-      background: var(--deep); border: 1px solid var(--border);
-      padding: 56px 48px; width: 420px; max-width: 90vw;
-    }
-    .login-logo {
-      font-family: var(--font-display); font-size: 1.4rem; font-weight: 800;
-      margin-bottom: 8px; text-align: center;
-    }
-    .login-logo span { color: var(--gold); }
-    .login-subtitle {
-      text-align: center; color: var(--muted); font-size: 0.8rem;
-      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 40px;
-    }
-    label {
-      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--muted); display: block; margin-bottom: 6px;
-    }
-    input {
-      width: 100%; background: var(--card); border: 1px solid var(--border);
-      color: var(--white); padding: 14px 16px; font-family: var(--font-body);
-      font-size: 0.95rem; border-radius: 2px; margin-bottom: 20px;
-      outline: none; transition: border-color 0.2s;
-    }
-    input:focus { border-color: var(--gold); }
-    button {
-      width: 100%; background: var(--gold); color: var(--black);
-      border: none; padding: 16px; cursor: pointer;
-      font-family: var(--font-display); font-weight: 700;
-      font-size: 0.875rem; letter-spacing: 0.1em; text-transform: uppercase;
-      border-radius: 2px; transition: background 0.2s;
-    }
-    button:hover { background: var(--gold-light); }
-    .error-msg {
-      background: rgba(255,60,60,0.08); border: 1px solid rgba(255,60,60,0.3);
-      color: #ff6b6b; padding: 12px 16px; border-radius: 2px;
-      font-size: 0.85rem; margin-bottom: 16px; display: none; text-align: center;
-    }
-    .back-link {
-      display: block; text-align: center; margin-top: 24px;
-      color: var(--muted); font-size: 0.8rem; text-decoration: none;
-      transition: color 0.2s;
-    }
-    .back-link:hover { color: var(--white); }
-    .lock-icon { text-align: center; font-size: 2.5rem; margin-bottom: 24px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Login — krishhhh.verse</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --bg:#f7f7f5;
+  --surface:#ffffff;
+  --surface2:#fafaf8;
+  --border:#e8e8e3;
+  --text:#171717;
+  --muted:#777770;
+  --gold:#b28a32;
+  --gold-dark:#967326;
+  --danger:#c94b4b;
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(178,138,50,.08),transparent 30%),
+    radial-gradient(circle at 85% 80%,rgba(178,138,50,.06),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.login-box{
+  width:430px;
+  max-width:100%;
+  background:rgba(255,255,255,.92);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:48px;
+  box-shadow:0 25px 70px rgba(0,0,0,.08);
+}
+
+.logo{
+  text-align:center;
+  font-family:'Syne',sans-serif;
+  font-weight:800;
+  font-size:25px;
+  letter-spacing:-.04em;
+}
+
+.logo span{
+  color:var(--gold);
+}
+
+.subtitle{
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  margin-top:8px;
+  margin-bottom:38px;
+}
+
+.lock{
+  width:58px;
+  height:58px;
+  margin:0 auto 22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:#f6f1e4;
+  border:1px solid #eadfc3;
+  font-size:25px;
+}
+
+label{
+  display:block;
+  font-size:12px;
+  font-weight:600;
+  color:#55554f;
+  margin-bottom:8px;
+}
+
+input{
+  width:100%;
+  height:48px;
+  padding:0 15px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:#fff;
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  outline:none;
+  margin-bottom:20px;
+  transition:.2s;
+}
+
+input:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(178,138,50,.1);
+}
+
+button{
+  width:100%;
+  height:50px;
+  border:0;
+  border-radius:9px;
+  background:var(--gold);
+  color:white;
+  font-family:'Inter',sans-serif;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.05em;
+  cursor:pointer;
+  transition:.2s;
+}
+
+button:hover{
+  background:var(--gold-dark);
+  transform:translateY(-1px);
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+  transform:none;
+}
+
+.error{
+  display:none;
+  padding:12px 14px;
+  margin-bottom:18px;
+  border-radius:8px;
+  background:#fff3f3;
+  border:1px solid #f0cccc;
+  color:var(--danger);
+  font-size:13px;
+  text-align:center;
+}
+
+.back{
+  display:block;
+  text-align:center;
+  margin-top:25px;
+  color:var(--muted);
+  text-decoration:none;
+  font-size:13px;
+}
+
+.back:hover{
+  color:var(--text);
+}
+
+@media(max-width:500px){
+  .login-box{
+    padding:35px 25px;
+  }
+}
+</style>
 </head>
+
 <body>
-<div class="bg-glow"></div>
+
 <div class="login-box">
-  <div class="lock-icon">🔐</div>
-  <div class="login-logo">krishhhh<span>.verse</span></div>
-  <div class="login-subtitle">Admin Access Only</div>
-  <div class="error-msg" id="errorMsg">Incorrect username or password.</div>
-  <div>
-    <label for="username">Username</label>
-    <input type="text" id="username" placeholder="Enter username" autocomplete="off"/>
-    <label for="password">Password</label>
-    <input type="password" id="password" placeholder="Enter password"/>
-    <button onclick="handleLogin()">Login to Dashboard →</button>
+
+  <div class="lock">🔐</div>
+
+  <div class="logo">
+    krishhhh<span>.verse</span>
   </div>
-  <a href="index.html" class="back-link">← Back to website</a>
+
+  <div class="subtitle">
+    Admin Portal
+  </div>
+
+  <div class="error" id="errorMsg"></div>
+
+  <form id="loginForm">
+
+    <label>Email Address</label>
+
+    <input
+      type="email"
+      id="email"
+      placeholder="admin@example.com"
+      required
+    >
+
+    <label>Password</label>
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Enter your password"
+      required
+    >
+
+    <button id="loginBtn" type="submit">
+      Login to Dashboard →
+    </button>
+
+  </form>
+
+  <a href="index.html" class="back">
+    ← Back to website
+  </a>
+
 </div>
+
 <script>
-  // ⚠️ CHANGE THESE CREDENTIALS BEFORE GOING LIVE
-  const ADMIN_USER = 'harish';
-  const ADMIN_PASS = 'krishhh@2025';
 
-  if (localStorage.getItem('kv_admin_auth') === 'true') {
-    window.location.href = 'admin.html';
+const SUPABASE_URL =
+  "https://idnaxcwiskgzyodrlhzi.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+const form = document.getElementById("loginForm");
+const errorMsg = document.getElementById("errorMsg");
+const loginBtn = document.getElementById("loginBtn");
+
+async function checkSession(){
+
+  const {
+    data:{session}
+  } = await supabaseClient.auth.getSession();
+
+  if(session){
+    window.location.href="admin.html";
   }
 
-  function handleLogin() {
-    const u = document.getElementById('username').value;
-    const p = document.getElementById('password').value;
-    if (u === ADMIN_USER && p === ADMIN_PASS) {
-      localStorage.setItem('kv_admin_auth', 'true');
-      window.location.href = 'admin.html';
-    } else {
-      document.getElementById('errorMsg').style.display = 'block';
-    }
+}
+
+checkSession();
+
+form.addEventListener("submit",async(e)=>{
+
+  e.preventDefault();
+
+  errorMsg.style.display="none";
+
+  loginBtn.disabled=true;
+  loginBtn.textContent="Logging in...";
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const {error} =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+  if(error){
+
+    errorMsg.textContent=error.message;
+    errorMsg.style.display="block";
+
+    loginBtn.disabled=false;
+    loginBtn.textContent="Login to Dashboard →";
+
+    return;
   }
 
-  document.getElementById('password').addEventListener('keydown', e => {
-    if (e.key === 'Enter') handleLogin();
-  });
+  window.location.href="admin.html";
+
+});
+
 </script>
+
 </body>
 </html>
