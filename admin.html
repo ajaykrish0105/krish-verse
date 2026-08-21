@@ -4,13 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Admin — krishhhh.verse</title>
+<title>Admin Panel — krishhhh.verse</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -20,17 +19,17 @@
 :root{
   --bg:#f5f3ee;
   --white:#ffffff;
-  --text:#171717;
+  --black:#151515;
+  --gold:#b89545;
+  --gold2:#d4b76b;
+  --text:#222;
   --muted:#777;
-  --border:#e5e0d7;
-  --gold:#b28b3c;
-  --gold-light:#d4b15d;
-  --red:#d94b4b;
-  --green:#27833a;
+  --border:#e5e1d8;
+  --danger:#d9534f;
 }
 
 body{
-  font-family:Inter,sans-serif;
+  font-family:'Inter',sans-serif;
   background:var(--bg);
   color:var(--text);
   min-height:100vh;
@@ -44,70 +43,76 @@ body{
   top:0;
   bottom:0;
   width:240px;
-  background:#fff;
-  border-right:1px solid var(--border);
+  background:#171717;
+  color:white;
   padding:30px 0;
   display:flex;
   flex-direction:column;
-  z-index:10;
+  z-index:100;
 }
 
 .logo{
-  font-family:Syne,sans-serif;
+  font-family:'Syne',sans-serif;
+  font-size:20px;
   font-weight:800;
-  font-size:21px;
   padding:0 25px 30px;
-  border-bottom:1px solid var(--border);
+  border-bottom:1px solid #292929;
 }
 
 .logo span{
-  color:var(--gold);
+  color:var(--gold2);
+}
+
+.admin-label{
+  display:block;
+  color:#888;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  margin-top:5px;
 }
 
 .nav{
-  margin-top:15px;
+  padding-top:15px;
 }
 
 .nav button{
   width:100%;
   border:0;
   background:none;
-  text-align:left;
+  color:#999;
   padding:15px 25px;
-  font-size:14px;
+  text-align:left;
   cursor:pointer;
-  color:#777;
-  border-left:3px solid transparent;
+  font-size:14px;
+  transition:.2s;
 }
 
-.nav button:hover{
-  background:#f5f3ee;
-  color:#111;
-}
-
+.nav button:hover,
 .nav button.active{
-  background:#f5f3ee;
-  color:#111;
-  border-left-color:var(--gold);
-}
-
-.bottom{
-  margin-top:auto;
-  padding:20px 25px;
-  border-top:1px solid var(--border);
+  background:#222;
+  color:white;
+  border-left:3px solid var(--gold2);
 }
 
 .logout{
+  margin-top:auto;
+  padding:20px;
+  border-top:1px solid #292929;
+}
+
+.logout button{
   width:100%;
   padding:11px;
-  background:#fff;
-  border:1px solid var(--border);
+  background:none;
+  color:#aaa;
+  border:1px solid #444;
   cursor:pointer;
 }
 
-.logout:hover{
-  border-color:var(--red);
-  color:var(--red);
+.logout button:hover{
+  color:white;
+  border-color:#777;
 }
 
 /* MAIN */
@@ -125,243 +130,216 @@ body{
   display:block;
 }
 
-h1{
-  font-family:Syne,sans-serif;
-  font-size:35px;
+.header{
+  margin-bottom:35px;
+}
+
+.header h1{
+  font-family:'Syne',sans-serif;
+  font-size:34px;
   margin-bottom:7px;
 }
 
-.subtitle{
+.header p{
   color:var(--muted);
-  margin-bottom:30px;
-}
-
-/* CARD */
-
-.card{
-  background:#fff;
-  border:1px solid var(--border);
-  padding:28px;
-  margin-bottom:25px;
-}
-
-.card h2{
-  font-family:Syne,sans-serif;
-  font-size:20px;
-  margin-bottom:22px;
-}
-
-/* FORM */
-
-label{
-  display:block;
-  font-size:12px;
-  color:#777;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  margin-bottom:7px;
-}
-
-input{
-  width:100%;
-  padding:14px;
-  border:1px solid var(--border);
-  background:#faf9f6;
-  outline:none;
-  font-family:Inter,sans-serif;
-  margin-bottom:18px;
-}
-
-input:focus{
-  border-color:var(--gold);
-}
-
-/* UPLOAD */
-
-.upload-box{
-  border:2px dashed #d8d1c5;
-  padding:35px;
-  text-align:center;
-  background:#faf9f6;
-  margin-bottom:20px;
-  border-radius:4px;
-}
-
-.upload-box:hover{
-  border-color:var(--gold);
-}
-
-.upload-icon{
-  font-size:42px;
-  margin-bottom:10px;
-}
-
-.upload-text{
-  color:#777;
-  font-size:14px;
-  margin-bottom:12px;
-}
-
-.upload-box input{
-  border:0;
-  background:transparent;
-  margin:0;
-  padding:10px;
-}
-
-/* BUTTON */
-
-.gold{
-  background:var(--gold);
-  color:#fff;
-  border:0;
-  padding:14px 25px;
-  cursor:pointer;
-  font-weight:600;
-  font-family:Inter,sans-serif;
-}
-
-.gold:hover{
-  background:var(--gold-light);
-}
-
-.gold:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
-
-/* PROGRESS */
-
-.progress{
-  width:100%;
-  height:7px;
-  background:#eee;
-  margin-top:18px;
-  display:none;
-  overflow:hidden;
-}
-
-.progress-bar{
-  height:100%;
-  width:0%;
-  background:var(--gold);
-  transition:width .3s;
-}
-
-/* MESSAGE */
-
-.message{
-  display:none;
-  margin-top:15px;
-  padding:13px 15px;
-  border-radius:3px;
-  font-size:14px;
-}
-
-.message.success{
-  display:block;
-  background:#edf8ef;
-  color:var(--green);
-  border:1px solid #c9e7ce;
-}
-
-.message.error{
-  display:block;
-  background:#fff0f0;
-  color:#b22d2d;
-  border:1px solid #f0cccc;
-}
-
-/* GRID */
-
-.grid{
-  display:grid;
-  grid-template-columns:
-  repeat(auto-fill,minmax(270px,1fr));
-  gap:18px;
-}
-
-.item{
-  border:1px solid var(--border);
-  background:#fff;
-  overflow:hidden;
-  position:relative;
-}
-
-.item video{
-  width:100%;
-  aspect-ratio:16/9;
-  object-fit:cover;
-  display:block;
-  background:#111;
-}
-
-.info{
-  padding:15px;
-}
-
-.info strong{
-  display:block;
-  margin-bottom:6px;
-}
-
-.type{
-  color:var(--gold);
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-}
-
-.delete{
-  position:absolute;
-  right:10px;
-  top:10px;
-  z-index:2;
-  background:rgba(255,255,255,.95);
-  border:1px solid #ddd;
-  color:var(--red);
-  padding:7px 10px;
-  cursor:pointer;
-}
-
-.delete:hover{
-  background:#fff0f0;
-}
-
-.empty{
-  text-align:center;
-  padding:50px;
-  color:#888;
-  grid-column:1/-1;
 }
 
 /* STATS */
 
 .stats{
   display:grid;
-  grid-template-columns:
-  repeat(auto-fit,minmax(200px,1fr));
+  grid-template-columns:repeat(3,1fr);
   gap:18px;
-  margin-bottom:25px;
+  margin-bottom:30px;
 }
 
 .stat{
-  background:#fff;
+  background:white;
   border:1px solid var(--border);
   padding:25px;
 }
 
 .stat-number{
-  font-family:Syne,sans-serif;
+  font-family:'Syne',sans-serif;
   font-size:35px;
-  color:var(--gold);
   font-weight:800;
+  color:var(--gold);
 }
 
 .stat-title{
   color:#777;
-  margin-top:5px;
   font-size:13px;
+}
+
+/* CARD */
+
+.card{
+  background:white;
+  border:1px solid var(--border);
+  padding:30px;
+  margin-bottom:25px;
+}
+
+.card h2{
+  font-family:'Syne',sans-serif;
+  margin-bottom:22px;
+}
+
+/* FORM */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.field{
+  margin-bottom:18px;
+}
+
+.field.full{
+  grid-column:1/-1;
+}
+
+label{
+  display:block;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#777;
+  margin-bottom:7px;
+}
+
+input,
+select{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid var(--border);
+  background:#fafafa;
+  outline:none;
+  font-family:inherit;
+}
+
+input:focus,
+select:focus{
+  border-color:var(--gold);
+}
+
+input[type="file"]{
+  background:white;
+  padding:12px;
+}
+
+.help{
+  font-size:12px;
+  color:#888;
+  margin-top:6px;
+}
+
+.btn{
+  border:0;
+  background:var(--gold);
+  color:white;
+  padding:14px 25px;
+  font-weight:600;
+  cursor:pointer;
+  font-family:'Inter',sans-serif;
+}
+
+.btn:hover{
+  background:#a1843d;
+}
+
+.btn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+/* ALERT */
+
+.alert{
+  display:none;
+  padding:13px 16px;
+  margin-bottom:18px;
+  font-size:14px;
+}
+
+.alert.success{
+  display:block;
+  background:#edf8ef;
+  border:1px solid #b9ddc0;
+  color:#286b34;
+}
+
+.alert.error{
+  display:block;
+  background:#fff0f0;
+  border:1px solid #efbcbc;
+  color:#a33;
+}
+
+/* PORTFOLIO */
+
+.portfolio-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:18px;
+}
+
+.item{
+  background:white;
+  border:1px solid var(--border);
+  overflow:hidden;
+  position:relative;
+}
+
+.item-media{
+  width:100%;
+  aspect-ratio:16/9;
+  background:#111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.item-media img,
+.item-media video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.placeholder{
+  color:white;
+  font-size:35px;
+}
+
+.item-info{
+  padding:15px;
+}
+
+.item-title{
+  font-weight:600;
+  margin-bottom:5px;
+}
+
+.item-type{
+  font-size:11px;
+  text-transform:uppercase;
+  color:var(--gold);
+  letter-spacing:1px;
+}
+
+.delete{
+  position:absolute;
+  top:8px;
+  right:8px;
+  background:#171717;
+  color:#ff7777;
+  border:0;
+  padding:7px 10px;
+  cursor:pointer;
 }
 
 /* TABLE */
@@ -375,17 +353,28 @@ table{
   border-collapse:collapse;
 }
 
-th,td{
+th{
   text-align:left;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#777;
   padding:13px;
+  border-bottom:1px solid var(--border);
+}
+
+td{
+  padding:14px;
   border-bottom:1px solid var(--border);
   font-size:13px;
 }
 
-th{
-  color:#777;
-  font-size:11px;
-  text-transform:uppercase;
+/* LOADING */
+
+.loading{
+  padding:50px;
+  text-align:center;
+  color:#888;
 }
 
 /* MOBILE */
@@ -398,12 +387,14 @@ th{
 
   .logo{
     font-size:0;
-    text-align:center;
-    padding:25px 5px;
   }
 
   .logo span{
-    font-size:20px;
+    display:none;
+  }
+
+  .admin-label{
+    display:none;
   }
 
   .nav button{
@@ -412,11 +403,11 @@ th{
     padding:18px 5px;
   }
 
-  .bottom{
-    padding:10px;
+  .nav button:first-letter{
+    font-size:20px;
   }
 
-  .logout{
+  .logout button{
     font-size:0;
   }
 
@@ -425,10 +416,16 @@ th{
     padding:20px;
   }
 
-  h1{
-    font-size:27px;
+  .stats{
+    grid-template-columns:1fr;
   }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
 }
+
 </style>
 </head>
 
@@ -440,92 +437,72 @@ th{
 
   <div class="logo">
     krishhhh<span>.verse</span>
+    <span class="admin-label">Admin Panel</span>
   </div>
 
   <div class="nav">
 
-    <button
-      class="active"
-      onclick="showPage('dashboard',this)">
+    <button class="active" onclick="showPage('dashboard',this)">
       📊 Dashboard
     </button>
 
-    <button
-      onclick="showPage('portfolio',this)">
+    <button onclick="showPage('portfolio',this)">
       🎬 Portfolio
     </button>
 
-    <button
-      onclick="showPage('bookings',this)">
+    <button onclick="showPage('bookings',this)">
       📋 Bookings
     </button>
 
-    <button
-      onclick="window.location.href='index.html'">
+    <button onclick="window.open('index.html','_blank')">
       🌐 View Site
     </button>
 
   </div>
 
-  <div class="bottom">
-
-    <button
-      class="logout"
-      onclick="logout()">
-      🚪 Logout
-    </button>
-
+  <div class="logout">
+    <button onclick="logout()">🚪 Logout</button>
   </div>
 
 </aside>
 
 
-<!-- MAIN -->
-
 <main class="main">
-
 
 <!-- DASHBOARD -->
 
-<section
-  id="dashboard"
-  class="page active">
+<section id="dashboard" class="page active">
 
-  <h1>Dashboard</h1>
-
-  <p class="subtitle">
-    Welcome back to your admin panel.
-  </p>
+  <div class="header">
+    <h1>Dashboard</h1>
+    <p>Welcome back to krishhhh.verse</p>
+  </div>
 
   <div class="stats">
 
     <div class="stat">
-
-      <div
-        class="stat-number"
-        id="countPortfolio">
-        0
-      </div>
-
-      <div class="stat-title">
-        Portfolio Items
-      </div>
-
+      <div class="stat-number" id="portfolioCountDash">0</div>
+      <div class="stat-title">Portfolio Items</div>
     </div>
 
+    <div class="stat">
+      <div class="stat-number" id="bookingCountDash">0</div>
+      <div class="stat-title">Bookings</div>
+    </div>
 
     <div class="stat">
+      <div class="stat-number" id="newCountDash">0</div>
+      <div class="stat-title">New This Week</div>
+    </div>
 
-      <div
-        class="stat-number"
-        id="countBookings">
-        0
-      </div>
+  </div>
 
-      <div class="stat-title">
-        Total Bookings
-      </div>
+  <div class="card">
 
+    <h2>Recent Bookings</h2>
+
+    <div id="recentBookings">
+      <div class="loading">Loading...</div>
     </div>
 
   </div>
@@ -535,109 +512,121 @@ th{
 
 <!-- PORTFOLIO -->
 
-<section
-  id="portfolio"
-  class="page">
+<section id="portfolio" class="page">
 
-  <h1>Portfolio Manager</h1>
+  <div class="header">
 
-  <p class="subtitle">
-    Upload your videos and they will appear on your website automatically.
-  </p>
+    <h1>Portfolio Manager</h1>
 
+    <p>
+      Upload your videos directly. They will appear on your website.
+    </p>
 
-  <!-- UPLOAD CARD -->
+  </div>
+
 
   <div class="card">
 
-    <h2>
-      Add New Portfolio Video
-    </h2>
+    <h2>Add New Portfolio Item</h2>
 
+    <div id="alert" class="alert"></div>
 
-    <label>
-      Video Title
-    </label>
+    <div class="form-grid">
 
-    <input
-      id="title"
-      type="text"
-      placeholder="Example: Instagram Reel Edit"
-    />
+      <div class="field">
 
+        <label>Title</label>
 
-    <label>
-      Select Video
-    </label>
+        <input
+          id="title"
+          type="text"
+          placeholder="e.g. Instagram Reel Edit"
+        >
 
-
-    <div class="upload-box">
-
-      <div class="upload-icon">
-        🎬
       </div>
 
-      <div class="upload-text">
-        Select MP4, WebM or MOV video
+
+      <div class="field">
+
+        <label>Type</label>
+
+        <select id="type" onchange="changeType()">
+
+          <option value="video">
+            Uploaded Video
+          </option>
+
+          <option value="youtube">
+            YouTube Video
+          </option>
+
+          <option value="vimeo">
+            Vimeo Video
+          </option>
+
+          <option value="photo">
+            Photo
+          </option>
+
+        </select>
+
       </div>
 
-      <input
-        id="videoFile"
-        type="file"
-        accept="video/mp4,video/webm,video/quicktime"
-      />
+
+      <div class="field full" id="uploadField">
+
+        <label>Select Video</label>
+
+        <input
+          type="file"
+          id="videoFile"
+          accept="video/mp4,video/webm,video/quicktime"
+        >
+
+        <div class="help">
+          MP4 recommended. Maximum 50MB.
+        </div>
+
+      </div>
+
+
+      <div class="field full" id="urlField" style="display:none">
+
+        <label>Video / Image URL</label>
+
+        <input
+          id="url"
+          type="url"
+          placeholder="https://..."
+        >
+
+      </div>
 
     </div>
 
 
     <button
-      id="uploadBtn"
-      class="gold"
-      onclick="uploadVideo()">
-
-      Upload to Portfolio →
-
+      class="btn"
+      id="addBtn"
+      onclick="addPortfolio()"
+    >
+      Add to Portfolio →
     </button>
-
-
-    <div
-      class="progress"
-      id="progress">
-
-      <div
-        class="progress-bar"
-        id="progressBar">
-      </div>
-
-    </div>
-
-
-    <div
-      id="message"
-      class="message">
-    </div>
 
   </div>
 
-
-  <!-- PORTFOLIO LIST -->
 
   <div class="card">
 
     <h2>
       Current Portfolio
-      (<span id="portfolioCount">0</span>)
+      (<span id="portfolioCount">0</span> items)
     </h2>
 
     <div
       id="portfolioGrid"
-      class="grid">
-
-      <div class="empty">
-        Loading portfolio...
-      </div>
-
-    </div>
+      class="portfolio-grid"
+    ></div>
 
   </div>
 
@@ -646,38 +635,37 @@ th{
 
 <!-- BOOKINGS -->
 
-<section
-  id="bookings"
-  class="page">
+<section id="bookings" class="page">
 
-  <h1>Booking Requests</h1>
+  <div class="header">
 
-  <p class="subtitle">
-    Requests submitted from your website.
-  </p>
+    <h1>Booking Requests</h1>
+
+    <p>
+      All booking submissions from your website
+    </p>
+
+  </div>
 
   <div class="card">
 
     <div
-      id="bookingTable">
-
-      Loading bookings...
-
-    </div>
+      id="bookingTable"
+      class="table-wrap"
+    ></div>
 
   </div>
 
 </section>
 
-
 </main>
 
 
-<script>
+<!-- SUPABASE -->
 
-/* =========================================
-   SUPABASE
-========================================= */
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
 
 const SUPABASE_URL =
 'https://idnaxcwiskgzyodrlhzi.supabase.co';
@@ -686,121 +674,144 @@ const SUPABASE_KEY =
 'sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC';
 
 const supabaseClient =
-supabase.createClient(
+window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
 
 
-/* =========================================
-   AUTH
-========================================= */
+/* AUTH */
 
-if(
-  localStorage.getItem('kv_admin_auth') !== 'true'
-){
+async function checkAuth(){
 
-  window.location.href =
-  'admin-login.html';
+  const {
+    data:{session}
+  } = await supabaseClient.auth.getSession();
 
-}
+  if(!session){
 
+    window.location.href='admin-login.html';
 
-function logout(){
-
-  localStorage.removeItem(
-    'kv_admin_auth'
-  );
-
-  window.location.href =
-  'admin-login.html';
-
-}
-
-
-/* =========================================
-   NAVIGATION
-========================================= */
-
-function showPage(name,button){
-
-  document
-  .querySelectorAll('.page')
-  .forEach(page=>{
-    page.classList.remove('active');
-  });
-
-  document
-  .getElementById(name)
-  .classList.add('active');
-
-
-  document
-  .querySelectorAll('.nav button')
-  .forEach(btn=>{
-    btn.classList.remove('active');
-  });
-
-
-  button.classList.add('active');
-
-
-  if(name === 'dashboard'){
-    loadStats();
+    return false;
   }
 
-  if(name === 'portfolio'){
+  return true;
+}
+
+
+async function logout(){
+
+  await supabaseClient.auth.signOut();
+
+  window.location.href='admin-login.html';
+
+}
+
+
+/* NAVIGATION */
+
+function showPage(page,button){
+
+  document.querySelectorAll('.page')
+    .forEach(x=>x.classList.remove('active'));
+
+  document.querySelectorAll('.nav button')
+    .forEach(x=>x.classList.remove('active'));
+
+  document.getElementById(page)
+    .classList.add('active');
+
+  if(button)
+    button.classList.add('active');
+
+  if(page==='dashboard')
+    loadDashboard();
+
+  if(page==='portfolio')
     loadPortfolio();
-  }
 
-  if(name === 'bookings'){
+  if(page==='bookings')
     loadBookings();
+
+}
+
+
+/* TYPE */
+
+function changeType(){
+
+  const type =
+    document.getElementById('type').value;
+
+  const upload =
+    document.getElementById('uploadField');
+
+  const url =
+    document.getElementById('urlField');
+
+  if(type==='video'){
+
+    upload.style.display='block';
+    url.style.display='none';
+
+  }else{
+
+    upload.style.display='none';
+    url.style.display='block';
+
   }
 
 }
 
 
-/* =========================================
-   MESSAGE
-========================================= */
+/* ALERT */
 
-function showMessage(text,type){
+function showAlert(message,type){
 
-  const message =
-  document.getElementById('message');
+  const alert =
+    document.getElementById('alert');
 
-  message.className =
-  'message ' + type;
+  alert.textContent=message;
 
-  message.textContent =
-  text;
+  alert.className='alert '+type;
+
+  setTimeout(()=>{
+
+    alert.className='alert';
+
+  },4000);
 
 }
 
 
-/* =========================================
-   UPLOAD VIDEO
-========================================= */
+/* ADD PORTFOLIO */
 
-async function uploadVideo(){
+async function addPortfolio(){
 
   const title =
-  document
-  .getElementById('title')
-  .value
-  .trim();
+    document.getElementById('title')
+    .value.trim();
 
+  const type =
+    document.getElementById('type')
+    .value;
 
   const file =
-  document
-  .getElementById('videoFile')
-  .files[0];
+    document.getElementById('videoFile')
+    .files[0];
+
+  const url =
+    document.getElementById('url')
+    .value.trim();
+
+  const btn =
+    document.getElementById('addBtn');
 
 
   if(!title){
 
-    showMessage(
-      'Please enter a video title.',
+    showAlert(
+      'Please enter a title.',
       'error'
     );
 
@@ -808,9 +819,9 @@ async function uploadVideo(){
   }
 
 
-  if(!file){
+  if(type==='video' && !file){
 
-    showMessage(
+    showAlert(
       'Please select a video file.',
       'error'
     );
@@ -819,21 +830,10 @@ async function uploadVideo(){
   }
 
 
-  const allowedTypes = [
+  if(type!=='video' && !url){
 
-    'video/mp4',
-
-    'video/webm',
-
-    'video/quicktime'
-
-  ];
-
-
-  if(!allowedTypes.includes(file.type)){
-
-    showMessage(
-      'Only MP4, WebM and MOV files are allowed.',
+    showAlert(
+      'Please enter a URL.',
       'error'
     );
 
@@ -841,369 +841,284 @@ async function uploadVideo(){
   }
 
 
-  /*
-    Supabase Free plan storage upload limit
-    can vary by configuration.
+  btn.disabled=true;
 
-    This code keeps the browser upload
-    below 50MB.
-  */
-
-  if(file.size > 50 * 1024 * 1024){
-
-    showMessage(
-      'Video must be below 50MB.',
-      'error'
-    );
-
-    return;
-  }
-
-
-  const button =
-  document.getElementById('uploadBtn');
-
-  const progress =
-  document.getElementById('progress');
-
-  const progressBar =
-  document.getElementById('progressBar');
-
-
-  button.disabled = true;
-
-  button.textContent =
-  'Uploading...';
-
-
-  progress.style.display =
-  'block';
-
-  progressBar.style.width =
-  '10%';
+  btn.textContent='Uploading...';
 
 
   try{
 
-    /*
-      Generate unique filename
-    */
-
-    const extension =
-    file.name
-    .split('.')
-    .pop()
-    .toLowerCase();
+    let finalURL=url;
 
 
-    const fileName =
-    Date.now()
-    + '-'
-    + Math.random()
-      .toString(36)
-      .substring(2,9)
-    + '.'
-    + extension;
+    /* UPLOAD VIDEO */
+
+    if(type==='video'){
+
+      if(file.size > 50 * 1024 * 1024){
+
+        throw new Error(
+          'Video is larger than 50MB.'
+        );
+
+      }
 
 
-    progressBar.style.width =
-    '25%';
+      const extension =
+        file.name.split('.').pop();
+
+      const filename =
+        Date.now() +
+        '-' +
+        Math.random()
+          .toString(36)
+          .substring(2) +
+        '.' +
+        extension;
 
 
-    /*
-      UPLOAD TO SUPABASE STORAGE
-    */
-
-    const {
-      data:storageData,
-      error:storageError
-    } = await supabaseClient
-      .storage
-      .from('portfolio')
-      .upload(
-        fileName,
-        file,
-        {
-          cacheControl:'3600',
-          upsert:false,
-          contentType:file.type
-        }
-      );
+      const path =
+        'videos/' + filename;
 
 
-    if(storageError){
+      const {error:uploadError} =
+        await supabaseClient
+        .storage
+        .from('portfolio')
+        .upload(
+          path,
+          file,
+          {
+            cacheControl:'3600',
+            upsert:false
+          }
+        );
 
-      throw storageError;
+
+      if(uploadError)
+        throw uploadError;
+
+
+      const {
+        data:publicData
+      } =
+        supabaseClient
+        .storage
+        .from('portfolio')
+        .getPublicUrl(path);
+
+
+      finalURL =
+        publicData.publicUrl;
 
     }
 
 
-    progressBar.style.width =
-    '60%';
-
-
-    /*
-      GET PUBLIC URL
-    */
+    /* INSERT DATABASE */
 
     const {
-      data:urlData
+      error:dbError
     } =
-    supabaseClient
-      .storage
-      .from('portfolio')
-      .getPublicUrl(fileName);
-
-
-    const publicUrl =
-    urlData.publicUrl;
-
-
-    /*
-      SAVE TO DATABASE
-    */
-
-    const {
-      error:databaseError
-    } =
-    await supabaseClient
+      await supabaseClient
       .from('portfolio')
       .insert({
 
         title:title,
 
-        type:'video',
+        type:type,
 
-        url:publicUrl
+        url:finalURL
 
       });
 
 
-    if(databaseError){
-
-      /*
-        If database fails,
-        remove uploaded file.
-      */
-
-      await supabaseClient
-        .storage
-        .from('portfolio')
-        .remove([fileName]);
-
-      throw databaseError;
-
-    }
+    if(dbError)
+      throw dbError;
 
 
-    progressBar.style.width =
-    '100%';
-
-
-    showMessage(
-      '✅ Video uploaded successfully!',
+    showAlert(
+      '✅ Portfolio item added successfully!',
       'success'
     );
 
 
-    document
-      .getElementById('title')
-      .value = '';
+    document.getElementById('title').value='';
 
+    document.getElementById('url').value='';
 
-    document
-      .getElementById('videoFile')
-      .value = '';
+    document.getElementById('videoFile').value='';
 
 
     await loadPortfolio();
 
 
-  }
+  }catch(error){
 
-  catch(error){
+    console.error(error);
 
-    console.error(
-      'UPLOAD ERROR:',
-      error
-    );
-
-
-    showMessage(
-      'Upload failed: ' +
-      error.message,
+    showAlert(
+      '❌ '+error.message,
       'error'
     );
 
   }
 
-  finally{
 
-    setTimeout(()=>{
+  btn.disabled=false;
 
-      progress.style.display =
-      'none';
-
-      progressBar.style.width =
-      '0%';
-
-    },1000);
-
-
-    button.disabled =
-    false;
-
-    button.textContent =
-    'Upload to Portfolio →';
-
-  }
+  btn.textContent='Add to Portfolio →';
 
 }
 
 
-/* =========================================
-   LOAD PORTFOLIO
-========================================= */
+/* LOAD PORTFOLIO */
 
 async function loadPortfolio(){
 
   const grid =
-  document.getElementById(
-    'portfolioGrid'
-  );
+    document.getElementById('portfolioGrid');
 
 
   grid.innerHTML =
-  '<div class="empty">Loading...</div>';
+    '<div class="loading">Loading portfolio...</div>';
 
 
   const {
     data,
     error
   } =
-  await supabaseClient
+    await supabaseClient
     .from('portfolio')
     .select('*')
-    .order(
-      'created_at',
-      {
-        ascending:false
-      }
-    );
+    .order('created_at',{
+      ascending:false
+    });
 
 
   if(error){
 
+    grid.innerHTML =
+      '<div class="loading">Error loading portfolio.</div>';
+
     console.error(error);
 
-    grid.innerHTML =
-    '<div class="empty">Unable to load portfolio.</div>';
-
     return;
-
   }
 
 
-  document
-    .getElementById('portfolioCount')
-    .textContent =
-    data.length;
+  document.getElementById(
+    'portfolioCount'
+  ).textContent=data.length;
 
 
   if(!data.length){
 
     grid.innerHTML =
-    '<div class="empty">No videos uploaded yet.</div>';
+      '<div class="loading">No portfolio items yet.</div>';
 
     return;
-
   }
 
 
-  grid.innerHTML = '';
+  grid.innerHTML='';
 
 
   data.forEach(item=>{
 
     const div =
-    document.createElement('div');
+      document.createElement('div');
 
-    div.className =
-    'item';
-
-
-    const video =
-    document.createElement('video');
-
-    video.src =
-    item.url;
-
-    video.controls =
-    true;
-
-    video.preload =
-    'metadata';
+    div.className='item';
 
 
-    const info =
-    document.createElement('div');
-
-    info.className =
-    'info';
+    let media='';
 
 
-    const title =
-    document.createElement('strong');
+    if(item.type==='video'){
 
-    title.textContent =
-    item.title;
+      media=`
+
+        <video
+          controls
+          muted
+          playsinline
+        >
+
+          <source
+            src="${item.url}"
+            type="video/mp4"
+          >
+
+        </video>
+
+      `;
+
+    }
+
+    else if(item.type==='youtube'){
+
+      const id =
+        extractYouTubeId(item.url);
+
+      media=`
+
+        <img
+          src="https://img.youtube.com/vi/${id}/hqdefault.jpg"
+        >
+
+      `;
+
+    }
+
+    else if(item.type==='photo'){
+
+      media=`
+
+        <img src="${item.url}">
+
+      `;
+
+    }
+
+    else{
+
+      media=`
+
+        <div class="placeholder">
+          🎬
+        </div>
+
+      `;
+
+    }
 
 
-    const type =
-    document.createElement('div');
+    div.innerHTML=`
 
-    type.className =
-    'type';
+      <button
+        class="delete"
+        onclick="deletePortfolio('${item.id}','${item.url}','${item.type}')"
+      >
+        ✕ Remove
+      </button>
 
-    type.textContent =
-    'Video';
+      <div class="item-media">
+        ${media}
+      </div>
 
+      <div class="item-info">
 
-    info.appendChild(title);
+        <div class="item-title">
+          ${escapeHTML(item.title)}
+        </div>
 
-    info.appendChild(type);
+        <div class="item-type">
+          ${item.type}
+        </div>
 
+      </div>
 
-    const deleteButton =
-    document.createElement('button');
-
-    deleteButton.className =
-    'delete';
-
-    deleteButton.textContent =
-    '✕ Remove';
-
-
-    deleteButton.onclick =
-    ()=>{
-      deleteVideo(
-        item.id,
-        item.url
-      );
-    };
-
-
-    div.appendChild(
-      deleteButton
-    );
-
-    div.appendChild(
-      video
-    );
-
-    div.appendChild(
-      info
-    );
+    `;
 
 
     grid.appendChild(div);
@@ -1213,119 +1128,87 @@ async function loadPortfolio(){
 }
 
 
-/* =========================================
-   DELETE VIDEO
-========================================= */
+/* YOUTUBE ID */
 
-async function deleteVideo(
+function extractYouTubeId(url){
+
+  const match =
+    url.match(
+      /(?:v=|youtu\.be\/|embed\/)([^&\n?#]+)/
+    );
+
+  return match ? match[1] : '';
+
+}
+
+
+/* DELETE */
+
+async function deletePortfolio(
   id,
-  url
+  url,
+  type
 ){
 
-  const confirmDelete =
-  confirm(
-    'Are you sure you want to delete this video?'
-  );
-
-
-  if(!confirmDelete){
+  if(
+    !confirm(
+      'Remove this portfolio item?'
+    )
+  )
     return;
-  }
 
 
   try{
 
-    /*
-      Extract filename from public URL
-    */
+    /* Delete storage file */
 
-    const marker =
-    '/storage/v1/object/public/portfolio/';
+    if(type==='video'){
 
+      const marker =
+        '/storage/v1/object/public/portfolio/';
 
-    const index =
-    url.indexOf(marker);
-
-
-    let fileName = null;
+      const index =
+        url.indexOf(marker);
 
 
-    if(index !== -1){
+      if(index!==-1){
 
-      fileName =
-      decodeURIComponent(
-        url.substring(
-          index + marker.length
-        )
-      );
-
-    }
+        const path =
+          url.substring(
+            index + marker.length
+          );
 
 
-    /*
-      Remove storage file
-    */
-
-    if(fileName){
-
-      const {
-        error:storageError
-      } =
-      await supabaseClient
-        .storage
-        .from('portfolio')
-        .remove([
-          fileName
-        ]);
-
-
-      if(storageError){
-
-        console.error(
-          storageError
-        );
+        await supabaseClient
+          .storage
+          .from('portfolio')
+          .remove([path]);
 
       }
 
     }
 
 
-    /*
-      Remove database record
-    */
+    /* Delete DB row */
 
-    const {
-      error:databaseError
-    } =
-    await supabaseClient
+    const {error} =
+      await supabaseClient
       .from('portfolio')
       .delete()
-      .eq(
-        'id',
-        id
-      );
+      .eq('id',id);
 
 
-    if(databaseError){
-
-      throw databaseError;
-
-    }
+    if(error)
+      throw error;
 
 
     await loadPortfolio();
 
-    await loadStats();
 
-  }
-
-  catch(error){
-
-    console.error(error);
+  }catch(error){
 
     alert(
-      'Delete failed: ' +
-      error.message
+      'Delete failed: '+error.message
     );
 
   }
@@ -1333,103 +1216,36 @@ async function deleteVideo(
 }
 
 
-/* =========================================
-   DASHBOARD STATS
-========================================= */
-
-async function loadStats(){
-
-  const {
-    count:portfolioCount,
-    error:portfolioError
-  } =
-  await supabaseClient
-    .from('portfolio')
-    .select(
-      '*',
-      {
-        count:'exact',
-        head:true
-      }
-    );
-
-
-  document
-    .getElementById(
-      'countPortfolio'
-    )
-    .textContent =
-    portfolioError
-    ? '0'
-    : portfolioCount || 0;
-
-
-  /*
-    Bookings table may already exist
-    from your previous setup.
-  */
-
-  const {
-    count:bookingCount
-  } =
-  await supabaseClient
-    .from('bookings')
-    .select(
-      '*',
-      {
-        count:'exact',
-        head:true
-      }
-    );
-
-
-  document
-    .getElementById(
-      'countBookings'
-    )
-    .textContent =
-    bookingCount || 0;
-
-}
-
-
-/* =========================================
-   BOOKINGS
-========================================= */
+/* BOOKINGS */
 
 async function loadBookings(){
 
-  const container =
-  document.getElementById(
-    'bookingTable'
-  );
+  const table =
+    document.getElementById(
+      'bookingTable'
+    );
 
 
-  container.innerHTML =
-  'Loading bookings...';
+  table.innerHTML =
+    '<div class="loading">Loading bookings...</div>';
 
 
   const {
     data,
     error
   } =
-  await supabaseClient
+    await supabaseClient
     .from('bookings')
     .select('*')
-    .order(
-      'created_at',
-      {
-        ascending:false
-      }
-    );
+    .order('created_at',{
+      ascending:false
+    });
 
 
   if(error){
 
-    console.error(error);
-
-    container.innerHTML =
-    '<p>Bookings table is not available.</p>';
+    table.innerHTML =
+      '<div class="loading">No bookings table/data found.</div>';
 
     return;
 
@@ -1438,17 +1254,15 @@ async function loadBookings(){
 
   if(!data.length){
 
-    container.innerHTML =
-    '<p>No bookings yet.</p>';
+    table.innerHTML =
+      '<div class="loading">No booking requests yet.</div>';
 
     return;
 
   }
 
 
-  container.innerHTML = `
-
-  <div class="table-wrap">
+  table.innerHTML=`
 
     <table>
 
@@ -1457,14 +1271,11 @@ async function loadBookings(){
         <tr>
 
           <th>Name</th>
-
-          <th>Phone</th>
-
-          <th>Email</th>
-
           <th>Service</th>
-
           <th>Date</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Message</th>
 
         </tr>
 
@@ -1472,102 +1283,187 @@ async function loadBookings(){
 
       <tbody>
 
-        ${
-          data.map(
-            booking=>`
+        ${data.map(b=>`
 
-            <tr>
+          <tr>
 
-              <td>
-                ${escapeHTML(
-                  booking.name || ''
-                )}
-              </td>
+            <td>${escapeHTML(b.name||'')}</td>
 
-              <td>
-                ${escapeHTML(
-                  booking.phone || ''
-                )}
-              </td>
+            <td>${escapeHTML(b.service||'')}</td>
 
-              <td>
-                ${escapeHTML(
-                  booking.email || ''
-                )}
-              </td>
+            <td>${escapeHTML(b.date||'')}</td>
 
-              <td>
-                ${escapeHTML(
-                  booking.service || ''
-                )}
-              </td>
+            <td>${escapeHTML(b.phone||'')}</td>
 
-              <td>
-                ${escapeHTML(
-                  booking.date || ''
-                )}
-              </td>
+            <td>${escapeHTML(b.email||'')}</td>
 
-            </tr>
+            <td>${escapeHTML(b.message||'')}</td>
 
-          `
-          ).join('')
-        }
+          </tr>
+
+        `).join('')}
 
       </tbody>
 
     </table>
-
-  </div>
 
   `;
 
 }
 
 
-/* =========================================
-   HTML ESCAPE
-========================================= */
+/* DASHBOARD */
 
-function escapeHTML(value){
+async function loadDashboard(){
 
-  return String(value)
+  const portfolio =
+    await supabaseClient
+    .from('portfolio')
+    .select('id');
 
-    .replaceAll(
-      '&',
-      '&amp;'
-    )
 
-    .replaceAll(
-      '<',
-      '&lt;'
-    )
+  const bookings =
+    await supabaseClient
+    .from('bookings')
+    .select('*')
+    .order('created_at',{
+      ascending:false
+    });
 
-    .replaceAll(
-      '>',
-      '&gt;'
-    )
 
-    .replaceAll(
-      '"',
-      '&quot;'
-    )
+  document.getElementById(
+    'portfolioCountDash'
+  ).textContent =
+    portfolio.data?.length || 0;
 
-    .replaceAll(
-      "'",
-      '&#039;'
+
+  document.getElementById(
+    'bookingCountDash'
+  ).textContent =
+    bookings.data?.length || 0;
+
+
+  const week =
+    Date.now() -
+    7*24*60*60*1000;
+
+
+  const newBookings =
+    (bookings.data||[])
+    .filter(x=>{
+
+      const d =
+        new Date(
+          x.created_at
+        ).getTime();
+
+      return d > week;
+
+    });
+
+
+  document.getElementById(
+    'newCountDash'
+  ).textContent =
+    newBookings.length;
+
+
+  const recent =
+    document.getElementById(
+      'recentBookings'
     );
+
+
+  if(!bookings.data?.length){
+
+    recent.innerHTML=
+      '<div class="loading">No bookings yet.</div>';
+
+    return;
+
+  }
+
+
+  recent.innerHTML=`
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Name</th>
+            <th>Service</th>
+            <th>Date</th>
+            <th>Phone</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${(bookings.data||[])
+            .slice(0,5)
+            .map(b=>`
+
+              <tr>
+
+                <td>${escapeHTML(b.name||'')}</td>
+
+                <td>${escapeHTML(b.service||'')}</td>
+
+                <td>${escapeHTML(b.date||'')}</td>
+
+                <td>${escapeHTML(b.phone||'')}</td>
+
+              </tr>
+
+            `).join('')}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  `;
 
 }
 
 
-/* =========================================
-   INITIAL LOAD
-========================================= */
+/* ESCAPE */
 
-loadStats();
+function escapeHTML(value){
 
-loadPortfolio();
+  return String(value)
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* START */
+
+(async function(){
+
+  const authenticated =
+    await checkAuth();
+
+  if(authenticated){
+
+    await loadDashboard();
+
+    await loadPortfolio();
+
+  }
+
+})();
 
 </script>
 
