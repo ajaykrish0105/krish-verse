@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Login — krishhhh.verse</title>
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-
-  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -22,479 +17,284 @@
     }
 
     :root {
-      --cream: #f7f3ec;
-      --cream-dark: #eee7dc;
-      --white: #ffffff;
-      --brown: #2d2924;
-      --brown-light: #6f675d;
-      --gold: #b18a45;
-      --gold-light: #d1b273;
-      --border: #ded6ca;
-      --danger: #c75c5c;
-      --shadow: rgba(45, 41, 36, 0.10);
+      --bg: #f5f3ee;
+      --card: #ffffff;
+      --text: #171717;
+      --muted: #777;
+      --gold: #b08a32;
+      --border: #e5e1d8;
+      --error: #c0392b;
     }
 
     body {
       min-height: 100vh;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--brown);
-
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background:
-        radial-gradient(circle at 15% 20%, rgba(177,138,69,0.10), transparent 30%),
-        radial-gradient(circle at 85% 80%, rgba(177,138,69,0.08), transparent 30%),
-        var(--cream);
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      padding: 24px;
+        radial-gradient(circle at 20% 20%, rgba(176,138,50,.08), transparent 35%),
+        radial-gradient(circle at 80% 80%, rgba(176,138,50,.06), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
     }
 
-    .login-wrapper {
-      width: 100%;
-      max-width: 440px;
-    }
-
-    .brand {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .brand-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-    }
-
-    .brand-name span {
-      color: var(--gold);
-    }
-
-    .brand-subtitle {
-      margin-top: 5px;
-      color: var(--brown-light);
-      font-size: 0.78rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .login-card {
-      background: rgba(255,255,255,0.90);
+    .login-box {
+      width: 420px;
+      max-width: 92%;
+      background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 12px;
-
-      padding: 42px;
-
-      box-shadow:
-        0 20px 60px var(--shadow),
-        0 2px 8px rgba(45,41,36,0.04);
-
-      backdrop-filter: blur(10px);
+      padding: 48px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.08);
     }
 
-    .lock {
-      width: 58px;
-      height: 58px;
-
-      margin: 0 auto 24px;
-
-      border-radius: 50%;
-
-      background: var(--cream);
-      border: 1px solid var(--border);
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      font-size: 1.6rem;
-    }
-
-    h1 {
+    .logo {
       text-align: center;
-
-      font-family: 'Playfair Display', serif;
-      font-size: 1.7rem;
-
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
       margin-bottom: 8px;
     }
 
-    .description {
-      text-align: center;
-      color: var(--brown-light);
-      font-size: 0.88rem;
-      line-height: 1.6;
-
-      margin-bottom: 30px;
+    .logo span {
+      color: var(--gold);
     }
 
-    .field {
-      margin-bottom: 18px;
+    .subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      margin-bottom: 35px;
+    }
+
+    .lock {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
     }
 
     label {
       display: block;
-
-      margin-bottom: 7px;
-
-      font-size: 0.73rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
+      font-size: .72rem;
       text-transform: uppercase;
-
-      color: var(--brown-light);
+      letter-spacing: .1em;
+      color: var(--muted);
+      margin-bottom: 7px;
     }
 
     input {
       width: 100%;
-
-      padding: 14px 15px;
-
+      padding: 14px;
+      margin-bottom: 18px;
       border: 1px solid var(--border);
-      border-radius: 7px;
-
-      background: var(--white);
-      color: var(--brown);
-
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.92rem;
-
+      background: #fafafa;
+      color: var(--text);
       outline: none;
-
-      transition: all 0.2s;
-    }
-
-    input::placeholder {
-      color: #aaa39a;
+      font-size: .9rem;
     }
 
     input:focus {
       border-color: var(--gold);
+    }
 
-      box-shadow:
-        0 0 0 3px rgba(177,138,69,0.10);
+    button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      background: var(--gold);
+      color: white;
+      cursor: pointer;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    button:hover {
+      opacity: .9;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: wait;
     }
 
     .error {
       display: none;
-
-      margin-bottom: 18px;
-
-      padding: 12px 14px;
-
-      background: #fff3f3;
-      border: 1px solid #eccaca;
-      border-radius: 7px;
-
-      color: var(--danger);
-
-      font-size: 0.82rem;
-      line-height: 1.5;
-
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 1px solid #e8b4ae;
+      background: #fff4f2;
+      color: var(--error);
+      font-size: .82rem;
       text-align: center;
     }
 
-    .error.show {
+    .back {
       display: block;
-    }
-
-    .login-btn {
-      width: 100%;
-
-      padding: 15px;
-
-      border: none;
-      border-radius: 7px;
-
-      background: var(--brown);
-      color: var(--white);
-
-      cursor: pointer;
-
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 700;
-
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-
-      transition: all 0.2s;
-    }
-
-    .login-btn:hover {
-      background: #49423a;
-      transform: translateY(-1px);
-    }
-
-    .login-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .back-link {
-      display: block;
-
-      margin-top: 24px;
-
       text-align: center;
-
-      color: var(--brown-light);
-      text-decoration: none;
-
-      font-size: 0.82rem;
-
-      transition: color 0.2s;
-    }
-
-    .back-link:hover {
-      color: var(--gold);
-    }
-
-    .footer {
-      text-align: center;
-
       margin-top: 22px;
-
-      color: #9b9389;
-
-      font-size: 0.72rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .8rem;
     }
 
-    @media (max-width: 500px) {
-      .login-card {
-        padding: 30px 22px;
-      }
-
-      .brand-name {
-        font-size: 1.7rem;
-      }
+    .back:hover {
+      color: var(--text);
     }
   </style>
 </head>
 
 <body>
 
-  <div class="login-wrapper">
+  <div class="login-box">
 
-    <div class="brand">
-      <div class="brand-name">
-        krishhhh<span>.verse</span>
-      </div>
+    <div class="lock">🔐</div>
 
-      <div class="brand-subtitle">
-        Creative Studio
-      </div>
+    <div class="logo">
+      krishhhh<span>.verse</span>
     </div>
 
-    <div class="login-card">
-
-      <div class="lock">🔐</div>
-
-      <h1>Admin Login</h1>
-
-      <p class="description">
-        Sign in to manage your portfolio and booking requests.
-      </p>
-
-      <div class="error" id="errorMsg"></div>
-
-      <form id="loginForm">
-
-        <div class="field">
-          <label for="email">Email Address</label>
-
-          <input
-            type="email"
-            id="email"
-            placeholder="admin@example.com"
-            autocomplete="email"
-            required
-          />
-        </div>
-
-        <div class="field">
-          <label for="password">Password</label>
-
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            autocomplete="current-password"
-            required
-          />
-        </div>
-
-        <button
-          type="submit"
-          class="login-btn"
-          id="loginBtn"
-        >
-          Login to Dashboard →
-        </button>
-
-      </form>
-
-      <a href="index.html" class="back-link">
-        ← Back to website
-      </a>
-
+    <div class="subtitle">
+      Admin Access Only
     </div>
 
-    <div class="footer">
-      © 2026 krishhhh.verse · Admin Portal
-    </div>
+    <div class="error" id="errorMsg"></div>
+
+    <form id="loginForm">
+
+      <label for="email">Admin Email</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter admin email"
+        required
+      >
+
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter password"
+        required
+      >
+
+      <button type="submit" id="loginBtn">
+        Login to Dashboard →
+      </button>
+
+    </form>
+
+    <a href="index.html" class="back">
+      ← Back to website
+    </a>
 
   </div>
 
-  <script>
+<script>
 
-    // ==========================================
-    // SUPABASE CONFIG
-    // ==========================================
+  // ==========================================
+  // SUPABASE CONFIG
+  // ==========================================
 
-    const SUPABASE_URL =
-      'https://idnaxcwiskgzyodrlhzi.supabase.co';
+  const SUPABASE_URL =
+    'https://idnaxcwiskgzyodrlhzi.supabase.co';
 
-    const SUPABASE_KEY =
-      'sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC';
+  const SUPABASE_KEY =
+    'sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC';
 
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
 
 
-    // ==========================================
-    // CHECK EXISTING LOGIN
-    // ==========================================
+  // ==========================================
+  // CHECK IF ALREADY LOGGED IN
+  // ==========================================
 
-    checkExistingSession();
+  async function checkLogin() {
 
-    async function checkExistingSession() {
+    const {
+      data: { session }
+    } = await supabaseClient.auth.getSession();
 
-      const {
-        data: { session }
-      } = await supabaseClient.auth.getSession();
-
-      if (session) {
-        window.location.href = 'admin.html';
-      }
-
+    if (session) {
+      window.location.href = 'admin.html';
     }
 
+  }
 
-    // ==========================================
-    // LOGIN
-    // ==========================================
-
-    document
-      .getElementById('loginForm')
-      .addEventListener('submit', async function(e) {
-
-        e.preventDefault();
-
-        const email =
-          document.getElementById('email').value.trim();
-
-        const password =
-          document.getElementById('password').value;
-
-        const button =
-          document.getElementById('loginBtn');
-
-        const error =
-          document.getElementById('errorMsg');
+  checkLogin();
 
 
-        // Reset error
-        error.classList.remove('show');
-        error.textContent = '';
+  // ==========================================
+  // LOGIN
+  // ==========================================
+
+  document
+    .getElementById('loginForm')
+    .addEventListener('submit', async function(e) {
+
+      e.preventDefault();
+
+      const email =
+        document.getElementById('email').value.trim();
+
+      const password =
+        document.getElementById('password').value;
+
+      const button =
+        document.getElementById('loginBtn');
+
+      const error =
+        document.getElementById('errorMsg');
 
 
-        // Loading
-        button.disabled = true;
-        button.textContent = 'Signing in...';
+      error.style.display = 'none';
+
+      button.disabled = true;
+      button.textContent = 'Logging in...';
 
 
-        try {
-
-          const {
-            data,
-            error: loginError
-          } = await supabaseClient.auth.signInWithPassword({
-            email: email,
-            password: password
-          });
-
-
-          if (loginError) {
-            throw loginError;
-          }
-
-
-          if (data.session) {
-
-            window.location.href = 'admin.html';
-
-          } else {
-
-            throw new Error(
-              'Login failed. Please try again.'
-            );
-
-          }
-
-        } catch (err) {
-
-          console.error(err);
-
-          error.textContent =
-            getFriendlyError(err);
-
-          error.classList.add('show');
-
-          button.disabled = false;
-          button.textContent =
-            'Login to Dashboard →';
-
-        }
-
+      const {
+        data,
+        error: loginError
+      } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
       });
 
 
-    // ==========================================
-    // FRIENDLY ERROR
-    // ==========================================
+      if (loginError) {
 
-    function getFriendlyError(error) {
+        error.textContent =
+          'Incorrect email or password.';
 
-      if (
-        error.message &&
-        error.message.toLowerCase().includes('invalid login')
-      ) {
-        return 'Incorrect email or password.';
+        error.style.display = 'block';
+
+        button.disabled = false;
+        button.textContent =
+          'Login to Dashboard →';
+
+        return;
+
       }
 
-      if (
-        error.message &&
-        error.message.toLowerCase().includes('email not confirmed')
-      ) {
-        return 'Please confirm your email before logging in.';
+
+      if (data.session) {
+
+        window.location.href =
+          'admin.html';
+
       }
 
-      if (!navigator.onLine) {
-        return 'No internet connection. Please check your connection.';
-      }
+    });
 
-      return 'Unable to login. Please check your email and password.';
-
-    }
-
-  </script>
+</script>
 
 </body>
 </html>
