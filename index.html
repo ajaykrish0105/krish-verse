@@ -42,8 +42,6 @@
       overflow-x: hidden;
     }
 
-    /* ================= NAV ================= */
-
     nav {
       position: fixed;
       top: 0;
@@ -110,16 +108,11 @@
       background: var(--gold);
     }
 
-    /* ================= HERO ================= */
-
     #hero {
       min-height: 100vh;
-
       display: flex;
       align-items: center;
-
       position: relative;
-
       padding: 130px 48px 80px;
 
       background:
@@ -216,8 +209,6 @@
       border-color: var(--gold);
     }
 
-    /* ================= SECTIONS ================= */
-
     section {
       padding: 110px 48px;
       border-top: 1px solid var(--border);
@@ -237,8 +228,6 @@
       line-height: 1;
       margin-bottom: 55px;
     }
-
-    /* ================= SERVICES ================= */
 
     .services-grid {
       display: grid;
@@ -288,8 +277,6 @@
       letter-spacing: .08em;
     }
 
-    /* ================= PORTFOLIO ================= */
-
     #portfolio {
       background: #faf9f6;
     }
@@ -319,13 +306,9 @@
     .portfolio-item {
       position: relative;
       aspect-ratio: 16 / 9;
-
       background: #111;
-
       overflow: hidden;
-
       border: 1px solid var(--border);
-
       box-shadow: 0 10px 30px rgba(0,0,0,.05);
     }
 
@@ -341,6 +324,13 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
+    }
+
+    .portfolio-item iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
       display: block;
     }
 
@@ -374,8 +364,6 @@
       font-size: 3rem;
       margin-bottom: 10px;
     }
-
-    /* ================= BOOKING ================= */
 
     #booking {
       background: white;
@@ -483,6 +471,11 @@
       background: var(--gold);
     }
 
+    .form-submit:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
     .form-success {
       display: none;
       padding: 18px;
@@ -491,8 +484,6 @@
       color: var(--gold);
       text-align: center;
     }
-
-    /* ================= FOOTER ================= */
 
     footer {
       padding: 55px 48px 35px;
@@ -539,10 +530,7 @@
       font-size: .75rem;
     }
 
-    /* ================= RESPONSIVE ================= */
-
     @media (max-width: 900px) {
-
       .services-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -551,11 +539,9 @@
         grid-template-columns: 1fr;
         gap: 45px;
       }
-
     }
 
     @media (max-width: 650px) {
-
       nav {
         padding: 16px 20px;
       }
@@ -591,14 +577,11 @@
         padding-left: 20px;
         padding-right: 20px;
       }
-
     }
   </style>
 </head>
 
 <body>
-
-<!-- ================= NAV ================= -->
 
 <nav>
 
@@ -618,8 +601,6 @@
 
 </nav>
 
-
-<!-- ================= HERO ================= -->
 
 <section id="hero">
 
@@ -658,8 +639,6 @@
 
 </section>
 
-
-<!-- ================= SERVICES ================= -->
 
 <section id="services">
 
@@ -741,8 +720,6 @@
 </section>
 
 
-<!-- ================= PORTFOLIO ================= -->
-
 <section id="portfolio">
 
   <div class="portfolio-header">
@@ -790,8 +767,6 @@
 </section>
 
 
-<!-- ================= BOOKING ================= -->
-
 <section id="booking">
 
   <div class="booking-inner">
@@ -821,6 +796,7 @@
 
         <div>
           <strong>Location</strong>
+
           <span>
             On-site & remote projects
           </span>
@@ -837,6 +813,7 @@
 
         <div>
           <strong>Response Time</strong>
+
           <span>
             Within 24 hours
           </span>
@@ -853,6 +830,7 @@
 
         <div>
           <strong>Instagram</strong>
+
           <span>
             @krishhhh.verse
           </span>
@@ -931,27 +909,27 @@
               Select a service...
             </option>
 
-            <option>
+            <option value="Video Editing">
               Video Editing
             </option>
 
-            <option>
+            <option value="Motion Graphics / After Effects">
               Motion Graphics / After Effects
             </option>
 
-            <option>
+            <option value="Photo Shoot">
               Photo Shoot
             </option>
 
-            <option>
+            <option value="Video Shoot">
               Video Shoot
             </option>
 
-            <option>
+            <option value="Photo + Video Shoot Combo">
               Photo + Video Shoot Combo
             </option>
 
-            <option>
+            <option value="Full Production Package">
               Full Production Package
             </option>
 
@@ -1014,8 +992,6 @@
 </section>
 
 
-<!-- ================= FOOTER ================= -->
-
 <footer>
 
   <div class="footer-logo">
@@ -1060,31 +1036,91 @@
 </footer>
 
 
-<!-- ================= SUPABASE ================= -->
-
 <script>
 
-  const SUPABASE_URL =
-    'https://idnaxcwiskgzyodrlhzi.supabase.co';
+const SUPABASE_URL =
+  "https://idnaxcwiskgzyodrlhzi.supabase.co";
 
-  const SUPABASE_KEY =
-    'sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC';
+const SUPABASE_KEY =
+  "sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC";
 
 
-  /*
-    Supabase REST helper
-  */
+/* ============================
+   HTML SAFETY
+============================ */
 
-  async function supabaseFetch(endpoint) {
+function escapeHTML(text) {
+
+  if (!text) return "";
+
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+/* ============================
+   YOUTUBE ID
+============================ */
+
+function extractYouTubeID(url) {
+
+  if (!url) return "";
+
+  const match = url.match(
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?\/]+)/
+  );
+
+  return match ? match[1] : "";
+
+}
+
+
+/* ============================
+   VIMEO ID
+============================ */
+
+function extractVimeoID(url) {
+
+  if (!url) return "";
+
+  const match =
+    url.match(/vimeo\.com\/(\d+)/);
+
+  return match ? match[1] : "";
+
+}
+
+
+/* ============================
+   LOAD PORTFOLIO
+============================ */
+
+async function loadPortfolio() {
+
+  const grid =
+    document.getElementById("portfolioGrid");
+
+  try {
 
     const response = await fetch(
-      SUPABASE_URL + endpoint,
+      SUPABASE_URL +
+      "/rest/v1/portfolio?select=*&order=created_at.desc",
       {
+        method: "GET",
+
         headers: {
-          apikey: SUPABASE_KEY
+          "apikey": SUPABASE_KEY,
+          "Authorization":
+            "Bearer " + SUPABASE_KEY
         }
       }
     );
+
 
     if (!response.ok) {
 
@@ -1094,392 +1130,395 @@
 
     }
 
-    return response.json();
 
-  }
-
-
-  /* ================================
-     LOAD PORTFOLIO
-  ================================= */
-
-  async function loadPortfolio() {
-
-    const grid =
-      document.getElementById('portfolioGrid');
+    const items =
+      await response.json();
 
 
-    try {
+    if (!items.length) {
 
-      const items =
-        await supabaseFetch(
-          '/rest/v1/portfolio?select=*&order=created_at.desc'
-        );
+      grid.innerHTML = `
+        <div class="portfolio-empty">
+          <div>🎬</div>
+          <p>Portfolio coming soon.</p>
+        </div>
+      `;
+
+      return;
+
+    }
 
 
-      if (!items || items.length === 0) {
+    grid.innerHTML = "";
 
-        grid.innerHTML = `
-          <div class="portfolio-empty">
 
-            <div>🎬</div>
+    items.forEach(item => {
 
-            <p>
-              Portfolio coming soon.
-            </p>
+      const div =
+        document.createElement("div");
 
+      div.className =
+        "portfolio-item";
+
+
+      const title =
+        escapeHTML(item.title);
+
+
+      const url =
+        escapeHTML(item.url);
+
+
+      const type =
+        String(item.type || "")
+          .toLowerCase();
+
+
+      /* VIDEO */
+
+      if (
+        type === "video" ||
+        type === "mp4"
+      ) {
+
+        div.innerHTML = `
+          <video
+            controls
+            playsinline
+            preload="metadata"
+            src="${url}">
+          </video>
+
+          <div class="portfolio-caption">
+            ${title}
           </div>
         `;
-
-        return;
 
       }
 
 
-      grid.innerHTML = '';
+      /* YOUTUBE */
+
+      else if (
+        type === "youtube"
+      ) {
+
+        const id =
+          extractYouTubeID(item.url);
 
 
-      items.forEach(item => {
-
-        const div =
-          document.createElement('div');
-
-        div.className =
-          'portfolio-item';
-
-
-        /*
-          VIDEO
-        */
-
-        if (
-          item.type === 'video' ||
-          item.type === 'mp4' ||
-          item.type === 'Video'
-        ) {
+        if (id) {
 
           div.innerHTML = `
-
-            <video
-              controls
-              playsinline
-              preload="metadata"
-              src="${item.url}"
-            >
-            </video>
+            <iframe
+              src="https://www.youtube.com/embed/${id}"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
 
             <div class="portfolio-caption">
-              ${escapeHTML(item.title)}
+              ${title}
             </div>
-
           `;
 
         }
 
+      }
 
-        /*
-          PHOTO
-        */
 
-        else if (
-          item.type === 'photo' ||
-          item.type === 'image'
-        ) {
+      /* VIMEO */
+
+      else if (
+        type === "vimeo"
+      ) {
+
+        const id =
+          extractVimeoID(item.url);
+
+
+        if (id) {
 
           div.innerHTML = `
-
-            <img
-              src="${item.url}"
-              alt="${escapeHTML(item.title)}"
-              loading="lazy"
-            >
+            <iframe
+              src="https://player.vimeo.com/video/${id}"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen>
+            </iframe>
 
             <div class="portfolio-caption">
-              ${escapeHTML(item.title)}
+              ${title}
             </div>
-
           `;
 
         }
 
-
-        /*
-          YOUTUBE
-        */
-
-        else if (
-          item.type === 'youtube'
-        ) {
-
-          const id =
-            extractYouTubeID(item.url);
-
-          if (id) {
-
-            div.innerHTML = `
-
-              <iframe
-                src="https://www.youtube.com/embed/${id}"
-                style="
-                  width:100%;
-                  height:100%;
-                  border:0;
-                "
-                allowfullscreen
-              ></iframe>
-
-              <div class="portfolio-caption">
-                ${escapeHTML(item.title)}
-              </div>
-
-            `;
-
-          }
-
-        }
+      }
 
 
-        /*
-          VIMEO
-        */
+      /* PHOTO */
 
-        else if (
-          item.type === 'vimeo'
-        ) {
+      else if (
+        type === "photo" ||
+        type === "image"
+      ) {
 
-          const id =
-            extractVimeoID(item.url);
+        div.innerHTML = `
+          <img
+            src="${url}"
+            alt="${title}"
+            loading="lazy">
 
-          if (id) {
+          <div class="portfolio-caption">
+            ${title}
+          </div>
+        `;
 
-            div.innerHTML = `
+      }
 
-              <iframe
-                src="https://player.vimeo.com/video/${id}"
-                style="
-                  width:100%;
-                  height:100%;
-                  border:0;
-                "
-                allowfullscreen
-              ></iframe>
 
-              <div class="portfolio-caption">
-                ${escapeHTML(item.title)}
-              </div>
-
-            `;
-
-          }
-
-        }
-
+      if (div.innerHTML.trim()) {
 
         grid.appendChild(div);
 
-      });
+      }
+
+    });
+
+
+  } catch (error) {
+
+    console.error(
+      "Portfolio error:",
+      error
+    );
+
+
+    grid.innerHTML = `
+      <div class="portfolio-empty">
+        <div>⚠️</div>
+        <p>Portfolio could not be loaded.</p>
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* ============================
+   BOOKING → SUPABASE
+============================ */
+
+const bookingForm =
+  document.getElementById("bookingForm");
+
+
+bookingForm.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+
+    const button =
+      bookingForm.querySelector(
+        ".form-submit"
+      );
+
+
+    const success =
+      document.getElementById(
+        "formSuccess"
+      );
+
+
+    const name =
+      document.getElementById(
+        "fname"
+      ).value.trim();
+
+
+    const email =
+      document.getElementById(
+        "email"
+      ).value.trim();
+
+
+    const phone =
+      document.getElementById(
+        "phone"
+      ).value.trim();
+
+
+    const service =
+      document.getElementById(
+        "service"
+      ).value;
+
+
+    const date =
+      document.getElementById(
+        "date"
+      ).value;
+
+
+    const message =
+      document.getElementById(
+        "message"
+      ).value.trim();
+
+
+    button.disabled = true;
+
+    button.textContent =
+      "Sending...";
+
+
+    /*
+      Service-um message-um
+      single message column-la save pannrom.
+    */
+
+    const finalMessage =
+      `Service: ${service}
+
+${message}`;
+
+
+    try {
+
+      const response =
+        await fetch(
+          SUPABASE_URL +
+          "/rest/v1/inquiries",
+          {
+
+            method: "POST",
+
+            headers: {
+
+              "apikey":
+                SUPABASE_KEY,
+
+              "Authorization":
+                "Bearer " +
+                SUPABASE_KEY,
+
+              "Content-Type":
+                "application/json",
+
+              "Prefer":
+                "return=minimal"
+
+            },
+
+            body:
+              JSON.stringify({
+
+                name:
+                  name,
+
+                email:
+                  email,
+
+                phone:
+                  phone,
+
+                preferred_date:
+                  date,
+
+                message:
+                  finalMessage
+
+              })
+
+          }
+        );
+
+
+      /*
+        Supabase error வந்தால்
+        actual error console-la
+        காட்டும்.
+      */
+
+      if (!response.ok) {
+
+        const errorText =
+          await response.text();
+
+        console.error(
+          "SUPABASE BOOKING ERROR:",
+          errorText
+        );
+
+        throw new Error(
+          errorText
+        );
+
+      }
+
+
+      /* SUCCESS */
+
+      bookingForm.reset();
+
+      button.disabled =
+        false;
+
+      button.textContent =
+        "Booking Sent ✓";
+
+
+      success.style.display =
+        "block";
+
+
+      setTimeout(() => {
+
+        success.style.display =
+          "none";
+
+        button.textContent =
+          "Send Booking Request →";
+
+      }, 5000);
 
 
     } catch (error) {
 
       console.error(
-        'Portfolio error:',
+        "BOOKING ERROR:",
         error
       );
 
 
-      grid.innerHTML = `
+      button.disabled =
+        false;
 
-        <div class="portfolio-empty">
+      button.textContent =
+        "Send Booking Request →";
 
-          <div>⚠️</div>
 
-          <p>
-            Portfolio could not be loaded.
-          </p>
+      /*
+        User-ku simple message.
+      */
 
-        </div>
-
-      `;
+      alert(
+        "Booking could not be sent. Please try again."
+      );
 
     }
 
   }
+);
 
 
-  /* ================================
-     YOUTUBE ID
-  ================================= */
+/* ============================
+   START
+============================ */
 
-  function extractYouTubeID(url) {
-
-    const match =
-      url.match(
-        /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?\/]+)/
-      );
-
-    return match
-      ? match[1]
-      : '';
-
-  }
-
-
-  /* ================================
-     VIMEO ID
-  ================================= */
-
-  function extractVimeoID(url) {
-
-    const match =
-      url.match(
-        /vimeo\.com\/(\d+)/
-      );
-
-    return match
-      ? match[1]
-      : '';
-
-  }
-
-
-  /* ================================
-     SAFE TEXT
-  ================================= */
-
-  function escapeHTML(text) {
-
-    if (!text) return '';
-
-    return String(text)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
-
-  }
-
-
-  /* ================================
-     BOOKING
-  ================================= */
-
-  document
-    .getElementById('bookingForm')
-    .addEventListener(
-      'submit',
-      async function(e) {
-
-        e.preventDefault();
-
-
-        const button =
-          this.querySelector('.form-submit');
-
-
-        button.disabled = true;
-
-        button.textContent =
-          'Sending...';
-
-
-        const booking = {
-
-          name:
-            document.getElementById('fname').value,
-
-          phone:
-            document.getElementById('phone').value,
-
-          email:
-            document.getElementById('email').value,
-
-          service:
-            document.getElementById('service').value,
-
-          date:
-            document.getElementById('date').value,
-
-          message:
-            document.getElementById('message').value
-
-        };
-
-
-        try {
-
-          const response =
-            await fetch(
-              SUPABASE_URL +
-              '/rest/v1/bookings',
-              {
-
-                method: 'POST',
-
-                headers: {
-
-                  apikey:
-                    SUPABASE_KEY,
-
-                  'Content-Type':
-                    'application/json',
-
-                  Prefer:
-                    'return=minimal'
-
-                },
-
-                body:
-                  JSON.stringify(booking)
-
-              }
-            );
-
-
-          if (!response.ok) {
-
-            throw new Error(
-              await response.text()
-            );
-
-          }
-
-
-          this.style.display =
-            'none';
-
-          document
-            .getElementById('formSuccess')
-            .style.display =
-            'block';
-
-
-        } catch (error) {
-
-          console.error(error);
-
-          alert(
-            'Booking could not be sent. Please try again.'
-          );
-
-          button.disabled =
-            false;
-
-          button.textContent =
-            'Send Booking Request →';
-
-        }
-
-      }
-    );
-
-
-  /* ================================
-     START
-  ================================= */
-
-  loadPortfolio();
+loadPortfolio();
 
 </script>
 
