@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -35,6 +36,7 @@ html,body{
 
 body{
     min-height:100vh;
+
     background:
         radial-gradient(
             circle at 15% 20%,
@@ -47,21 +49,30 @@ body{
             transparent 35%
         ),
         var(--black);
+
     color:var(--text);
     font-family:Inter,sans-serif;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     padding:20px;
     overflow:hidden;
 }
+
+
+/* ================= BACKGROUND ================= */
 
 .bg-line{
     position:fixed;
     width:500px;
     height:500px;
+
     border:1px solid rgba(255,23,68,.08);
+
     border-radius:50%;
+
     pointer-events:none;
 }
 
@@ -75,26 +86,38 @@ body{
     right:-200px;
 }
 
+
+/* ================= LOGIN BOX ================= */
+
 .login-box{
     width:430px;
     max-width:100%;
+
     background:rgba(15,15,15,.94);
+
     border:1px solid var(--border);
+
     padding:42px;
+
     box-shadow:
         0 30px 100px rgba(0,0,0,.7),
         0 0 60px rgba(255,23,68,.06);
+
     position:relative;
     z-index:2;
 }
 
 .login-box::before{
     content:"";
+
     position:absolute;
+
     top:0;
     left:0;
+
     width:100%;
     height:3px;
+
     background:linear-gradient(
         90deg,
         transparent,
@@ -103,123 +126,208 @@ body{
     );
 }
 
+
+/* ================= LOGO ================= */
+
 .logo{
     text-align:center;
-    font-size:25px;
-    font-weight:900;
-    letter-spacing:-1px;
     margin-bottom:8px;
 }
 
-.logo span{
-    color:var(--red);
+.logo img{
+    width:180px;
+    max-width:100%;
+    height:auto;
+
+    display:block;
+    margin:0 auto;
 }
+
+
+/* ================= SUBTITLE ================= */
 
 .subtitle{
     text-align:center;
+
     color:#777;
+
     font-size:10px;
+
     text-transform:uppercase;
+
     letter-spacing:4px;
+
     margin-bottom:35px;
 }
+
+
+/* ================= LOCK ================= */
 
 .lock{
     width:68px;
     height:68px;
+
     border-radius:50%;
+
     background:rgba(255,23,68,.08);
+
     border:1px solid rgba(255,23,68,.3);
+
     display:flex;
+
     align-items:center;
     justify-content:center;
+
     margin:0 auto 22px;
+
     font-size:27px;
-    box-shadow:0 0 35px rgba(255,23,68,.1);
+
+    box-shadow:
+        0 0 35px rgba(255,23,68,.1);
 }
+
+
+/* ================= LABEL ================= */
 
 label{
     display:block;
+
     color:#888;
+
     font-size:10px;
+
     font-weight:700;
+
     text-transform:uppercase;
+
     letter-spacing:1.5px;
+
     margin-bottom:8px;
 }
 
+
+/* ================= INPUT ================= */
+
 .input-wrap{
     position:relative;
+
     margin-bottom:18px;
 }
 
 input{
     width:100%;
     height:50px;
+
     border:1px solid var(--border);
+
     background:#090909;
+
     color:#fff;
+
     padding:0 15px;
+
     outline:none;
+
     font:inherit;
+
     font-size:14px;
+
     transition:.2s;
 }
 
 input:focus{
     border-color:var(--red);
-    box-shadow:0 0 0 3px rgba(255,23,68,.08);
+
+    box-shadow:
+        0 0 0 3px rgba(255,23,68,.08);
 }
 
 input::placeholder{
     color:#444;
 }
 
+
+/* ================= BUTTON ================= */
+
 button{
     width:100%;
     height:52px;
+
     border:0;
+
     background:var(--red);
+
     color:white;
+
     font-weight:800;
+
     font-size:12px;
+
     letter-spacing:1px;
+
     text-transform:uppercase;
+
     cursor:pointer;
+
     transition:.2s;
+
     margin-top:5px;
 }
 
 button:hover{
     background:#ff365d;
+
     transform:translateY(-1px);
-    box-shadow:0 12px 30px rgba(255,23,68,.2);
+
+    box-shadow:
+        0 12px 30px rgba(255,23,68,.2);
 }
 
 button:disabled{
     opacity:.6;
+
     cursor:wait;
+
     transform:none;
 }
 
+
+/* ================= ERROR ================= */
+
 .error{
     display:none;
+
     background:rgba(255,23,68,.08);
+
     border:1px solid rgba(255,23,68,.35);
+
     color:#ff6b88;
+
     padding:12px;
+
     margin-bottom:18px;
+
     font-size:12px;
+
     text-align:center;
 }
 
+
+/* ================= BACK ================= */
+
 .back{
     display:block;
+
     text-align:center;
+
     margin-top:22px;
+
     color:#666;
+
     text-decoration:none;
+
     font-size:12px;
+
     transition:.2s;
 }
 
@@ -227,24 +335,41 @@ button:disabled{
     color:#fff;
 }
 
+
+/* ================= STATUS ================= */
+
 .status{
     text-align:center;
+
     color:#444;
+
     font-size:9px;
+
     text-transform:uppercase;
+
     letter-spacing:2px;
+
     margin-top:30px;
 }
 
 .status span{
     display:inline-block;
+
     width:6px;
     height:6px;
+
     background:#19d66b;
+
     border-radius:50%;
+
     margin-right:6px;
-    box-shadow:0 0 10px #19d66b;
+
+    box-shadow:
+        0 0 10px #19d66b;
 }
+
+
+/* ================= MOBILE ================= */
 
 @media(max-width:500px){
 
@@ -256,90 +381,159 @@ button:disabled{
         padding:32px 24px;
     }
 
+    .logo img{
+        width:160px;
+    }
+
 }
+
 </style>
 </head>
 
 <body>
 
+
+<!-- ================= BACKGROUND ================= -->
+
 <div class="bg-line one"></div>
+
 <div class="bg-line two"></div>
 
+
+<!-- ================= LOGIN BOX ================= -->
+
 <div class="login-box">
+
+
+    <!-- LOGO -->
+
+    <div class="logo">
+
+        <img
+            src="logo.png"
+            alt="krishhhh.verse">
+
+    </div>
+
+
+    <!-- LOCK -->
 
     <div class="lock">
         🔐
     </div>
 
-    <div class="logo">
-        krishhhh<span>.verse</span>
-    </div>
+
+    <!-- SUBTITLE -->
 
     <div class="subtitle">
         Creator Control Center
     </div>
+
+
+    <!-- ERROR -->
 
     <div
         class="error"
         id="errorMsg">
     </div>
 
+
+    <!-- LOGIN FORM -->
+
     <form id="loginForm">
+
+
+        <!-- EMAIL -->
 
         <label for="email">
             Admin Email
         </label>
 
+
         <div class="input-wrap">
+
             <input
                 type="email"
                 id="email"
                 placeholder="Enter admin email"
                 autocomplete="email"
                 required>
+
         </div>
+
+
+        <!-- PASSWORD -->
 
         <label for="password">
             Password
         </label>
 
+
         <div class="input-wrap">
+
             <input
                 type="password"
                 id="password"
                 placeholder="Enter password"
                 autocomplete="current-password"
                 required>
+
         </div>
+
+
+        <!-- LOGIN BUTTON -->
 
         <button
             type="submit"
             id="loginBtn">
+
             Enter Dashboard →
+
         </button>
 
+
     </form>
+
+
+    <!-- BACK -->
 
     <a
         href="index.html"
         class="back">
+
         ← Back to website
+
     </a>
 
+
+    <!-- STATUS -->
+
     <div class="status">
+
         <span></span>
+
         Secure Admin Access
+
     </div>
+
 
 </div>
 
+
 <script>
+
+
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
 "https://idnaxcwiskgzyodrlhzi.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC";
+
 
 const supabaseClient =
 window.supabase.createClient(
@@ -348,7 +542,10 @@ window.supabase.createClient(
 );
 
 
-/* CHECK EXISTING SESSION */
+
+/* =====================================================
+   CHECK EXISTING SESSION
+===================================================== */
 
 async function checkLogin(){
 
@@ -356,14 +553,19 @@ async function checkLogin(){
         data,
         error
     } =
-    await supabaseClient.auth.getSession();
+    await supabaseClient
+    .auth
+    .getSession();
+
 
     if(error){
 
         console.error(error);
+
         return;
 
     }
+
 
     if(data.session){
 
@@ -374,10 +576,14 @@ async function checkLogin(){
 
 }
 
+
 checkLogin();
 
 
-/* LOGIN */
+
+/* =====================================================
+   LOGIN
+===================================================== */
 
 document
 .getElementById("loginForm")
@@ -387,20 +593,24 @@ document
 
         e.preventDefault();
 
+
         const email =
             document
             .getElementById("email")
             .value
             .trim();
 
+
         const password =
             document
             .getElementById("password")
             .value;
 
+
         const button =
             document
             .getElementById("loginBtn");
+
 
         const error =
             document
@@ -410,50 +620,73 @@ document
         error.style.display =
             "none";
 
+
         button.disabled =
             true;
+
 
         button.textContent =
             "Authenticating...";
 
 
+
+        /* SUPABASE LOGIN */
+
         const {
             data,
             error:loginError
         } =
-        await supabaseClient.auth
+        await supabaseClient
+        .auth
         .signInWithPassword({
+
             email:email,
+
             password:password
+
         });
 
 
+
+        /* LOGIN ERROR */
+
         if(loginError){
 
-            console.error(loginError);
+            console.error(
+                loginError
+            );
+
 
             error.textContent =
                 loginError.message ||
                 "Incorrect email or password.";
 
+
             error.style.display =
                 "block";
+
 
             button.disabled =
                 false;
 
+
             button.textContent =
                 "Enter Dashboard →";
+
 
             return;
 
         }
 
 
+
+        /* LOGIN SUCCESS */
+
         if(data.session){
 
             button.textContent =
                 "Access Granted ✓";
+
 
             setTimeout(()=>{
 
