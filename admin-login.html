@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Admin Login — krishhhh.verse</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -18,576 +20,348 @@
     box-sizing:border-box;
 }
 
-:root{
-    --red:#ff1744;
-    --red2:#ff003c;
-    --black:#050505;
-    --dark:#0d0d0d;
-    --card:#111;
-    --border:#242424;
-    --text:#fff;
-    --muted:#888;
-}
-
-html,body{
-    width:100%;
-    min-height:100%;
-}
-
 body{
+
     min-height:100vh;
-
-    background:
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(255,23,68,.18),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 85% 80%,
-            rgba(255,0,60,.12),
-            transparent 35%
-        ),
-        var(--black);
-
-    color:var(--text);
-    font-family:Inter,sans-serif;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
+    background:#050505;
+
+    color:#fff;
+
+    font-family:'Inter',sans-serif;
+
     padding:20px;
-    overflow:hidden;
+
 }
 
+body::before{
 
-/* ================= BACKGROUND ================= */
+    content:"";
 
-.bg-line{
     position:fixed;
+
     width:500px;
     height:500px;
 
-    border:1px solid rgba(255,23,68,.08);
+    top:-250px;
+    right:-200px;
+
+    background:rgba(255,0,0,.12);
+
+    filter:blur(100px);
 
     border-radius:50%;
 
     pointer-events:none;
+
 }
-
-.bg-line.one{
-    top:-250px;
-    left:-200px;
-}
-
-.bg-line.two{
-    bottom:-300px;
-    right:-200px;
-}
-
-
-/* ================= LOGIN BOX ================= */
 
 .login-box{
-    width:430px;
-    max-width:100%;
 
-    background:rgba(15,15,15,.94);
+    width:100%;
+    max-width:430px;
 
-    border:1px solid var(--border);
+    background:#0b0b0b;
+
+    border:1px solid #242424;
 
     padding:42px;
 
     box-shadow:
-        0 30px 100px rgba(0,0,0,.7),
-        0 0 60px rgba(255,23,68,.06);
+        0 30px 100px rgba(0,0,0,.6);
 
-    position:relative;
-    z-index:2;
 }
-
-.login-box::before{
-    content:"";
-
-    position:absolute;
-
-    top:0;
-    left:0;
-
-    width:100%;
-    height:3px;
-
-    background:linear-gradient(
-        90deg,
-        transparent,
-        var(--red),
-        transparent
-    );
-}
-
-
-/* ================= LOGO ================= */
 
 .logo{
-    text-align:center;
+
+    font-family:'Syne',sans-serif;
+
+    font-size:1.8rem;
+
+    font-weight:800;
+
+    letter-spacing:-.05em;
+
     margin-bottom:8px;
+
 }
 
-.logo img{
-    width:180px;
-    max-width:100%;
-    height:auto;
-
-    display:block;
-    margin:0 auto;
+.logo span{
+    color:#ff1f1f;
 }
-
-
-/* ================= SUBTITLE ================= */
 
 .subtitle{
-    text-align:center;
 
     color:#777;
 
-    font-size:10px;
+    font-size:.8rem;
+
+    margin-bottom:35px;
+
+}
+
+.label{
+
+    display:block;
+
+    color:#777;
+
+    font-size:.65rem;
+
+    font-weight:600;
 
     text-transform:uppercase;
 
-    letter-spacing:4px;
+    letter-spacing:.12em;
 
-    margin-bottom:35px;
+    margin-bottom:8px;
+
 }
 
+.input-group{
+    margin-bottom:18px;
+}
 
-/* ================= LOCK ================= */
+input{
 
-.lock{
-    width:68px;
-    height:68px;
+    width:100%;
 
-    border-radius:50%;
+    padding:15px;
 
-    background:rgba(255,23,68,.08);
+    background:#111;
 
-    border:1px solid rgba(255,23,68,.3);
+    color:#fff;
 
-    display:flex;
+    border:1px solid #292929;
 
-    align-items:center;
-    justify-content:center;
+    outline:none;
 
-    margin:0 auto 22px;
+    font-size:.85rem;
 
-    font-size:27px;
+    transition:.2s;
+
+}
+
+input:focus{
+
+    border-color:#ff1f1f;
 
     box-shadow:
-        0 0 35px rgba(255,23,68,.1);
+        0 0 0 2px rgba(255,31,31,.08);
+
 }
 
+.login-btn{
 
-/* ================= LABEL ================= */
+    width:100%;
 
-label{
-    display:block;
+    padding:16px;
 
-    color:#888;
+    border:0;
 
-    font-size:10px;
+    background:#ff1f1f;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-family:'Syne',sans-serif;
+
+    font-size:.75rem;
 
     font-weight:700;
 
     text-transform:uppercase;
 
-    letter-spacing:1.5px;
+    letter-spacing:.1em;
 
-    margin-bottom:8px;
-}
-
-
-/* ================= INPUT ================= */
-
-.input-wrap{
-    position:relative;
-
-    margin-bottom:18px;
-}
-
-input{
-    width:100%;
-    height:50px;
-
-    border:1px solid var(--border);
-
-    background:#090909;
-
-    color:#fff;
-
-    padding:0 15px;
-
-    outline:none;
-
-    font:inherit;
-
-    font-size:14px;
-
-    transition:.2s;
-}
-
-input:focus{
-    border-color:var(--red);
-
-    box-shadow:
-        0 0 0 3px rgba(255,23,68,.08);
-}
-
-input::placeholder{
-    color:#444;
-}
-
-
-/* ================= BUTTON ================= */
-
-button{
-    width:100%;
-    height:52px;
-
-    border:0;
-
-    background:var(--red);
-
-    color:white;
-
-    font-weight:800;
-
-    font-size:12px;
-
-    letter-spacing:1px;
-
-    text-transform:uppercase;
-
-    cursor:pointer;
-
-    transition:.2s;
+    transition:.25s;
 
     margin-top:5px;
+
 }
 
-button:hover{
-    background:#ff365d;
+.login-btn:hover{
 
-    transform:translateY(-1px);
+    background:#fff;
 
-    box-shadow:
-        0 12px 30px rgba(255,23,68,.2);
+    color:#000;
+
 }
 
-button:disabled{
-    opacity:.6;
+.login-btn:disabled{
 
-    cursor:wait;
+    opacity:.5;
 
-    transform:none;
+    cursor:not-allowed;
+
 }
-
-
-/* ================= ERROR ================= */
 
 .error{
+
     display:none;
 
-    background:rgba(255,23,68,.08);
+    margin-top:18px;
 
-    border:1px solid rgba(255,23,68,.35);
+    padding:13px;
 
-    color:#ff6b88;
+    background:#1b0b0b;
 
-    padding:12px;
+    border:1px solid #542323;
 
-    margin-bottom:18px;
+    color:#ff7373;
 
-    font-size:12px;
+    font-size:.75rem;
 
-    text-align:center;
+    line-height:1.5;
+
 }
 
-
-/* ================= BACK ================= */
-
 .back{
+
     display:block;
+
+    margin-top:25px;
 
     text-align:center;
 
-    margin-top:22px;
+    color:#555;
 
-    color:#666;
+    font-size:.7rem;
 
     text-decoration:none;
 
-    font-size:12px;
-
-    transition:.2s;
 }
 
 .back:hover{
     color:#fff;
 }
 
-
-/* ================= STATUS ================= */
-
-.status{
-    text-align:center;
-
-    color:#444;
-
-    font-size:9px;
-
-    text-transform:uppercase;
-
-    letter-spacing:2px;
-
-    margin-top:30px;
-}
-
-.status span{
-    display:inline-block;
-
-    width:6px;
-    height:6px;
-
-    background:#19d66b;
-
-    border-radius:50%;
-
-    margin-right:6px;
-
-    box-shadow:
-        0 0 10px #19d66b;
-}
-
-
-/* ================= MOBILE ================= */
-
 @media(max-width:500px){
 
-    body{
-        padding:15px;
-    }
-
     .login-box{
-        padding:32px 24px;
-    }
-
-    .logo img{
-        width:160px;
+        padding:30px 22px;
     }
 
 }
 
 </style>
+
 </head>
 
 <body>
 
-
-<!-- ================= BACKGROUND ================= -->
-
-<div class="bg-line one"></div>
-
-<div class="bg-line two"></div>
-
-
-<!-- ================= LOGIN BOX ================= -->
-
 <div class="login-box">
 
-
-    <!-- LOGO -->
-
     <div class="logo">
-
-        <img
-            src="logo.png"
-            alt="krishhhh.verse">
-
+        krishhhh<span>.verse</span>
     </div>
-
-
-    <!-- LOCK -->
-
-    <div class="lock">
-        🔐
-    </div>
-
-
-    <!-- SUBTITLE -->
 
     <div class="subtitle">
-        Creator Control Center
+        Admin Dashboard
     </div>
 
-
-    <!-- ERROR -->
-
-    <div
-        class="error"
-        id="errorMsg">
-    </div>
-
-
-    <!-- LOGIN FORM -->
 
     <form id="loginForm">
 
+        <div class="input-group">
 
-        <!-- EMAIL -->
-
-        <label for="email">
-            Admin Email
-        </label>
-
-
-        <div class="input-wrap">
+            <label class="label">
+                Email
+            </label>
 
             <input
                 type="email"
                 id="email"
-                placeholder="Enter admin email"
-                autocomplete="email"
-                required>
+                placeholder="admin@email.com"
+                required
+            >
 
         </div>
 
 
-        <!-- PASSWORD -->
+        <div class="input-group">
 
-        <label for="password">
-            Password
-        </label>
-
-
-        <div class="input-wrap">
+            <label class="label">
+                Password
+            </label>
 
             <input
                 type="password"
                 id="password"
                 placeholder="Enter password"
-                autocomplete="current-password"
-                required>
+                required
+            >
 
         </div>
 
 
-        <!-- LOGIN BUTTON -->
-
         <button
             type="submit"
-            id="loginBtn">
-
-            Enter Dashboard →
-
+            class="login-btn"
+            id="loginBtn"
+        >
+            Login to Dashboard
         </button>
 
+
+        <div
+            class="error"
+            id="errorBox"
+        ></div>
 
     </form>
 
 
-    <!-- BACK -->
-
     <a
         href="index.html"
-        class="back">
-
+        class="back"
+    >
         ← Back to website
-
     </a>
-
-
-    <!-- STATUS -->
-
-    <div class="status">
-
-        <span></span>
-
-        Secure Admin Access
-
-    </div>
-
 
 </div>
 
 
 <script>
 
-
-/* =====================================================
-   SUPABASE
-===================================================== */
-
 const SUPABASE_URL =
 "https://idnaxcwiskgzyodrlhzi.supabase.co";
-
 
 const SUPABASE_KEY =
 "sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC";
 
 
-const supabaseClient =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+const loginForm =
+document.getElementById("loginForm");
+
+const loginBtn =
+document.getElementById("loginBtn");
+
+const errorBox =
+document.getElementById("errorBox");
 
 
+/* CHECK EXISTING SESSION */
 
-/* =====================================================
-   CHECK EXISTING SESSION
-===================================================== */
+const existingSession =
+localStorage.getItem("krish_admin_session");
 
-async function checkLogin(){
+if(existingSession){
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-    .auth
-    .getSession();
-
-
-    if(error){
-
-        console.error(error);
-
-        return;
-
-    }
-
-
-    if(data.session){
-
-        window.location.href =
-            "admin.html";
-
-    }
+    window.location.href =
+        "admin.html";
 
 }
 
 
-checkLogin();
+/* LOGIN */
 
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-document
-.getElementById("loginForm")
-.addEventListener(
+loginForm.addEventListener(
     "submit",
     async function(e){
 
@@ -607,93 +381,97 @@ document
             .value;
 
 
-        const button =
-            document
-            .getElementById("loginBtn");
-
-
-        const error =
-            document
-            .getElementById("errorMsg");
-
-
-        error.style.display =
+        errorBox.style.display =
             "none";
 
 
-        button.disabled =
+        loginBtn.disabled =
             true;
 
-
-        button.textContent =
-            "Authenticating...";
-
+        loginBtn.textContent =
+            "Logging in...";
 
 
-        /* SUPABASE LOGIN */
+        try{
 
-        const {
-            data,
-            error:loginError
-        } =
-        await supabaseClient
-        .auth
-        .signInWithPassword({
+            const response =
+                await fetch(
 
-            email:email,
+                    SUPABASE_URL +
+                    "/auth/v1/token?grant_type=password",
 
-            password:password
+                    {
 
-        });
+                        method:"POST",
+
+                        headers:{
+
+                            "apikey":
+                                SUPABASE_KEY,
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body:JSON.stringify({
+
+                            email:email,
+
+                            password:password
+
+                        })
+
+                    }
+
+                );
 
 
+            const data =
+                await response.json();
 
-        /* LOGIN ERROR */
 
-        if(loginError){
+            if(!response.ok){
 
-            console.error(
-                loginError
+                throw new Error(
+                    data.error_description ||
+                    data.msg ||
+                    "Invalid email or password."
+                );
+
+            }
+
+
+            /* SAVE SESSION */
+
+            localStorage.setItem(
+                "krish_admin_session",
+                JSON.stringify(data)
             );
 
 
-            error.textContent =
-                loginError.message ||
-                "Incorrect email or password.";
-
-
-            error.style.display =
-                "block";
-
-
-            button.disabled =
-                false;
-
-
-            button.textContent =
-                "Enter Dashboard →";
-
-
-            return;
+            window.location.href =
+                "admin.html";
 
         }
+        catch(error){
 
+            console.error(error);
 
+            errorBox.textContent =
+                "❌ " + error.message;
 
-        /* LOGIN SUCCESS */
+            errorBox.style.display =
+                "block";
 
-        if(data.session){
+        }
+        finally{
 
-            button.textContent =
-                "Access Granted ✓";
+            loginBtn.disabled =
+                false;
 
-
-            setTimeout(()=>{
-
-                window.location.href =
-                    "admin.html";
-
-            },300);
+            loginBtn.textContent =
+                "Login to Dashboard";
 
         }
 
