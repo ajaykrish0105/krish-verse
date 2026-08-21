@@ -2,196 +2,334 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>Admin Login — krishhhh.verse</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 :root{
-  --bg:#f5f3ee;
-  --card:#fff;
-  --text:#171717;
-  --muted:#777;
-  --gold:#b08a32;
-  --border:#e5e1d8;
-  --error:#c0392b;
+    --red:#ff1744;
+    --red2:#ff003c;
+    --black:#050505;
+    --dark:#0d0d0d;
+    --card:#111;
+    --border:#242424;
+    --text:#fff;
+    --muted:#888;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
 }
 
 body{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:
-    radial-gradient(circle at 20% 20%,rgba(176,138,50,.08),transparent 35%),
-    radial-gradient(circle at 80% 80%,rgba(176,138,50,.06),transparent 35%),
-    var(--bg);
-  color:var(--text);
-  font-family:'Inter',sans-serif;
+    min-height:100vh;
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255,23,68,.18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(255,0,60,.12),
+            transparent 35%
+        ),
+        var(--black);
+    color:var(--text);
+    font-family:Inter,sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    overflow:hidden;
+}
+
+.bg-line{
+    position:fixed;
+    width:500px;
+    height:500px;
+    border:1px solid rgba(255,23,68,.08);
+    border-radius:50%;
+    pointer-events:none;
+}
+
+.bg-line.one{
+    top:-250px;
+    left:-200px;
+}
+
+.bg-line.two{
+    bottom:-300px;
+    right:-200px;
 }
 
 .login-box{
-  width:420px;
-  max-width:92%;
-  background:var(--card);
-  border:1px solid var(--border);
-  padding:48px;
-  box-shadow:0 20px 60px rgba(0,0,0,.08);
+    width:430px;
+    max-width:100%;
+    background:rgba(15,15,15,.94);
+    border:1px solid var(--border);
+    padding:42px;
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.7),
+        0 0 60px rgba(255,23,68,.06);
+    position:relative;
+    z-index:2;
+}
+
+.login-box::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:3px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        var(--red),
+        transparent
+    );
 }
 
 .logo{
-  text-align:center;
-  font-family:'Syne',sans-serif;
-  font-size:1.5rem;
-  font-weight:800;
-  margin-bottom:8px;
+    text-align:center;
+    font-size:25px;
+    font-weight:900;
+    letter-spacing:-1px;
+    margin-bottom:8px;
 }
 
 .logo span{
-  color:var(--gold);
+    color:var(--red);
 }
 
 .subtitle{
-  text-align:center;
-  color:var(--muted);
-  font-size:.75rem;
-  text-transform:uppercase;
-  letter-spacing:.15em;
-  margin-bottom:35px;
+    text-align:center;
+    color:#777;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:4px;
+    margin-bottom:35px;
 }
 
 .lock{
-  text-align:center;
-  font-size:2.5rem;
-  margin-bottom:20px;
+    width:68px;
+    height:68px;
+    border-radius:50%;
+    background:rgba(255,23,68,.08);
+    border:1px solid rgba(255,23,68,.3);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 22px;
+    font-size:27px;
+    box-shadow:0 0 35px rgba(255,23,68,.1);
 }
 
 label{
-  display:block;
-  font-size:.72rem;
-  text-transform:uppercase;
-  letter-spacing:.1em;
-  color:var(--muted);
-  margin-bottom:7px;
+    display:block;
+    color:#888;
+    font-size:10px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    margin-bottom:8px;
+}
+
+.input-wrap{
+    position:relative;
+    margin-bottom:18px;
 }
 
 input{
-  width:100%;
-  padding:14px;
-  margin-bottom:18px;
-  border:1px solid var(--border);
-  background:#fafafa;
-  color:var(--text);
-  outline:none;
-  font-size:.9rem;
+    width:100%;
+    height:50px;
+    border:1px solid var(--border);
+    background:#090909;
+    color:#fff;
+    padding:0 15px;
+    outline:none;
+    font:inherit;
+    font-size:14px;
+    transition:.2s;
 }
 
 input:focus{
-  border-color:var(--gold);
+    border-color:var(--red);
+    box-shadow:0 0 0 3px rgba(255,23,68,.08);
+}
+
+input::placeholder{
+    color:#444;
 }
 
 button{
-  width:100%;
-  padding:15px;
-  border:none;
-  background:var(--gold);
-  color:white;
-  cursor:pointer;
-  font-family:'Syne',sans-serif;
-  font-weight:700;
-  letter-spacing:.08em;
-  text-transform:uppercase;
+    width:100%;
+    height:52px;
+    border:0;
+    background:var(--red);
+    color:white;
+    font-weight:800;
+    font-size:12px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:.2s;
+    margin-top:5px;
 }
 
 button:hover{
-  opacity:.9;
+    background:#ff365d;
+    transform:translateY(-1px);
+    box-shadow:0 12px 30px rgba(255,23,68,.2);
 }
 
 button:disabled{
-  opacity:.6;
-  cursor:wait;
+    opacity:.6;
+    cursor:wait;
+    transform:none;
 }
 
 .error{
-  display:none;
-  padding:12px;
-  margin-bottom:16px;
-  border:1px solid #e8b4ae;
-  background:#fff4f2;
-  color:var(--error);
-  font-size:.82rem;
-  text-align:center;
+    display:none;
+    background:rgba(255,23,68,.08);
+    border:1px solid rgba(255,23,68,.35);
+    color:#ff6b88;
+    padding:12px;
+    margin-bottom:18px;
+    font-size:12px;
+    text-align:center;
 }
 
 .back{
-  display:block;
-  text-align:center;
-  margin-top:22px;
-  color:var(--muted);
-  text-decoration:none;
-  font-size:.8rem;
+    display:block;
+    text-align:center;
+    margin-top:22px;
+    color:#666;
+    text-decoration:none;
+    font-size:12px;
+    transition:.2s;
 }
 
 .back:hover{
-  color:var(--text);
+    color:#fff;
+}
+
+.status{
+    text-align:center;
+    color:#444;
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    margin-top:30px;
+}
+
+.status span{
+    display:inline-block;
+    width:6px;
+    height:6px;
+    background:#19d66b;
+    border-radius:50%;
+    margin-right:6px;
+    box-shadow:0 0 10px #19d66b;
+}
+
+@media(max-width:500px){
+
+    body{
+        padding:15px;
+    }
+
+    .login-box{
+        padding:32px 24px;
+    }
+
 }
 </style>
 </head>
 
 <body>
 
+<div class="bg-line one"></div>
+<div class="bg-line two"></div>
+
 <div class="login-box">
 
-  <div class="lock">🔐</div>
+    <div class="lock">
+        🔐
+    </div>
 
-  <div class="logo">
-    krishhhh<span>.verse</span>
-  </div>
+    <div class="logo">
+        krishhhh<span>.verse</span>
+    </div>
 
-  <div class="subtitle">
-    Admin Access Only
-  </div>
+    <div class="subtitle">
+        Creator Control Center
+    </div>
 
-  <div class="error" id="errorMsg"></div>
+    <div
+        class="error"
+        id="errorMsg">
+    </div>
 
-  <form id="loginForm">
+    <form id="loginForm">
 
-    <label for="email">Admin Email</label>
+        <label for="email">
+            Admin Email
+        </label>
 
-    <input
-      type="email"
-      id="email"
-      placeholder="Enter admin email"
-      required
-    >
+        <div class="input-wrap">
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter admin email"
+                autocomplete="email"
+                required>
+        </div>
 
-    <label for="password">Password</label>
+        <label for="password">
+            Password
+        </label>
 
-    <input
-      type="password"
-      id="password"
-      placeholder="Enter password"
-      required
-    >
+        <div class="input-wrap">
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter password"
+                autocomplete="current-password"
+                required>
+        </div>
 
-    <button type="submit" id="loginBtn">
-      Login to Dashboard →
-    </button>
+        <button
+            type="submit"
+            id="loginBtn">
+            Enter Dashboard →
+        </button>
 
-  </form>
+    </form>
 
-  <a href="index.html" class="back">
-    ← Back to website
-  </a>
+    <a
+        href="index.html"
+        class="back">
+        ← Back to website
+    </a>
+
+    <div class="status">
+        <span></span>
+        Secure Admin Access
+    </div>
 
 </div>
 
@@ -205,31 +343,34 @@ const SUPABASE_KEY =
 
 const supabaseClient =
 window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
 
 
-/* CHECK LOGIN */
+/* CHECK EXISTING SESSION */
 
 async function checkLogin(){
 
-  const {
-    data,
-    error
-  } = await supabaseClient.auth.getSession();
+    const {
+        data,
+        error
+    } =
+    await supabaseClient.auth.getSession();
 
-  if(error){
-    console.error(error);
-    return;
-  }
+    if(error){
 
-  if(data.session){
+        console.error(error);
+        return;
 
-    window.location.href =
-      "admin.html";
+    }
 
-  }
+    if(data.session){
+
+        window.location.href =
+            "admin.html";
+
+    }
 
 }
 
@@ -241,81 +382,89 @@ checkLogin();
 document
 .getElementById("loginForm")
 .addEventListener(
-  "submit",
-  async function(e){
+    "submit",
+    async function(e){
 
-    e.preventDefault();
+        e.preventDefault();
 
-    const email =
-      document
-      .getElementById("email")
-      .value
-      .trim();
+        const email =
+            document
+            .getElementById("email")
+            .value
+            .trim();
 
-    const password =
-      document
-      .getElementById("password")
-      .value;
+        const password =
+            document
+            .getElementById("password")
+            .value;
 
-    const button =
-      document
-      .getElementById("loginBtn");
+        const button =
+            document
+            .getElementById("loginBtn");
 
-    const error =
-      document
-      .getElementById("errorMsg");
-
-    error.style.display =
-      "none";
-
-    button.disabled =
-      true;
-
-    button.textContent =
-      "Logging in...";
+        const error =
+            document
+            .getElementById("errorMsg");
 
 
-    const {
-      data,
-      error:loginError
-    } =
-    await supabaseClient.auth
-      .signInWithPassword({
-        email:email,
-        password:password
-      });
+        error.style.display =
+            "none";
+
+        button.disabled =
+            true;
+
+        button.textContent =
+            "Authenticating...";
 
 
-    if(loginError){
+        const {
+            data,
+            error:loginError
+        } =
+        await supabaseClient.auth
+        .signInWithPassword({
+            email:email,
+            password:password
+        });
 
-      console.error(loginError);
 
-      error.textContent =
-        loginError.message ||
-        "Incorrect email or password.";
+        if(loginError){
 
-      error.style.display =
-        "block";
+            console.error(loginError);
 
-      button.disabled =
-        false;
+            error.textContent =
+                loginError.message ||
+                "Incorrect email or password.";
 
-      button.textContent =
-        "Login to Dashboard →";
+            error.style.display =
+                "block";
 
-      return;
+            button.disabled =
+                false;
+
+            button.textContent =
+                "Enter Dashboard →";
+
+            return;
+
+        }
+
+
+        if(data.session){
+
+            button.textContent =
+                "Access Granted ✓";
+
+            setTimeout(()=>{
+
+                window.location.href =
+                    "admin.html";
+
+            },300);
+
+        }
 
     }
-
-
-    if(data.session){
-
-      window.location.href =
-        "admin.html";
-
-    }
-
-  }
 );
 
 </script>
