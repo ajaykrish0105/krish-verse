@@ -1,1143 +1,2207 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Admin Dashboard — krishhhh.verse</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-:root{
-  --bg:#f7f7f5;
-  --white:#fff;
-  --surface:#fff;
-  --surface2:#fafaf8;
-  --border:#e8e8e3;
-  --text:#171717;
-  --muted:#777770;
-  --gold:#b28a32;
-  --gold-light:#f6f1e4;
-  --danger:#c94b4b;
-  --shadow:0 10px 35px rgba(0,0,0,.05);
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Inter',sans-serif;
-  min-height:100vh;
-}
-
-/* SIDEBAR */
-
-.sidebar{
-  position:fixed;
-  left:0;
-  top:0;
-  bottom:0;
-  width:245px;
-  background:var(--white);
-  border-right:1px solid var(--border);
-  padding:28px 0;
-  display:flex;
-  flex-direction:column;
-  z-index:50;
-}
-
-.logo{
-  padding:0 25px 28px;
-  border-bottom:1px solid var(--border);
-  font-family:'Syne',sans-serif;
-  font-size:20px;
-  font-weight:800;
-}
-
-.logo span{
-  color:var(--gold);
-}
-
-.badge{
-  display:block;
-  color:var(--muted);
-  font-family:'Inter',sans-serif;
-  font-size:10px;
-  font-weight:500;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  margin-top:5px;
-}
-
-.nav{
-  margin-top:15px;
-}
-
-.nav-item{
-  margin:4px 12px;
-  padding:13px 14px;
-  border-radius:8px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  color:var(--muted);
-  font-size:14px;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.nav-item:hover{
-  background:#f7f7f4;
-  color:var(--text);
-}
-
-.nav-item.active{
-  background:var(--gold-light);
-  color:#80621d;
-  font-weight:600;
-}
-
-.icon{
-  width:22px;
-  text-align:center;
-}
-
-.sidebar-bottom{
-  margin-top:auto;
-  padding:20px 18px;
-  border-top:1px solid var(--border);
-}
-
-.logout{
-  width:100%;
-  height:42px;
-  border:1px solid var(--border);
-  background:white;
-  border-radius:8px;
-  color:var(--muted);
-  cursor:pointer;
-}
-
-.logout:hover{
-  color:var(--danger);
-  border-color:#e9baba;
-}
-
-/* MAIN */
-
-.main{
-  margin-left:245px;
-  padding:42px;
-  min-height:100vh;
-}
-
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
-
-.header{
-  margin-bottom:30px;
-}
-
-.header h1{
-  font-family:'Syne',sans-serif;
-  font-size:32px;
-  font-weight:800;
-  letter-spacing:-.04em;
-}
-
-.header p{
-  color:var(--muted);
-  margin-top:5px;
-  font-size:14px;
-}
-
-/* STATS */
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-  margin-bottom:28px;
-}
-
-.stat{
-  background:var(--white);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:25px;
-  box-shadow:var(--shadow);
-}
-
-.stat-number{
-  font-family:'Syne',sans-serif;
-  font-size:34px;
-  font-weight:800;
-}
-
-.stat-label{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:5px;
-}
-
-/* CARD */
-
-.card{
-  background:var(--white);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:27px;
-  box-shadow:var(--shadow);
-  margin-bottom:22px;
-}
-
-.card h2{
-  font-family:'Syne',sans-serif;
-  font-size:18px;
-  margin-bottom:20px;
-}
-
-/* FORM */
-
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:17px;
-}
-
-.field.full{
-  grid-column:1/-1;
-}
-
-label{
-  display:block;
-  color:#595953;
-  font-size:12px;
-  font-weight:600;
-  margin-bottom:7px;
-}
-
-input,
-select{
-  width:100%;
-  height:45px;
-  padding:0 13px;
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:8px;
-  color:var(--text);
-  font-family:'Inter',sans-serif;
-  outline:none;
-}
-
-input:focus,
-select:focus{
-  border-color:var(--gold);
-  box-shadow:0 0 0 3px rgba(178,138,50,.08);
-}
-
-.btn{
-  height:45px;
-  padding:0 22px;
-  background:var(--gold);
-  color:white;
-  border:0;
-  border-radius:8px;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.btn:hover{
-  background:#967326;
-}
-
-.alert{
-  display:none;
-  padding:12px;
-  border-radius:8px;
-  background:#f0f8f0;
-  border:1px solid #cde5cd;
-  color:#417041;
-  margin-bottom:18px;
-  font-size:13px;
-}
-
-/* PORTFOLIO */
-
-.portfolio-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
-  gap:15px;
-}
-
-.portfolio-item{
-  position:relative;
-  border:1px solid var(--border);
-  border-radius:10px;
-  overflow:hidden;
-  background:var(--surface2);
-}
-
-.thumb{
-  width:100%;
-  aspect-ratio:16/9;
-  object-fit:cover;
-  display:block;
-  background:#eee;
-}
-
-.item-info{
-  padding:13px;
-}
-
-.item-title{
-  font-weight:600;
-  font-size:13px;
-}
-
-.item-type{
-  color:var(--gold);
-  font-size:10px;
-  text-transform:uppercase;
-  margin-top:4px;
-  letter-spacing:.08em;
-}
-
-.delete{
-  position:absolute;
-  top:8px;
-  right:8px;
-  border:0;
-  background:rgba(255,255,255,.94);
-  color:var(--danger);
-  border-radius:6px;
-  padding:6px 9px;
-  cursor:pointer;
-  box-shadow:0 2px 8px rgba(0,0,0,.12);
-}
-
-/* TABLE */
-
-.table-wrap{
-  overflow-x:auto;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-th{
-  text-align:left;
-  padding:12px 14px;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.1em;
-  color:var(--muted);
-  border-bottom:1px solid var(--border);
-}
-
-td{
-  padding:14px;
-  font-size:13px;
-  border-bottom:1px solid var(--border);
-}
-
-tr:hover td{
-  background:#fafaf7;
-}
-
-.service{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:6px;
-  background:var(--gold-light);
-  color:#80621d;
-  font-size:10px;
-  font-weight:600;
-}
-
-.empty{
-  text-align:center;
-  padding:55px 20px;
-  color:var(--muted);
-}
-
-.empty-icon{
-  font-size:35px;
-  margin-bottom:10px;
-}
-
-/* MOBILE */
-
-@media(max-width:850px){
-
-  .sidebar{
-    width:70px;
-  }
-
-  .logo{
-    font-size:0;
-    padding:20px 0;
-    text-align:center;
-  }
-
-  .logo::before{
-    content:"K";
-    font-size:22px;
-  }
-
-  .badge,
-  .nav-item span:not(.icon),
-  .logout{
-    display:none;
-  }
-
-  .nav-item{
-    justify-content:center;
-    margin:5px;
-  }
-
-  .main{
-    margin-left:70px;
-    padding:25px 18px;
-  }
-
-  .stats{
-    grid-template-columns:1fr;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .field.full{
-    grid-column:auto;
-  }
-
-}
-
-</style>
+  <title>Admin Dashboard — krishhhh.verse</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cream: #f7f3ec;
+      --cream-dark: #eee7dc;
+      --white: #ffffff;
+
+      --brown: #2d2924;
+      --brown-light: #746c62;
+
+      --gold: #b18a45;
+      --gold-light: #d1b273;
+
+      --border: #ded6ca;
+      --card: #fffdf9;
+
+      --danger: #c75c5c;
+      --success: #5c8b67;
+
+      --shadow: rgba(45, 41, 36, 0.08);
+
+      --display: 'Playfair Display', serif;
+      --body: 'DM Sans', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+
+      background:
+        radial-gradient(
+          circle at 10% 10%,
+          rgba(177,138,69,0.07),
+          transparent 30%
+        ),
+        var(--cream);
+
+      color: var(--brown);
+      font-family: var(--body);
+    }
+
+
+    /* =========================
+       SIDEBAR
+    ========================= */
+
+    .sidebar {
+      position: fixed;
+
+      left: 0;
+      top: 0;
+      bottom: 0;
+
+      width: 250px;
+
+      background: rgba(255,255,255,0.92);
+
+      border-right: 1px solid var(--border);
+
+      display: flex;
+      flex-direction: column;
+
+      z-index: 100;
+
+      box-shadow: 5px 0 25px rgba(45,41,36,0.03);
+    }
+
+    .sidebar-top {
+      padding: 30px 24px 24px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-logo {
+      font-family: var(--display);
+
+      font-size: 1.45rem;
+      font-weight: 700;
+    }
+
+    .sidebar-logo span {
+      color: var(--gold);
+    }
+
+    .sidebar-badge {
+      display: block;
+
+      margin-top: 5px;
+
+      color: var(--brown-light);
+
+      font-size: 0.67rem;
+
+      letter-spacing: 0.14em;
+
+      text-transform: uppercase;
+    }
+
+    .admin-user {
+      margin-top: 18px;
+
+      padding: 11px 12px;
+
+      background: var(--cream);
+
+      border: 1px solid var(--border);
+
+      border-radius: 7px;
+    }
+
+    .admin-user-label {
+      color: var(--brown-light);
+
+      font-size: 0.62rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.08em;
+
+      margin-bottom: 4px;
+    }
+
+    .admin-user-email {
+      font-size: 0.75rem;
+
+      white-space: nowrap;
+
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+    }
+
+
+    /* NAV */
+
+    .nav {
+      padding: 18px 0;
+    }
+
+    .nav-item {
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      padding: 13px 24px;
+
+      color: var(--brown-light);
+
+      cursor: pointer;
+
+      border-left: 3px solid transparent;
+
+      font-size: 0.88rem;
+
+      transition: all 0.2s;
+    }
+
+    .nav-item:hover {
+      background: var(--cream);
+
+      color: var(--brown);
+    }
+
+    .nav-item.active {
+      background: var(--cream);
+
+      color: var(--brown);
+
+      border-left-color: var(--gold);
+
+      font-weight: 600;
+    }
+
+    .nav-icon {
+      width: 22px;
+
+      text-align: center;
+
+      font-size: 1.05rem;
+    }
+
+
+    .sidebar-bottom {
+      margin-top: auto;
+
+      padding: 18px 24px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .logout-btn {
+      width: 100%;
+
+      padding: 11px;
+
+      border: 1px solid var(--border);
+
+      background: white;
+
+      color: var(--brown-light);
+
+      border-radius: 7px;
+
+      cursor: pointer;
+
+      font-family: var(--body);
+
+      font-size: 0.8rem;
+
+      transition: all 0.2s;
+    }
+
+    .logout-btn:hover {
+      border-color: var(--danger);
+
+      color: var(--danger);
+
+      background: #fff7f7;
+    }
+
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .main {
+      margin-left: 250px;
+
+      min-height: 100vh;
+
+      padding: 42px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+
+    /* HEADER */
+
+    .page-header {
+      margin-bottom: 34px;
+    }
+
+    .page-header h1 {
+      font-family: var(--display);
+
+      font-size: clamp(2rem, 4vw, 2.8rem);
+
+      line-height: 1.1;
+
+      margin-bottom: 7px;
+    }
+
+    .page-header p {
+      color: var(--brown-light);
+
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================
+       STATS
+    ========================= */
+
+    .stats-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(190px, 1fr));
+
+      gap: 16px;
+
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.92);
+
+      border: 1px solid var(--border);
+
+      border-radius: 10px;
+
+      padding: 24px;
+
+      box-shadow: 0 8px 25px var(--shadow);
+    }
+
+    .stat-icon {
+      font-size: 1.25rem;
+
+      margin-bottom: 12px;
+    }
+
+    .stat-num {
+      font-family: var(--display);
+
+      font-size: 2.25rem;
+
+      color: var(--gold);
+
+      font-weight: 700;
+    }
+
+    .stat-label {
+      margin-top: 4px;
+
+      color: var(--brown-light);
+
+      font-size: 0.78rem;
+
+      letter-spacing: 0.03em;
+    }
+
+
+    /* =========================
+       CARDS
+    ========================= */
+
+    .card {
+      background: rgba(255,255,255,0.92);
+
+      border: 1px solid var(--border);
+
+      border-radius: 10px;
+
+      padding: 28px;
+
+      margin-bottom: 24px;
+
+      box-shadow: 0 8px 25px var(--shadow);
+    }
+
+    .card-title {
+      font-family: var(--display);
+
+      font-size: 1.25rem;
+
+      margin-bottom: 20px;
+    }
+
+
+    /* =========================
+       FORMS
+    ========================= */
+
+    .upload-form {
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 16px;
+    }
+
+    .form-row {
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 16px;
+    }
+
+    .field label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: var(--brown-light);
+
+      font-size: 0.7rem;
+
+      font-weight: 600;
+
+      letter-spacing: 0.09em;
+
+      text-transform: uppercase;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+
+      padding: 13px 14px;
+
+      background: white;
+
+      color: var(--brown);
+
+      border: 1px solid var(--border);
+
+      border-radius: 7px;
+
+      outline: none;
+
+      font-family: var(--body);
+
+      font-size: 0.88rem;
+
+      transition: all 0.2s;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--gold);
+
+      box-shadow:
+        0 0 0 3px rgba(177,138,69,0.08);
+    }
+
+    textarea {
+      min-height: 110px;
+
+      resize: vertical;
+    }
+
+    select option {
+      background: white;
+
+      color: var(--brown);
+    }
+
+
+    /* BUTTON */
+
+    .btn-gold {
+      background: var(--brown);
+
+      color: white;
+
+      border: none;
+
+      padding: 13px 24px;
+
+      border-radius: 7px;
+
+      cursor: pointer;
+
+      font-family: var(--body);
+
+      font-weight: 700;
+
+      font-size: 0.8rem;
+
+      letter-spacing: 0.05em;
+
+      text-transform: uppercase;
+
+      transition: all 0.2s;
+    }
+
+    .btn-gold:hover {
+      background: #49423a;
+
+      transform: translateY(-1px);
+    }
+
+
+    /* ALERT */
+
+    .alert {
+      display: none;
+
+      padding: 12px 15px;
+
+      margin-bottom: 18px;
+
+      border-radius: 7px;
+
+      font-size: 0.82rem;
+    }
+
+    .alert.success {
+      display: block;
+
+      background: #f1f8f2;
+
+      border: 1px solid #c9dfcd;
+
+      color: var(--success);
+    }
+
+
+    /* =========================
+       PORTFOLIO
+    ========================= */
+
+    .portfolio-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fill, minmax(230px, 1fr));
+
+      gap: 16px;
+    }
+
+    .portfolio-item {
+      position: relative;
+
+      overflow: hidden;
+
+      background: white;
+
+      border: 1px solid var(--border);
+
+      border-radius: 9px;
+    }
+
+    .portfolio-thumb {
+      width: 100%;
+
+      aspect-ratio: 16 / 9;
+
+      object-fit: cover;
+
+      display: block;
+
+      background: var(--cream);
+    }
+
+    .portfolio-placeholder {
+      width: 100%;
+
+      aspect-ratio: 16 / 9;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      background: var(--cream);
+
+      font-size: 2.5rem;
+    }
+
+    .portfolio-info {
+      padding: 13px;
+    }
+
+    .portfolio-title {
+      font-size: 0.86rem;
+
+      font-weight: 600;
+
+      margin-bottom: 4px;
+    }
+
+    .portfolio-type {
+      color: var(--gold);
+
+      font-size: 0.68rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.08em;
+    }
+
+    .delete-btn {
+      position: absolute;
+
+      top: 8px;
+
+      right: 8px;
+
+      padding: 5px 9px;
+
+      background: rgba(255,255,255,0.94);
+
+      color: var(--danger);
+
+      border: 1px solid #ead0d0;
+
+      border-radius: 5px;
+
+      cursor: pointer;
+
+      font-size: 0.7rem;
+    }
+
+    .delete-btn:hover {
+      background: #fff1f1;
+    }
+
+
+    /* =========================
+       BOOKINGS
+    ========================= */
+
+    .table-wrapper {
+      width: 100%;
+
+      overflow-x: auto;
+    }
+
+    .bookings-table {
+      width: 100%;
+
+      min-width: 800px;
+
+      border-collapse: collapse;
+    }
+
+    .bookings-table th {
+      padding: 12px 14px;
+
+      text-align: left;
+
+      color: var(--brown-light);
+
+      font-size: 0.68rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.08em;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .bookings-table td {
+      padding: 14px;
+
+      border-bottom: 1px solid var(--border);
+
+      font-size: 0.82rem;
+
+      vertical-align: top;
+    }
+
+    .bookings-table tr:hover td {
+      background: #fffaf4;
+    }
+
+    .service-badge {
+      display: inline-block;
+
+      padding: 4px 9px;
+
+      background: var(--cream);
+
+      border: 1px solid var(--border);
+
+      border-radius: 5px;
+
+      color: var(--gold);
+
+      font-size: 0.68rem;
+
+      font-weight: 600;
+    }
+
+
+    /* =========================
+       EMPTY
+    ========================= */
+
+    .empty-state {
+      padding: 60px 20px;
+
+      text-align: center;
+
+      color: var(--brown-light);
+    }
+
+    .empty-icon {
+      font-size: 3rem;
+
+      margin-bottom: 12px;
+    }
+
+    .empty-state p {
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================
+       LOADING
+    ========================= */
+
+    .loading-screen {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 1000;
+
+      background: var(--cream);
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      flex-direction: column;
+    }
+
+    .loading-screen.hidden {
+      display: none;
+    }
+
+    .loading-logo {
+      font-family: var(--display);
+
+      font-size: 2rem;
+
+      font-weight: 700;
+    }
+
+    .loading-logo span {
+      color: var(--gold);
+    }
+
+    .loading-text {
+      margin-top: 10px;
+
+      color: var(--brown-light);
+
+      font-size: 0.8rem;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 800px) {
+
+      .sidebar {
+        width: 68px;
+      }
+
+      .sidebar-top {
+        padding: 20px 10px;
+      }
+
+      .sidebar-logo {
+        text-align: center;
+
+        font-size: 0.9rem;
+      }
+
+      .sidebar-badge,
+      .admin-user,
+      .nav-text {
+        display: none;
+      }
+
+      .nav-item {
+        justify-content: center;
+
+        padding: 15px 8px;
+      }
+
+      .sidebar-bottom {
+        padding: 12px 8px;
+      }
+
+      .logout-btn {
+        font-size: 0;
+
+        padding: 12px 5px;
+      }
+
+      .logout-btn::before {
+        content: "🚪";
+
+        font-size: 1rem;
+      }
+
+      .main {
+        margin-left: 68px;
+
+        padding: 25px 18px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
+
+  </style>
 </head>
+
 
 <body>
 
-<!-- SIDEBAR -->
+
+<!-- =========================
+     AUTH LOADING
+========================= -->
+
+<div class="loading-screen" id="loadingScreen">
+
+  <div class="loading-logo">
+    krishhhh<span>.verse</span>
+  </div>
+
+  <div class="loading-text">
+    Checking authentication...
+  </div>
+
+</div>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
 
 <aside class="sidebar">
 
-  <div class="logo">
-    krishhhh<span>.verse</span>
-    <span class="badge">Admin Panel</span>
+  <div class="sidebar-top">
+
+    <div class="sidebar-logo">
+      krishhhh<span>.verse</span>
+    </div>
+
+    <span class="sidebar-badge">
+      Admin Panel
+    </span>
+
+    <div class="admin-user">
+
+      <div class="admin-user-label">
+        Logged in as
+      </div>
+
+      <div
+        class="admin-user-email"
+        id="adminEmail"
+      >
+        Loading...
+      </div>
+
+    </div>
+
   </div>
 
-  <div class="nav">
 
-    <div class="nav-item active" onclick="showPage('dashboard',this)">
-      <span class="icon">📊</span>
-      <span>Dashboard</span>
+  <nav class="nav">
+
+    <div
+      class="nav-item active"
+      data-page="dashboard"
+      onclick="showPage('dashboard', this)"
+    >
+      <span class="nav-icon">📊</span>
+      <span class="nav-text">Dashboard</span>
     </div>
 
-    <div class="nav-item" onclick="showPage('portfolio',this)">
-      <span class="icon">🎬</span>
-      <span>Portfolio</span>
+
+    <div
+      class="nav-item"
+      data-page="portfolio"
+      onclick="showPage('portfolio', this)"
+    >
+      <span class="nav-icon">🎬</span>
+      <span class="nav-text">Portfolio</span>
     </div>
 
-    <div class="nav-item" onclick="showPage('bookings',this)">
-      <span class="icon">📋</span>
-      <span>Bookings</span>
+
+    <div
+      class="nav-item"
+      data-page="bookings"
+      onclick="showPage('bookings', this)"
+    >
+      <span class="nav-icon">📋</span>
+      <span class="nav-text">Bookings</span>
     </div>
 
-    <div class="nav-item" onclick="window.location.href='index.html'">
-      <span class="icon">🌐</span>
-      <span>View Website</span>
+
+    <div
+      class="nav-item"
+      onclick="window.open('index.html', '_blank')"
+    >
+      <span class="nav-icon">🌐</span>
+      <span class="nav-text">View Website</span>
     </div>
 
-  </div>
+  </nav>
+
 
   <div class="sidebar-bottom">
-    <button class="logout" onclick="logout()">
-      🚪 Logout
+
+    <button
+      class="logout-btn"
+      onclick="logout()"
+    >
+      Logout
     </button>
+
   </div>
 
 </aside>
 
 
+
+<!-- =========================
+     MAIN
+========================= -->
+
 <main class="main">
 
-<!-- DASHBOARD -->
 
-<section class="page active" id="page-dashboard">
+  <!-- =====================
+       DASHBOARD
+  ====================== -->
 
-  <div class="header">
-    <h1>Welcome back 👋</h1>
-    <p>Here's what's happening with your portfolio.</p>
-  </div>
+  <section
+    class="page active"
+    id="page-dashboard"
+  >
 
-  <div class="stats">
+    <div class="page-header">
 
-    <div class="stat">
-      <div class="stat-number" id="portfolioCount">0</div>
-      <div class="stat-label">Portfolio Projects</div>
+      <h1>
+        Welcome back 👋
+      </h1>
+
+      <p>
+        Here's your krishhhh.verse overview.
+      </p>
+
     </div>
 
-    <div class="stat">
-      <div class="stat-number" id="bookingCount">0</div>
-      <div class="stat-label">Total Bookings</div>
-    </div>
 
-    <div class="stat">
-      <div class="stat-number" id="newCount">0</div>
-      <div class="stat-label">New This Week</div>
-    </div>
-
-  </div>
-
-  <div class="card">
-
-    <h2>Recent Booking Requests</h2>
-
-    <div id="recentBookings"></div>
-
-  </div>
-
-</section>
+    <div class="stats-grid">
 
 
-<!-- PORTFOLIO -->
+      <div class="stat-card">
 
-<section class="page" id="page-portfolio">
+        <div class="stat-icon">
+          🎬
+        </div>
 
-  <div class="header">
-    <h1>Portfolio Manager</h1>
-    <p>Add and manage your projects.</p>
-  </div>
-
-  <div class="card">
-
-    <h2>Add New Project</h2>
-
-    <div class="alert" id="alert">
-      Project added successfully.
-    </div>
-
-    <div class="form-grid">
-
-      <div class="field">
-        <label>Project Title</label>
-        <input
-          id="title"
-          placeholder="Brand Film — XYZ"
+        <div
+          class="stat-num"
+          id="statPortfolio"
         >
-      </div>
+          0
+        </div>
 
-      <div class="field">
-        <label>Media Type</label>
-
-        <select id="type" onchange="updateHint()">
-          <option value="youtube">YouTube Video</option>
-          <option value="vimeo">Vimeo Video</option>
-          <option value="photo">Photo</option>
-        </select>
+        <div class="stat-label">
+          Portfolio Items
+        </div>
 
       </div>
 
-      <div class="field full">
 
-        <label>Media URL</label>
+      <div class="stat-card">
 
-        <input
-          id="url"
-          placeholder="https://youtube.com/watch?v=..."
+        <div class="stat-icon">
+          📋
+        </div>
+
+        <div
+          class="stat-num"
+          id="statBookings"
         >
+          0
+        </div>
+
+        <div class="stat-label">
+          Total Bookings
+        </div>
 
       </div>
 
-      <div class="field full">
 
-        <button class="btn" onclick="addPortfolio()">
-          Add Project →
-        </button>
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          ✨
+        </div>
+
+        <div
+          class="stat-num"
+          id="statNew"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          New This Week
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="card">
+
+      <h2 class="card-title">
+        Recent Booking Requests
+      </h2>
+
+      <div id="dashboardBookings"></div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================
+       PORTFOLIO
+  ====================== -->
+
+  <section
+    class="page"
+    id="page-portfolio"
+  >
+
+    <div class="page-header">
+
+      <h1>
+        Portfolio Manager
+      </h1>
+
+      <p>
+        Add YouTube, Vimeo or photo projects to your website.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2 class="card-title">
+        Add New Portfolio Item
+      </h2>
+
+
+      <div
+        class="alert"
+        id="addAlert"
+      >
+        ✓ Portfolio item added successfully.
+      </div>
+
+
+      <div class="upload-form">
+
+
+        <div class="form-row">
+
+
+          <div class="field">
+
+            <label>
+              Title
+            </label>
+
+            <input
+              id="pTitle"
+              type="text"
+              placeholder="e.g. Brand Video — Acme Co."
+            />
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              Type
+            </label>
+
+            <select
+              id="pType"
+              onchange="updateURLHint()"
+            >
+
+              <option value="youtube">
+                YouTube Video
+              </option>
+
+              <option value="vimeo">
+                Vimeo Video
+              </option>
+
+              <option value="photo">
+                Photo URL
+              </option>
+
+            </select>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            URL
+          </label>
+
+          <input
+            id="pUrl"
+            type="url"
+            placeholder="https://www.youtube.com/watch?v=..."
+          />
+
+          <small
+            id="urlHint"
+            style="
+              display:block;
+              margin-top:6px;
+              color:var(--brown-light);
+              font-size:0.72rem;
+            "
+          >
+            Paste a YouTube video link.
+          </small>
+
+        </div>
+
+
+        <div>
+
+          <button
+            class="btn-gold"
+            onclick="addPortfolioItem()"
+          >
+            Add to Portfolio →
+          </button>
+
+        </div>
+
 
       </div>
 
     </div>
 
-  </div>
 
 
-  <div class="card">
+    <div class="card">
 
-    <h2>
-      Your Projects
-      (<span id="projectTotal">0</span>)
-    </h2>
+      <h2 class="card-title">
+        Current Portfolio
+        (<span id="portfolioCount">0</span>)
+      </h2>
 
-    <div class="portfolio-grid" id="portfolioGrid"></div>
+      <div
+        class="portfolio-grid"
+        id="portfolioAdminGrid"
+      ></div>
 
-  </div>
+    </div>
 
-</section>
+  </section>
 
 
-<!-- BOOKINGS -->
 
-<section class="page" id="page-bookings">
+  <!-- =====================
+       BOOKINGS
+  ====================== -->
 
-  <div class="header">
+  <section
+    class="page"
+    id="page-bookings"
+  >
 
-    <h1>Booking Requests</h1>
+    <div class="page-header">
 
-    <p>
-      Manage all requests submitted through your website.
-    </p>
+      <h1>
+        Booking Requests
+      </h1>
 
-  </div>
+      <p>
+        All booking submissions from your website.
+      </p>
 
-  <div class="card">
+    </div>
 
-    <div class="table-wrap">
+
+    <div class="card">
 
       <div id="bookingsTable"></div>
 
     </div>
 
-  </div>
+  </section>
 
-</section>
 
 </main>
 
 
+
 <script>
 
-const SUPABASE_URL =
-  "https://idnaxcwiskgzyodrlhzi.supabase.co";
+  /* =====================================================
+     SUPABASE CONFIG
+  ===================================================== */
 
-const SUPABASE_KEY =
-  "sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC";
+  const SUPABASE_URL =
+    'https://idnaxcwiskgzyodrlhzi.supabase.co';
 
-const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+  const SUPABASE_KEY =
+    'sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC';
 
 
-/* AUTH */
-
-async function checkAuth(){
-
-  const {
-    data:{session}
-  } = await supabaseClient.auth.getSession();
-
-  if(!session){
-    window.location.href="admin-login.html";
-    return;
-  }
-
-  loadDashboard();
-
-}
-
-checkAuth();
-
-
-async function logout(){
-
-  await supabaseClient.auth.signOut();
-
-  window.location.href="admin-login.html";
-
-}
-
-
-/* NAVIGATION */
-
-function showPage(name,element){
-
-  document.querySelectorAll(".page")
-    .forEach(p=>p.classList.remove("active"));
-
-  document.querySelectorAll(".nav-item")
-    .forEach(n=>n.classList.remove("active"));
-
-  document.getElementById("page-"+name)
-    .classList.add("active");
-
-  element.classList.add("active");
-
-  if(name==="dashboard") loadDashboard();
-  if(name==="portfolio") loadPortfolio();
-  if(name==="bookings") loadBookings();
-
-}
-
-
-/* DASHBOARD */
-
-async function loadDashboard(){
-
-  const {data:portfolio} =
-    await supabaseClient
-      .from("portfolio")
-      .select("*")
-      .order("created_at",{ascending:false});
-
-  const {data:bookings} =
-    await supabaseClient
-      .from("bookings")
-      .select("*")
-      .order("created_at",{ascending:false});
-
-  const p = portfolio || [];
-  const b = bookings || [];
-
-  document.getElementById("portfolioCount")
-    .textContent=p.length;
-
-  document.getElementById("bookingCount")
-    .textContent=b.length;
-
-  const weekAgo =
-    new Date(Date.now()-7*24*60*60*1000);
-
-  const newBookings =
-    b.filter(x=>new Date(x.created_at)>weekAgo);
-
-  document.getElementById("newCount")
-    .textContent=newBookings.length;
-
-  renderRecentBookings(b.slice(0,5));
-
-}
-
-
-function renderRecentBookings(bookings){
-
-  const el =
-    document.getElementById("recentBookings");
-
-  if(!bookings.length){
-
-    el.innerHTML=`
-      <div class="empty">
-        <div class="empty-icon">📋</div>
-        <p>No booking requests yet.</p>
-      </div>
-    `;
-
-    return;
-  }
-
-  el.innerHTML=`
-
-    <div class="table-wrap">
-
-    <table>
-
-      <thead>
-
-        <tr>
-          <th>Name</th>
-          <th>Service</th>
-          <th>Date</th>
-          <th>Contact</th>
-        </tr>
-
-      </thead>
-
-      <tbody>
-
-      ${bookings.map(b=>`
-
-        <tr>
-
-          <td>
-            <strong>${escapeHTML(b.name)}</strong>
-          </td>
-
-          <td>
-            <span class="service">
-              ${escapeHTML(b.service)}
-            </span>
-          </td>
-
-          <td>
-            ${b.preferred_date || "-"}
-          </td>
-
-          <td>
-            ${escapeHTML(b.phone)}
-            <br>
-            <small>${escapeHTML(b.email)}</small>
-          </td>
-
-        </tr>
-
-      `).join("")}
-
-      </tbody>
-
-    </table>
-
-    </div>
-
-  `;
-
-}
-
-
-/* PORTFOLIO */
-
-function updateHint(){
-
-  const type =
-    document.getElementById("type").value;
-
-  const url =
-    document.getElementById("url");
-
-  if(type==="youtube")
-    url.placeholder="https://youtube.com/watch?v=...";
-
-  if(type==="vimeo")
-    url.placeholder="https://vimeo.com/123456789";
-
-  if(type==="photo")
-    url.placeholder="https://example.com/image.jpg";
-
-}
-
-
-async function addPortfolio(){
-
-  const title =
-    document.getElementById("title")
-      .value.trim();
-
-  const type =
-    document.getElementById("type").value;
-
-  const url =
-    document.getElementById("url")
-      .value.trim();
-
-  if(!title || !url){
-
-    alert("Please fill in title and URL.");
-
-    return;
-
-  }
-
-  const {error} =
-    await supabaseClient
-      .from("portfolio")
-      .insert({
-        title,
-        type,
-        url
-      });
-
-  if(error){
-
-    alert(error.message);
-
-    return;
-
-  }
-
-  document.getElementById("title").value="";
-  document.getElementById("url").value="";
-
-  document.getElementById("alert")
-    .style.display="block";
-
-  setTimeout(()=>{
-    document.getElementById("alert")
-      .style.display="none";
-  },3000);
-
-  loadPortfolio();
-  loadDashboard();
-
-}
-
-
-function extractYoutubeID(url){
-
-  const match =
-    url.match(
-      /(?:v=|youtu\.be\/|embed\/)([^&\n?#]+)/
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
     );
 
-  return match ? match[1] : null;
 
-}
+  /* =====================================================
+     AUTHENTICATION
+  ===================================================== */
+
+  async function checkAuth() {
+
+    try {
+
+      const {
+        data: { session },
+        error
+      } = await supabaseClient.auth.getSession();
 
 
-async function loadPortfolio(){
+      if (error) {
 
-  const {data,error} =
-    await supabaseClient
-      .from("portfolio")
-      .select("*")
-      .order("created_at",{ascending:false});
+        console.error(
+          'Auth error:',
+          error
+        );
 
-  if(error){
+        window.location.href =
+          'admin-login.html';
 
-    console.error(error);
-    return;
+        return;
 
-  }
+      }
 
-  const items=data || [];
 
-  document.getElementById("projectTotal")
-    .textContent=items.length;
+      if (!session) {
 
-  const grid =
-    document.getElementById("portfolioGrid");
+        window.location.href =
+          'admin-login.html';
 
-  if(!items.length){
+        return;
 
-    grid.innerHTML=`
-      <div class="empty" style="grid-column:1/-1">
-        <div class="empty-icon">🎬</div>
-        <p>No projects added yet.</p>
-      </div>
-    `;
+      }
 
-    return;
 
-  }
+      // Show admin email
+      const emailElement =
+        document.getElementById('adminEmail');
 
-  grid.innerHTML=items.map(item=>{
+      if (emailElement) {
 
-    let media="";
+        emailElement.textContent =
+          session.user.email;
 
-    if(item.type==="youtube"){
+      }
 
-      const id=extractYoutubeID(item.url);
 
-      media=id
-        ? `<img class="thumb"
-             src="https://img.youtube.com/vi/${id}/hqdefault.jpg"
-             alt="">`
-        : `<div class="thumb"></div>`;
+      // Hide loading screen
+      document
+        .getElementById('loadingScreen')
+        .classList.add('hidden');
 
-    }else if(item.type==="photo"){
 
-      media=`
-        <img
-          class="thumb"
-          src="${escapeAttribute(item.url)}"
-          onerror="this.style.display='none'"
-          alt=""
-        >
-      `;
+      // Load dashboard
+      renderDashboard();
 
-    }else{
+    } catch (error) {
 
-      media=`
-        <div
-          class="thumb"
-          style="display:flex;align-items:center;justify-content:center;font-size:40px"
-        >
-          🎬
-        </div>
-      `;
+      console.error(error);
+
+      window.location.href =
+        'admin-login.html';
 
     }
 
-    return `
+  }
 
-      <div class="portfolio-item">
 
-        ${media}
+  /* =====================================================
+     AUTH STATE LISTENER
+  ===================================================== */
 
-        <button
-          class="delete"
-          onclick="deletePortfolio(${item.id})"
+  supabaseClient.auth.onAuthStateChange(
+    function(event, session) {
+
+      if (
+        event === 'SIGNED_OUT' ||
+        !session
+      ) {
+
+        window.location.href =
+          'admin-login.html';
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     LOGOUT
+  ===================================================== */
+
+  async function logout() {
+
+    const confirmLogout =
+      confirm(
+        'Are you sure you want to logout?'
+      );
+
+    if (!confirmLogout) {
+      return;
+    }
+
+
+    const {
+      error
+    } =
+      await supabaseClient.auth.signOut();
+
+
+    if (error) {
+
+      alert(
+        'Logout failed. Please try again.'
+      );
+
+      console.error(error);
+
+      return;
+
+    }
+
+
+    window.location.href =
+      'admin-login.html';
+
+  }
+
+
+  /* =====================================================
+     NAVIGATION
+  ===================================================== */
+
+  function showPage(
+    name,
+    clickedElement
+  ) {
+
+    document
+      .querySelectorAll('.page')
+      .forEach(function(page) {
+
+        page.classList.remove('active');
+
+      });
+
+
+    document
+      .querySelectorAll('.nav-item')
+      .forEach(function(item) {
+
+        item.classList.remove('active');
+
+      });
+
+
+    const page =
+      document.getElementById(
+        'page-' + name
+      );
+
+
+    if (page) {
+      page.classList.add('active');
+    }
+
+
+    if (clickedElement) {
+      clickedElement.classList.add('active');
+    }
+
+
+    if (name === 'dashboard') {
+
+      renderDashboard();
+
+    }
+
+
+    if (name === 'portfolio') {
+
+      renderPortfolioAdmin();
+
+    }
+
+
+    if (name === 'bookings') {
+
+      renderBookings();
+
+    }
+
+  }
+
+
+  /* =====================================================
+     LOCAL DATA
+     
+     NOTE:
+     Portfolio and bookings are currently stored
+     in browser localStorage.
+     
+     Supabase authentication is now active.
+  ===================================================== */
+
+  function getPortfolio() {
+
+    try {
+
+      return JSON.parse(
+        localStorage.getItem(
+          'kv_portfolio'
+        ) || '[]'
+      );
+
+    } catch {
+
+      return [];
+
+    }
+
+  }
+
+
+  function savePortfolio(data) {
+
+    localStorage.setItem(
+      'kv_portfolio',
+      JSON.stringify(data)
+    );
+
+  }
+
+
+  function getBookings() {
+
+    try {
+
+      return JSON.parse(
+        localStorage.getItem(
+          'kv_bookings'
+        ) || '[]'
+      );
+
+    } catch {
+
+      return [];
+
+    }
+
+  }
+
+
+  /* =====================================================
+     DASHBOARD
+  ===================================================== */
+
+  function renderDashboard() {
+
+    const portfolio =
+      getPortfolio();
+
+    const bookings =
+      getBookings();
+
+
+    const now =
+      Date.now();
+
+    const weekAgo =
+      now -
+      (7 * 24 * 60 * 60 * 1000);
+
+
+    const newCount =
+      bookings.filter(function(booking) {
+
+        return booking.id > weekAgo;
+
+      }).length;
+
+
+    document.getElementById(
+      'statPortfolio'
+    ).textContent =
+      portfolio.length;
+
+
+    document.getElementById(
+      'statBookings'
+    ).textContent =
+      bookings.length;
+
+
+    document.getElementById(
+      'statNew'
+    ).textContent =
+      newCount;
+
+
+    const container =
+      document.getElementById(
+        'dashboardBookings'
+      );
+
+
+    if (!bookings.length) {
+
+      container.innerHTML = `
+        <div class="empty-state">
+
+          <div class="empty-icon">
+            📋
+          </div>
+
+          <p>
+            No booking requests yet.
+          </p>
+
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    const recent =
+      bookings.slice(0, 5);
+
+
+    container.innerHTML = `
+      <div class="table-wrapper">
+
+        <table class="bookings-table">
+
+          <thead>
+
+            <tr>
+              <th>Name</th>
+              <th>Service</th>
+              <th>Date</th>
+              <th>Contact</th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            ${recent.map(function(b) {
+
+              return `
+
+                <tr>
+
+                  <td>
+                    <strong>
+                      ${escapeHTML(b.name)}
+                    </strong>
+                  </td>
+
+                  <td>
+                    <span class="service-badge">
+                      ${escapeHTML(b.service)}
+                    </span>
+                  </td>
+
+                  <td>
+                    ${escapeHTML(b.date)}
+                  </td>
+
+                  <td>
+
+                    ${escapeHTML(b.phone)}
+
+                    <br>
+
+                    <span
+                      style="
+                        color:var(--brown-light);
+                        font-size:0.72rem;
+                      "
+                    >
+                      ${escapeHTML(b.email)}
+                    </span>
+
+                  </td>
+
+                </tr>
+
+              `;
+
+            }).join('')}
+
+          </tbody>
+
+        </table>
+
+      </div>
+    `;
+
+  }
+
+
+  /* =====================================================
+     URL HINT
+  ===================================================== */
+
+  function updateURLHint() {
+
+    const type =
+      document.getElementById(
+        'pType'
+      ).value;
+
+
+    const hints = {
+
+      youtube:
+        'Paste a YouTube video link.',
+
+      vimeo:
+        'Paste a Vimeo video link.',
+
+      photo:
+        'Paste a direct image URL.'
+
+    };
+
+
+    document.getElementById(
+      'urlHint'
+    ).textContent =
+      hints[type];
+
+  }
+
+
+  /* =====================================================
+     ADD PORTFOLIO
+  ===================================================== */
+
+  function addPortfolioItem() {
+
+    const title =
+      document.getElementById(
+        'pTitle'
+      ).value.trim();
+
+
+    const type =
+      document.getElementById(
+        'pType'
+      ).value;
+
+
+    const url =
+      document.getElementById(
+        'pUrl'
+      ).value.trim();
+
+
+    if (!title || !url) {
+
+      alert(
+        'Please fill in all fields.'
+      );
+
+      return;
+
+    }
+
+
+    const portfolio =
+      getPortfolio();
+
+
+    portfolio.unshift({
+
+      id: Date.now(),
+
+      title: title,
+
+      type: type,
+
+      url: url
+
+    });
+
+
+    savePortfolio(
+      portfolio
+    );
+
+
+    document.getElementById(
+      'pTitle'
+    ).value = '';
+
+
+    document.getElementById(
+      'pUrl'
+    ).value = '';
+
+
+    const alertBox =
+      document.getElementById(
+        'addAlert'
+      );
+
+
+    alertBox.classList.add(
+      'success'
+    );
+
+
+    setTimeout(function() {
+
+      alertBox.classList.remove(
+        'success'
+      );
+
+    }, 3000);
+
+
+    renderPortfolioAdmin();
+
+    renderDashboard();
+
+  }
+
+
+  /* =====================================================
+     DELETE PORTFOLIO
+  ===================================================== */
+
+  function deletePortfolioItem(id) {
+
+    const confirmDelete =
+      confirm(
+        'Remove this item from your portfolio?'
+      );
+
+
+    if (!confirmDelete) {
+      return;
+    }
+
+
+    const portfolio =
+      getPortfolio().filter(
+        function(item) {
+
+          return item.id !== id;
+
+        }
+      );
+
+
+    savePortfolio(
+      portfolio
+    );
+
+
+    renderPortfolioAdmin();
+
+    renderDashboard();
+
+  }
+
+
+  /* =====================================================
+     YOUTUBE ID
+  ===================================================== */
+
+  function extractYTId(url) {
+
+    const match =
+      url.match(
+        /(?:v=|youtu\.be\/|embed\/)([^&\n?#]+)/
+      );
+
+
+    return match
+      ? match[1]
+      : null;
+
+  }
+
+
+  /* =====================================================
+     PORTFOLIO RENDER
+  ===================================================== */
+
+  function renderPortfolioAdmin() {
+
+    const portfolio =
+      getPortfolio();
+
+
+    document.getElementById(
+      'portfolioCount'
+    ).textContent =
+      portfolio.length;
+
+
+    const grid =
+      document.getElementById(
+        'portfolioAdminGrid'
+      );
+
+
+    if (!portfolio.length) {
+
+      grid.innerHTML = `
+
+        <div
+          class="empty-state"
+          style="grid-column:1/-1"
         >
-          Remove
-        </button>
 
-        <div class="item-info">
-
-          <div class="item-title">
-            ${escapeHTML(item.title)}
+          <div class="empty-icon">
+            🎬
           </div>
 
-          <div class="item-type">
-            ${escapeHTML(item.type)}
-          </div>
+          <p>
+            No portfolio items yet.
+          </p>
 
         </div>
 
+      `;
+
+      return;
+
+    }
+
+
+    grid.innerHTML =
+      portfolio.map(function(item) {
+
+        let thumb = '';
+
+
+        if (
+          item.type === 'youtube'
+        ) {
+
+          const id =
+            extractYTId(
+              item.url
+            );
+
+
+          thumb =
+            id
+
+              ? `
+                <img
+                  class="portfolio-thumb"
+                  src="https://img.youtube.com/vi/${encodeURIComponent(id)}/hqdefault.jpg"
+                  alt="${escapeHTML(item.title)}"
+                >
+              `
+
+              : `
+                <div class="portfolio-placeholder">
+                  🎬
+                </div>
+              `;
+
+        }
+
+
+        else if (
+          item.type === 'vimeo'
+        ) {
+
+          thumb = `
+            <div class="portfolio-placeholder">
+              🎬
+            </div>
+          `;
+
+        }
+
+
+        else {
+
+          thumb = `
+
+            <img
+              class="portfolio-thumb"
+              src="${escapeHTML(item.url)}"
+              alt="${escapeHTML(item.title)}"
+              onerror="
+                this.outerHTML =
+                '<div class=\\'portfolio-placeholder\\'>🖼️</div>'
+              "
+            >
+
+          `;
+
+        }
+
+
+        return `
+
+          <div class="portfolio-item">
+
+            ${thumb}
+
+            <div class="portfolio-info">
+
+              <div class="portfolio-title">
+                ${escapeHTML(item.title)}
+              </div>
+
+              <div class="portfolio-type">
+                ${escapeHTML(item.type)}
+              </div>
+
+            </div>
+
+
+            <button
+              class="delete-btn"
+              onclick="deletePortfolioItem(${Number(item.id)})"
+            >
+              Remove
+            </button>
+
+          </div>
+
+        `;
+
+      }).join('');
+
+  }
+
+
+  /* =====================================================
+     BOOKINGS
+  ===================================================== */
+
+  function renderBookings() {
+
+    const bookings =
+      getBookings();
+
+
+    const container =
+      document.getElementById(
+        'bookingsTable'
+      );
+
+
+    if (!bookings.length) {
+
+      container.innerHTML = `
+
+        <div class="empty-state">
+
+          <div class="empty-icon">
+            📋
+          </div>
+
+          <p>
+            No booking requests yet.
+          </p>
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    container.innerHTML = `
+
+      <div class="table-wrapper">
+
+        <table class="bookings-table">
+
+          <thead>
+
+            <tr>
+
+              <th>Name</th>
+
+              <th>Service</th>
+
+              <th>Preferred Date</th>
+
+              <th>Contact</th>
+
+              <th>Message</th>
+
+              <th>Submitted</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            ${bookings.map(function(b) {
+
+              return `
+
+                <tr>
+
+                  <td>
+                    <strong>
+                      ${escapeHTML(b.name)}
+                    </strong>
+                  </td>
+
+
+                  <td>
+
+                    <span class="service-badge">
+                      ${escapeHTML(b.service)}
+                    </span>
+
+                  </td>
+
+
+                  <td>
+                    ${escapeHTML(b.date)}
+                  </td>
+
+
+                  <td>
+
+                    ${escapeHTML(b.phone)}
+
+                    <br>
+
+                    <span
+                      style="
+                        color:var(--brown-light);
+                        font-size:0.72rem;
+                      "
+                    >
+                      ${escapeHTML(b.email)}
+                    </span>
+
+                  </td>
+
+
+                  <td
+                    style="
+                      max-width:220px;
+                      color:var(--brown-light);
+                    "
+                  >
+                    ${escapeHTML(
+                      b.message || '—'
+                    )}
+                  </td>
+
+
+                  <td
+                    style="
+                      white-space:nowrap;
+                      color:var(--brown-light);
+                      font-size:0.72rem;
+                    "
+                  >
+                    ${escapeHTML(
+                      b.submittedAt || '—'
+                    )}
+                  </td>
+
+                </tr>
+
+              `;
+
+            }).join('')}
+
+          </tbody>
+
+        </table>
+
       </div>
 
     `;
 
-  }).join("");
-
-}
+  }
 
 
-async function deletePortfolio(id){
+  /* =====================================================
+     SECURITY HELPER
+  ===================================================== */
 
-  if(!confirm("Remove this project?"))
-    return;
+  function escapeHTML(value) {
 
-  const {error} =
-    await supabaseClient
-      .from("portfolio")
-      .delete()
-      .eq("id",id);
+    if (
+      value === null ||
+      value === undefined
+    ) {
 
-  if(error){
+      return '';
 
-    alert(error.message);
-    return;
+    }
+
+
+    return String(value)
+
+      .replace(
+        /&/g,
+        '&amp;'
+      )
+
+      .replace(
+        /</g,
+        '&lt;'
+      )
+
+      .replace(
+        />/g,
+        '&gt;'
+      )
+
+      .replace(
+        /"/g,
+        '&quot;'
+      )
+
+      .replace(
+        /'/g,
+        '&#039;'
+      );
 
   }
 
-  loadPortfolio();
-  loadDashboard();
 
-}
+  /* =====================================================
+     START
+  ===================================================== */
 
-
-/* BOOKINGS */
-
-async function loadBookings(){
-
-  const {data,error} =
-    await supabaseClient
-      .from("bookings")
-      .select("*")
-      .order("created_at",{ascending:false});
-
-  if(error){
-
-    console.error(error);
-    return;
-
-  }
-
-  const bookings=data || [];
-
-  const el =
-    document.getElementById("bookingsTable");
-
-  if(!bookings.length){
-
-    el.innerHTML=`
-      <div class="empty">
-        <div class="empty-icon">📋</div>
-        <p>No booking requests yet.</p>
-      </div>
-    `;
-
-    return;
-
-  }
-
-  el.innerHTML=`
-
-    <table>
-
-      <thead>
-
-        <tr>
-          <th>Name</th>
-          <th>Service</th>
-          <th>Date</th>
-          <th>Contact</th>
-          <th>Message</th>
-        </tr>
-
-      </thead>
-
-      <tbody>
-
-      ${bookings.map(b=>`
-
-        <tr>
-
-          <td>
-            <strong>${escapeHTML(b.name)}</strong>
-          </td>
-
-          <td>
-            <span class="service">
-              ${escapeHTML(b.service)}
-            </span>
-          </td>
-
-          <td>
-            ${b.preferred_date || "-"}
-          </td>
-
-          <td>
-            ${escapeHTML(b.phone)}
-            <br>
-            <small>${escapeHTML(b.email)}</small>
-          </td>
-
-          <td>
-            ${escapeHTML(b.message || "-")}
-          </td>
-
-        </tr>
-
-      `).join("")}
-
-      </tbody>
-
-    </table>
-
-  `;
-
-}
-
-
-/* SECURITY HELPERS */
-
-function escapeHTML(value){
-
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-function escapeAttribute(value){
-
-  return escapeHTML(value);
-
-}
+  checkAuth();
 
 </script>
 
