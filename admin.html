@@ -794,7 +794,7 @@ tr:hover td{
         </h1>
 
         <p>
-            Upload reels, videos, YouTube, Vimeo or photos.
+            Upload Instagram reels, videos, YouTube, Vimeo or photos.
         </p>
 
     </div>
@@ -840,6 +840,12 @@ tr:hover td{
                     id="type"
                     onchange="changeType()">
 
+                    <!-- NEW INSTAGRAM OPTION -->
+
+                    <option value="instagram">
+                        🎬 Instagram Reel
+                    </option>
+
                     <option value="video">
                         Uploaded Video
                     </option>
@@ -861,12 +867,14 @@ tr:hover td{
             </div>
 
 
+            <!-- PC UPLOAD -->
+
             <div
                 class="field full"
                 id="uploadField">
 
                 <label>
-                    Select Video
+                    Select Video From PC
                 </label>
 
                 <input
@@ -875,11 +883,13 @@ tr:hover td{
                     accept="video/mp4,video/webm,video/quicktime">
 
                 <div class="help">
-                    MP4 recommended · Maximum 50MB
+                    Instagram Reel / Video · MP4 recommended · Maximum 50MB
                 </div>
 
             </div>
 
+
+            <!-- URL -->
 
             <div
                 class="field full"
@@ -894,6 +904,10 @@ tr:hover td{
                     id="url"
                     type="url"
                     placeholder="https://...">
+
+                <div class="help">
+                    YouTube / Vimeo / Photo URL
+                </div>
 
             </div>
 
@@ -1140,7 +1154,15 @@ function changeType(){
         document.getElementById("urlField");
 
 
-    if(type==="video"){
+    /*
+       INSTAGRAM + UPLOADED VIDEO
+       = PC UPLOAD
+    */
+
+    if(
+        type==="instagram" ||
+        type==="video"
+    ){
 
         upload.style.display =
             "block";
@@ -1148,7 +1170,14 @@ function changeType(){
         url.style.display =
             "none";
 
-    }else{
+    }
+
+    /*
+       YOUTUBE + VIMEO + PHOTO
+       = URL
+    */
+
+    else{
 
         upload.style.display =
             "none";
@@ -1227,10 +1256,22 @@ async function addPortfolio(){
     }
 
 
-    if(type==="video" && !file){
+    /*
+       INSTAGRAM / VIDEO
+       MUST HAVE FILE
+    */
+
+    if(
+        (
+            type==="instagram" ||
+            type==="video"
+        )
+        &&
+        !file
+    ){
 
         showAlert(
-            "Please select a video file.",
+            "Please select a video file from your PC.",
             "error"
         );
 
@@ -1239,7 +1280,16 @@ async function addPortfolio(){
     }
 
 
-    if(type!=="video" && !url){
+    /*
+       YOUTUBE / VIMEO / PHOTO
+       MUST HAVE URL
+    */
+
+    if(
+        type!=="instagram" &&
+        type!=="video" &&
+        !url
+    ){
 
         showAlert(
             "Please enter a URL.",
@@ -1263,7 +1313,17 @@ async function addPortfolio(){
             url;
 
 
-        if(type==="video"){
+        /*
+         =================================================
+         INSTAGRAM + UPLOADED VIDEO
+         UPLOAD TO SUPABASE STORAGE
+         =================================================
+        */
+
+        if(
+            type==="instagram" ||
+            type==="video"
+        ){
 
             if(
                 file.size >
@@ -1277,11 +1337,44 @@ async function addPortfolio(){
             }
 
 
+            /*
+               CHECK VIDEO TYPE
+            */
+
+            const allowedTypes = [
+                "video/mp4",
+                "video/webm",
+                "video/quicktime"
+            ];
+
+
+            if(
+                !allowedTypes.includes(
+                    file.type
+                )
+            ){
+
+                throw new Error(
+                    "Please upload MP4, WebM or MOV video."
+                );
+
+            }
+
+
+            /*
+               FILE EXTENSION
+            */
+
             const extension =
                 file.name
                 .split(".")
-                .pop();
+                .pop()
+                .toLowerCase();
 
+
+            /*
+               UNIQUE FILE NAME
+            */
 
             const filename =
                 Date.now() +
@@ -1293,9 +1386,25 @@ async function addPortfolio(){
                 extension;
 
 
-            const path =
-                "videos/" + filename;
+            /*
+               INSTAGRAM VIDEOS GO HERE
+            */
 
+            const folder =
+                type==="instagram"
+                ? "instagram"
+                : "videos";
+
+
+            const path =
+                folder +
+                "/" +
+                filename;
+
+
+            /*
+               UPLOAD
+            */
 
             const {
                 error:uploadError
@@ -1308,15 +1417,22 @@ async function addPortfolio(){
                 file,
                 {
                     cacheControl:"3600",
-                    upsert:false
+                    upsert:false,
+                    contentType:file.type
                 }
             );
 
 
             if(uploadError){
+
                 throw uploadError;
+
             }
 
+
+            /*
+               GET PUBLIC URL
+            */
 
             const {
                 data:publicData
@@ -1333,41 +1449,69 @@ async function addPortfolio(){
         }
 
 
+        /*
+         =================================================
+         SAVE TO DATABASE
+         =================================================
+        */
+
         const {
             error:dbError
         } =
         await supabaseClient
         .from("portfolio")
         .insert({
+
             title:title,
+
             type:type,
+
             url:finalURL
+
         });
 
 
         if(dbError){
+
             throw dbError;
+
         }
 
 
+        /*
+         SUCCESS
+        */
+
         showAlert(
-            "✓ Portfolio item added!",
+            type==="instagram"
+            ? "✓ Instagram Reel uploaded successfully!"
+            : "✓ Portfolio item added!",
             "success"
         );
 
+
+        /*
+         CLEAR FORM
+        */
 
         document.getElementById(
             "title"
         ).value="";
 
+
         document.getElementById(
             "url"
         ).value="";
+
 
         document.getElementById(
             "videoFile"
         ).value="";
 
+
+        /*
+         RELOAD
+        */
 
         await loadPortfolio();
 
@@ -1381,8 +1525,10 @@ async function addPortfolio(){
 
         showAlert(
             "✕ " +
-            (error.message ||
-            "Something went wrong."),
+            (
+                error.message ||
+                "Something went wrong."
+            ),
             "error"
         );
 
@@ -1473,7 +1619,15 @@ async function loadPortfolio(){
         let media="";
 
 
-        if(item.type==="video"){
+        /*
+         =================================================
+         INSTAGRAM REEL
+         =================================================
+        */
+
+        if(
+            item.type==="instagram"
+        ){
 
             media=`
 
@@ -1491,13 +1645,52 @@ async function loadPortfolio(){
 
         }
 
-        else if(item.type==="youtube"){
+
+        /*
+         =================================================
+         NORMAL UPLOADED VIDEO
+         =================================================
+        */
+
+        else if(
+            item.type==="video"
+        ){
+
+            media=`
+
+                <video
+                    muted
+                    autoplay
+                    loop
+                    playsinline
+                    preload="metadata"
+                    src="${escapeAttr(item.url)}"
+                    onclick="openViewer('${escapeAttr(item.url)}')">
+                </video>
+
+            `;
+
+        }
+
+
+        /*
+         =================================================
+         YOUTUBE
+         =================================================
+        */
+
+        else if(
+            item.type==="youtube"
+        ){
 
             const id =
-                extractYouTubeId(item.url);
+                extractYouTubeId(
+                    item.url
+                );
 
 
-            media = id
+            media =
+            id
             ? `
 
                 <iframe
@@ -1507,7 +1700,8 @@ async function loadPortfolio(){
                 </iframe>
 
             `
-            : `
+            :
+            `
 
                 <div class="placeholder">
                     ▶
@@ -1517,13 +1711,25 @@ async function loadPortfolio(){
 
         }
 
-        else if(item.type==="vimeo"){
+
+        /*
+         =================================================
+         VIMEO
+         =================================================
+        */
+
+        else if(
+            item.type==="vimeo"
+        ){
 
             const id =
-                extractVimeoId(item.url);
+                extractVimeoId(
+                    item.url
+                );
 
 
-            media = id
+            media =
+            id
             ? `
 
                 <iframe
@@ -1533,7 +1739,8 @@ async function loadPortfolio(){
                 </iframe>
 
             `
-            : `
+            :
+            `
 
                 <div class="placeholder">
                     🎬
@@ -1543,7 +1750,16 @@ async function loadPortfolio(){
 
         }
 
-        else if(item.type==="photo"){
+
+        /*
+         =================================================
+         PHOTO
+         =================================================
+        */
+
+        else if(
+            item.type==="photo"
+        ){
 
             media=`
 
@@ -1556,6 +1772,12 @@ async function loadPortfolio(){
         }
 
 
+        /*
+         =================================================
+         CARD
+         =================================================
+        */
+
         div.innerHTML=`
 
             <button
@@ -1565,17 +1787,27 @@ async function loadPortfolio(){
             </button>
 
             <div class="item-media">
+
                 ${media}
+
             </div>
 
             <div class="item-info">
 
                 <div class="item-title">
+
                     ${escapeHTML(item.title)}
+
                 </div>
 
                 <div class="item-type">
-                    ${escapeHTML(item.type)}
+
+                    ${
+                        item.type==="instagram"
+                        ? "Instagram Reel"
+                        : escapeHTML(item.type)
+                    }
+
                 </div>
 
             </div>
@@ -1584,7 +1816,9 @@ async function loadPortfolio(){
 
 
         const deleteButton =
-            div.querySelector(".delete");
+            div.querySelector(
+                ".delete"
+            );
 
 
         deleteButton.addEventListener(
@@ -1675,6 +1909,7 @@ function openViewer(url){
         "active"
     );
 
+
     video.play()
     .catch(()=>{});
 
@@ -1710,7 +1945,9 @@ function closeViewer(){
 
 
 document
-.getElementById("videoViewer")
+.getElementById(
+    "videoViewer"
+)
 .addEventListener(
     "click",
     function(e){
@@ -1718,7 +1955,9 @@ document
         if(
             e.target === this
         ){
+
             closeViewer();
+
         }
 
     }
@@ -1729,8 +1968,12 @@ document.addEventListener(
     "keydown",
     function(e){
 
-        if(e.key==="Escape"){
+        if(
+            e.key==="Escape"
+        ){
+
             closeViewer();
+
         }
 
     }
@@ -1752,38 +1995,61 @@ async function deletePortfolio(
             "Remove this portfolio item?"
         )
     ){
+
         return;
+
     }
 
 
     try{
 
-        if(type==="video"){
+        /*
+         =================================================
+         REMOVE FILE FROM STORAGE
+         =================================================
+        */
+
+        if(
+            type==="video" ||
+            type==="instagram"
+        ){
 
             const marker =
                 "/storage/v1/object/public/portfolio/";
+
 
             const index =
                 url.indexOf(marker);
 
 
-            if(index!==-1){
+            if(
+                index!==-1
+            ){
 
                 const path =
                     url.substring(
-                        index + marker.length
+                        index +
+                        marker.length
                     );
 
 
                 await supabaseClient
                 .storage
                 .from("portfolio")
-                .remove([path]);
+                .remove([
+                    path
+                ]);
 
             }
 
         }
 
+
+        /*
+         =================================================
+         DELETE DATABASE ROW
+         =================================================
+        */
 
         const {
             error
@@ -1791,11 +2057,16 @@ async function deletePortfolio(
         await supabaseClient
         .from("portfolio")
         .delete()
-        .eq("id",id);
+        .eq(
+            "id",
+            id
+        );
 
 
         if(error){
+
             throw error;
+
         }
 
 
@@ -1859,7 +2130,9 @@ async function loadBookings(){
 
                 ✕ Unable to load bookings.<br><br>
 
-                ${escapeHTML(error.message)}
+                ${escapeHTML(
+                    error.message
+                )}
 
             </div>
 
@@ -1870,7 +2143,10 @@ async function loadBookings(){
     }
 
 
-    if(!data || !data.length){
+    if(
+        !data ||
+        !data.length
+    ){
 
         table.innerHTML =
             `
@@ -1909,7 +2185,8 @@ async function loadBookings(){
 
             <tbody>
 
-                ${data.map(b=>`
+                ${data.map(
+                    b=>`
 
                     <tr>
 
@@ -1943,7 +2220,8 @@ async function loadBookings(){
 
                     </tr>
 
-                `).join("")}
+                `
+                ).join("")}
 
             </tbody>
 
@@ -1976,7 +2254,9 @@ async function loadDashboard(){
         );
 
 
-    if(portfolioResult.error){
+    if(
+        portfolioResult.error
+    ){
 
         console.error(
             "Portfolio:",
@@ -1986,12 +2266,15 @@ async function loadDashboard(){
     }
 
 
-    if(bookingsResult.error){
+    if(
+        bookingsResult.error
+    ){
 
         console.error(
             "Bookings:",
             bookingsResult.error
         );
+
 
         document.getElementById(
             "bookingCountDash"
@@ -2002,11 +2285,13 @@ async function loadDashboard(){
 
 
     const portfolioData =
-        portfolioResult.data || [];
+        portfolioResult.data ||
+        [];
 
 
     const bookingData =
-        bookingsResult.data || [];
+        bookingsResult.data ||
+        [];
 
 
     document.getElementById(
@@ -2023,24 +2308,36 @@ async function loadDashboard(){
 
     const week =
         Date.now() -
-        7 * 24 * 60 * 60 * 1000;
+        7 *
+        24 *
+        60 *
+        60 *
+        1000;
 
 
     const newBookings =
-        bookingData.filter(b=>{
+        bookingData.filter(
+            b=>{
 
-            if(!b.created_at){
-                return false;
+                if(
+                    !b.created_at
+                ){
+
+                    return false;
+
+                }
+
+
+                return (
+                    new Date(
+                        b.created_at
+                    ).getTime()
+                    >
+                    week
+                );
+
             }
-
-            return (
-                new Date(
-                    b.created_at
-                ).getTime()
-                > week
-            );
-
-        });
+        );
 
 
     document.getElementById(
@@ -2055,13 +2352,17 @@ async function loadDashboard(){
         );
 
 
-    if(!bookingData.length){
+    if(
+        !bookingData.length
+    ){
 
         recent.innerHTML =
             `
 
             <div class="loading">
+
                 No bookings yet.
+
             </div>
 
             `;
@@ -2094,7 +2395,8 @@ async function loadDashboard(){
 
                     ${bookingData
                     .slice(0,5)
-                    .map(b=>`
+                    .map(
+                        b=>`
 
                         <tr>
 
@@ -2120,7 +2422,9 @@ async function loadDashboard(){
 
                         </tr>
 
-                    `).join("")}
+                    `
+                    )
+                    .join("")}
 
                 </tbody>
 
@@ -2183,11 +2487,20 @@ function escapeAttr(value){
         await checkAuth();
 
 
-    if(authenticated){
+    if(
+        authenticated
+    ){
 
         await loadDashboard();
 
         await loadPortfolio();
+
+        /*
+           MAKE INSTAGRAM
+           THE DEFAULT OPTION
+        */
+
+        changeType();
 
     }
 
