@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Admin Panel — krishhhh.verse</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -224,7 +228,7 @@ select:focus{
   border-color:var(--gold);
 }
 
-input[type="file"]{
+input[type=file]{
   background:#fff;
   padding:12px;
 }
@@ -375,8 +379,6 @@ td{
   font-size:13px;
 }
 
-/* LOADING */
-
 .loading{
   padding:50px;
   text-align:center;
@@ -436,12 +438,11 @@ td{
   }
 
 }
+
 </style>
 </head>
 
 <body>
-
-<!-- SIDEBAR -->
 
 <aside class="sidebar">
 
@@ -484,35 +485,78 @@ td{
 <section id="dashboard" class="page active">
 
   <div class="header">
+
     <h1>Dashboard</h1>
-    <p>Welcome back to krishhhh.verse</p>
+
+    <p>
+      Welcome back to krishhhh.verse
+    </p>
+
   </div>
+
 
   <div class="stats">
 
     <div class="stat">
-      <div class="stat-number" id="portfolioCountDash">0</div>
-      <div class="stat-title">Portfolio Items</div>
+
+      <div
+        class="stat-number"
+        id="portfolioCountDash"
+      >
+        0
+      </div>
+
+      <div class="stat-title">
+        Portfolio Items
+      </div>
+
     </div>
 
-    <div class="stat">
-      <div class="stat-number" id="bookingCountDash">0</div>
-      <div class="stat-title">Bookings</div>
-    </div>
 
     <div class="stat">
-      <div class="stat-number" id="newCountDash">0</div>
-      <div class="stat-title">New This Week</div>
+
+      <div
+        class="stat-number"
+        id="bookingCountDash"
+      >
+        0
+      </div>
+
+      <div class="stat-title">
+        Bookings
+      </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div
+        class="stat-number"
+        id="newCountDash"
+      >
+        0
+      </div>
+
+      <div class="stat-title">
+        New This Week
+      </div>
+
     </div>
 
   </div>
 
+
   <div class="card">
 
-    <h2>Recent Bookings</h2>
+    <h2>
+      Recent Bookings
+    </h2>
 
     <div id="recentBookings">
-      <div class="loading">Loading...</div>
+      <div class="loading">
+        Loading...
+      </div>
     </div>
 
   </div>
@@ -526,7 +570,9 @@ td{
 
   <div class="header">
 
-    <h1>Portfolio Manager</h1>
+    <h1>
+      Portfolio Manager
+    </h1>
 
     <p>
       Upload videos and add YouTube, Vimeo or image links.
@@ -534,11 +580,15 @@ td{
 
   </div>
 
+
   <div class="card">
 
-    <h2>Add New Portfolio Item</h2>
+    <h2>
+      Add New Portfolio Item
+    </h2>
 
     <div id="alert" class="alert"></div>
+
 
     <div class="form-grid">
 
@@ -559,7 +609,10 @@ td{
 
         <label>Type</label>
 
-        <select id="type" onchange="changeType()">
+        <select
+          id="type"
+          onchange="changeType()"
+        >
 
           <option value="video">
             Uploaded Video
@@ -582,7 +635,10 @@ td{
       </div>
 
 
-      <div class="field full" id="uploadField">
+      <div
+        class="field full"
+        id="uploadField"
+      >
 
         <label>Select Video</label>
 
@@ -599,9 +655,15 @@ td{
       </div>
 
 
-      <div class="field full" id="urlField" style="display:none">
+      <div
+        class="field full"
+        id="urlField"
+        style="display:none"
+      >
 
-        <label>Video / Image URL</label>
+        <label>
+          Video / Image URL
+        </label>
 
         <input
           id="url"
@@ -648,13 +710,16 @@ td{
 
   <div class="header">
 
-    <h1>Booking Requests</h1>
+    <h1>
+      Booking Requests
+    </h1>
 
     <p>
       All booking submissions from your website
     </p>
 
   </div>
+
 
   <div class="card">
 
@@ -670,15 +735,11 @@ td{
 </main>
 
 
-<!-- SUPABASE -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
 
-/* =========================
-   SUPABASE CONFIG
-========================= */
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
 'https://idnaxcwiskgzyodrlhzi.supabase.co';
@@ -693,31 +754,27 @@ window.supabase.createClient(
 );
 
 
-/* =========================
-   VIEW SITE
-========================= */
+/* =====================================================
+   CUSTOMER WEBSITE URL
+===================================================== */
+
+const CUSTOMER_SITE_URL =
+'https://ajaykrish0105.github.io/website/';
+
 
 function viewSite(){
 
-  /*
-    GitHub Pages:
-    https://ajaykrish0105.github.io/web-admin/
-
-    If your customer website is in another repository,
-    change this URL.
-  */
-
   window.open(
-    'https://ajaykrish0105.github.io/web-admin/',
+    CUSTOMER_SITE_URL,
     '_blank'
   );
 
 }
 
 
-/* =========================
+/* =====================================================
    AUTH
-========================= */
+===================================================== */
 
 async function checkAuth(){
 
@@ -729,25 +786,13 @@ async function checkAuth(){
     } =
     await supabaseClient.auth.getSession();
 
-    if(error){
-
-      console.error(error);
+    if(error || !data?.session){
 
       window.location.href =
         'admin-login.html';
 
       return false;
-    }
 
-    const session =
-      data?.session;
-
-    if(!session){
-
-      window.location.href =
-        'admin-login.html';
-
-      return false;
     }
 
     return true;
@@ -766,21 +811,13 @@ async function checkAuth(){
 }
 
 
-/* =========================
+/* =====================================================
    LOGOUT
-========================= */
+===================================================== */
 
 async function logout(){
 
-  try{
-
-    await supabaseClient.auth.signOut();
-
-  }catch(error){
-
-    console.error(error);
-
-  }
+  await supabaseClient.auth.signOut();
 
   window.location.href =
     'admin-login.html';
@@ -788,9 +825,9 @@ async function logout(){
 }
 
 
-/* =========================
+/* =====================================================
    NAVIGATION
-========================= */
+===================================================== */
 
 function showPage(page,button){
 
@@ -804,16 +841,11 @@ function showPage(page,button){
       x.classList.remove('active');
     });
 
-  const target =
-    document.getElementById(page);
+  document
+    .getElementById(page)
+    ?.classList.add('active');
 
-  if(target){
-    target.classList.add('active');
-  }
-
-  if(button){
-    button.classList.add('active');
-  }
+  button?.classList.add('active');
 
   if(page==='dashboard'){
     loadDashboard();
@@ -830,84 +862,74 @@ function showPage(page,button){
 }
 
 
-/* =========================
-   TYPE CHANGE
-========================= */
+/* =====================================================
+   TYPE
+===================================================== */
 
 function changeType(){
 
   const type =
     document.getElementById('type').value;
 
-  const upload =
-    document.getElementById('uploadField');
+  document.getElementById(
+    'uploadField'
+  ).style.display =
+    type==='video'
+      ? 'block'
+      : 'none';
 
-  const url =
-    document.getElementById('urlField');
-
-  if(type==='video'){
-
-    upload.style.display='block';
-    url.style.display='none';
-
-  }else{
-
-    upload.style.display='none';
-    url.style.display='block';
-
-  }
+  document.getElementById(
+    'urlField'
+  ).style.display =
+    type==='video'
+      ? 'none'
+      : 'block';
 
 }
 
 
-/* =========================
+/* =====================================================
    ALERT
-========================= */
+===================================================== */
 
 function showAlert(message,type){
 
   const alert =
     document.getElementById('alert');
 
-  alert.textContent =
-    message;
+  alert.textContent=message;
 
-  alert.className =
+  alert.className=
     'alert '+type;
 
   setTimeout(()=>{
-
-    alert.className =
-      'alert';
-
+    alert.className='alert';
   },4000);
 
 }
 
 
-/* =========================
+/* =====================================================
    ADD PORTFOLIO
-========================= */
+===================================================== */
 
 async function addPortfolio(){
 
   const title =
     document.getElementById('title')
-    .value
-    .trim();
+      .value.trim();
 
   const type =
     document.getElementById('type')
-    .value;
+      .value;
 
   const file =
     document.getElementById('videoFile')
-    .files[0];
+      .files[0];
 
   const url =
     document.getElementById('url')
-    .value
-    .trim();
+      .value.trim();
 
   const btn =
     document.getElementById('addBtn');
@@ -921,6 +943,7 @@ async function addPortfolio(){
     );
 
     return;
+
   }
 
 
@@ -932,6 +955,7 @@ async function addPortfolio(){
     );
 
     return;
+
   }
 
 
@@ -943,28 +967,23 @@ async function addPortfolio(){
     );
 
     return;
+
   }
 
 
   btn.disabled=true;
 
-  btn.textContent =
-    'Uploading...';
+  btn.textContent='Uploading...';
 
 
   try{
 
-    let finalURL =
-      url;
+    let finalURL=url;
 
-
-    /* UPLOAD VIDEO */
 
     if(type==='video'){
 
-      if(file.size >
-        50 * 1024 * 1024
-      ){
+      if(file.size > 50*1024*1024){
 
         throw new Error(
           'Video is larger than 50MB.'
@@ -974,23 +993,21 @@ async function addPortfolio(){
 
 
       const extension =
-        file.name
-        .split('.')
-        .pop();
+        file.name.split('.').pop();
 
 
       const filename =
-        Date.now() +
+        Date.now()+
         '-' +
         Math.random()
           .toString(36)
-          .substring(2) +
-        '.' +
+          .substring(2)+
+        '.'+
         extension;
 
 
       const path =
-        'videos/' + filename;
+        'videos/'+filename;
 
 
       const {
@@ -1009,11 +1026,8 @@ async function addPortfolio(){
         );
 
 
-      if(uploadError){
-
+      if(uploadError)
         throw uploadError;
-
-      }
 
 
       const {
@@ -1031,29 +1045,20 @@ async function addPortfolio(){
     }
 
 
-    /* INSERT DATABASE */
-
     const {
       error:dbError
     } =
     await supabaseClient
       .from('portfolio')
       .insert({
-
         title:title,
-
         type:type,
-
         url:finalURL
-
       });
 
 
-    if(dbError){
-
+    if(dbError)
       throw dbError;
-
-    }
 
 
     showAlert(
@@ -1062,21 +1067,12 @@ async function addPortfolio(){
     );
 
 
-    document.getElementById(
-      'title'
-    ).value='';
-
-    document.getElementById(
-      'url'
-    ).value='';
-
-    document.getElementById(
-      'videoFile'
-    ).value='';
+    document.getElementById('title').value='';
+    document.getElementById('url').value='';
+    document.getElementById('videoFile').value='';
 
 
     await loadPortfolio();
-
     await loadDashboard();
 
 
@@ -1097,15 +1093,15 @@ async function addPortfolio(){
 
   btn.disabled=false;
 
-  btn.textContent =
+  btn.textContent=
     'Add to Portfolio →';
 
 }
 
 
-/* =========================
+/* =====================================================
    LOAD PORTFOLIO
-========================= */
+===================================================== */
 
 async function loadPortfolio(){
 
@@ -1115,7 +1111,7 @@ async function loadPortfolio(){
     );
 
 
-  grid.innerHTML =
+  grid.innerHTML=
     '<div class="loading">Loading portfolio...</div>';
 
 
@@ -1128,9 +1124,7 @@ async function loadPortfolio(){
     .select('*')
     .order(
       'created_at',
-      {
-        ascending:false
-      }
+      {ascending:false}
     );
 
 
@@ -1138,7 +1132,7 @@ async function loadPortfolio(){
 
     console.error(error);
 
-    grid.innerHTML =
+    grid.innerHTML=
       '<div class="loading">Error loading portfolio.</div>';
 
     return;
@@ -1146,19 +1140,18 @@ async function loadPortfolio(){
   }
 
 
-  const items =
-    data || [];
+  const items=data||[];
 
 
   document.getElementById(
     'portfolioCount'
-  ).textContent =
+  ).textContent=
     items.length;
 
 
   if(!items.length){
 
-    grid.innerHTML =
+    grid.innerHTML=
       '<div class="loading">No portfolio items yet.</div>';
 
     return;
@@ -1180,8 +1173,6 @@ async function loadPortfolio(){
     let media='';
 
 
-    /* VIDEO */
-
     if(item.type==='video'){
 
       media=`
@@ -1191,12 +1182,7 @@ async function loadPortfolio(){
           muted
           playsinline
           preload="metadata"
-        >
-
-          <source
-            src="${escapeAttr(item.url)}"
-          >
-
+          src="${escapeAttr(item.url)}">
         </video>
 
       `;
@@ -1204,79 +1190,29 @@ async function loadPortfolio(){
     }
 
 
-    /* YOUTUBE */
-
     else if(item.type==='youtube'){
 
       const id =
-        extractYouTubeId(
-          item.url
-        );
+        extractYouTubeId(item.url);
 
-
-      if(id){
-
-        media=`
-
-          <img
-            src="https://img.youtube.com/vi/${escapeAttr(id)}/hqdefault.jpg"
-            alt="YouTube thumbnail"
-          >
-
-        `;
-
-      }else{
-
-        media=`
-
-          <div class="placeholder">
-            ▶️
-          </div>
-
-        `;
-
-      }
+      media=id
+        ? `<img src="https://img.youtube.com/vi/${escapeAttr(id)}/hqdefault.jpg">`
+        : `<div class="placeholder">▶️</div>`;
 
     }
 
-
-    /* VIMEO */
 
     else if(item.type==='vimeo'){
 
       const id =
-        extractVimeoId(
-          item.url
-        );
+        extractVimeoId(item.url);
 
-
-      if(id){
-
-        media=`
-
-          <iframe
-            src="https://player.vimeo.com/video/${escapeAttr(id)}"
-            allowfullscreen
-          ></iframe>
-
-        `;
-
-      }else{
-
-        media=`
-
-          <div class="placeholder">
-            🎬
-          </div>
-
-        `;
-
-      }
+      media=id
+        ? `<iframe src="https://player.vimeo.com/video/${escapeAttr(id)}" allowfullscreen></iframe>`
+        : `<div class="placeholder">🎬</div>`;
 
     }
 
-
-    /* PHOTO */
 
     else if(item.type==='photo'){
 
@@ -1284,21 +1220,7 @@ async function loadPortfolio(){
 
         <img
           src="${escapeAttr(item.url)}"
-          alt="${escapeAttr(item.title)}"
-        >
-
-      `;
-
-    }
-
-
-    else{
-
-      media=`
-
-        <div class="placeholder">
-          🎬
-        </div>
+          alt="${escapeAttr(item.title)}">
 
       `;
 
@@ -1309,8 +1231,7 @@ async function loadPortfolio(){
 
       <button
         class="delete"
-        data-id="${escapeAttr(item.id)}"
-      >
+        data-id="${escapeAttr(item.id)}">
         ✕ Remove
       </button>
 
@@ -1333,22 +1254,17 @@ async function loadPortfolio(){
     `;
 
 
-    const deleteBtn =
-      div.querySelector(
-        '.delete'
+    div.querySelector('.delete')
+      .addEventListener(
+        'click',
+        ()=>{
+          deletePortfolio(
+            item.id,
+            item.url,
+            item.type
+          );
+        }
       );
-
-
-    deleteBtn.addEventListener(
-      'click',
-      ()=>{
-        deletePortfolio(
-          item.id,
-          item.url,
-          item.type
-        );
-      }
-    );
 
 
     grid.appendChild(div);
@@ -1358,14 +1274,13 @@ async function loadPortfolio(){
 }
 
 
-/* =========================
-   YOUTUBE ID
-========================= */
+/* =====================================================
+   YOUTUBE
+===================================================== */
 
 function extractYouTubeId(url){
 
-  if(!url)
-    return '';
+  if(!url)return '';
 
   const match =
     url.match(
@@ -1379,14 +1294,13 @@ function extractYouTubeId(url){
 }
 
 
-/* =========================
-   VIMEO ID
-========================= */
+/* =====================================================
+   VIMEO
+===================================================== */
 
 function extractVimeoId(url){
 
-  if(!url)
-    return '';
+  if(!url)return '';
 
   const match =
     url.match(
@@ -1400,29 +1314,18 @@ function extractVimeoId(url){
 }
 
 
-/* =========================
+/* =====================================================
    DELETE PORTFOLIO
-========================= */
+===================================================== */
 
-async function deletePortfolio(
-  id,
-  url,
-  type
-){
+async function deletePortfolio(id,url,type){
 
-  const confirmed =
-    confirm(
-      'Remove this portfolio item?'
-    );
-
-
-  if(!confirmed)
-    return;
+  if(!confirm(
+    'Remove this portfolio item?'
+  ))return;
 
 
   try{
-
-    /* Delete storage video */
 
     if(type==='video'){
 
@@ -1432,42 +1335,25 @@ async function deletePortfolio(
       const index =
         url.indexOf(marker);
 
-
       if(index!==-1){
 
         const path =
           url.substring(
-            index + marker.length
+            index+marker.length
           );
 
-
-        const {
-          error
-        } =
         await supabaseClient
           .storage
           .from('portfolio')
           .remove([path]);
-
-
-        if(error){
-
-          console.warn(
-            'Storage delete warning:',
-            error
-          );
-
-        }
 
       }
 
     }
 
 
-    /* Delete database row */
-
     const {
-      error:dbError
+      error
     } =
     await supabaseClient
       .from('portfolio')
@@ -1475,15 +1361,11 @@ async function deletePortfolio(
       .eq('id',id);
 
 
-    if(dbError){
-
-      throw dbError;
-
-    }
+    if(error)
+      throw error;
 
 
     await loadPortfolio();
-
     await loadDashboard();
 
 
@@ -1492,11 +1374,8 @@ async function deletePortfolio(
     console.error(error);
 
     alert(
-      'Delete failed: ' +
-      (
-        error.message ||
-        'Unknown error'
-      )
+      'Delete failed: '+
+      error.message
     );
 
   }
@@ -1504,9 +1383,9 @@ async function deletePortfolio(
 }
 
 
-/* =========================
-   BOOKINGS
-========================= */
+/* =====================================================
+   LOAD BOOKINGS
+===================================================== */
 
 async function loadBookings(){
 
@@ -1516,7 +1395,7 @@ async function loadBookings(){
     );
 
 
-  table.innerHTML =
+  table.innerHTML=
     '<div class="loading">Loading bookings...</div>';
 
 
@@ -1529,9 +1408,7 @@ async function loadBookings(){
     .select('*')
     .order(
       'created_at',
-      {
-        ascending:false
-      }
+      {ascending:false}
     );
 
 
@@ -1539,7 +1416,7 @@ async function loadBookings(){
 
     console.error(error);
 
-    table.innerHTML =
+    table.innerHTML=
       '<div class="loading">Unable to load bookings.</div>';
 
     return;
@@ -1547,9 +1424,9 @@ async function loadBookings(){
   }
 
 
-  if(!data || !data.length){
+  if(!data?.length){
 
-    table.innerHTML =
+    table.innerHTML=
       '<div class="loading">No booking requests yet.</div>';
 
     return;
@@ -1564,14 +1441,12 @@ async function loadBookings(){
       <thead>
 
         <tr>
-
           <th>Name</th>
           <th>Service</th>
           <th>Date</th>
           <th>Phone</th>
           <th>Email</th>
           <th>Message</th>
-
         </tr>
 
       </thead>
@@ -1582,29 +1457,17 @@ async function loadBookings(){
 
           <tr>
 
-            <td>
-              ${escapeHTML(b.name || '')}
-            </td>
+            <td>${escapeHTML(b.name)}</td>
 
-            <td>
-              ${escapeHTML(b.service || '')}
-            </td>
+            <td>${escapeHTML(b.service)}</td>
 
-            <td>
-              ${escapeHTML(b.date || '')}
-            </td>
+            <td>${escapeHTML(b.date)}</td>
 
-            <td>
-              ${escapeHTML(b.phone || '')}
-            </td>
+            <td>${escapeHTML(b.phone)}</td>
 
-            <td>
-              ${escapeHTML(b.email || '')}
-            </td>
+            <td>${escapeHTML(b.email)}</td>
 
-            <td>
-              ${escapeHTML(b.message || '')}
-            </td>
+            <td>${escapeHTML(b.message)}</td>
 
           </tr>
 
@@ -1619,67 +1482,69 @@ async function loadBookings(){
 }
 
 
-/* =========================
+/* =====================================================
    DASHBOARD
-========================= */
+===================================================== */
 
 async function loadDashboard(){
 
-  const portfolio =
+  const portfolioResult =
     await supabaseClient
       .from('portfolio')
       .select('id');
 
 
-  const bookings =
+  const bookingsResult =
     await supabaseClient
       .from('bookings')
       .select('*')
       .order(
         'created_at',
-        {
-          ascending:false
-        }
+        {ascending:false}
       );
+
+
+  const portfolio =
+    portfolioResult.data||[];
+
+  const bookings =
+    bookingsResult.data||[];
 
 
   document.getElementById(
     'portfolioCountDash'
-  ).textContent =
-    portfolio.data?.length || 0;
+  ).textContent=
+    portfolio.length;
 
 
   document.getElementById(
     'bookingCountDash'
-  ).textContent =
-    bookings.data?.length || 0;
+  ).textContent=
+    bookings.length;
 
 
   const week =
     Date.now() -
-    7 * 24 * 60 * 60 * 1000;
+    7*24*60*60*1000;
 
 
   const newBookings =
-    (bookings.data || [])
-      .filter(x=>{
+    bookings.filter(b=>{
 
-        if(!x.created_at)
-          return false;
+      if(!b.created_at)
+        return false;
 
-        const d =
-          new Date(
-            x.created_at
-          ).getTime();
+      return (
+        new Date(b.created_at).getTime()
+        > week
+      );
 
-        return d > week;
-
-      });
+    });
 
 
   document.getElementById(
     'newCountDash'
-  ).textContent =
+  ).textContent=
     newBookings.length;
 
 
@@ -1689,12 +1554,9 @@ async function loadDashboard(){
     );
 
 
-  if(
-    !bookings.data ||
-    !bookings.data.length
-  ){
+  if(!bookings.length){
 
-    recent.innerHTML =
+    recent.innerHTML=
       '<div class="loading">No bookings yet.</div>';
 
     return;
@@ -1711,43 +1573,31 @@ async function loadDashboard(){
         <thead>
 
           <tr>
-
             <th>Name</th>
             <th>Service</th>
             <th>Date</th>
             <th>Phone</th>
-
           </tr>
 
         </thead>
 
         <tbody>
 
-          ${(bookings.data || [])
-            .slice(0,5)
-            .map(b=>`
+          ${bookings.slice(0,5).map(b=>`
 
-              <tr>
+            <tr>
 
-                <td>
-                  ${escapeHTML(b.name || '')}
-                </td>
+              <td>${escapeHTML(b.name)}</td>
 
-                <td>
-                  ${escapeHTML(b.service || '')}
-                </td>
+              <td>${escapeHTML(b.service)}</td>
 
-                <td>
-                  ${escapeHTML(b.date || '')}
-                </td>
+              <td>${escapeHTML(b.date)}</td>
 
-                <td>
-                  ${escapeHTML(b.phone || '')}
-                </td>
+              <td>${escapeHTML(b.phone)}</td>
 
-              </tr>
+            </tr>
 
-            `).join('')}
+          `).join('')}
 
         </tbody>
 
@@ -1760,13 +1610,13 @@ async function loadDashboard(){
 }
 
 
-/* =========================
-   SECURITY HELPERS
-========================= */
+/* =====================================================
+   SECURITY
+===================================================== */
 
 function escapeHTML(value){
 
-  return String(value ?? '')
+  return String(value??'')
     .replaceAll('&','&amp;')
     .replaceAll('<','&lt;')
     .replaceAll('>','&gt;')
@@ -1775,28 +1625,23 @@ function escapeHTML(value){
 
 }
 
-
 function escapeAttr(value){
-
   return escapeHTML(value);
-
 }
 
 
-/* =========================
+/* =====================================================
    START
-========================= */
+===================================================== */
 
 (async function(){
 
   const authenticated =
     await checkAuth();
 
-
   if(authenticated){
 
     await loadDashboard();
-
     await loadPortfolio();
 
   }
