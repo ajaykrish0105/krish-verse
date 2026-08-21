@@ -267,6 +267,250 @@ nav{
     max-width:1100px;
 }
 
+
+/* =========================================================
+   NEW HERO CREATOR AREA
+========================================================= */
+
+.hero-visual{
+    position:absolute;
+
+    right:6%;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:430px;
+    height:620px;
+
+    z-index:1;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    pointer-events:none;
+}
+
+
+/* Creator image */
+
+.creator-image-box{
+
+    position:absolute;
+
+    right:0;
+    bottom:0;
+
+    width:350px;
+    height:520px;
+
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    background:
+        linear-gradient(
+            145deg,
+            #171717,
+            #070707
+        );
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.65);
+
+}
+
+
+/*
+   Put your creator image here:
+
+   images/creator.jpg
+
+   If image is not available,
+   the dark placeholder will remain.
+*/
+
+.creator-image-box img{
+
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+
+    object-position:center;
+
+}
+
+
+/* Red glow behind image */
+
+.creator-image-box::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.65),
+            transparent 55%
+        );
+
+    pointer-events:none;
+
+}
+
+
+/* Adobe logos */
+
+.adobe-logos{
+
+    position:absolute;
+
+    left:0;
+    top:90px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+}
+
+
+/* Logo card */
+
+.adobe-logo{
+
+    width:72px;
+    height:72px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#111;
+
+    border:1px solid #292929;
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.5);
+
+    transition:.3s;
+
+    pointer-events:auto;
+}
+
+.adobe-logo:hover{
+
+    transform:
+        translateX(6px)
+        scale(1.05);
+
+    border-color:var(--red);
+
+}
+
+
+/* Premiere Pro logo */
+
+.pr-logo{
+
+    position:relative;
+
+    width:44px;
+    height:44px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#00005b;
+
+    border:2px solid #9999ff;
+
+    color:#9999ff;
+
+    font-family:Arial,sans-serif;
+
+    font-size:19px;
+    font-weight:800;
+
+}
+
+
+/* After Effects logo */
+
+.ae-logo{
+
+    position:relative;
+
+    width:44px;
+    height:44px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#00005b;
+
+    border:2px solid #9999ff;
+
+    color:#9999ff;
+
+    font-family:Arial,sans-serif;
+
+    font-size:19px;
+    font-weight:800;
+
+}
+
+
+/* Small labels */
+
+.adobe-logo-label{
+
+    position:absolute;
+
+    left:80px;
+
+    white-space:nowrap;
+
+    opacity:0;
+
+    transform:translateX(-5px);
+
+    color:#aaa;
+
+    font-size:.6rem;
+    font-weight:600;
+
+    text-transform:uppercase;
+
+    letter-spacing:.1em;
+
+    transition:.25s;
+
+}
+
+.adobe-logo:hover .adobe-logo-label{
+
+    opacity:1;
+
+    transform:translateX(0);
+
+}
+
+
+/* Hero text */
+
 .hero-eyebrow{
     display:flex;
     align-items:center;
@@ -592,11 +836,6 @@ section{
 
 }
 
-
-/*
-   Reel card
-*/
-
 .portfolio-item{
 
     position:relative;
@@ -629,9 +868,6 @@ section{
         0 25px 60px rgba(0,0,0,.45);
 }
 
-
-/* media */
-
 .portfolio-item video,
 .portfolio-item img,
 .portfolio-item iframe{
@@ -646,17 +882,9 @@ section{
     object-fit:cover;
 }
 
-
-/* uploaded videos */
-
 .portfolio-item video{
-
     background:#000;
-
 }
-
-
-/* dark gradient */
 
 .portfolio-item::after{
 
@@ -678,11 +906,7 @@ section{
         );
 
     pointer-events:none;
-
 }
-
-
-/* play badge */
 
 .reel-play{
 
@@ -712,9 +936,6 @@ section{
 
     backdrop-filter:blur(8px);
 }
-
-
-/* title */
 
 .portfolio-caption{
 
@@ -750,9 +971,6 @@ section{
     letter-spacing:.12em;
 }
 
-
-/* empty */
-
 .portfolio-empty{
 
     grid-column:1/-1;
@@ -762,7 +980,6 @@ section{
     text-align:center;
 
     color:#666;
-
 }
 
 .portfolio-empty div{
@@ -770,7 +987,6 @@ section{
     font-size:3rem;
 
     margin-bottom:15px;
-
 }
 
 
@@ -803,7 +1019,6 @@ section{
     display:flex;
 
     animation:modalIn .25s ease;
-
 }
 
 @keyframes modalIn{
@@ -815,7 +1030,6 @@ section{
     to{
         opacity:1;
     }
-
 }
 
 .modal-content{
@@ -838,7 +1052,6 @@ section{
 
     box-shadow:
         0 30px 100px rgba(0,0,0,.8);
-
 }
 
 .modal-content video{
@@ -849,7 +1062,6 @@ section{
     object-fit:contain;
 
     background:#000;
-
 }
 
 .modal-close{
@@ -887,7 +1099,6 @@ section{
     background:var(--red);
 
     border-color:var(--red);
-
 }
 
 .modal-title{
@@ -912,7 +1123,6 @@ section{
     font-size:1rem;
 
     pointer-events:none;
-
 }
 
 
@@ -921,9 +1131,7 @@ section{
 ========================================================= */
 
 #booking{
-
     background:#0a0a0a;
-
 }
 
 .booking-inner{
@@ -937,7 +1145,6 @@ section{
         1.1fr;
 
     gap:80px;
-
 }
 
 .booking-left h2{
@@ -955,7 +1162,6 @@ section{
     letter-spacing:-.05em;
 
     margin-bottom:25px;
-
 }
 
 .booking-left>p{
@@ -967,7 +1173,6 @@ section{
     max-width:470px;
 
     margin-bottom:35px;
-
 }
 
 .booking-detail{
@@ -977,7 +1182,6 @@ section{
     gap:15px;
 
     margin-bottom:20px;
-
 }
 
 .booking-detail-icon{
@@ -992,7 +1196,6 @@ section{
     background:#151515;
 
     border:1px solid #252525;
-
 }
 
 .booking-detail strong{
@@ -1002,7 +1205,6 @@ section{
     font-size:.85rem;
 
     margin-bottom:3px;
-
 }
 
 .booking-detail span{
@@ -1010,7 +1212,6 @@ section{
     color:#777;
 
     font-size:.75rem;
-
 }
 
 
@@ -1023,7 +1224,6 @@ form{
     flex-direction:column;
 
     gap:16px;
-
 }
 
 .form-row{
@@ -1033,7 +1233,6 @@ form{
     grid-template-columns:1fr 1fr;
 
     gap:16px;
-
 }
 
 label{
@@ -1051,7 +1250,6 @@ label{
     text-transform:uppercase;
 
     letter-spacing:.12em;
-
 }
 
 input,
@@ -1073,14 +1271,12 @@ textarea{
     font-size:.85rem;
 
     transition:.2s;
-
 }
 
 input::placeholder,
 textarea::placeholder{
 
     color:#555;
-
 }
 
 input:focus,
@@ -1092,13 +1288,10 @@ textarea:focus{
     box-shadow:
         0 0 0 2px
         rgba(255,31,31,.08);
-
 }
 
 select{
-
     appearance:none;
-
 }
 
 textarea{
@@ -1106,7 +1299,6 @@ textarea{
     min-height:130px;
 
     resize:vertical;
-
 }
 
 .form-submit{
@@ -1132,7 +1324,6 @@ textarea{
     letter-spacing:.08em;
 
     transition:.25s;
-
 }
 
 .form-submit:hover{
@@ -1140,7 +1331,6 @@ textarea{
     background:#fff;
 
     color:#000;
-
 }
 
 .form-submit:disabled{
@@ -1148,11 +1338,7 @@ textarea{
     opacity:.5;
 
     cursor:not-allowed;
-
 }
-
-
-/* FORM STATUS */
 
 .form-success{
 
@@ -1169,7 +1355,6 @@ textarea{
     text-align:center;
 
     font-size:.8rem;
-
 }
 
 .form-error{
@@ -1189,7 +1374,6 @@ textarea{
     white-space:pre-wrap;
 
     word-break:break-word;
-
 }
 
 
@@ -1204,7 +1388,6 @@ footer{
     border-top:1px solid #1a1a1a;
 
     background:#050505;
-
 }
 
 .footer-top{
@@ -1220,7 +1403,6 @@ footer{
     gap:25px;
 
     padding-bottom:35px;
-
 }
 
 .footer-logo{
@@ -1230,13 +1412,11 @@ footer{
     font-size:1.4rem;
 
     font-weight:800;
-
 }
 
 .footer-logo span{
 
     color:var(--red);
-
 }
 
 .footer-links{
@@ -1246,7 +1426,6 @@ footer{
     gap:25px;
 
     flex-wrap:wrap;
-
 }
 
 .footer-links a{
@@ -1260,13 +1439,11 @@ footer{
     letter-spacing:.08em;
 
     transition:.2s;
-
 }
 
 .footer-links a:hover{
 
     color:var(--red);
-
 }
 
 .footer-copy{
@@ -1278,7 +1455,6 @@ footer{
     color:#444;
 
     font-size:.68rem;
-
 }
 
 
@@ -1295,7 +1471,6 @@ footer{
     transition:
         opacity .7s ease,
         transform .7s ease;
-
 }
 
 .reveal.visible{
@@ -1303,13 +1478,35 @@ footer{
     opacity:1;
 
     transform:translateY(0);
-
 }
 
 
 /* =========================================================
    RESPONSIVE
 ========================================================= */
+
+@media(max-width:1100px){
+
+    .hero-visual{
+
+        right:2%;
+
+        transform:
+            translateY(-50%)
+            scale(.85);
+
+        transform-origin:center right;
+
+    }
+
+    .hero-content{
+
+        max-width:750px;
+
+    }
+
+}
+
 
 @media(max-width:1000px){
 
@@ -1341,6 +1538,20 @@ footer{
 
     }
 
+
+    /*
+       Hero visual becomes
+       slightly smaller
+    */
+
+    .hero-visual{
+
+        right:-50px;
+
+        opacity:.45;
+
+    }
+
 }
 
 
@@ -1368,6 +1579,7 @@ footer{
 
     }
 
+
     #hero{
 
         min-height:90vh;
@@ -1378,6 +1590,27 @@ footer{
             70px;
 
     }
+
+
+    /*
+       Mobile hero image
+       stays behind text
+    */
+
+    .hero-visual{
+
+        right:-90px;
+
+        top:55%;
+
+        transform:
+            translateY(-50%)
+            scale(.68);
+
+        opacity:.28;
+
+    }
+
 
     .hero-title{
 
@@ -1500,10 +1733,6 @@ footer{
 }
 
 
-/* =========================================================
-   VERY SMALL PHONES
-========================================================= */
-
 @media(max-width:400px){
 
     .portfolio-grid{
@@ -1515,6 +1744,14 @@ footer{
     .portfolio-item{
 
         aspect-ratio:9/14;
+
+    }
+
+    .hero-visual{
+
+        right:-150px;
+
+        opacity:.2;
 
     }
 
@@ -1567,6 +1804,77 @@ Book Now
 <section id="hero">
 
 <div class="hero-grid"></div>
+
+
+<!-- =====================================================
+     CREATOR IMAGE + ADOBE LOGOS
+===================================================== -->
+
+<div class="hero-visual">
+
+    <!--
+        YOUR PHOTO
+
+        Put your photo here:
+
+        images/creator.jpg
+
+        Folder structure:
+
+        index.html
+        images/
+            creator.jpg
+    -->
+
+    <div class="creator-image-box">
+
+        <img
+            src="images/creator.jpg"
+            alt="Krishhhh - Video Editor"
+        >
+
+    </div>
+
+
+    <!-- Adobe software logos -->
+
+    <div class="adobe-logos">
+
+
+        <!-- Premiere Pro -->
+
+        <div class="adobe-logo">
+
+            <div class="pr-logo">
+                Pr
+            </div>
+
+            <span class="adobe-logo-label">
+                Premiere Pro
+            </span>
+
+        </div>
+
+
+        <!-- After Effects -->
+
+        <div class="adobe-logo">
+
+            <div class="ae-logo">
+                Ae
+            </div>
+
+            <span class="adobe-logo-label">
+                After Effects
+            </span>
+
+        </div>
+
+
+    </div>
+
+</div>
+
 
 <div class="hero-content reveal">
 
@@ -2326,10 +2634,6 @@ async function loadPortfolio(){
                     .trim();
 
 
-                /*
-                    UPLOADED VIDEO
-                */
-
                 if(
                     type === "video" ||
                     type === "mp4"
@@ -2340,13 +2644,9 @@ async function loadPortfolio(){
                         <video
 
                             muted
-
                             autoplay
-
                             loop
-
                             playsinline
-
                             preload="metadata"
 
                             src="${escapeHTML(url)}"
@@ -2382,19 +2682,10 @@ async function loadPortfolio(){
                         );
 
 
-                    /*
-                        Intersection Observer
-                        only plays visible videos
-                    */
-
                     setupVideoObserver(
                         video
                     );
 
-
-                    /*
-                        CLICK → MODAL
-                    */
 
                     div.addEventListener(
                         "click",
@@ -2410,10 +2701,6 @@ async function loadPortfolio(){
 
                 }
 
-
-                /*
-                    YOUTUBE
-                */
 
                 else if(
                     type === "youtube"
@@ -2468,10 +2755,6 @@ async function loadPortfolio(){
                 }
 
 
-                /*
-                    VIMEO
-                */
-
                 else if(
                     type === "vimeo"
                 ){
@@ -2525,10 +2808,6 @@ async function loadPortfolio(){
                 }
 
 
-                /*
-                    INSTAGRAM
-                */
-
                 else if(
                     type === "instagram" ||
                     type === "insta"
@@ -2569,10 +2848,6 @@ async function loadPortfolio(){
                 }
 
 
-                /*
-                    IMAGE
-                */
-
                 else if(
                     type === "photo" ||
                     type === "image"
@@ -2610,10 +2885,6 @@ async function loadPortfolio(){
                 }
 
 
-                /*
-                    DEFAULT
-                */
-
                 else{
 
                     div.innerHTML = `
@@ -2621,13 +2892,9 @@ async function loadPortfolio(){
                         <video
 
                             muted
-
                             autoplay
-
                             loop
-
                             playsinline
-
                             preload="metadata"
 
                             src="${escapeHTML(url)}">
@@ -2685,10 +2952,6 @@ async function loadPortfolio(){
                     div
                 );
 
-
-                /*
-                    Small stagger
-                */
 
                 setTimeout(
                     ()=>{
@@ -2856,12 +3119,7 @@ function openVideoModal(
 
     modalVideo.play()
     .catch(
-        ()=>{
-            /*
-              Browser may require
-              user interaction.
-            */
-        }
+        ()=>{}
     );
 
 }
@@ -2918,10 +3176,6 @@ videoModal.addEventListener(
     }
 );
 
-
-/*
-   ESC close
-*/
 
 document.addEventListener(
     "keydown",
@@ -3055,11 +3309,6 @@ bookingForm.addEventListener(
 
         try{
 
-            /*
-               EXISTING DATABASE
-               STRUCTURE PRESERVED
-            */
-
             const bookingData = {
 
                 name:name,
@@ -3139,11 +3388,6 @@ bookingForm.addEventListener(
             button.textContent =
                 "Opening WhatsApp...";
 
-
-            /*
-               WHATSAPP
-               EXISTING NUMBER
-            */
 
             const whatsappNumber =
                 "919940826494";
