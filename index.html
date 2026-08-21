@@ -4,7 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>krishhhh.verse — Visual Storyteller</title>
 
@@ -28,6 +28,7 @@
   --text:#202020;
   --muted:#777;
   --border:#e5e1d8;
+
   --display:'Syne',sans-serif;
   --body:'Inter',sans-serif;
 }
@@ -43,9 +44,6 @@ body{
   line-height:1.6;
   overflow-x:hidden;
 }
-
-
-/* NAV */
 
 nav{
   position:fixed;
@@ -108,8 +106,10 @@ nav{
   text-transform:uppercase;
 }
 
-
-/* HERO */
+.nav-cta:hover,
+.btn-primary:hover{
+  background:var(--gold);
+}
 
 #hero{
   min-height:100vh;
@@ -201,8 +201,10 @@ h1 .thin{
   color:var(--black);
 }
 
-
-/* SECTIONS */
+.btn-secondary:hover{
+  border-color:var(--gold);
+  color:var(--gold);
+}
 
 section{
   padding:110px 48px;
@@ -223,9 +225,6 @@ section{
   line-height:1;
   margin-bottom:55px;
 }
-
-
-/* SERVICES */
 
 .services-grid{
   display:grid;
@@ -274,9 +273,6 @@ section{
   letter-spacing:.08em;
 }
 
-
-/* PORTFOLIO */
-
 #portfolio{
   background:#faf9f6;
 }
@@ -295,6 +291,10 @@ section{
   text-decoration:none;
   padding:11px 18px;
   font-size:.78rem;
+}
+
+.instagram-btn:hover{
+  background:var(--gold);
 }
 
 .portfolio-grid{
@@ -346,9 +346,6 @@ section{
   margin-bottom:10px;
 }
 
-
-/* BOOKING */
-
 #booking{
   background:white;
 }
@@ -391,9 +388,6 @@ section{
   color:var(--muted);
   font-size:.82rem;
 }
-
-
-/* FORM */
 
 form{
   display:flex;
@@ -480,9 +474,6 @@ textarea{
   font-size:.85rem;
 }
 
-
-/* FOOTER */
-
 footer{
   padding:55px 48px 35px;
 
@@ -523,9 +514,6 @@ footer{
   color:var(--muted);
   font-size:.75rem;
 }
-
-
-/* MOBILE */
 
 @media(max-width:900px){
 
@@ -578,13 +566,9 @@ footer{
 }
 
 </style>
-
 </head>
 
 <body>
-
-
-<!-- NAV -->
 
 <nav>
 
@@ -595,27 +579,34 @@ krishhhh<span>.verse</span>
 <ul class="nav-links">
 
 <li>
-<a href="#services">Services</a>
+<a href="#services">
+Services
+</a>
 </li>
 
 <li>
-<a href="#portfolio">Work</a>
+<a href="#portfolio">
+Work
+</a>
 </li>
 
 <li>
-<a href="#booking">Book</a>
+<a href="#booking">
+Book
+</a>
 </li>
 
 </ul>
 
-<a href="#booking" class="nav-cta">
+<a
+href="#booking"
+class="nav-cta"
+>
 Book Now
 </a>
 
 </nav>
 
-
-<!-- HERO -->
 
 <section id="hero">
 
@@ -626,38 +617,31 @@ Visual Storyteller & Editor
 </div>
 
 <h1>
-
 Frames that<br>
-
-<span class="accent">
-speak
-</span>
-
-<span class="thin">
-louder
-</span>
-
-<br>
-
+<span class="accent">speak</span>
+<span class="thin"> louder</span><br>
 than words
-
 </h1>
 
 <p class="hero-desc">
-
 Cinematic edits, motion graphics, and visual stories by Krish —
 crafted with Premiere Pro & After Effects.
 Every frame, intentional.
-
 </p>
 
 <div class="hero-actions">
 
-<a href="#portfolio" class="btn-primary">
+<a
+href="#portfolio"
+class="btn-primary"
+>
 See My Work
 </a>
 
-<a href="#booking" class="btn-secondary">
+<a
+href="#booking"
+class="btn-secondary"
+>
 Book a Session
 </a>
 
@@ -667,8 +651,6 @@ Book a Session
 
 </section>
 
-
-<!-- SERVICES -->
 
 <section id="services">
 
@@ -684,7 +666,9 @@ Services
 
 <div class="service-card">
 
-<div class="service-icon">🎬</div>
+<div class="service-icon">
+🎬
+</div>
 
 <h3>
 Video Editing
@@ -704,7 +688,9 @@ Premiere Pro
 
 <div class="service-card">
 
-<div class="service-icon">✨</div>
+<div class="service-icon">
+✨
+</div>
 
 <h3>
 Motion Graphics
@@ -724,7 +710,9 @@ After Effects
 
 <div class="service-card">
 
-<div class="service-icon">📸</div>
+<div class="service-icon">
+📸
+</div>
 
 <h3>
 Photo Shoot
@@ -744,7 +732,9 @@ Photography
 
 <div class="service-card">
 
-<div class="service-icon">🎥</div>
+<div class="service-icon">
+🎥
+</div>
 
 <h3>
 Video Shoot
@@ -765,8 +755,6 @@ Videography
 
 </section>
 
-
-<!-- PORTFOLIO -->
 
 <section id="portfolio">
 
@@ -817,11 +805,10 @@ Loading portfolio...
 </section>
 
 
-<!-- BOOKING -->
-
 <section id="booking">
 
 <div class="booking-inner">
+
 
 <div class="booking-left">
 
@@ -908,6 +895,7 @@ Instagram
 <div>
 
 <form id="bookingForm">
+
 
 <div class="form-row">
 
@@ -1038,9 +1026,7 @@ placeholder="Tell me about your project..."
 type="submit"
 class="form-submit"
 >
-
 Continue on WhatsApp →
-
 </button>
 
 
@@ -1048,14 +1034,14 @@ Continue on WhatsApp →
 class="form-success"
 id="formSuccess"
 >
-✅ Booking saved! Opening WhatsApp...
 </div>
 
 
 <div
 class="form-error"
 id="formError"
-></div>
+>
+</div>
 
 </form>
 
@@ -1065,8 +1051,6 @@ id="formError"
 
 </section>
 
-
-<!-- FOOTER -->
 
 <footer>
 
@@ -1111,7 +1095,6 @@ Instagram
 
 <script>
 
-
 /* =====================================================
    SUPABASE
 ===================================================== */
@@ -1124,12 +1107,14 @@ const SUPABASE_KEY =
 
 
 /* =====================================================
-   PORTFOLIO
+   ESCAPE HTML
 ===================================================== */
 
 function escapeHTML(text){
 
-  if(!text)return "";
+  if(!text){
+    return "";
+  }
 
   return String(text)
     .replace(/&/g,"&amp;")
@@ -1141,9 +1126,15 @@ function escapeHTML(text){
 }
 
 
+/* =====================================================
+   YOUTUBE
+===================================================== */
+
 function extractYouTubeID(url){
 
-  if(!url)return "";
+  if(!url){
+    return "";
+  }
 
   const match =
     url.match(
@@ -1157,9 +1148,15 @@ function extractYouTubeID(url){
 }
 
 
+/* =====================================================
+   VIMEO
+===================================================== */
+
 function extractVimeoID(url){
 
-  if(!url)return "";
+  if(!url){
+    return "";
+  }
 
   const match =
     url.match(
@@ -1172,6 +1169,10 @@ function extractVimeoID(url){
 
 }
 
+
+/* =====================================================
+   LOAD PORTFOLIO
+===================================================== */
 
 async function loadPortfolio(){
 
@@ -1196,7 +1197,7 @@ async function loadPortfolio(){
           headers:{
             "apikey":SUPABASE_KEY,
             "Authorization":
-              "Bearer "+SUPABASE_KEY
+              "Bearer " + SUPABASE_KEY
           }
 
         }
@@ -1205,9 +1206,11 @@ async function loadPortfolio(){
 
 
     if(!response.ok){
+
       throw new Error(
         await response.text()
       );
+
     }
 
 
@@ -1217,13 +1220,11 @@ async function loadPortfolio(){
 
     if(!items.length){
 
-      grid.innerHTML=`
+      grid.innerHTML = `
 
         <div class="portfolio-empty">
 
-          <div>
-            🎬
-          </div>
+          <div>🎬</div>
 
           <p>
             Portfolio coming soon.
@@ -1238,13 +1239,15 @@ async function loadPortfolio(){
     }
 
 
-    grid.innerHTML="";
+    grid.innerHTML = "";
 
 
     items.forEach(item=>{
 
       const div =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       div.className =
         "portfolio-item";
@@ -1257,16 +1260,16 @@ async function loadPortfolio(){
         escapeHTML(item.url);
 
       const type =
-        String(item.type||"")
-          .toLowerCase();
+        String(item.type || "")
+        .toLowerCase();
 
 
       if(
-        type==="video" ||
-        type==="mp4"
+        type === "video" ||
+        type === "mp4"
       ){
 
-        div.innerHTML=`
+        div.innerHTML = `
 
           <video
             controls
@@ -1284,15 +1287,17 @@ async function loadPortfolio(){
       }
 
 
-      else if(type==="youtube"){
+      else if(type === "youtube"){
 
         const id =
-          extractYouTubeID(item.url);
+          extractYouTubeID(
+            item.url
+          );
 
 
         if(id){
 
-          div.innerHTML=`
+          div.innerHTML = `
 
             <iframe
               src="https://www.youtube.com/embed/${id}"
@@ -1311,15 +1316,17 @@ async function loadPortfolio(){
       }
 
 
-      else if(type==="vimeo"){
+      else if(type === "vimeo"){
 
         const id =
-          extractVimeoID(item.url);
+          extractVimeoID(
+            item.url
+          );
 
 
         if(id){
 
-          div.innerHTML=`
+          div.innerHTML = `
 
             <iframe
               src="https://player.vimeo.com/video/${id}"
@@ -1339,11 +1346,11 @@ async function loadPortfolio(){
 
 
       else if(
-        type==="photo" ||
-        type==="image"
+        type === "photo" ||
+        type === "image"
       ){
 
-        div.innerHTML=`
+        div.innerHTML = `
 
           <img
             src="${url}"
@@ -1361,7 +1368,9 @@ async function loadPortfolio(){
 
 
       if(div.innerHTML.trim()){
+
         grid.appendChild(div);
+
       }
 
     });
@@ -1374,7 +1383,8 @@ async function loadPortfolio(){
       error
     );
 
-    grid.innerHTML=`
+
+    grid.innerHTML = `
 
       <div class="portfolio-empty">
 
@@ -1396,13 +1406,13 @@ async function loadPortfolio(){
 
 
 /* =====================================================
-   BOOKING + WHATSAPP
+   BOOKING
 ===================================================== */
 
 const bookingForm =
-document.getElementById(
-  "bookingForm"
-);
+  document.getElementById(
+    "bookingForm"
+  );
 
 
 bookingForm.addEventListener(
@@ -1413,39 +1423,43 @@ bookingForm.addEventListener(
 
 
     const name =
-      document.getElementById(
-        "fname"
-      ).value.trim();
+      document
+      .getElementById("fname")
+      .value
+      .trim();
 
 
     const phone =
-      document.getElementById(
-        "phone"
-      ).value.trim();
+      document
+      .getElementById("phone")
+      .value
+      .trim();
 
 
     const email =
-      document.getElementById(
-        "email"
-      ).value.trim();
+      document
+      .getElementById("email")
+      .value
+      .trim();
 
 
     const service =
-      document.getElementById(
-        "service"
-      ).value;
+      document
+      .getElementById("service")
+      .value;
 
 
     const date =
-      document.getElementById(
-        "date"
-      ).value;
+      document
+      .getElementById("date")
+      .value;
 
 
     const message =
-      document.getElementById(
-        "message"
-      ).value.trim();
+      document
+      .getElementById("message")
+      .value
+      .trim();
 
 
     const button =
@@ -1466,11 +1480,14 @@ bookingForm.addEventListener(
       );
 
 
-    success.style.display="none";
+    success.style.display =
+      "none";
 
-    errorBox.style.display="none";
+    errorBox.style.display =
+      "none";
 
-    errorBox.innerHTML="";
+    errorBox.innerHTML =
+      "";
 
 
     if(
@@ -1492,34 +1509,19 @@ bookingForm.addEventListener(
     }
 
 
-    button.disabled=true;
+    button.disabled =
+      true;
 
     button.textContent =
       "Saving Booking...";
 
 
-    /* =================================================
-       SAVE TO SUPABASE
-    ================================================= */
-
     try{
 
-      const bookingData={
 
-        name:name,
-
-        phone:phone,
-
-        email:email,
-
-        service:service,
-
-        date:date,
-
-        message:message
-
-      };
-
+      /* ================================================
+         SAVE TO SUPABASE
+      ================================================ */
 
       const response =
         await fetch(
@@ -1537,7 +1539,7 @@ bookingForm.addEventListener(
                 SUPABASE_KEY,
 
               "Authorization":
-                "Bearer "+SUPABASE_KEY,
+                "Bearer " + SUPABASE_KEY,
 
               "Content-Type":
                 "application/json",
@@ -1547,10 +1549,21 @@ bookingForm.addEventListener(
 
             },
 
-            body:
-              JSON.stringify(
-                bookingData
-              )
+            body:JSON.stringify({
+
+              name:name,
+
+              phone:phone,
+
+              email:email,
+
+              service:service,
+
+              date:date,
+
+              message:message
+
+            })
 
           }
 
@@ -1562,49 +1575,27 @@ bookingForm.addEventListener(
         const errorText =
           await response.text();
 
+        console.error(
+          "SUPABASE ERROR:",
+          errorText
+        );
+
         throw new Error(
-          errorText ||
-          "Booking could not be saved."
+          errorText
         );
 
       }
 
 
-    }catch(error){
+      /* ================================================
+         WHATSAPP
+      ================================================ */
 
-      console.error(
-        "BOOKING SAVE ERROR:",
-        error
-      );
-
-
-      errorBox.innerHTML =
-        "❌ Booking could not be saved. Please try again.";
+      const whatsappNumber =
+        "919940826494";
 
 
-      errorBox.style.display =
-        "block";
-
-
-      button.disabled=false;
-
-      button.textContent =
-        "Continue on WhatsApp →";
-
-      return;
-
-    }
-
-
-    /* =================================================
-       WHATSAPP
-    ================================================= */
-
-    const whatsappNumber =
-      "919940826494";
-
-
-    const whatsappMessage =
+      const whatsappMessage =
 
 `Hello Krish! 👋
 
@@ -1635,47 +1626,59 @@ ${message || "Not provided"}
 Sent from krishhhh.verse website.`;
 
 
-    const encodedMessage =
-      encodeURIComponent(
-        whatsappMessage
+      const encodedMessage =
+        encodeURIComponent(
+          whatsappMessage
+        );
+
+
+      const whatsappURL =
+        "https://wa.me/" +
+        whatsappNumber +
+        "?text=" +
+        encodedMessage;
+
+
+      success.innerHTML =
+        "✅ Booking saved successfully! Opening WhatsApp...";
+
+      success.style.display =
+        "block";
+
+
+      window.open(
+        whatsappURL,
+        "_blank"
       );
 
 
-    const whatsappURL =
-      "https://wa.me/" +
-      whatsappNumber +
-      "?text=" +
-      encodedMessage;
+      bookingForm.reset();
 
 
-    success.style.display =
-      "block";
+    }catch(error){
+
+      console.error(
+        "BOOKING ERROR:",
+        error
+      );
 
 
-    button.textContent =
-      "Opening WhatsApp...";
+      errorBox.innerHTML =
+        "❌ Booking could not be saved. Please try again.";
+
+      errorBox.style.display =
+        "block";
 
 
-    /*
-      IMPORTANT:
-      Booking is already saved in Supabase.
-      Now WhatsApp opens.
-    */
+    }finally{
 
-    window.open(
-      whatsappURL,
-      "_blank"
-    );
-
-
-    setTimeout(()=>{
-
-      button.disabled=false;
+      button.disabled =
+        false;
 
       button.textContent =
         "Continue on WhatsApp →";
 
-    },1500);
+    }
 
   }
 );
