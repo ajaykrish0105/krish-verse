@@ -39,7 +39,6 @@ body.modal-open{
 }
 
 :root{
-
     --black:#090909;
     --black-2:#0d0c0b;
     --charcoal:#12110f;
@@ -53,7 +52,6 @@ body.modal-open{
     --border-light:#36312c;
     --red:#b51f2b;
     --red-dark:#8e1822;
-
     --display:'Space Grotesk',sans-serif;
     --body:'Manrope',sans-serif;
 }
@@ -81,21 +79,15 @@ button{
 
 
 /* =========================================================
-   BODY TEXTURE
+   TEXTURE
 ========================================================= */
 
 body::before{
-
     content:"";
-
     position:fixed;
-
     inset:0;
-
     pointer-events:none;
-
     z-index:-10;
-
     opacity:.035;
 
     background-image:
@@ -108,21 +100,16 @@ body::before{
 ========================================================= */
 
 nav{
-
     position:fixed;
-
     top:0;
     left:0;
     right:0;
-
     z-index:1000;
 
     height:76px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 
     padding:0 50px;
@@ -132,20 +119,14 @@ nav{
     border-bottom:1px solid rgba(255,255,255,.075);
 
     backdrop-filter:blur(14px);
-
     -webkit-backdrop-filter:blur(14px);
 }
 
 .nav-logo{
-
     font-family:var(--display);
-
     font-size:1.38rem;
-
     font-weight:700;
-
     letter-spacing:-.055em;
-
     white-space:nowrap;
 }
 
@@ -154,43 +135,34 @@ nav{
 }
 
 .nav-links{
-
     display:flex;
-
     gap:38px;
-
     list-style:none;
 }
 
 .nav-links a{
-
     position:relative;
 
     color:#85817b;
 
     font-size:.68rem;
-
     font-weight:700;
 
     text-transform:uppercase;
-
     letter-spacing:.15em;
 
     transition:.25s ease;
 }
 
 .nav-links a::after{
-
     content:"";
 
     position:absolute;
 
     left:0;
-
     bottom:-9px;
 
     width:0;
-
     height:1px;
 
     background:var(--red);
@@ -207,30 +179,23 @@ nav{
 }
 
 .nav-cta{
-
     padding:12px 21px;
 
     background:var(--red);
-
     color:#fff;
 
     font-size:.66rem;
-
     font-weight:800;
 
     text-transform:uppercase;
-
     letter-spacing:.1em;
 
     transition:.25s ease;
 }
 
 .nav-cta:hover{
-
     background:var(--white);
-
     color:#111;
-
     transform:translateY(-2px);
 }
 
@@ -240,11 +205,9 @@ nav{
 ========================================================= */
 
 #hero{
-
     min-height:100vh;
 
     display:flex;
-
     align-items:center;
 
     position:relative;
@@ -254,7 +217,6 @@ nav{
     overflow:hidden;
 
     background:
-
         linear-gradient(
             115deg,
             #090909 0%,
@@ -264,7 +226,6 @@ nav{
 }
 
 #hero::before{
-
     content:"";
 
     position:absolute;
@@ -273,11 +234,9 @@ nav{
     right:0;
 
     width:47%;
-
     height:100%;
 
     background:
-
         linear-gradient(
             90deg,
             #090909 0%,
@@ -291,20 +250,16 @@ nav{
 }
 
 .hero-grid{
-
     position:absolute;
-
     inset:0;
 
     opacity:.28;
 
     background-image:
-
         linear-gradient(
             rgba(255,255,255,.018) 1px,
             transparent 1px
         ),
-
         linear-gradient(
             90deg,
             rgba(255,255,255,.018) 1px,
@@ -314,7 +269,6 @@ nav{
     background-size:90px 90px;
 
     mask-image:
-
         linear-gradient(
             to right,
             black 0%,
@@ -324,13 +278,7 @@ nav{
     pointer-events:none;
 }
 
-
-/* =========================================================
-   HERO CONTENT
-========================================================= */
-
 .hero-content{
-
     position:relative;
 
     z-index:10;
@@ -341,9 +289,7 @@ nav{
 }
 
 .hero-eyebrow{
-
     display:flex;
-
     align-items:center;
 
     gap:12px;
@@ -353,27 +299,22 @@ nav{
     color:var(--red);
 
     font-size:.65rem;
-
     font-weight:800;
 
     text-transform:uppercase;
-
     letter-spacing:.2em;
 }
 
 .hero-eyebrow::before{
-
     content:"";
 
     width:34px;
-
     height:1px;
 
     background:var(--red);
 }
 
 .hero-title{
-
     font-family:var(--display);
 
     font-size:clamp(4rem,8vw,8.2rem);
@@ -394,7 +335,6 @@ nav{
 }
 
 .hero-title .outline{
-
     color:transparent;
 
     -webkit-text-stroke:
@@ -402,7 +342,6 @@ nav{
 }
 
 .hero-description{
-
     max-width:550px;
 
     color:#8d8982;
@@ -415,56 +354,44 @@ nav{
 }
 
 .hero-buttons{
-
     display:flex;
-
     gap:12px;
-
     flex-wrap:wrap;
 }
 
 .btn-red,
 .btn-outline{
-
     display:inline-flex;
 
     align-items:center;
-
     justify-content:center;
 
     gap:10px;
 
     font-size:.68rem;
-
     font-weight:800;
 
     text-transform:uppercase;
-
     letter-spacing:.1em;
 
     transition:.25s ease;
 }
 
 .btn-red{
-
     padding:16px 26px;
 
     background:var(--red);
-
     color:#fff;
 }
 
 .btn-red:hover{
-
     background:var(--white);
-
     color:#111;
 
     transform:translateY(-3px);
 }
 
 .btn-outline{
-
     padding:15px 26px;
 
     border:1px solid #37332e;
@@ -473,7 +400,6 @@ nav{
 }
 
 .btn-outline:hover{
-
     border-color:var(--red);
 
     color:var(--red);
@@ -483,21 +409,18 @@ nav{
 
 
 /* =========================================================
-   HERO VISUAL
+   HERO IMAGE
 ========================================================= */
 
 .hero-visual{
-
     position:absolute;
 
     right:7%;
-
     top:50%;
 
     transform:translateY(-50%);
 
     width:470px;
-
     height:620px;
 
     z-index:4;
@@ -506,15 +429,12 @@ nav{
 }
 
 .creator-image-box{
-
     position:absolute;
 
     right:0;
-
     bottom:0;
 
     width:350px;
-
     height:520px;
 
     overflow:hidden;
@@ -528,7 +448,6 @@ nav{
 }
 
 .creator-image-box::before{
-
     content:"";
 
     position:absolute;
@@ -538,7 +457,6 @@ nav{
     z-index:2;
 
     background:
-
         linear-gradient(
             to top,
             rgba(0,0,0,.82),
@@ -550,7 +468,6 @@ nav{
 }
 
 .creator-image-box::after{
-
     content:"";
 
     position:absolute;
@@ -565,15 +482,12 @@ nav{
 }
 
 .creator-image-box img{
-
     width:100%;
-
     height:100%;
 
     display:none;
 
     object-fit:cover;
-
     object-position:center;
 
     filter:
@@ -588,7 +502,6 @@ nav{
 
 .hero-visual:hover
 .creator-image-box img{
-
     transform:scale(1.018);
 
     filter:
@@ -598,9 +511,7 @@ nav{
 }
 
 .hero-image-fallback{
-
     position:absolute;
-
     inset:0;
 
     display:flex;
@@ -622,15 +533,13 @@ nav{
 
 
 /* =========================================================
-   SOFTWARE BOXES
+   SOFTWARE
 ========================================================= */
 
 .adobe-logos{
-
     position:absolute;
 
     left:0;
-
     top:115px;
 
     display:flex;
@@ -643,17 +552,14 @@ nav{
 }
 
 .adobe-logo{
-
     position:relative;
 
     width:76px;
-
     height:76px;
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
     background:#141311;
@@ -669,7 +575,6 @@ nav{
 }
 
 .adobe-logo:hover{
-
     transform:translateX(7px);
 
     border-color:var(--red);
@@ -677,15 +582,12 @@ nav{
 
 .pr-logo,
 .ae-logo{
-
     width:45px;
-
     height:45px;
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
     background:#11105b;
@@ -697,20 +599,16 @@ nav{
     font-family:Arial,sans-serif;
 
     font-size:17px;
-
     font-weight:800;
 }
 
 .adobe-logo-label{
-
     position:absolute;
 
     left:91px;
-
     top:50%;
 
-    transform:
-        translate(-8px,-50%);
+    transform:translate(-8px,-50%);
 
     white-space:nowrap;
 
@@ -723,11 +621,9 @@ nav{
     color:#aaa49c;
 
     font-size:.57rem;
-
     font-weight:700;
 
     text-transform:uppercase;
-
     letter-spacing:.1em;
 
     opacity:0;
@@ -739,24 +635,15 @@ nav{
 
 .adobe-logo:hover
 .adobe-logo-label{
-
     opacity:1;
 
-    transform:
-        translate(0,-50%);
+    transform:translate(0,-50%);
 }
 
-
-/* =========================================================
-   HERO SIDE
-========================================================= */
-
 .hero-side{
-
     position:absolute;
 
     right:38px;
-
     bottom:50px;
 
     writing-mode:vertical-rl;
@@ -778,29 +665,24 @@ nav{
 ========================================================= */
 
 section{
-
     padding:110px 50px;
 
     border-top:1px solid #24211e;
 }
 
 .section-label{
-
     color:var(--red);
 
     font-size:.63rem;
-
     font-weight:800;
 
     text-transform:uppercase;
-
     letter-spacing:.2em;
 
     margin-bottom:14px;
 }
 
 .section-title{
-
     font-family:var(--display);
 
     font-size:clamp(2.7rem,5vw,4.6rem);
@@ -824,7 +706,6 @@ section{
 }
 
 .services-grid{
-
     display:grid;
 
     grid-template-columns:
@@ -834,7 +715,6 @@ section{
 }
 
 .service-card{
-
     padding:42px 30px;
 
     background:#151412;
@@ -849,14 +729,12 @@ section{
 }
 
 .service-card:hover{
-
     background:#1a1815;
 
     transform:translateY(-4px);
 }
 
 .service-number{
-
     color:#49453f;
 
     font-family:var(--display);
@@ -867,25 +745,21 @@ section{
 }
 
 .service-icon{
-
     font-size:1.75rem;
 
     margin-bottom:20px;
 }
 
 .service-card h3{
-
     font-family:var(--display);
 
     font-size:1.1rem;
-
     font-weight:600;
 
     margin-bottom:12px;
 }
 
 .service-card p{
-
     color:#817d76;
 
     font-size:.79rem;
@@ -894,7 +768,6 @@ section{
 }
 
 .service-tag{
-
     display:inline-block;
 
     margin-top:22px;
@@ -922,7 +795,6 @@ section{
 }
 
 .portfolio-header{
-
     display:flex;
 
     align-items:flex-end;
@@ -939,11 +811,9 @@ section{
 }
 
 .instagram-btn{
-
     display:inline-flex;
 
     align-items:center;
-
     justify-content:center;
 
     gap:8px;
@@ -953,18 +823,15 @@ section{
     border:1px solid #302c27;
 
     font-size:.65rem;
-
     font-weight:800;
 
     text-transform:uppercase;
-
     letter-spacing:.08em;
 
     transition:.25s ease;
 }
 
 .instagram-btn:hover{
-
     border-color:var(--red);
 
     color:var(--red);
@@ -972,13 +839,7 @@ section{
     transform:translateY(-2px);
 }
 
-
-/* =========================================================
-   PORTFOLIO GRID
-========================================================= */
-
 .portfolio-grid{
-
     display:grid;
 
     grid-template-columns:
@@ -991,7 +852,6 @@ section{
 }
 
 .portfolio-item{
-
     position:relative;
 
     aspect-ratio:9/16;
@@ -1013,7 +873,6 @@ section{
 }
 
 .portfolio-item:hover{
-
     transform:translateY(-6px);
 
     border-color:#493036;
@@ -1025,9 +884,7 @@ section{
 .portfolio-item video,
 .portfolio-item img,
 .portfolio-item iframe{
-
     width:100%;
-
     height:100%;
 
     display:block;
@@ -1042,21 +899,17 @@ section{
 }
 
 .portfolio-item::after{
-
     content:"";
 
     position:absolute;
 
     left:0;
-
     right:0;
-
     bottom:0;
 
     height:48%;
 
     background:
-
         linear-gradient(
             to top,
             rgba(0,0,0,.92),
@@ -1067,21 +920,17 @@ section{
 }
 
 .reel-play{
-
     position:absolute;
 
     top:14px;
-
     right:14px;
 
     width:39px;
-
     height:39px;
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
     border-radius:50%;
@@ -1100,13 +949,10 @@ section{
 }
 
 .portfolio-caption{
-
     position:absolute;
 
     left:18px;
-
     right:18px;
-
     bottom:17px;
 
     z-index:5;
@@ -1115,7 +961,6 @@ section{
 }
 
 .caption-title{
-
     font-family:var(--display);
 
     font-size:.95rem;
@@ -1126,7 +971,6 @@ section{
 }
 
 .caption-type{
-
     color:var(--red);
 
     font-size:.55rem;
@@ -1139,7 +983,6 @@ section{
 }
 
 .portfolio-empty{
-
     grid-column:1/-1;
 
     padding:100px 20px;
@@ -1150,7 +993,6 @@ section{
 }
 
 .portfolio-empty div{
-
     font-size:2.8rem;
 
     margin-bottom:15px;
@@ -1162,7 +1004,6 @@ section{
 ========================================================= */
 
 .video-modal{
-
     position:fixed;
 
     inset:0;
@@ -1172,7 +1013,6 @@ section{
     display:none;
 
     align-items:center;
-
     justify-content:center;
 
     padding:25px;
@@ -1187,7 +1027,6 @@ section{
 }
 
 .modal-content{
-
     position:relative;
 
     width:min(95vw,500px);
@@ -1203,9 +1042,7 @@ section{
 }
 
 .modal-content video{
-
     width:100%;
-
     height:100%;
 
     object-fit:contain;
@@ -1214,21 +1051,17 @@ section{
 }
 
 .modal-close{
-
     position:absolute;
 
     top:-15px;
-
     right:-15px;
 
     width:42px;
-
     height:42px;
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
     border:1px solid #444;
@@ -1241,26 +1074,18 @@ section{
 
     cursor:pointer;
 
-    font-size:1rem;
-
     z-index:20;
 }
 
 .modal-close:hover{
-
     background:var(--red);
-
-    border-color:var(--red);
 }
 
 .modal-title{
-
     position:absolute;
 
     left:0;
-
     right:0;
-
     bottom:0;
 
     padding:50px 20px 18px;
@@ -1289,18 +1114,18 @@ section{
 }
 
 .booking-inner{
-
     max-width:1150px;
 
     display:grid;
 
-    grid-template-columns:.9fr 1.1fr;
+    grid-template-columns:
+        .9fr
+        1.1fr;
 
     gap:80px;
 }
 
 .booking-left h2{
-
     font-family:var(--display);
 
     font-size:clamp(2.8rem,5vw,4.6rem);
@@ -1315,7 +1140,6 @@ section{
 }
 
 .booking-left>p{
-
     color:#858078;
 
     line-height:1.8;
@@ -1326,7 +1150,6 @@ section{
 }
 
 .booking-detail{
-
     display:flex;
 
     gap:15px;
@@ -1335,15 +1158,12 @@ section{
 }
 
 .booking-detail-icon{
-
     width:38px;
-
     height:38px;
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
     background:#1c1916;
@@ -1354,7 +1174,6 @@ section{
 }
 
 .booking-detail strong{
-
     display:block;
 
     font-size:.82rem;
@@ -1363,19 +1182,12 @@ section{
 }
 
 .booking-detail span{
-
     color:#77736d;
 
     font-size:.72rem;
 }
 
-
-/* =========================================================
-   FORM
-========================================================= */
-
-.booking-form{
-
+form{
     display:flex;
 
     flex-direction:column;
@@ -1384,16 +1196,15 @@ section{
 }
 
 .form-row{
-
     display:grid;
 
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:
+        1fr 1fr;
 
     gap:16px;
 }
 
 label{
-
     display:block;
 
     margin-bottom:7px;
@@ -1401,7 +1212,6 @@ label{
     color:#77736d;
 
     font-size:.61rem;
-
     font-weight:800;
 
     text-transform:uppercase;
@@ -1409,10 +1219,9 @@ label{
     letter-spacing:.12em;
 }
 
-.booking-form input,
-.booking-form select,
-.booking-form textarea{
-
+input,
+select,
+textarea{
     width:100%;
 
     padding:14px 15px;
@@ -1426,36 +1235,21 @@ label{
     outline:none;
 
     font-size:.81rem;
-
-    transition:.2s;
 }
 
-.booking-form input::placeholder,
-.booking-form textarea::placeholder{
-    color:#514d47;
-}
-
-.booking-form input:focus,
-.booking-form select:focus,
-.booking-form textarea:focus{
-
+input:focus,
+select:focus,
+textarea:focus{
     border-color:var(--red);
-
 }
 
-.booking-form select{
-    appearance:auto;
-}
-
-.booking-form textarea{
-
+textarea{
     min-height:130px;
 
     resize:vertical;
 }
 
 .form-submit{
-
     width:100%;
 
     padding:16px;
@@ -1473,26 +1267,15 @@ label{
     text-transform:uppercase;
 
     letter-spacing:.08em;
-
-    transition:.25s;
-}
-
-.form-submit:hover{
-
-    background:var(--white);
-
-    color:#000;
 }
 
 .form-submit:disabled{
-
     opacity:.5;
 
     cursor:not-allowed;
 }
 
 .form-success{
-
     display:none;
 
     padding:16px;
@@ -1509,7 +1292,6 @@ label{
 }
 
 .form-error{
-
     display:none;
 
     padding:16px;
@@ -1533,7 +1315,6 @@ label{
 ========================================================= */
 
 footer{
-
     padding:55px 50px 30px;
 
     border-top:1px solid #24211e;
@@ -1542,7 +1323,6 @@ footer{
 }
 
 .footer-top{
-
     display:flex;
 
     align-items:center;
@@ -1557,7 +1337,6 @@ footer{
 }
 
 .footer-logo{
-
     font-family:var(--display);
 
     font-size:1.35rem;
@@ -1570,7 +1349,6 @@ footer{
 }
 
 .footer-links{
-
     display:flex;
 
     gap:25px;
@@ -1579,7 +1357,6 @@ footer{
 }
 
 .footer-links a{
-
     color:#77736d;
 
     font-size:.67rem;
@@ -1587,16 +1364,9 @@ footer{
     text-transform:uppercase;
 
     letter-spacing:.08em;
-
-    transition:.2s;
-}
-
-.footer-links a:hover{
-    color:var(--red);
 }
 
 .footer-copy{
-
     padding-top:25px;
 
     border-top:1px solid #1c1916;
@@ -1612,7 +1382,6 @@ footer{
 ========================================================= */
 
 .reveal{
-
     opacity:0;
 
     transform:translateY(22px);
@@ -1623,7 +1392,6 @@ footer{
 }
 
 .reveal.visible{
-
     opacity:1;
 
     transform:translateY(0);
@@ -1637,7 +1405,6 @@ footer{
 @media(max-width:1100px){
 
     .hero-visual{
-
         right:1%;
 
         transform:
@@ -1655,7 +1422,8 @@ footer{
 @media(max-width:1000px){
 
     .services-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
     .service-card:nth-child(2){
@@ -1668,14 +1436,12 @@ footer{
     }
 
     .booking-inner{
-
         grid-template-columns:1fr;
 
         gap:50px;
     }
 
     .hero-visual{
-
         right:-55px;
 
         opacity:.48;
@@ -1685,7 +1451,6 @@ footer{
 @media(max-width:700px){
 
     nav{
-
         height:65px;
 
         padding:0 20px;
@@ -1700,21 +1465,21 @@ footer{
     }
 
     .nav-cta{
-
         padding:10px 15px;
 
         font-size:.6rem;
     }
 
     #hero{
-
         min-height:92vh;
 
-        padding:120px 20px 70px;
+        padding:
+            120px
+            20px
+            70px;
     }
 
     .hero-visual{
-
         right:-115px;
 
         top:56%;
@@ -1727,7 +1492,6 @@ footer{
     }
 
     .hero-title{
-
         font-size:
             clamp(
                 3.3rem,
@@ -1736,19 +1500,13 @@ footer{
             );
     }
 
-    .hero-description{
-
-        max-width:470px;
-
-        font-size:.85rem;
-    }
-
     .hero-side{
         display:none;
     }
 
     section{
-        padding:80px 20px;
+        padding:
+            80px 20px;
     }
 
     .services-grid{
@@ -1756,7 +1514,6 @@ footer{
     }
 
     .service-card{
-
         border-right:0;
 
         border-bottom:1px solid #302c27;
@@ -1767,14 +1524,12 @@ footer{
     }
 
     .portfolio-header{
-
         align-items:flex-start;
 
         flex-direction:column;
     }
 
     .portfolio-grid{
-
         grid-template-columns:
             repeat(2,1fr);
 
@@ -1786,11 +1541,8 @@ footer{
     }
 
     .portfolio-caption{
-
         left:10px;
-
         right:10px;
-
         bottom:10px;
     }
 
@@ -1803,13 +1555,10 @@ footer{
     }
 
     .reel-play{
-
         top:9px;
-
         right:9px;
 
         width:32px;
-
         height:32px;
     }
 
@@ -1818,11 +1567,11 @@ footer{
     }
 
     footer{
-        padding:45px 20px 25px;
+        padding:
+            45px 20px 25px;
     }
 
     .footer-top{
-
         align-items:flex-start;
 
         flex-direction:column;
@@ -1840,7 +1589,6 @@ footer{
     }
 
     .hero-visual{
-
         right:-150px;
 
         opacity:.18;
@@ -1855,11 +1603,12 @@ footer{
 
 </head>
 
+
 <body>
 
 
 <!-- =========================================================
-NAVBAR
+     NAVBAR
 ========================================================= -->
 
 <nav>
@@ -1871,15 +1620,21 @@ NAVBAR
     <ul class="nav-links">
 
         <li>
-            <a href="#services">Services</a>
+            <a href="#services">
+                Services
+            </a>
         </li>
 
         <li>
-            <a href="#portfolio">Work</a>
+            <a href="#portfolio">
+                Work
+            </a>
         </li>
 
         <li>
-            <a href="#booking">Book</a>
+            <a href="#booking">
+                Book
+            </a>
         </li>
 
     </ul>
@@ -1892,7 +1647,7 @@ NAVBAR
 
 
 <!-- =========================================================
-HERO
+     HERO
 ========================================================= -->
 
 <section id="hero">
@@ -1905,7 +1660,6 @@ HERO
 
             <img
                 id="heroCreatorImage"
-                src=""
                 alt="Krishhhh Video Editor"
             >
 
@@ -1917,6 +1671,7 @@ HERO
             </div>
 
         </div>
+
 
         <div class="adobe-logos">
 
@@ -2000,6 +1755,7 @@ HERO
 
     </div>
 
+
     <div class="hero-side">
         krishhhh.verse · visual storytelling
     </div>
@@ -2008,7 +1764,7 @@ HERO
 
 
 <!-- =========================================================
-SERVICES
+     SERVICES
 ========================================================= -->
 
 <section id="services">
@@ -2042,6 +1798,7 @@ SERVICES
 
         </div>
 
+
         <div class="service-card">
 
             <div class="service-number">02</div>
@@ -2061,6 +1818,7 @@ SERVICES
 
         </div>
 
+
         <div class="service-card">
 
             <div class="service-number">03</div>
@@ -2079,6 +1837,7 @@ SERVICES
             </span>
 
         </div>
+
 
         <div class="service-card">
 
@@ -2105,7 +1864,7 @@ SERVICES
 
 
 <!-- =========================================================
-PORTFOLIO
+     PORTFOLIO
 ========================================================= -->
 
 <section id="portfolio">
@@ -2124,6 +1883,7 @@ PORTFOLIO
 
         </div>
 
+
         <a
             href="https://www.instagram.com/krishhhh.verse"
             target="_blank"
@@ -2134,6 +1894,7 @@ PORTFOLIO
         </a>
 
     </div>
+
 
     <div
         class="portfolio-grid"
@@ -2156,13 +1917,12 @@ PORTFOLIO
 
 
 <!-- =========================================================
-VIDEO MODAL
+     VIDEO MODAL
 ========================================================= -->
 
 <div
     class="video-modal"
     id="videoModal"
-    aria-hidden="true"
 >
 
     <div class="modal-content">
@@ -2192,7 +1952,7 @@ VIDEO MODAL
 
 
 <!-- =========================================================
-BOOKING
+     BOOKING
 ========================================================= -->
 
 <section id="booking">
@@ -2211,12 +1971,10 @@ BOOKING
             </h2>
 
             <p>
-
                 Tell me what you're working on.
                 Whether it's a reel, brand video,
                 event shoot or something completely
                 different — let's make it happen.
-
             </p>
 
             <div class="booking-detail">
@@ -2237,6 +1995,7 @@ BOOKING
 
             </div>
 
+
             <div class="booking-detail">
 
                 <div class="booking-detail-icon">
@@ -2254,6 +2013,7 @@ BOOKING
                 </div>
 
             </div>
+
 
             <div class="booking-detail">
 
@@ -2278,18 +2038,13 @@ BOOKING
 
         <div class="reveal">
 
-            <form
-                id="bookingForm"
-                class="booking-form"
-            >
+            <form id="bookingForm">
 
                 <div class="form-row">
 
                     <div>
 
-                        <label>
-                            Your Name
-                        </label>
+                        <label>Your Name</label>
 
                         <input
                             type="text"
@@ -2299,6 +2054,7 @@ BOOKING
                         >
 
                     </div>
+
 
                     <div>
 
@@ -2317,11 +2073,10 @@ BOOKING
 
                 </div>
 
+
                 <div>
 
-                    <label>
-                        Email Address
-                    </label>
+                    <label>Email Address</label>
 
                     <input
                         type="email"
@@ -2332,16 +2087,12 @@ BOOKING
 
                 </div>
 
+
                 <div>
 
-                    <label>
-                        Service Required
-                    </label>
+                    <label>Service Required</label>
 
-                    <select
-                        id="service"
-                        required
-                    >
+                    <select id="service" required>
 
                         <option value="">
                             Select a service...
@@ -2375,11 +2126,10 @@ BOOKING
 
                 </div>
 
+
                 <div>
 
-                    <label>
-                        Preferred Date
-                    </label>
+                    <label>Preferred Date</label>
 
                     <input
                         type="date"
@@ -2389,11 +2139,10 @@ BOOKING
 
                 </div>
 
+
                 <div>
 
-                    <label>
-                        Project Details
-                    </label>
+                    <label>Project Details</label>
 
                     <textarea
                         id="message"
@@ -2402,12 +2151,14 @@ BOOKING
 
                 </div>
 
+
                 <button
                     type="submit"
                     class="form-submit"
                 >
                     Continue on WhatsApp →
                 </button>
+
 
                 <div
                     class="form-success"
@@ -2416,6 +2167,7 @@ BOOKING
                     ✅ Booking saved successfully!
                     Opening WhatsApp...
                 </div>
+
 
                 <div
                     class="form-error"
@@ -2432,7 +2184,7 @@ BOOKING
 
 
 <!-- =========================================================
-FOOTER
+     FOOTER
 ========================================================= -->
 
 <footer>
@@ -2445,11 +2197,17 @@ FOOTER
 
         <div class="footer-links">
 
-            <a href="#services">Services</a>
+            <a href="#services">
+                Services
+            </a>
 
-            <a href="#portfolio">Work</a>
+            <a href="#portfolio">
+                Work
+            </a>
 
-            <a href="#booking">Book</a>
+            <a href="#booking">
+                Book
+            </a>
 
             <a href="admin-login.html">
                 Admin
@@ -2468,10 +2226,9 @@ FOOTER
 
     </div>
 
+
     <div class="footer-copy">
-
         © 2026 krishhhh.verse · All rights reserved.
-
     </div>
 
 </footer>
@@ -2480,7 +2237,7 @@ FOOTER
 <script>
 
 /* =========================================================
-SUPABASE
+   SUPABASE
 ========================================================= */
 
 const SUPABASE_URL =
@@ -2491,12 +2248,12 @@ const SUPABASE_KEY =
 
 
 /* =========================================================
-HELPER
+   HTML ESCAPE
 ========================================================= */
 
-function escapeHTML(text){
+function escapeHTML(value){
 
-    return String(text ?? "")
+    return String(value ?? "")
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
@@ -2507,88 +2264,169 @@ function escapeHTML(text){
 
 
 /* =========================================================
-YOUTUBE ID
+   SUPABASE REQUEST
+========================================================= */
+
+async function supabaseFetch(endpoint, options = {}){
+
+    const response =
+        await fetch(
+            SUPABASE_URL + endpoint,
+            {
+                ...options,
+
+                headers:{
+                    "apikey":SUPABASE_KEY,
+                    "Authorization":
+                        "Bearer " + SUPABASE_KEY,
+
+                    ...(options.headers || {})
+                }
+            }
+        );
+
+
+    const text =
+        await response.text();
+
+
+    let data = null;
+
+
+    try{
+        data = text
+            ? JSON.parse(text)
+            : null;
+    }
+    catch{
+        data = text;
+    }
+
+
+    if(!response.ok){
+
+        console.error(
+            "SUPABASE ERROR:",
+            response.status,
+            data
+        );
+
+        throw new Error(
+            typeof data === "string"
+                ? data
+                : JSON.stringify(data)
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+/* =========================================================
+   YOUTUBE
 ========================================================= */
 
 function extractYouTubeID(url){
 
-    if(!url) return "";
+    if(!url)
+        return "";
 
     const match =
         String(url).match(
             /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&?\/]+)/
         );
 
-    return match ? match[1] : "";
+    return match
+        ? match[1]
+        : "";
 
 }
 
 
 /* =========================================================
-VIMEO ID
+   VIMEO
 ========================================================= */
 
 function extractVimeoID(url){
 
-    if(!url) return "";
+    if(!url)
+        return "";
 
     const match =
         String(url).match(
             /vimeo\.com\/(?:video\/)?(\d+)/
         );
 
-    return match ? match[1] : "";
+    return match
+        ? match[1]
+        : "";
 
 }
 
 
 /* =========================================================
-GET PORTFOLIO
+   IMAGE URL
 ========================================================= */
 
-async function getPortfolio(){
+function getMediaURL(item){
 
-    const response =
-        await fetch(
-            SUPABASE_URL +
-            "/rest/v1/portfolio?select=*&order=created_at.desc",
-            {
-                method:"GET",
+    let url =
+        String(item?.url || "").trim();
 
-                headers:{
-                    "apikey":SUPABASE_KEY,
-                    "Authorization":
-                        "Bearer " + SUPABASE_KEY
-                }
-            }
-        );
 
-    const text =
-        await response.text();
+    if(!url)
+        return "";
 
-    console.log(
-        "SUPABASE PORTFOLIO RESPONSE:",
-        text
-    );
 
-    if(!response.ok){
+    /*
+       If admin already stored full public URL,
+       use it directly.
+    */
 
-        throw new Error(text);
+    if(
+        url.startsWith("http://") ||
+        url.startsWith("https://") ||
+        url.startsWith("data:")
+    ){
+
+        return url;
 
     }
 
-    return JSON.parse(text);
+
+    /*
+       If only storage path was saved,
+       convert it into Supabase public URL.
+
+       Bucket = portfolio
+    */
+
+    url =
+        url.replace(/^\/+/, "");
+
+    url =
+        url.replace(/^portfolio\//i,"");
+
+
+    return (
+        SUPABASE_URL +
+        "/storage/v1/object/public/portfolio/" +
+        url
+    );
 
 }
 
 
 /* =========================================================
-HERO IMAGE
+   HERO IMAGE
 ========================================================= */
 
 async function loadHeroImage(){
 
-    const heroImage =
+    const image =
         document.getElementById(
             "heroCreatorImage"
         );
@@ -2598,145 +2436,108 @@ async function loadHeroImage(){
             "heroImageFallback"
         );
 
+
     try{
 
+        /*
+           IMPORTANT:
+           Don't use type=in.(photo,image)
+
+           Fetch all portfolio records and
+           find an image in JavaScript.
+        */
+
         const items =
-            await getPortfolio();
+            await supabaseFetch(
+                "/rest/v1/portfolio" +
+                "?select=*" +
+                "&order=created_at.desc"
+            );
 
 
         console.log(
-            "ALL PORTFOLIO ITEMS:",
+            "HERO PORTFOLIO DATA:",
             items
         );
 
 
-        const imageItem =
-            items.find(item => {
+        const heroItem =
+            (items || []).find(
+                item => {
 
-                const type =
-                    String(
-                        item.type || ""
-                    )
-                    .toLowerCase()
-                    .trim();
+                    const type =
+                        String(
+                            item.type || ""
+                        )
+                        .toLowerCase()
+                        .trim();
 
-                const url =
-                    String(
-                        item.url ||
-                        item.image_url ||
-                        item.file_url ||
-                        ""
-                    )
-                    .trim();
+                    return (
+                        type === "photo" ||
+                        type === "image"
+                    );
 
-
-                if(!url)
-                    return false;
-
-
-                return (
-
-                    type === "image" ||
-
-                    type === "photo" ||
-
-                    type === "jpg" ||
-
-                    type === "jpeg" ||
-
-                    type === "png" ||
-
-                    type === "webp" ||
-
-                    /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i
-                    .test(url)
-
-                );
-
-            });
-
-
-        if(!imageItem){
-
-            console.log(
-                "❌ NO IMAGE FOUND"
+                }
             );
 
-            heroImage.style.display =
-                "none";
 
-            fallback.style.display =
-                "flex";
+        if(
+            heroItem &&
+            heroItem.url
+        ){
 
-            return;
+            const imageURL =
+                getMediaURL(
+                    heroItem
+                );
+
+
+            console.log(
+                "HERO IMAGE URL:",
+                imageURL
+            );
+
+
+            image.src =
+                imageURL;
+
+            image.onload =
+                function(){
+
+                    image.style.display =
+                        "block";
+
+                    fallback.style.display =
+                        "none";
+
+                };
+
+
+            image.onerror =
+                function(){
+
+                    console.error(
+                        "HERO IMAGE FAILED:",
+                        imageURL
+                    );
+
+                    image.style.display =
+                        "none";
+
+                    fallback.style.display =
+                        "flex";
+
+                };
 
         }
-
-
-        const imageURL =
-            String(
-                imageItem.url ||
-                imageItem.image_url ||
-                imageItem.file_url
-            ).trim();
-
-
-        console.log(
-            "✅ HERO IMAGE URL:",
-            imageURL
-        );
-
-
-        heroImage.onload =
-            function(){
-
-                console.log(
-                    "✅ HERO IMAGE LOADED"
-                );
-
-                heroImage.style.display =
-                    "block";
-
-                fallback.style.display =
-                    "none";
-
-            };
-
-
-        heroImage.onerror =
-            function(){
-
-                console.error(
-                    "❌ IMAGE FAILED:",
-                    imageURL
-                );
-
-                heroImage.style.display =
-                    "none";
-
-                fallback.style.display =
-                    "flex";
-
-            };
-
-
-        heroImage.src =
-            imageURL;
-
 
     }
     catch(error){
 
         console.error(
-            "❌ HERO ERROR:",
+            "HERO IMAGE ERROR:",
             error
         );
-
-        heroImage.style.display =
-            "none";
-
-        fallback.style.display =
-            "flex";
 
     }
 
@@ -2744,53 +2545,7 @@ async function loadHeroImage(){
 
 
 /* =========================================================
-VIDEO OBSERVER
-========================================================= */
-
-const videoObserver =
-    new IntersectionObserver(
-
-        entries => {
-
-            entries.forEach(entry => {
-
-                const video =
-                    entry.target;
-
-                if(entry.isIntersecting){
-
-                    video
-                        .play()
-                        .catch(()=>{});
-
-                }
-                else{
-
-                    video.pause();
-
-                }
-
-            });
-
-        },
-
-        {
-            threshold:.55
-        }
-
-    );
-
-
-function setupVideoObserver(video){
-
-    if(video)
-        videoObserver.observe(video);
-
-}
-
-
-/* =========================================================
-PORTFOLIO
+   PORTFOLIO
 ========================================================= */
 
 async function loadPortfolio(){
@@ -2803,12 +2558,28 @@ async function loadPortfolio(){
 
     try{
 
+        /*
+           NO TYPE FILTER HERE.
+
+           This is important.
+        */
+
         const items =
-            await getPortfolio();
+            await supabaseFetch(
+                "/rest/v1/portfolio" +
+                "?select=*" +
+                "&order=created_at.desc"
+            );
+
+
+        console.log(
+            "PORTFOLIO DATA:",
+            items
+        );
 
 
         if(
-            !items ||
+            !Array.isArray(items) ||
             items.length === 0
         ){
 
@@ -2819,7 +2590,7 @@ async function loadPortfolio(){
                     <div>🎬</div>
 
                     <p>
-                        Portfolio coming soon.
+                        No portfolio items uploaded yet.
                     </p>
 
                 </div>
@@ -2835,8 +2606,7 @@ async function loadPortfolio(){
 
 
         items.forEach(
-            (item,index) => {
-
+            (item,index)=>{
 
                 const div =
                     document.createElement(
@@ -2855,13 +2625,16 @@ async function loadPortfolio(){
                     );
 
 
-                const url =
+                const rawURL =
                     String(
-                        item.url ||
-                        item.image_url ||
-                        item.file_url ||
-                        ""
+                        item.url || ""
                     ).trim();
+
+
+                const url =
+                    getMediaURL(
+                        item
+                    );
 
 
                 const type =
@@ -2872,26 +2645,90 @@ async function loadPortfolio(){
                     .trim();
 
 
-                if(!url){
+                console.log(
+                    "ITEM:",
+                    {
+                        title:item.title,
+                        type:item.type,
+                        url:rawURL,
+                        finalURL:url
+                    }
+                );
 
-                    console.warn(
-                        "⚠️ Empty URL:",
-                        item
+
+                /* =================================================
+                   IMAGE
+                ================================================= */
+
+                if(
+                    type === "photo" ||
+                    type === "image" ||
+                    type === "jpg" ||
+                    type === "jpeg" ||
+                    type === "png" ||
+                    type === "webp"
+                ){
+
+                    div.innerHTML = `
+
+                        <img
+                            src="${escapeHTML(url)}"
+                            alt="${title}"
+                            loading="lazy"
+                        >
+
+                        <div class="reel-play">
+                            ↗
+                        </div>
+
+                        <div class="portfolio-caption">
+
+                            <div class="caption-title">
+                                ${title}
+                            </div>
+
+                            <div class="caption-type">
+                                Photography
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    const img =
+                        div.querySelector(
+                            "img"
+                        );
+
+
+                    img.addEventListener(
+                        "error",
+                        function(){
+
+                            console.error(
+                                "IMAGE FAILED:",
+                                url
+                            );
+
+                            div.style.display =
+                                "none";
+
+                        }
                     );
-
-                    return;
 
                 }
 
 
-                /* =========================================
+                /* =================================================
                    VIDEO
-                ========================================= */
+                ================================================= */
 
-                if(
+                else if(
                     type === "video" ||
                     type === "mp4" ||
-                    /\.(mp4|webm|mov)(\?.*)?$/i.test(url)
+                    type === "mov" ||
+                    type === "webm"
                 ){
 
                     div.innerHTML = `
@@ -2902,8 +2739,8 @@ async function loadPortfolio(){
                             loop
                             playsinline
                             preload="metadata"
-                            src="${escapeHTML(url)}">
-                        </video>
+                            src="${escapeHTML(url)}"
+                        ></video>
 
                         <div class="reel-play">
                             ▶
@@ -2937,7 +2774,7 @@ async function loadPortfolio(){
 
                     div.addEventListener(
                         "click",
-                        () => {
+                        function(){
 
                             openVideoModal(
                                 url,
@@ -2950,9 +2787,9 @@ async function loadPortfolio(){
                 }
 
 
-                /* =========================================
+                /* =================================================
                    YOUTUBE
-                ========================================= */
+                ================================================= */
 
                 else if(
                     type === "youtube"
@@ -2960,7 +2797,7 @@ async function loadPortfolio(){
 
                     const id =
                         extractYouTubeID(
-                            url
+                            rawURL
                         );
 
 
@@ -2999,9 +2836,9 @@ async function loadPortfolio(){
                 }
 
 
-                /* =========================================
+                /* =================================================
                    VIMEO
-                ========================================= */
+                ================================================= */
 
                 else if(
                     type === "vimeo"
@@ -3009,7 +2846,7 @@ async function loadPortfolio(){
 
                     const id =
                         extractVimeoID(
-                            url
+                            rawURL
                         );
 
 
@@ -3048,9 +2885,9 @@ async function loadPortfolio(){
                 }
 
 
-                /* =========================================
+                /* =================================================
                    INSTAGRAM
-                ========================================= */
+                ================================================= */
 
                 else if(
                     type === "instagram" ||
@@ -3060,10 +2897,9 @@ async function loadPortfolio(){
                     div.innerHTML = `
 
                         <iframe
-                            src="${escapeHTML(url)}"
+                            src="${escapeHTML(rawURL)}"
                             title="${title}"
-                            loading="lazy"
-                            allowfullscreen>
+                            loading="lazy">
                         </iframe>
 
                         <div class="reel-play">
@@ -3087,28 +2923,21 @@ async function loadPortfolio(){
                 }
 
 
-                /* =========================================
-                   IMAGE
-                ========================================= */
+                /* =================================================
+                   UNKNOWN TYPE
+                ================================================= */
 
-                else if(
+                else{
 
-                    type === "image" ||
+                    console.warn(
+                        "UNKNOWN PORTFOLIO TYPE:",
+                        item
+                    );
 
-                    type === "photo" ||
 
-                    type === "jpg" ||
-
-                    type === "jpeg" ||
-
-                    type === "png" ||
-
-                    type === "webp" ||
-
-                    /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i
-                    .test(url)
-
-                ){
+                    /*
+                       Try image first.
+                    */
 
                     div.innerHTML = `
 
@@ -3118,10 +2947,6 @@ async function loadPortfolio(){
                             loading="lazy"
                         >
 
-                        <div class="reel-play">
-                            ↗
-                        </div>
-
                         <div class="portfolio-caption">
 
                             <div class="caption-title">
@@ -3129,7 +2954,9 @@ async function loadPortfolio(){
                             </div>
 
                             <div class="caption-type">
-                                Photography
+                                ${escapeHTML(
+                                    item.type || "Media"
+                                )}
                             </div>
 
                         </div>
@@ -3139,29 +2966,16 @@ async function loadPortfolio(){
                 }
 
 
-                else{
-
-                    console.warn(
-                        "Unknown portfolio type:",
-                        type,
-                        url
-                    );
-
-                    return;
-
-                }
-
-
-                grid.appendChild(div);
+                grid.appendChild(
+                    div
+                );
 
 
                 setTimeout(
-                    () => {
-
+                    ()=>{
                         div.classList.add(
                             "visible"
                         );
-
                     },
                     Math.min(
                         index * 70,
@@ -3177,7 +2991,7 @@ async function loadPortfolio(){
     catch(error){
 
         console.error(
-            "❌ PORTFOLIO ERROR:",
+            "PORTFOLIO ERROR:",
             error
         );
 
@@ -3192,6 +3006,14 @@ async function loadPortfolio(){
                     Portfolio could not be loaded.
                 </p>
 
+                <small style="
+                    display:block;
+                    margin-top:12px;
+                    color:#777;
+                ">
+                    Check browser console for details.
+                </small>
+
             </div>
 
         `;
@@ -3202,7 +3024,64 @@ async function loadPortfolio(){
 
 
 /* =========================================================
-VIDEO MODAL
+   VIDEO OBSERVER
+========================================================= */
+
+const videoObserver =
+    new IntersectionObserver(
+
+        entries => {
+
+            entries.forEach(
+                entry => {
+
+                    const video =
+                        entry.target;
+
+
+                    if(
+                        entry.isIntersecting
+                    ){
+
+                        video.play()
+                        .catch(
+                            ()=>{}
+                        );
+
+                    }
+                    else{
+
+                        video.pause();
+
+                    }
+
+                }
+            );
+
+        },
+
+        {
+            threshold:.55
+        }
+
+    );
+
+
+function setupVideoObserver(video){
+
+    if(video){
+
+        videoObserver.observe(
+            video
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   MODAL
 ========================================================= */
 
 const videoModal =
@@ -3234,9 +3113,6 @@ function openVideoModal(
     modalVideo.src =
         url;
 
-    modalVideo.currentTime =
-        0;
-
     modalTitle.textContent =
         title;
 
@@ -3244,18 +3120,14 @@ function openVideoModal(
         "active"
     );
 
-    videoModal.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
     document.body.classList.add(
         "modal-open"
     );
 
-    modalVideo
-        .play()
-        .catch(()=>{});
+    modalVideo.play()
+    .catch(
+        ()=>{}
+    );
 
 }
 
@@ -3274,11 +3146,6 @@ function closeVideoModal(){
         "active"
     );
 
-    videoModal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
     document.body.classList.remove(
         "modal-open"
     );
@@ -3294,7 +3161,7 @@ modalClose.addEventListener(
 
 videoModal.addEventListener(
     "click",
-    function(event){
+    event => {
 
         if(
             event.target ===
@@ -3311,7 +3178,7 @@ videoModal.addEventListener(
 
 document.addEventListener(
     "keydown",
-    function(event){
+    event => {
 
         if(
             event.key === "Escape"
@@ -3326,7 +3193,7 @@ document.addEventListener(
 
 
 /* =========================================================
-BOOKING
+   BOOKING
 ========================================================= */
 
 const bookingForm =
@@ -3407,6 +3274,25 @@ bookingForm.addEventListener(
             "none";
 
 
+        if(
+            !name ||
+            !phone ||
+            !email ||
+            !service ||
+            !preferredDate
+        ){
+
+            errorBox.textContent =
+                "Please fill all required fields.";
+
+            errorBox.style.display =
+                "block";
+
+            return;
+
+        }
+
+
         button.disabled =
             true;
 
@@ -3435,7 +3321,7 @@ bookingForm.addEventListener(
             };
 
 
-            const response =
+            const saveResponse =
                 await fetch(
 
                     SUPABASE_URL +
@@ -3472,14 +3358,16 @@ bookingForm.addEventListener(
                 );
 
 
-            const text =
-                await response.text();
+            const saveText =
+                await saveResponse.text();
 
 
-            if(!response.ok){
+            if(
+                !saveResponse.ok
+            ){
 
                 throw new Error(
-                    text ||
+                    saveText ||
                     "Supabase rejected booking."
                 );
 
@@ -3560,7 +3448,6 @@ Sent from krishhhh.verse website.`;
                 "❌ Booking could not be saved.\n\n" +
                 error.message;
 
-
             errorBox.style.display =
                 "block";
 
@@ -3580,7 +3467,7 @@ Sent from krishhhh.verse website.`;
 
 
 /* =========================================================
-MINIMUM DATE
+   MINIMUM DATE
 ========================================================= */
 
 const dateInput =
@@ -3588,28 +3475,18 @@ const dateInput =
         "date"
     );
 
+
 const today =
     new Date();
 
-const year =
-    today.getFullYear();
-
-const month =
-    String(
-        today.getMonth()+1
-    ).padStart(2,"0");
-
-const day =
-    String(
-        today.getDate()
-    ).padStart(2,"0");
 
 dateInput.min =
-    `${year}-${month}-${day}`;
+    today.toISOString()
+    .split("T")[0];
 
 
 /* =========================================================
-REVEAL
+   REVEAL
 ========================================================= */
 
 const revealObserver =
@@ -3649,24 +3526,24 @@ const revealObserver =
 function setupReveal(){
 
     document
-        .querySelectorAll(
-            ".reveal"
-        )
-        .forEach(
-            element => {
+    .querySelectorAll(
+        ".reveal"
+    )
+    .forEach(
+        element => {
 
-                revealObserver.observe(
-                    element
-                );
+            revealObserver.observe(
+                element
+            );
 
-            }
-        );
+        }
+    );
 
 }
 
 
 /* =========================================================
-START
+   START
 ========================================================= */
 
 loadHeroImage();
@@ -3675,22 +3552,7 @@ loadPortfolio();
 
 setupReveal();
 
-
-/* =========================================================
-DEBUG
-========================================================= */
-
-console.log(
-    "🚀 krishhhh.verse website loaded"
-);
-
-console.log(
-    "Supabase:",
-    SUPABASE_URL
-);
-
 </script>
 
 </body>
-
 </html>
