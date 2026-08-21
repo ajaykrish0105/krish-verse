@@ -17,10 +17,6 @@ rel="stylesheet">
 
 <style>
 
-/* =========================================================
-   RESET
-========================================================= */
-
 *{
     margin:0;
     padding:0;
@@ -32,13 +28,9 @@ html{
 }
 
 body{
-
     background:#090909;
-
     color:#f1eee8;
-
     font-family:'Manrope',sans-serif;
-
     overflow-x:hidden;
 }
 
@@ -49,33 +41,20 @@ body.modal-open{
 :root{
 
     --black:#090909;
-
     --black-2:#0d0c0b;
-
     --charcoal:#12110f;
-
     --charcoal-2:#171512;
-
     --warm:#1d1916;
-
     --white:#f1eee8;
-
     --white-soft:#d8d4cc;
-
     --muted:#8b8780;
-
     --muted-dark:#5f5b55;
-
     --border:#292622;
-
     --border-light:#36312c;
-
     --red:#b51f2b;
-
     --red-dark:#8e1822;
 
     --display:'Space Grotesk',sans-serif;
-
     --body:'Manrope',sans-serif;
 }
 
@@ -397,11 +376,7 @@ nav{
 
     font-family:var(--display);
 
-    font-size:clamp(
-        4rem,
-        8vw,
-        8.2rem
-    );
+    font-size:clamp(4rem,8vw,8.2rem);
 
     line-height:.86;
 
@@ -530,11 +505,6 @@ nav{
     pointer-events:none;
 }
 
-
-/* =========================================================
-   CREATOR IMAGE
-========================================================= */
-
 .creator-image-box{
 
     position:absolute;
@@ -600,7 +570,7 @@ nav{
 
     height:100%;
 
-    display:block;
+    display:none;
 
     object-fit:cover;
 
@@ -626,11 +596,6 @@ nav{
         contrast(1.04)
         brightness(.98);
 }
-
-
-/* =========================================================
-   IMAGE FALLBACK
-========================================================= */
 
 .hero-image-fallback{
 
@@ -838,11 +803,7 @@ section{
 
     font-family:var(--display);
 
-    font-size:clamp(
-        2.7rem,
-        5vw,
-        4.6rem
-    );
+    font-size:clamp(2.7rem,5vw,4.6rem);
 
     line-height:.94;
 
@@ -1197,7 +1158,7 @@ section{
 
 
 /* =========================================================
-   VIDEO MODAL
+   MODAL
 ========================================================= */
 
 .video-modal{
@@ -1222,21 +1183,7 @@ section{
 }
 
 .video-modal.active{
-
     display:flex;
-
-    animation:modalIn .25s ease;
-}
-
-@keyframes modalIn{
-
-    from{
-        opacity:0;
-    }
-
-    to{
-        opacity:1;
-    }
 }
 
 .modal-content{
@@ -1297,8 +1244,6 @@ section{
     font-size:1rem;
 
     z-index:20;
-
-    transition:.2s;
 }
 
 .modal-close:hover{
@@ -1321,7 +1266,6 @@ section{
     padding:50px 20px 18px;
 
     background:
-
         linear-gradient(
             to top,
             rgba(0,0,0,.94),
@@ -1350,9 +1294,7 @@ section{
 
     display:grid;
 
-    grid-template-columns:
-        .9fr
-        1.1fr;
+    grid-template-columns:.9fr 1.1fr;
 
     gap:80px;
 }
@@ -1361,11 +1303,7 @@ section{
 
     font-family:var(--display);
 
-    font-size:clamp(
-        2.8rem,
-        5vw,
-        4.6rem
-    );
+    font-size:clamp(2.8rem,5vw,4.6rem);
 
     line-height:.95;
 
@@ -1436,7 +1374,7 @@ section{
    FORM
 ========================================================= */
 
-form{
+.booking-form{
 
     display:flex;
 
@@ -1449,8 +1387,7 @@ form{
 
     display:grid;
 
-    grid-template-columns:
-        1fr 1fr;
+    grid-template-columns:1fr 1fr;
 
     gap:16px;
 }
@@ -1472,9 +1409,9 @@ label{
     letter-spacing:.12em;
 }
 
-input,
-select,
-textarea{
+.booking-form input,
+.booking-form select,
+.booking-form textarea{
 
     width:100%;
 
@@ -1493,25 +1430,24 @@ textarea{
     transition:.2s;
 }
 
-input::placeholder,
-textarea::placeholder{
+.booking-form input::placeholder,
+.booking-form textarea::placeholder{
     color:#514d47;
 }
 
-input:focus,
-select:focus,
-textarea:focus{
+.booking-form input:focus,
+.booking-form select:focus,
+.booking-form textarea:focus{
 
     border-color:var(--red);
 
-    box-shadow:none;
 }
 
-select{
-    appearance:none;
+.booking-form select{
+    appearance:auto;
 }
 
-textarea{
+.booking-form textarea{
 
     min-height:130px;
 
@@ -1695,7 +1631,7 @@ footer{
 
 
 /* =========================================================
-   RESPONSIVE 1100
+   RESPONSIVE
 ========================================================= */
 
 @media(max-width:1100px){
@@ -1716,16 +1652,10 @@ footer{
     }
 }
 
-
-/* =========================================================
-   RESPONSIVE 1000
-========================================================= */
-
 @media(max-width:1000px){
 
     .services-grid{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
 
     .service-card:nth-child(2){
@@ -1751,11 +1681,6 @@ footer{
         opacity:.48;
     }
 }
-
-
-/* =========================================================
-   RESPONSIVE 700
-========================================================= */
 
 @media(max-width:700px){
 
@@ -1785,14 +1710,7 @@ footer{
 
         min-height:92vh;
 
-        padding:
-            120px
-            20px
-            70px;
-    }
-
-    .hero-content{
-        z-index:10;
+        padding:120px 20px 70px;
     }
 
     .hero-visual{
@@ -1830,9 +1748,7 @@ footer{
     }
 
     section{
-
-        padding:
-            80px 20px;
+        padding:80px 20px;
     }
 
     .services-grid{
@@ -1902,8 +1818,7 @@ footer{
     }
 
     footer{
-        padding:
-            45px 20px 25px;
+        padding:45px 20px 25px;
     }
 
     .footer-top{
@@ -1913,11 +1828,6 @@ footer{
         flex-direction:column;
     }
 }
-
-
-/* =========================================================
-   RESPONSIVE 400
-========================================================= */
 
 @media(max-width:400px){
 
@@ -1945,13 +1855,12 @@ footer{
 
 </head>
 
-
 <body>
 
 
-<!-- =======================================================
-     NAVBAR
-======================================================= -->
+<!-- =========================================================
+NAVBAR
+========================================================= -->
 
 <nav>
 
@@ -1962,21 +1871,15 @@ footer{
     <ul class="nav-links">
 
         <li>
-            <a href="#services">
-                Services
-            </a>
+            <a href="#services">Services</a>
         </li>
 
         <li>
-            <a href="#portfolio">
-                Work
-            </a>
+            <a href="#portfolio">Work</a>
         </li>
 
         <li>
-            <a href="#booking">
-                Book
-            </a>
+            <a href="#booking">Book</a>
         </li>
 
     </ul>
@@ -1988,29 +1891,15 @@ footer{
 </nav>
 
 
-<!-- =======================================================
-     HERO
-======================================================= -->
+<!-- =========================================================
+HERO
+========================================================= -->
 
 <section id="hero">
 
     <div class="hero-grid"></div>
 
-
-    <!-- HERO VISUAL -->
-
     <div class="hero-visual">
-
-
-        <!--
-            HERO IMAGE
-
-            Automatically loaded from Supabase.
-
-            Admin upload:
-            portfolio table
-            type = image OR photo
-        -->
 
         <div class="creator-image-box">
 
@@ -2029,9 +1918,6 @@ footer{
 
         </div>
 
-
-        <!-- SOFTWARE -->
-
         <div class="adobe-logos">
 
             <div class="adobe-logo">
@@ -2045,7 +1931,6 @@ footer{
                 </span>
 
             </div>
-
 
             <div class="adobe-logo">
 
@@ -2063,8 +1948,6 @@ footer{
 
     </div>
 
-
-    <!-- HERO TEXT -->
 
     <div class="hero-content reveal">
 
@@ -2117,7 +2000,6 @@ footer{
 
     </div>
 
-
     <div class="hero-side">
         krishhhh.verse · visual storytelling
     </div>
@@ -2125,9 +2007,9 @@ footer{
 </section>
 
 
-<!-- =======================================================
-     SERVICES
-======================================================= -->
+<!-- =========================================================
+SERVICES
+========================================================= -->
 
 <section id="services">
 
@@ -2139,23 +2021,15 @@ footer{
         Services
     </h2>
 
-
     <div class="services-grid reveal">
-
 
         <div class="service-card">
 
-            <div class="service-number">
-                01
-            </div>
+            <div class="service-number">01</div>
 
-            <div class="service-icon">
-                🎬
-            </div>
+            <div class="service-icon">🎬</div>
 
-            <h3>
-                Video Editing
-            </h3>
+            <h3>Video Editing</h3>
 
             <p>
                 High-retention reels, cinematic edits,
@@ -2168,20 +2042,13 @@ footer{
 
         </div>
 
-
         <div class="service-card">
 
-            <div class="service-number">
-                02
-            </div>
+            <div class="service-number">02</div>
 
-            <div class="service-icon">
-                ⚡
-            </div>
+            <div class="service-icon">⚡</div>
 
-            <h3>
-                Motion Graphics
-            </h3>
+            <h3>Motion Graphics</h3>
 
             <p>
                 Dynamic titles, transitions, visual effects
@@ -2194,20 +2061,13 @@ footer{
 
         </div>
 
-
         <div class="service-card">
 
-            <div class="service-number">
-                03
-            </div>
+            <div class="service-number">03</div>
 
-            <div class="service-icon">
-                📸
-            </div>
+            <div class="service-icon">📸</div>
 
-            <h3>
-                Photo Shoot
-            </h3>
+            <h3>Photo Shoot</h3>
 
             <p>
                 Portrait, product and lifestyle photography
@@ -2220,20 +2080,13 @@ footer{
 
         </div>
 
-
         <div class="service-card">
 
-            <div class="service-number">
-                04
-            </div>
+            <div class="service-number">04</div>
 
-            <div class="service-icon">
-                🎥
-            </div>
+            <div class="service-icon">🎥</div>
 
-            <h3>
-                Video Shoot
-            </h3>
+            <h3>Video Shoot</h3>
 
             <p>
                 Creative on-location video production for
@@ -2246,15 +2099,14 @@ footer{
 
         </div>
 
-
     </div>
 
 </section>
 
 
-<!-- =======================================================
-     PORTFOLIO
-======================================================= -->
+<!-- =========================================================
+PORTFOLIO
+========================================================= -->
 
 <section id="portfolio">
 
@@ -2272,7 +2124,6 @@ footer{
 
         </div>
 
-
         <a
             href="https://www.instagram.com/krishhhh.verse"
             target="_blank"
@@ -2284,7 +2135,6 @@ footer{
 
     </div>
 
-
     <div
         class="portfolio-grid"
         id="portfolioGrid"
@@ -2292,9 +2142,7 @@ footer{
 
         <div class="portfolio-empty">
 
-            <div>
-                ◌
-            </div>
+            <div>◌</div>
 
             <p>
                 Loading reels...
@@ -2307,9 +2155,9 @@ footer{
 </section>
 
 
-<!-- =======================================================
-     VIDEO MODAL
-======================================================= -->
+<!-- =========================================================
+VIDEO MODAL
+========================================================= -->
 
 <div
     class="video-modal"
@@ -2322,7 +2170,6 @@ footer{
         <button
             class="modal-close"
             id="modalClose"
-            aria-label="Close video"
         >
             ✕
         </button>
@@ -2344,14 +2191,13 @@ footer{
 </div>
 
 
-<!-- =======================================================
-     BOOKING
-======================================================= -->
+<!-- =========================================================
+BOOKING
+========================================================= -->
 
 <section id="booking">
 
     <div class="booking-inner">
-
 
         <div class="booking-left reveal">
 
@@ -2373,7 +2219,6 @@ footer{
 
             </p>
 
-
             <div class="booking-detail">
 
                 <div class="booking-detail-icon">
@@ -2382,9 +2227,7 @@ footer{
 
                 <div>
 
-                    <strong>
-                        Location
-                    </strong>
+                    <strong>Location</strong>
 
                     <span>
                         On-site & remote projects
@@ -2394,7 +2237,6 @@ footer{
 
             </div>
 
-
             <div class="booking-detail">
 
                 <div class="booking-detail-icon">
@@ -2403,9 +2245,7 @@ footer{
 
                 <div>
 
-                    <strong>
-                        WhatsApp
-                    </strong>
+                    <strong>WhatsApp</strong>
 
                     <span>
                         +91 99408 26494
@@ -2415,7 +2255,6 @@ footer{
 
             </div>
 
-
             <div class="booking-detail">
 
                 <div class="booking-detail-icon">
@@ -2424,9 +2263,7 @@ footer{
 
                 <div>
 
-                    <strong>
-                        Instagram
-                    </strong>
+                    <strong>Instagram</strong>
 
                     <span>
                         @krishhhh.verse
@@ -2439,12 +2276,12 @@ footer{
         </div>
 
 
-        <!-- FORM -->
-
         <div class="reveal">
 
-            <form id="bookingForm">
-
+            <form
+                id="bookingForm"
+                class="booking-form"
+            >
 
                 <div class="form-row">
 
@@ -2463,7 +2300,6 @@ footer{
 
                     </div>
 
-
                     <div>
 
                         <label>
@@ -2481,7 +2317,6 @@ footer{
 
                 </div>
 
-
                 <div>
 
                     <label>
@@ -2496,7 +2331,6 @@ footer{
                     >
 
                 </div>
-
 
                 <div>
 
@@ -2541,7 +2375,6 @@ footer{
 
                 </div>
 
-
                 <div>
 
                     <label>
@@ -2556,7 +2389,6 @@ footer{
 
                 </div>
 
-
                 <div>
 
                     <label>
@@ -2570,14 +2402,12 @@ footer{
 
                 </div>
 
-
                 <button
                     type="submit"
                     class="form-submit"
                 >
                     Continue on WhatsApp →
                 </button>
-
 
                 <div
                     class="form-success"
@@ -2587,12 +2417,10 @@ footer{
                     Opening WhatsApp...
                 </div>
 
-
                 <div
                     class="form-error"
                     id="formError"
                 ></div>
-
 
             </form>
 
@@ -2603,40 +2431,31 @@ footer{
 </section>
 
 
-<!-- =======================================================
-     FOOTER
-======================================================= -->
+<!-- =========================================================
+FOOTER
+========================================================= -->
 
 <footer>
 
     <div class="footer-top">
 
-
         <div class="footer-logo">
             krishhhh<span>.verse</span>
         </div>
 
-
         <div class="footer-links">
 
-            <a href="#services">
-                Services
-            </a>
+            <a href="#services">Services</a>
 
-            <a href="#portfolio">
-                Work
-            </a>
+            <a href="#portfolio">Work</a>
 
-            <a href="#booking">
-                Book
-            </a>
+            <a href="#booking">Book</a>
 
             <a href="admin-login.html">
                 Admin
             </a>
 
         </div>
-
 
         <a
             href="https://www.instagram.com/krishhhh.verse"
@@ -2648,7 +2467,6 @@ footer{
         </a>
 
     </div>
-
 
     <div class="footer-copy">
 
@@ -2662,7 +2480,7 @@ footer{
 <script>
 
 /* =========================================================
-   SUPABASE
+SUPABASE
 ========================================================= */
 
 const SUPABASE_URL =
@@ -2673,68 +2491,99 @@ const SUPABASE_KEY =
 
 
 /* =========================================================
-   ESCAPE HTML
+HELPER
 ========================================================= */
 
 function escapeHTML(text){
 
     return String(text ?? "")
-
         .replace(/&/g,"&amp;")
-
         .replace(/</g,"&lt;")
-
         .replace(/>/g,"&gt;")
-
         .replace(/"/g,"&quot;")
-
         .replace(/'/g,"&#039;");
 
 }
 
 
 /* =========================================================
-   YOUTUBE ID
+YOUTUBE ID
 ========================================================= */
 
 function extractYouTubeID(url){
 
-    if(!url)
-        return "";
+    if(!url) return "";
 
     const match =
-        url.match(
+        String(url).match(
             /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&?\/]+)/
         );
 
-    return match
-        ? match[1]
-        : "";
+    return match ? match[1] : "";
+
 }
 
 
 /* =========================================================
-   VIMEO ID
+VIMEO ID
 ========================================================= */
 
 function extractVimeoID(url){
 
-    if(!url)
-        return "";
+    if(!url) return "";
 
     const match =
-        url.match(
+        String(url).match(
             /vimeo\.com\/(?:video\/)?(\d+)/
         );
 
-    return match
-        ? match[1]
-        : "";
+    return match ? match[1] : "";
+
 }
 
 
 /* =========================================================
-   HERO IMAGE
+GET PORTFOLIO
+========================================================= */
+
+async function getPortfolio(){
+
+    const response =
+        await fetch(
+            SUPABASE_URL +
+            "/rest/v1/portfolio?select=*&order=created_at.desc",
+            {
+                method:"GET",
+
+                headers:{
+                    "apikey":SUPABASE_KEY,
+                    "Authorization":
+                        "Bearer " + SUPABASE_KEY
+                }
+            }
+        );
+
+    const text =
+        await response.text();
+
+    console.log(
+        "SUPABASE PORTFOLIO RESPONSE:",
+        text
+    );
+
+    if(!response.ok){
+
+        throw new Error(text);
+
+    }
+
+    return JSON.parse(text);
+
+}
+
+
+/* =========================================================
+HERO IMAGE
 ========================================================= */
 
 async function loadHeroImage(){
@@ -2749,95 +2598,145 @@ async function loadHeroImage(){
             "heroImageFallback"
         );
 
-    if(!heroImage)
-        return;
-
-
     try{
 
-        const response =
-            await fetch(
+        const items =
+            await getPortfolio();
 
-                SUPABASE_URL +
 
-                "/rest/v1/portfolio" +
+        console.log(
+            "ALL PORTFOLIO ITEMS:",
+            items
+        );
 
-                "?select=url,type,created_at" +
 
-                "&type=in.(photo,image)" +
+        const imageItem =
+            items.find(item => {
 
-                "&order=created_at.desc" +
+                const type =
+                    String(
+                        item.type || ""
+                    )
+                    .toLowerCase()
+                    .trim();
 
-                "&limit=1",
+                const url =
+                    String(
+                        item.url ||
+                        item.image_url ||
+                        item.file_url ||
+                        ""
+                    )
+                    .trim();
 
-                {
 
-                    method:"GET",
+                if(!url)
+                    return false;
 
-                    headers:{
 
-                        "apikey":
-                            SUPABASE_KEY,
+                return (
 
-                        "Authorization":
-                            "Bearer " +
-                            SUPABASE_KEY
+                    type === "image" ||
 
-                    }
+                    type === "photo" ||
 
-                }
+                    type === "jpg" ||
 
+                    type === "jpeg" ||
+
+                    type === "png" ||
+
+                    type === "webp" ||
+
+                    /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i
+                    .test(url)
+
+                );
+
+            });
+
+
+        if(!imageItem){
+
+            console.log(
+                "❌ NO IMAGE FOUND"
             );
 
+            heroImage.style.display =
+                "none";
 
-        if(!response.ok){
+            fallback.style.display =
+                "flex";
 
-            throw new Error(
-                await response.text()
-            );
+            return;
 
         }
 
 
-        const images =
-            await response.json();
+        const imageURL =
+            String(
+                imageItem.url ||
+                imageItem.image_url ||
+                imageItem.file_url
+            ).trim();
 
 
-        if(
-            images &&
-            images.length > 0 &&
-            images[0].url
-        ){
+        console.log(
+            "✅ HERO IMAGE URL:",
+            imageURL
+        );
 
-            heroImage.src =
-                images[0].url;
 
-            heroImage.style.display =
-                "block";
+        heroImage.onload =
+            function(){
 
-            if(fallback){
+                console.log(
+                    "✅ HERO IMAGE LOADED"
+                );
+
+                heroImage.style.display =
+                    "block";
 
                 fallback.style.display =
                     "none";
 
-            }
+            };
 
-        }
-        else{
 
-            console.log(
-                "No hero image found."
-            );
+        heroImage.onerror =
+            function(){
 
-        }
+                console.error(
+                    "❌ IMAGE FAILED:",
+                    imageURL
+                );
+
+                heroImage.style.display =
+                    "none";
+
+                fallback.style.display =
+                    "flex";
+
+            };
+
+
+        heroImage.src =
+            imageURL;
+
 
     }
     catch(error){
 
         console.error(
-            "HERO IMAGE ERROR:",
+            "❌ HERO ERROR:",
             error
         );
+
+        heroImage.style.display =
+            "none";
+
+        fallback.style.display =
+            "flex";
 
     }
 
@@ -2845,7 +2744,53 @@ async function loadHeroImage(){
 
 
 /* =========================================================
-   PORTFOLIO
+VIDEO OBSERVER
+========================================================= */
+
+const videoObserver =
+    new IntersectionObserver(
+
+        entries => {
+
+            entries.forEach(entry => {
+
+                const video =
+                    entry.target;
+
+                if(entry.isIntersecting){
+
+                    video
+                        .play()
+                        .catch(()=>{});
+
+                }
+                else{
+
+                    video.pause();
+
+                }
+
+            });
+
+        },
+
+        {
+            threshold:.55
+        }
+
+    );
+
+
+function setupVideoObserver(video){
+
+    if(video)
+        videoObserver.observe(video);
+
+}
+
+
+/* =========================================================
+PORTFOLIO
 ========================================================= */
 
 async function loadPortfolio(){
@@ -2858,44 +2803,8 @@ async function loadPortfolio(){
 
     try{
 
-        const response =
-            await fetch(
-
-                SUPABASE_URL +
-
-                "/rest/v1/portfolio?select=*&order=created_at.desc",
-
-                {
-
-                    method:"GET",
-
-                    headers:{
-
-                        "apikey":
-                            SUPABASE_KEY,
-
-                        "Authorization":
-                            "Bearer " +
-                            SUPABASE_KEY
-
-                    }
-
-                }
-
-            );
-
-
-        if(!response.ok){
-
-            throw new Error(
-                await response.text()
-            );
-
-        }
-
-
         const items =
-            await response.json();
+            await getPortfolio();
 
 
         if(
@@ -2907,9 +2816,7 @@ async function loadPortfolio(){
 
                 <div class="portfolio-empty">
 
-                    <div>
-                        🎬
-                    </div>
+                    <div>🎬</div>
 
                     <p>
                         Portfolio coming soon.
@@ -2928,7 +2835,8 @@ async function loadPortfolio(){
 
 
         items.forEach(
-            (item,index)=>{
+            (item,index) => {
+
 
                 const div =
                     document.createElement(
@@ -2948,7 +2856,12 @@ async function loadPortfolio(){
 
 
                 const url =
-                    item.url || "";
+                    String(
+                        item.url ||
+                        item.image_url ||
+                        item.file_url ||
+                        ""
+                    ).trim();
 
 
                 const type =
@@ -2959,13 +2872,26 @@ async function loadPortfolio(){
                     .trim();
 
 
-                /* =================================================
-                   LOCAL VIDEO
-                ================================================= */
+                if(!url){
+
+                    console.warn(
+                        "⚠️ Empty URL:",
+                        item
+                    );
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   VIDEO
+                ========================================= */
 
                 if(
                     type === "video" ||
-                    type === "mp4"
+                    type === "mp4" ||
+                    /\.(mp4|webm|mov)(\?.*)?$/i.test(url)
                 ){
 
                     div.innerHTML = `
@@ -2976,9 +2902,8 @@ async function loadPortfolio(){
                             loop
                             playsinline
                             preload="metadata"
-                            src="${escapeHTML(url)}"
-                            aria-label="${title}"
-                        ></video>
+                            src="${escapeHTML(url)}">
+                        </video>
 
                         <div class="reel-play">
                             ▶
@@ -3012,7 +2937,7 @@ async function loadPortfolio(){
 
                     div.addEventListener(
                         "click",
-                        function(){
+                        () => {
 
                             openVideoModal(
                                 url,
@@ -3025,9 +2950,9 @@ async function loadPortfolio(){
                 }
 
 
-                /* =================================================
+                /* =========================================
                    YOUTUBE
-                ================================================= */
+                ========================================= */
 
                 else if(
                     type === "youtube"
@@ -3074,9 +2999,9 @@ async function loadPortfolio(){
                 }
 
 
-                /* =================================================
+                /* =========================================
                    VIMEO
-                ================================================= */
+                ========================================= */
 
                 else if(
                     type === "vimeo"
@@ -3123,9 +3048,9 @@ async function loadPortfolio(){
                 }
 
 
-                /* =================================================
+                /* =========================================
                    INSTAGRAM
-                ================================================= */
+                ========================================= */
 
                 else if(
                     type === "instagram" ||
@@ -3137,7 +3062,8 @@ async function loadPortfolio(){
                         <iframe
                             src="${escapeHTML(url)}"
                             title="${title}"
-                            loading="lazy">
+                            loading="lazy"
+                            allowfullscreen>
                         </iframe>
 
                         <div class="reel-play">
@@ -3161,13 +3087,27 @@ async function loadPortfolio(){
                 }
 
 
-                /* =================================================
+                /* =========================================
                    IMAGE
-                ================================================= */
+                ========================================= */
 
                 else if(
+
+                    type === "image" ||
+
                     type === "photo" ||
-                    type === "image"
+
+                    type === "jpg" ||
+
+                    type === "jpeg" ||
+
+                    type === "png" ||
+
+                    type === "webp" ||
+
+                    /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i
+                    .test(url)
+
                 ){
 
                     div.innerHTML = `
@@ -3199,75 +3139,24 @@ async function loadPortfolio(){
                 }
 
 
-                /* =================================================
-                   DEFAULT VIDEO
-                ================================================= */
-
                 else{
 
-                    div.innerHTML = `
-
-                        <video
-                            muted
-                            autoplay
-                            loop
-                            playsinline
-                            preload="metadata"
-                            src="${escapeHTML(url)}">
-                        </video>
-
-                        <div class="reel-play">
-                            ▶
-                        </div>
-
-                        <div class="portfolio-caption">
-
-                            <div class="caption-title">
-                                ${title}
-                            </div>
-
-                            <div class="caption-type">
-                                Video
-                            </div>
-
-                        </div>
-
-                    `;
-
-
-                    const video =
-                        div.querySelector(
-                            "video"
-                        );
-
-
-                    setupVideoObserver(
-                        video
+                    console.warn(
+                        "Unknown portfolio type:",
+                        type,
+                        url
                     );
 
-
-                    div.addEventListener(
-                        "click",
-                        function(){
-
-                            openVideoModal(
-                                url,
-                                title
-                            );
-
-                        }
-                    );
+                    return;
 
                 }
 
 
-                grid.appendChild(
-                    div
-                );
+                grid.appendChild(div);
 
 
                 setTimeout(
-                    ()=>{
+                    () => {
 
                         div.classList.add(
                             "visible"
@@ -3283,11 +3172,12 @@ async function loadPortfolio(){
             }
         );
 
+
     }
     catch(error){
 
         console.error(
-            "PORTFOLIO ERROR:",
+            "❌ PORTFOLIO ERROR:",
             error
         );
 
@@ -3296,9 +3186,7 @@ async function loadPortfolio(){
 
             <div class="portfolio-empty">
 
-                <div>
-                    ⚠️
-                </div>
+                <div>⚠️</div>
 
                 <p>
                     Portfolio could not be loaded.
@@ -3314,63 +3202,7 @@ async function loadPortfolio(){
 
 
 /* =========================================================
-   VIDEO OBSERVER
-========================================================= */
-
-const videoObserver =
-    new IntersectionObserver(
-
-        entries => {
-
-            entries.forEach(
-                entry => {
-
-                    const video =
-                        entry.target;
-
-
-                    if(
-                        entry.isIntersecting
-                    ){
-
-                        video.play()
-                        .catch(
-                            ()=>{}
-                        );
-
-                    }
-                    else{
-
-                        video.pause();
-
-                    }
-
-                }
-            );
-
-        },
-
-        {
-            threshold:.55
-        }
-
-    );
-
-
-function setupVideoObserver(video){
-
-    if(!video)
-        return;
-
-    videoObserver.observe(
-        video
-    );
-
-}
-
-
-/* =========================================================
-   VIDEO MODAL
+VIDEO MODAL
 ========================================================= */
 
 const videoModal =
@@ -3402,36 +3234,28 @@ function openVideoModal(
     modalVideo.src =
         url;
 
-    modalVideo.muted =
-        false;
-
     modalVideo.currentTime =
         0;
 
     modalTitle.textContent =
         title;
 
-
     videoModal.classList.add(
         "active"
     );
-
 
     videoModal.setAttribute(
         "aria-hidden",
         "false"
     );
 
-
     document.body.classList.add(
         "modal-open"
     );
 
-
-    modalVideo.play()
-    .catch(
-        ()=>{}
-    );
+    modalVideo
+        .play()
+        .catch(()=>{});
 
 }
 
@@ -3446,17 +3270,14 @@ function closeVideoModal(){
 
     modalVideo.load();
 
-
     videoModal.classList.remove(
         "active"
     );
-
 
     videoModal.setAttribute(
         "aria-hidden",
         "true"
     );
-
 
     document.body.classList.remove(
         "modal-open"
@@ -3505,7 +3326,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   BOOKING
+BOOKING
 ========================================================= */
 
 const bookingForm =
@@ -3585,28 +3406,6 @@ bookingForm.addEventListener(
         errorBox.style.display =
             "none";
 
-        errorBox.textContent =
-            "";
-
-
-        if(
-            !name ||
-            !phone ||
-            !email ||
-            !service ||
-            !preferredDate
-        ){
-
-            errorBox.textContent =
-                "Please fill all required fields.";
-
-            errorBox.style.display =
-                "block";
-
-            return;
-
-        }
-
 
         button.disabled =
             true;
@@ -3636,7 +3435,7 @@ bookingForm.addEventListener(
             };
 
 
-            const saveResponse =
+            const response =
                 await fetch(
 
                     SUPABASE_URL +
@@ -3673,17 +3472,15 @@ bookingForm.addEventListener(
                 );
 
 
-            const saveText =
-                await saveResponse.text();
+            const text =
+                await response.text();
 
 
-            if(
-                !saveResponse.ok
-            ){
+            if(!response.ok){
 
                 throw new Error(
-                    saveText ||
-                    "Supabase rejected the booking."
+                    text ||
+                    "Supabase rejected booking."
                 );
 
             }
@@ -3783,7 +3580,7 @@ Sent from krishhhh.verse website.`;
 
 
 /* =========================================================
-   MINIMUM DATE
+MINIMUM DATE
 ========================================================= */
 
 const dateInput =
@@ -3791,33 +3588,28 @@ const dateInput =
         "date"
     );
 
-
 const today =
     new Date();
 
-
 const year =
     today.getFullYear();
-
 
 const month =
     String(
         today.getMonth()+1
     ).padStart(2,"0");
 
-
 const day =
     String(
         today.getDate()
     ).padStart(2,"0");
-
 
 dateInput.min =
     `${year}-${month}-${day}`;
 
 
 /* =========================================================
-   REVEAL
+REVEAL
 ========================================================= */
 
 const revealObserver =
@@ -3857,64 +3649,24 @@ const revealObserver =
 function setupReveal(){
 
     document
-    .querySelectorAll(
-        ".reveal"
-    )
-    .forEach(
-        element => {
+        .querySelectorAll(
+            ".reveal"
+        )
+        .forEach(
+            element => {
 
-            revealObserver.observe(
-                element
-            );
+                revealObserver.observe(
+                    element
+                );
 
-        }
-    );
+            }
+        );
 
 }
 
 
 /* =========================================================
-   HERO IMAGE ERROR HANDLER
-========================================================= */
-
-const heroCreatorImage =
-    document.getElementById(
-        "heroCreatorImage"
-    );
-
-const heroImageFallback =
-    document.getElementById(
-        "heroImageFallback"
-    );
-
-
-heroCreatorImage.addEventListener(
-    "load",
-    function(){
-
-        heroImageFallback.style.display =
-            "none";
-
-    }
-);
-
-
-heroCreatorImage.addEventListener(
-    "error",
-    function(){
-
-        heroCreatorImage.style.display =
-            "none";
-
-        heroImageFallback.style.display =
-            "flex";
-
-    }
-);
-
-
-/* =========================================================
-   START
+START
 ========================================================= */
 
 loadHeroImage();
@@ -3922,6 +3674,20 @@ loadHeroImage();
 loadPortfolio();
 
 setupReveal();
+
+
+/* =========================================================
+DEBUG
+========================================================= */
+
+console.log(
+    "🚀 krishhhh.verse website loaded"
+);
+
+console.log(
+    "Supabase:",
+    SUPABASE_URL
+);
 
 </script>
 
