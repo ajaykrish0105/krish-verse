@@ -1731,219 +1731,6 @@ SERVICES
 
 
 /* =========================================================
-ABOUT
-========================================================= */
-
-#about{
-    background:#080808;
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:80px;
-
-    align-items:center;
-}
-
-.about-left .section-label{
-    margin-bottom:20px;
-}
-
-.about-title{
-    font-family:var(--display);
-
-    font-size:clamp(2.8rem,5vw,5rem);
-
-    line-height:.9;
-
-    letter-spacing:-.075em;
-
-    font-weight:600;
-
-    margin-bottom:30px;
-}
-
-.about-title span{
-    color:var(--red);
-}
-
-.about-body{
-    color:#636058;
-
-    font-size:.83rem;
-
-    line-height:2;
-}
-
-.about-body strong{
-    color:#a8a29a;
-    font-weight:600;
-}
-
-.about-stats{
-    margin-top:48px;
-
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    border-top:1px solid #1c1a17;
-
-    padding-top:36px;
-
-    gap:10px;
-}
-
-.stat strong{
-    display:block;
-
-    font-family:var(--display);
-
-    font-size:2rem;
-
-    letter-spacing:-.05em;
-
-    color:var(--white);
-
-    margin-bottom:5px;
-}
-
-.stat span{
-    color:#4f4c47;
-
-    font-size:.55rem;
-
-    text-transform:uppercase;
-
-    letter-spacing:.13em;
-}
-
-.about-visual{
-    position:relative;
-    height:420px;
-}
-
-.about-img-box{
-    position:absolute;
-
-    right:0;
-    top:0;
-
-    width:300px;
-    height:380px;
-
-    clip-path:
-        polygon(
-            0 0,
-            85% 0,
-            100% 12%,
-            100% 100%,
-            15% 100%,
-            0 88%
-        );
-
-    background:
-        linear-gradient(
-            145deg,
-            #1a1714,
-            #0a0908
-        );
-
-    border:1px solid #25221e;
-
-    overflow:hidden;
-}
-
-.about-img-box img{
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    filter:
-        saturate(.75)
-        brightness(.8);
-
-    display:none;
-}
-
-.about-img-placeholder{
-    width:100%;
-    height:100%;
-
-    background:
-        repeating-linear-gradient(
-            45deg,
-            #0e0d0c 0,
-            #0e0d0c 8px,
-            #0b0a09 8px,
-            #0b0a09 16px
-        );
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    color:#2a2723;
-
-    font-family:var(--display);
-
-    font-size:.65rem;
-    font-weight:600;
-
-    text-transform:uppercase;
-
-    letter-spacing:.2em;
-}
-
-.about-float-card{
-    position:absolute;
-
-    left:0;
-    bottom:30px;
-
-    padding:18px 22px;
-
-    background:rgba(14,13,12,.95);
-
-    border:1px solid #25221e;
-
-    backdrop-filter:blur(16px);
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.5);
-}
-
-.float-card-label{
-    color:#4a4641;
-
-    font-size:.52rem;
-
-    text-transform:uppercase;
-
-    letter-spacing:.12em;
-
-    margin-bottom:6px;
-}
-
-.float-card-value{
-    font-family:var(--display);
-
-    font-size:1.5rem;
-
-    font-weight:600;
-
-    letter-spacing:-.05em;
-}
-
-.float-card-value span{
-    color:var(--red);
-}
-
-
-/* =========================================================
 PORTFOLIO
 ========================================================= */
 
@@ -3462,14 +3249,6 @@ RESPONSIVE 1200
     .portfolio-grid{
         grid-template-columns:repeat(3,1fr);
     }
-
-    .about-visual{
-        display:none;
-    }
-
-    #about{
-        grid-template-columns:1fr;
-    }
 }
 
 
@@ -3647,17 +3426,6 @@ RESPONSIVE 760
         margin-bottom:40px;
     }
 
-    #about{
-        grid-template-columns:1fr;
-
-        padding:
-            80px 20px;
-    }
-
-    .about-stats{
-        grid-template-columns:repeat(3,1fr);
-    }
-
     .stat strong{
         font-size:1.5rem;
     }
@@ -3814,10 +3582,6 @@ RESPONSIVE 420
         gap:8px;
     }
 
-    .about-stats{
-        gap:8px;
-    }
-
     .stat strong{
         font-size:1.3rem;
     }
@@ -3917,10 +3681,6 @@ NAVBAR
             Work
         </a>
 
-        <a href="#about">
-            About
-        </a>
-
         <a href="#booking">
             Book
         </a>
@@ -3974,10 +3734,6 @@ MOBILE MENU
 
     <a href="#portfolio" class="mobile-link">
         <span>02</span> Work
-    </a>
-
-    <a href="#about" class="mobile-link">
-        <span>03</span> About
     </a>
 
     <a href="#booking" class="mobile-link">
@@ -4308,129 +4064,6 @@ SERVICES
     </div>
 
 </section>
-
-
-<!-- =====================================================
-ABOUT
-===================================================== -->
-
-<section id="about">
-
-    <div class="about-left">
-
-        <div class="section-label reveal">
-            About the Work
-        </div>
-
-
-        <h2 class="about-title reveal">
-
-            Visuals that
-            <span>feel.</span>
-
-            <br>
-
-            Stories that
-            <span>stay.</span>
-
-        </h2>
-
-
-        <div class="about-body reveal">
-
-            <p>
-                I focus on more than just cutting clips.
-            </p>
-
-            <br>
-
-            <p>
-                Every edit is built around rhythm, emotion,
-                sound and visual storytelling — whether
-                it's a 15-second reel or a complete brand video.
-            </p>
-
-            <br>
-
-            <p>
-                The goal is simple:
-                <strong>make people watch.</strong>
-            </p>
-
-        </div>
-
-
-        <div class="about-stats reveal">
-
-            <div class="stat">
-
-                <strong>01</strong>
-
-                <span>
-                    Creative Direction
-                </span>
-
-            </div>
-
-
-            <div class="stat">
-
-                <strong>02</strong>
-
-                <span>
-                    Clean Editing
-                </span>
-
-            </div>
-
-
-            <div class="stat">
-
-                <strong>03</strong>
-
-                <span>
-                    Fast Delivery
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="about-visual">
-
-        <div class="about-img-box">
-
-            <img
-                id="aboutImg"
-                alt="Krishhhh at work"
-            >
-
-            <div class="about-img-placeholder">
-                Behind the lens
-            </div>
-
-        </div>
-
-
-        <div class="about-float-card">
-
-            <div class="float-card-label">
-                Based in
-            </div>
-
-            <div class="float-card-value">
-                Tamil<span>Nadu</span>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
 
 <!-- =====================================================
 PORTFOLIO
@@ -4944,10 +4577,6 @@ FOOTER
 
             <a href="#portfolio">
                 Work
-            </a>
-
-            <a href="#about">
-                About
             </a>
 
             <a href="#booking">
