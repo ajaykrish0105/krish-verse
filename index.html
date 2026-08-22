@@ -6,11 +6,20 @@
 
 <title>krishhhh.verse — Video Editor & Visual Creator</title>
 
+<meta name="description"
+content="Krishhhh.verse — Video Editor & Visual Creator. Cinematic edits, reels, motion graphics, photography and video production.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
     margin:0;
     padding:0;
@@ -19,12 +28,13 @@
 
 html{
     scroll-behavior:smooth;
+    scroll-padding-top:90px;
 }
 
 body{
-    background:#090909;
-    color:#f1eee8;
-    font-family:'Manrope',sans-serif;
+    background:#080808;
+    color:#f4f1eb;
+    font-family:'DM Sans',sans-serif;
     overflow-x:hidden;
 }
 
@@ -33,17 +43,50 @@ body.modal-open{
 }
 
 :root{
-    --black:#090909;
+    --black:#080808;
     --black2:#0d0c0b;
-    --card:#151412;
-    --card2:#1b1916;
-    --white:#f1eee8;
-    --muted:#8b8780;
+    --surface:#11100f;
+    --surface2:#161412;
+    --surface3:#1c1917;
+
+    --white:#f4f1eb;
+    --muted:#8e8981;
     --muted2:#625e58;
-    --border:#292622;
-    --red:#b51f2b;
-    --red2:#8e1822;
+
+    --border:rgba(255,255,255,.09);
+    --border2:rgba(255,255,255,.14);
+
+    --red:#c52231;
+    --red-dark:#8f1722;
+    --red-light:#e23746;
+
+    --green:#63d681;
+
     --display:'Space Grotesk',sans-serif;
+
+    --container:1400px;
+}
+
+::selection{
+    background:var(--red);
+    color:#fff;
+}
+
+::-webkit-scrollbar{
+    width:7px;
+}
+
+::-webkit-scrollbar-track{
+    background:#080808;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#35312e;
+    border-radius:10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:var(--red);
 }
 
 a{
@@ -53,157 +96,430 @@ a{
 
 button,
 input,
-select,
-textarea{
-    font-family:inherit;
+textarea,
+select{
+    font:inherit;
 }
 
 button{
     cursor:pointer;
 }
 
-::selection{
-    background:var(--red);
-    color:#fff;
-}
-
-/* =========================
-   BACKGROUND
-========================= */
+/* =========================================================
+   GLOBAL BACKGROUND
+========================================================= */
 
 body::before{
     content:"";
     position:fixed;
     inset:0;
     pointer-events:none;
-    z-index:-5;
+    z-index:-10;
     opacity:.035;
-    background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
 }
 
-/* =========================
+/* =========================================================
+   LOADER
+========================================================= */
+
+.site-loader{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#080808;
+
+    transition:
+        opacity .6s ease,
+        visibility .6s ease;
+}
+
+.site-loader.hidden{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-inner{
+    text-align:center;
+}
+
+.loader-logo{
+    font-family:var(--display);
+    font-size:1.5rem;
+    font-weight:700;
+    letter-spacing:-.06em;
+}
+
+.loader-logo span{
+    color:var(--red);
+}
+
+.loader-line{
+    width:150px;
+    height:1px;
+    margin:22px auto 0;
+    background:#272421;
+    overflow:hidden;
+}
+
+.loader-line::after{
+    content:"";
+    display:block;
+    width:45%;
+    height:100%;
+    background:var(--red);
+    animation:loaderMove 1.2s infinite ease-in-out;
+}
+
+@keyframes loaderMove{
+    0%{
+        transform:translateX(-120%);
+    }
+
+    100%{
+        transform:translateX(330%);
+    }
+}
+
+/* =========================================================
    NAVBAR
-========================= */
+========================================================= */
 
 nav{
     position:fixed;
     top:0;
     left:0;
     right:0;
+
     height:76px;
+
     z-index:1000;
 
     display:flex;
     align-items:center;
     justify-content:space-between;
 
-    padding:0 50px;
+    padding:0 45px;
 
-    background:rgba(9,9,9,.9);
+    background:rgba(8,8,8,.72);
+
     border-bottom:1px solid rgba(255,255,255,.07);
 
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+
+    transition:.3s ease;
+}
+
+nav.scrolled{
+    height:68px;
+    background:rgba(8,8,8,.92);
 }
 
 .nav-logo{
+    position:relative;
+    z-index:2;
+
     font-family:var(--display);
-    font-size:1.38rem;
+    font-size:1.35rem;
     font-weight:700;
-    letter-spacing:-.055em;
+
+    letter-spacing:-.06em;
 }
 
 .nav-logo span{
     color:var(--red);
 }
 
-.nav-links{
+.nav-center{
     display:flex;
-    gap:38px;
-    list-style:none;
+    align-items:center;
+    gap:36px;
 }
 
-.nav-links a{
-    color:#85817b;
-    font-size:.68rem;
-    font-weight:800;
+.nav-center a{
+    position:relative;
+
+    color:#77736d;
+
+    font-size:.65rem;
+    font-weight:700;
+
     text-transform:uppercase;
-    letter-spacing:.15em;
+    letter-spacing:.14em;
+
     transition:.25s;
 }
 
-.nav-links a:hover{
+.nav-center a::after{
+    content:"";
+
+    position:absolute;
+    left:0;
+    bottom:-8px;
+
+    width:0;
+    height:1px;
+
+    background:var(--red);
+
+    transition:.25s;
+}
+
+.nav-center a:hover{
     color:#fff;
 }
 
-.nav-cta{
-    padding:12px 21px;
-    background:var(--red);
+.nav-center a:hover::after{
+    width:100%;
+}
+
+.nav-actions{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.nav-instagram{
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid var(--border);
+
+    color:#aaa59e;
+
+    transition:.25s;
+}
+
+.nav-instagram:hover{
     color:#fff;
-    font-size:.66rem;
+    border-color:var(--red);
+}
+
+.nav-cta{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:12px 20px;
+
+    background:var(--red);
+
+    color:#fff;
+
+    font-size:.63rem;
     font-weight:800;
+
     text-transform:uppercase;
     letter-spacing:.1em;
+
     transition:.25s;
 }
 
 .nav-cta:hover{
     background:#fff;
     color:#111;
+
     transform:translateY(-2px);
 }
 
-/* =========================
+.mobile-menu-btn{
+    display:none;
+
+    width:42px;
+    height:42px;
+
+    border:1px solid var(--border);
+
+    background:transparent;
+    color:#fff;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:1.2rem;
+}
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+.mobile-menu{
+    position:fixed;
+    inset:0;
+
+    z-index:900;
+
+    display:flex;
+    flex-direction:column;
+
+    padding:105px 25px 35px;
+
+    background:rgba(8,8,8,.97);
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:translateY(-15px);
+
+    transition:.3s ease;
+}
+
+.mobile-menu.active{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.mobile-menu a{
+    padding:21px 0;
+
+    border-bottom:1px solid var(--border);
+
+    font-family:var(--display);
+    font-size:2rem;
+    font-weight:600;
+
+    letter-spacing:-.05em;
+
+    color:#ddd;
+}
+
+.mobile-menu a span{
+    color:var(--red);
+}
+
+.mobile-menu-bottom{
+    margin-top:auto;
+}
+
+.mobile-menu-bottom p{
+    color:#66615b;
+    font-size:.7rem;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    margin-bottom:14px;
+}
+
+.mobile-menu-social{
+    display:flex;
+    gap:10px;
+}
+
+.mobile-menu-social a{
+    width:45px;
+    height:45px;
+
+    padding:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid var(--border);
+
+    font-family:inherit;
+    font-size:1rem;
+}
+
+/* =========================================================
    HERO
-========================= */
+========================================================= */
 
 #hero{
-    min-height:100vh;
     position:relative;
-    overflow:hidden;
+
+    min-height:100svh;
 
     display:flex;
     align-items:center;
 
-    padding:140px 50px 100px;
+    overflow:hidden;
+
+    padding:
+        150px
+        max(25px, calc((100vw - var(--container))/2))
+        100px;
 
     background:
-    radial-gradient(
-        circle at 80% 50%,
-        rgba(181,31,43,.08),
-        transparent 30%
-    ),
-    linear-gradient(
-        115deg,
-        #090909,
-        #0c0b0a 50%,
-        #15110f
-    );
+        radial-gradient(
+            circle at 78% 45%,
+            rgba(197,34,49,.13),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 40% 100%,
+            rgba(197,34,49,.035),
+            transparent 30%
+        ),
+        linear-gradient(
+            120deg,
+            #080808 0%,
+            #0b0a09 55%,
+            #110c0c 100%
+        );
 }
 
 .hero-grid{
     position:absolute;
     inset:0;
-    opacity:.28;
+
+    opacity:.35;
 
     background-image:
-    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+        linear-gradient(
+            rgba(255,255,255,.018) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.018) 1px,
+            transparent 1px
+        );
 
-    background-size:90px 90px;
+    background-size:85px 85px;
 
-    mask-image:linear-gradient(
-        to right,
-        black,
-        transparent 85%
-    );
+    mask-image:
+        linear-gradient(
+            to right,
+            black,
+            transparent 80%
+        );
+}
+
+.hero-glow{
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    right:5%;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    background:rgba(197,34,49,.07);
+
+    filter:blur(100px);
+
+    border-radius:50%;
 }
 
 .hero-content{
     position:relative;
     z-index:10;
-    max-width:870px;
+
+    max-width:790px;
 }
 
 .hero-eyebrow{
@@ -211,30 +527,42 @@ nav{
     align-items:center;
     gap:12px;
 
-    margin-bottom:25px;
+    margin-bottom:26px;
 
-    color:var(--red);
+    color:var(--red-light);
 
-    font-size:.65rem;
+    font-size:.62rem;
     font-weight:800;
+
     text-transform:uppercase;
-    letter-spacing:.2em;
+    letter-spacing:.22em;
 }
 
 .hero-eyebrow::before{
     content:"";
-    width:34px;
+
+    width:35px;
     height:1px;
+
     background:var(--red);
 }
 
 .hero-title{
-    font-family:var(--display);
-    font-size:clamp(4rem,8vw,8.2rem);
-    line-height:.86;
-    letter-spacing:-.075em;
-    font-weight:600;
     margin-bottom:34px;
+
+    font-family:var(--display);
+
+    font-size:clamp(
+        4.2rem,
+        8.8vw,
+        9rem
+    );
+
+    line-height:.84;
+
+    letter-spacing:-.085em;
+
+    font-weight:600;
 }
 
 .hero-title .red{
@@ -243,107 +571,148 @@ nav{
 
 .hero-title .outline{
     color:transparent;
-    -webkit-text-stroke:1px rgba(241,238,232,.62);
+
+    -webkit-text-stroke:
+        1px rgba(244,241,235,.58);
 }
 
 .hero-description{
-    max-width:550px;
-    color:#8d8982;
-    font-size:.91rem;
+    max-width:540px;
+
+    margin-bottom:35px;
+
+    color:#858078;
+
+    font-size:.9rem;
+
     line-height:1.85;
-    margin-bottom:37px;
 }
 
 .hero-buttons{
     display:flex;
+    align-items:center;
     gap:12px;
+
     flex-wrap:wrap;
 }
 
 .btn-red,
 .btn-outline{
+    min-height:51px;
+
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    gap:10px;
 
-    font-size:.68rem;
+    gap:9px;
+
+    padding:0 23px;
+
+    font-size:.63rem;
     font-weight:800;
+
     text-transform:uppercase;
     letter-spacing:.1em;
 
-    transition:.25s;
+    transition:.3s;
 }
 
 .btn-red{
-    padding:16px 26px;
     background:var(--red);
     color:#fff;
+
+    box-shadow:
+        0 15px 35px rgba(197,34,49,.16);
 }
 
 .btn-red:hover{
     background:#fff;
     color:#111;
+
     transform:translateY(-3px);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.3);
 }
 
 .btn-outline{
-    padding:15px 26px;
-    border:1px solid #37332e;
+    border:1px solid #393530;
     color:#fff;
 }
 
 .btn-outline:hover{
     border-color:var(--red);
     color:var(--red);
+
+    transform:translateY(-3px);
 }
 
-/* =========================
-   HERO IMAGE
-========================= */
+/* =========================================================
+   HERO VISUAL
+========================================================= */
 
 .hero-visual{
     position:absolute;
-    right:7%;
+
+    right:
+        max(20px, calc((100vw - var(--container))/2));
+
     top:50%;
+
+    width:510px;
+    height:650px;
+
     transform:translateY(-50%);
 
-    width:470px;
-    height:620px;
-
     z-index:4;
-    pointer-events:none;
 }
 
 .creator-image-box{
     position:absolute;
+
     right:0;
     bottom:0;
 
-    width:350px;
-    height:520px;
+    width:365px;
+    height:550px;
 
     overflow:hidden;
 
-    background:#171512;
-    border:1px solid #332e29;
+    background:
+        linear-gradient(
+            145deg,
+            #211d19,
+            #0d0c0b
+        );
 
-    box-shadow:0 35px 90px rgba(0,0,0,.62);
+    border:1px solid #34302c;
+
+    box-shadow:
+        0 45px 100px rgba(0,0,0,.65);
+
+    transform:rotate(2deg);
+
+    transition:.5s;
 }
 
-.creator-image-box::before{
+.creator-image-box::after{
     content:"";
+
     position:absolute;
     inset:0;
-    z-index:2;
+
+    z-index:3;
 
     background:
-    linear-gradient(
-        to top,
-        rgba(0,0,0,.82),
-        rgba(0,0,0,.08) 58%,
-        transparent
-    );
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.85),
+            transparent 55%
+        );
+}
+
+.creator-image-box:hover{
+    transform:rotate(0deg) translateY(-6px);
 }
 
 .creator-image-box img{
@@ -351,15 +720,19 @@ nav{
     height:100%;
 
     display:none;
+
     object-fit:cover;
 
-    filter:saturate(.86) contrast(1.04) brightness(.92);
+    filter:
+        saturate(.84)
+        contrast(1.06)
+        brightness(.9);
 
     transition:.7s;
 }
 
 .creator-image-box:hover img{
-    transform:scale(1.02);
+    transform:scale(1.025);
 }
 
 .hero-image-fallback{
@@ -369,90 +742,102 @@ nav{
     display:flex;
     align-items:flex-end;
 
-    padding:25px;
+    padding:28px;
 
-    color:#55504a;
+    color:#514c46;
 
     font-family:var(--display);
-    font-size:.75rem;
+
+    font-size:.7rem;
+    font-weight:600;
 
     text-transform:uppercase;
-    letter-spacing:.14em;
+    letter-spacing:.16em;
 }
 
-/* =========================
-   SOFTWARE
-========================= */
+/* =========================================================
+   FLOATING SOFTWARE
+========================================================= */
 
 .adobe-logos{
     position:absolute;
+
     left:0;
-    top:115px;
+    top:100px;
 
     display:flex;
     flex-direction:column;
-    gap:15px;
+
+    gap:13px;
+
+    z-index:10;
 }
 
 .adobe-logo{
     position:relative;
 
-    width:76px;
-    height:76px;
+    width:72px;
+    height:72px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    background:#141311;
-    border:1px solid #302c27;
+    background:rgba(17,16,14,.9);
+
+    border:1px solid #302c28;
 
     transition:.3s;
 }
 
 .adobe-logo:hover{
-    transform:translateX(7px);
+    transform:translateX(8px);
     border-color:var(--red);
 }
 
 .pr-logo,
 .ae-logo{
-    width:45px;
-    height:45px;
+    width:43px;
+    height:43px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    background:#11105b;
-    border:1px solid #6868bc;
+    background:#10105c;
+
+    border:1px solid #6666bc;
 
     color:#aaa9e9;
 
-    font-size:17px;
+    font-size:16px;
     font-weight:800;
 }
 
 .adobe-logo-label{
     position:absolute;
-    left:91px;
+
+    left:88px;
     top:50%;
 
-    transform:translate(-8px,-50%);
+    transform:
+        translate(-8px,-50%);
 
     padding:8px 11px;
 
     white-space:nowrap;
 
-    background:#151311;
-    border:1px solid #302c27;
+    background:#171513;
 
-    color:#aaa49c;
+    border:1px solid #302c28;
 
-    font-size:.57rem;
+    color:#aaa59d;
+
+    font-size:.55rem;
     font-weight:700;
 
     opacity:0;
+
     transition:.25s;
 }
 
@@ -461,112 +846,392 @@ nav{
     transform:translate(0,-50%);
 }
 
-/* =========================
-   SECTIONS
-========================= */
+/* =========================================================
+   HERO BOTTOM INFO
+========================================================= */
 
-section{
-    padding:110px 50px;
-    border-top:1px solid #24211e;
+.hero-bottom{
+    position:absolute;
+
+    left:
+        max(25px, calc((100vw - var(--container))/2));
+
+    right:
+        max(25px, calc((100vw - var(--container))/2));
+
+    bottom:30px;
+
+    z-index:10;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.hero-scroll{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    color:#5f5a54;
+
+    font-size:.58rem;
+    font-weight:700;
+
+    text-transform:uppercase;
+    letter-spacing:.15em;
+}
+
+.scroll-line{
+    width:50px;
+    height:1px;
+
+    background:#3b3732;
+}
+
+.hero-availability{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    color:#66615b;
+
+    font-size:.58rem;
+
+    text-transform:uppercase;
+    letter-spacing:.1em;
+}
+
+.availability-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:
+        0 0 12px rgba(99,214,129,.5);
+}
+
+/* =========================================================
+   GENERAL SECTION
+========================================================= */
+
+section:not(#hero){
+    position:relative;
+
+    padding:
+        120px
+        max(25px, calc((100vw - var(--container))/2));
+
+    border-top:1px solid #211f1c;
 }
 
 .section-label{
+    margin-bottom:14px;
+
     color:var(--red);
-    font-size:.63rem;
+
+    font-size:.6rem;
     font-weight:800;
+
     text-transform:uppercase;
     letter-spacing:.2em;
-    margin-bottom:14px;
 }
 
 .section-title{
+    margin-bottom:55px;
+
     font-family:var(--display);
-    font-size:clamp(2.7rem,5vw,4.6rem);
-    line-height:.94;
-    letter-spacing:-.06em;
+
+    font-size:clamp(
+        2.8rem,
+        5vw,
+        5rem
+    );
+
+    line-height:.92;
+
+    letter-spacing:-.07em;
+
     font-weight:600;
+}
+
+.section-title span{
+    color:var(--red);
+}
+
+/* =========================================================
+   SERVICES
+========================================================= */
+
+#services{
+    background:
+        linear-gradient(
+            180deg,
+            #11100f,
+            #0e0d0c
+        );
+}
+
+.services-heading{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+
+    gap:30px;
+
     margin-bottom:55px;
 }
 
-/* =========================
-   SERVICES
-========================= */
+.services-heading .section-title{
+    margin-bottom:0;
+}
 
-#services{
-    background:#11100f;
+.services-heading-text{
+    max-width:400px;
+
+    color:#6f6a63;
+
+    font-size:.78rem;
+    line-height:1.8;
 }
 
 .services-grid{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
-    border:1px solid #302c27;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    border:1px solid #2b2824;
 }
 
 .service-card{
-    padding:42px 30px;
-    background:#151412;
-    border-right:1px solid #302c27;
-    transition:.3s;
+    position:relative;
+
+    min-height:390px;
+
+    padding:35px 28px;
+
+    background:#151311;
+
+    border-right:1px solid #2b2824;
+
+    overflow:hidden;
+
+    transition:
+        transform .35s ease,
+        background .35s ease,
+        border-color .35s ease;
 }
 
 .service-card:last-child{
     border-right:0;
 }
 
+.service-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    right:-80px;
+    bottom:-80px;
+
+    background:rgba(197,34,49,.09);
+
+    border-radius:50%;
+
+    filter:blur(30px);
+
+    opacity:0;
+
+    transition:.4s;
+}
+
 .service-card:hover{
     background:#1a1815;
-    transform:translateY(-4px);
+
+    transform:translateY(-7px);
+
+    border-color:#42352f;
+}
+
+.service-card:hover::before{
+    opacity:1;
 }
 
 .service-number{
-    color:#49453f;
+    color:#45413c;
+
     font-family:var(--display);
-    font-size:.78rem;
-    margin-bottom:34px;
+
+    font-size:.75rem;
+    font-weight:600;
+
+    margin-bottom:60px;
 }
 
 .service-icon{
-    font-size:1.75rem;
-    margin-bottom:20px;
+    width:52px;
+    height:52px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin-bottom:22px;
+
+    border:1px solid #35312c;
+
+    background:#11100f;
+
+    font-size:1.25rem;
 }
 
 .service-card h3{
+    position:relative;
+
+    margin-bottom:13px;
+
     font-family:var(--display);
-    font-size:1.1rem;
-    margin-bottom:12px;
+
+    font-size:1.12rem;
 }
 
 .service-card p{
-    color:#817d76;
-    font-size:.79rem;
-    line-height:1.8;
+    position:relative;
+
+    max-width:260px;
+
+    color:#79746d;
+
+    font-size:.75rem;
+
+    line-height:1.85;
 }
 
 .service-tag{
-    display:inline-block;
-    margin-top:22px;
-    padding:5px 9px;
-    border:1px solid #34302b;
-    color:#88837b;
-    font-size:.57rem;
+    position:absolute;
+
+    left:28px;
+    bottom:30px;
+
+    padding:6px 9px;
+
+    border:1px solid #36312d;
+
+    color:#716c65;
+
+    font-size:.52rem;
+    font-weight:700;
+
     text-transform:uppercase;
     letter-spacing:.1em;
 }
 
-/* =========================
+/* =========================================================
+   ABOUT STRIP
+========================================================= */
+
+.about-strip{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:80px;
+
+    padding:
+        100px
+        max(25px, calc((100vw - var(--container))/2));
+
+    background:#090909;
+
+    border-top:1px solid #211f1c;
+}
+
+.about-title{
+    font-family:var(--display);
+
+    font-size:clamp(
+        2.5rem,
+        4.5vw,
+        4.5rem
+    );
+
+    line-height:.95;
+
+    letter-spacing:-.07em;
+}
+
+.about-title span{
+    color:var(--red);
+}
+
+.about-copy{
+    align-self:end;
+
+    color:#77726b;
+
+    font-size:.85rem;
+
+    line-height:1.9;
+}
+
+.about-stats{
+    grid-column:1/-1;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    border-top:1px solid #25221f;
+
+    padding-top:35px;
+
+    margin-top:20px;
+}
+
+.stat strong{
+    display:block;
+
+    margin-bottom:6px;
+
+    font-family:var(--display);
+
+    font-size:2rem;
+}
+
+.stat span{
+    color:#66615a;
+
+    font-size:.6rem;
+
+    text-transform:uppercase;
+    letter-spacing:.13em;
+}
+
+/* =========================================================
    PORTFOLIO
-========================= */
+========================================================= */
 
 #portfolio{
-    background:#090909;
+    background:#080808;
 }
 
 .portfolio-header{
     display:flex;
     align-items:flex-end;
     justify-content:space-between;
+
     gap:30px;
-    margin-bottom:50px;
+
+    margin-bottom:45px;
 }
 
 .portfolio-header .section-title{
@@ -577,55 +1242,70 @@ section{
     display:inline-flex;
     align-items:center;
     justify-content:center;
+
     gap:8px;
 
-    padding:12px 18px;
+    min-height:43px;
 
-    border:1px solid #302c27;
+    padding:0 16px;
 
-    font-size:.65rem;
+    border:1px solid #302c28;
+
+    color:#b2ada5;
+
+    font-size:.58rem;
     font-weight:800;
 
     text-transform:uppercase;
-    letter-spacing:.08em;
+    letter-spacing:.1em;
 
     transition:.25s;
 }
 
 .instagram-btn:hover{
     border-color:var(--red);
-    color:var(--red);
+    color:#fff;
+
+    transform:translateY(-2px);
 }
 
 .portfolio-grid{
     display:grid;
 
     grid-template-columns:
-    repeat(auto-fill,minmax(240px,1fr));
+        repeat(4,1fr);
 
-    gap:17px;
+    gap:16px;
 }
 
 .portfolio-item{
     position:relative;
 
-    aspect-ratio:9/16;
-    max-height:650px;
+    aspect-ratio:9/15;
 
     overflow:hidden;
 
-    background:#12110f;
-    border:1px solid #292622;
+    background:#11100f;
+
+    border:1px solid #272420;
 
     cursor:pointer;
 
-    transition:.35s;
+    transform:translateZ(0);
+
+    transition:
+        transform .4s ease,
+        border-color .4s ease,
+        box-shadow .4s ease;
 }
 
 .portfolio-item:hover{
-    transform:translateY(-6px);
+    transform:translateY(-8px);
+
     border-color:#493036;
-    box-shadow:0 25px 65px rgba(0,0,0,.5);
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,.5);
 }
 
 .portfolio-item video,
@@ -637,34 +1317,43 @@ section{
     display:block;
 
     border:0;
+
     object-fit:cover;
 }
 
-.portfolio-item::after{
-    content:"";
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    height:48%;
+.portfolio-item video{
+    background:#111;
+}
 
-    background:
-    linear-gradient(
-        to top,
-        rgba(0,0,0,.92),
-        transparent
-    );
+.portfolio-item::before{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    z-index:2;
 
     pointer-events:none;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.05),
+            transparent 45%,
+            rgba(0,0,0,.9)
+        );
 }
 
 .reel-play{
     position:absolute;
-    top:14px;
-    right:14px;
 
-    width:39px;
-    height:39px;
+    top:13px;
+    right:13px;
+
+    z-index:5;
+
+    width:38px;
+    height:38px;
 
     display:flex;
     align-items:center;
@@ -672,51 +1361,124 @@ section{
 
     border-radius:50%;
 
-    background:rgba(0,0,0,.62);
-    border:1px solid rgba(255,255,255,.16);
+    background:rgba(0,0,0,.65);
+
+    border:1px solid rgba(255,255,255,.17);
 
     color:#fff;
-    z-index:5;
+
+    font-size:.75rem;
+
+    backdrop-filter:blur(10px);
+
+    transition:.25s;
+}
+
+.portfolio-item:hover .reel-play{
+    background:var(--red);
+
+    border-color:var(--red);
+
+    transform:scale(1.08);
 }
 
 .portfolio-caption{
     position:absolute;
-    left:18px;
-    right:18px;
-    bottom:17px;
+
+    left:17px;
+    right:17px;
+    bottom:16px;
+
     z-index:6;
 }
 
 .caption-title{
+    margin-bottom:6px;
+
     font-family:var(--display);
-    font-size:.95rem;
+
+    font-size:.88rem;
     font-weight:600;
-    margin-bottom:5px;
+
+    line-height:1.2;
 }
 
 .caption-type{
-    color:var(--red);
-    font-size:.55rem;
+    color:#e02e3e;
+
+    font-size:.5rem;
     font-weight:800;
+
     text-transform:uppercase;
     letter-spacing:.12em;
 }
 
 .portfolio-empty{
     grid-column:1/-1;
+
     padding:100px 20px;
+
     text-align:center;
+
     color:#625e58;
 }
 
 .portfolio-empty div{
-    font-size:2.8rem;
     margin-bottom:15px;
+
+    font-size:2.5rem;
 }
 
-/* =========================
-   MODAL
-========================= */
+.portfolio-empty small{
+    display:block;
+
+    margin-top:10px;
+}
+
+/* =========================================================
+   PORTFOLIO LOADING SKELETON
+========================================================= */
+
+.portfolio-loading{
+    position:relative;
+
+    aspect-ratio:9/15;
+
+    overflow:hidden;
+
+    background:#121110;
+
+    border:1px solid #22201d;
+}
+
+.portfolio-loading::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.05),
+            transparent
+        );
+
+    transform:translateX(-100%);
+
+    animation:skeleton 1.3s infinite;
+}
+
+@keyframes skeleton{
+    100%{
+        transform:translateX(100%);
+    }
+}
+
+/* =========================================================
+   VIDEO MODAL
+========================================================= */
 
 .video-modal{
     position:fixed;
@@ -728,11 +1490,11 @@ section{
     align-items:center;
     justify-content:center;
 
-    padding:25px;
+    padding:20px;
 
-    background:rgba(4,4,4,.96);
+    background:rgba(3,3,3,.96);
 
-    backdrop-filter:blur(10px);
+    backdrop-filter:blur(18px);
 }
 
 .video-modal.active{
@@ -742,24 +1504,49 @@ section{
 .modal-content{
     position:relative;
 
-    width:min(95vw,500px);
-    height:min(92vh,850px);
+    width:min(94vw,520px);
+    height:min(92svh,850px);
 
     background:#000;
-    border:1px solid #35312c;
+
+    border:1px solid #393530;
+
+    box-shadow:
+        0 40px 100px rgba(0,0,0,.7);
+
+    animation:modalIn .3s ease;
+}
+
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:scale(.96);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
 }
 
 .modal-content video{
     width:100%;
     height:100%;
+
+    display:block;
+
     object-fit:contain;
+
     background:#000;
 }
 
 .modal-close{
     position:absolute;
-    top:-15px;
-    right:-15px;
+
+    top:-14px;
+    right:-14px;
+
+    z-index:20;
 
     width:42px;
     height:42px;
@@ -768,119 +1555,183 @@ section{
     align-items:center;
     justify-content:center;
 
-    border:1px solid #444;
+    border:1px solid #44403b;
     border-radius:50%;
 
-    background:#151311;
+    background:#171513;
     color:#fff;
 
-    z-index:20;
+    transition:.25s;
 }
 
 .modal-close:hover{
     background:var(--red);
+    border-color:var(--red);
 }
 
 .modal-title{
     position:absolute;
+
     left:0;
     right:0;
     bottom:0;
 
-    padding:50px 20px 18px;
+    z-index:5;
+
+    padding:
+        70px
+        20px
+        18px;
 
     background:
-    linear-gradient(
-        to top,
-        rgba(0,0,0,.94),
-        transparent
-    );
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.95),
+            transparent
+        );
 
     font-family:var(--display);
+
+    font-size:.9rem;
 }
 
-/* =========================
+/* =========================================================
    BOOKING
-========================= */
+========================================================= */
 
 #booking{
-    background:#151310;
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(197,34,49,.08),
+            transparent 25%
+        ),
+        #12100f;
 }
 
 .booking-inner{
-    max-width:1150px;
-
     display:grid;
-    grid-template-columns:.9fr 1.1fr;
 
-    gap:80px;
+    grid-template-columns:
+        .85fr 1.15fr;
+
+    gap:90px;
+}
+
+.booking-left{
+    position:relative;
 }
 
 .booking-left h2{
+    margin-bottom:24px;
+
     font-family:var(--display);
-    font-size:clamp(2.8rem,5vw,4.6rem);
-    line-height:.95;
-    letter-spacing:-.06em;
-    margin-bottom:25px;
+
+    font-size:clamp(
+        3rem,
+        5vw,
+        5rem
+    );
+
+    line-height:.9;
+
+    letter-spacing:-.07em;
+}
+
+.booking-left h2 span{
+    color:var(--red);
 }
 
 .booking-left>p{
-    color:#858078;
-    line-height:1.8;
-    max-width:470px;
-    margin-bottom:35px;
+    max-width:460px;
+
+    margin-bottom:36px;
+
+    color:#7d7871;
+
+    font-size:.82rem;
+
+    line-height:1.9;
+}
+
+.booking-details{
+    display:flex;
+    flex-direction:column;
+
+    gap:18px;
 }
 
 .booking-detail{
     display:flex;
-    gap:15px;
-    margin-bottom:20px;
+    align-items:center;
+
+    gap:14px;
 }
 
 .booking-detail-icon{
-    width:38px;
-    height:38px;
+    width:42px;
+    height:42px;
+
+    flex-shrink:0;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    background:#1c1916;
-    border:1px solid #302c27;
+    border:1px solid #332f2b;
 
-    flex-shrink:0;
+    background:#1b1815;
 }
 
 .booking-detail strong{
     display:block;
-    font-size:.82rem;
+
     margin-bottom:3px;
+
+    font-size:.75rem;
 }
 
 .booking-detail span{
-    color:#77736d;
-    font-size:.72rem;
+    color:#69645e;
+
+    font-size:.67rem;
+}
+
+.booking-form-box{
+    padding:32px;
+
+    background:#151311;
+
+    border:1px solid #302c28;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.2);
 }
 
 form{
     display:flex;
     flex-direction:column;
-    gap:16px;
+
+    gap:17px;
 }
 
 .form-row{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:16px;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:15px;
 }
 
-label{
+.form-group label{
     display:block;
+
     margin-bottom:7px;
 
-    color:#77736d;
+    color:#77726b;
 
-    font-size:.61rem;
+    font-size:.56rem;
     font-weight:800;
 
     text-transform:uppercase;
@@ -892,41 +1743,66 @@ select,
 textarea{
     width:100%;
 
-    padding:14px 15px;
-
-    border:1px solid #302c27;
-
-    background:#11100f;
-    color:#fff;
+    padding:14px 14px;
 
     outline:none;
 
-    font-size:.81rem;
+    border:1px solid #302c28;
+
+    background:#0e0d0c;
+
+    color:#fff;
+
+    font-size:.75rem;
+
+    transition:.25s;
+}
+
+input::placeholder,
+textarea::placeholder{
+    color:#4f4b46;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
     border-color:var(--red);
+
+    box-shadow:
+        0 0 0 3px rgba(197,34,49,.08);
+}
+
+select{
+    cursor:pointer;
+}
+
+select option{
+    background:#111;
+    color:#fff;
 }
 
 textarea{
-    min-height:130px;
+    min-height:125px;
+
     resize:vertical;
 }
 
 .form-submit{
     width:100%;
-    padding:16px;
+
+    min-height:52px;
 
     border:0;
 
     background:var(--red);
+
     color:#fff;
 
+    font-size:.62rem;
     font-weight:800;
+
     text-transform:uppercase;
-    letter-spacing:.08em;
+    letter-spacing:.1em;
 
     transition:.25s;
 }
@@ -937,110 +1813,374 @@ textarea{
 }
 
 .form-submit:disabled{
-    opacity:.5;
+    opacity:.55;
+    cursor:not-allowed;
 }
 
 .form-success,
 .form-error{
     display:none;
-    padding:16px;
-    font-size:.8rem;
+
+    padding:14px;
+
+    font-size:.72rem;
+
+    line-height:1.6;
 }
 
 .form-success{
-    border:1px solid #244b2b;
-    background:#0d1b10;
-    color:#66d878;
+    border:1px solid #285234;
+
+    background:#0c1b10;
+
+    color:#67d77a;
 }
 
 .form-error{
-    border:1px solid #542323;
-    background:#1b0b0b;
-    color:#ff7373;
+    border:1px solid #52272b;
+
+    background:#1c0c0e;
+
+    color:#ff7b82;
+
     white-space:pre-wrap;
 }
 
-/* =========================
+/* =========================================================
+   CTA BAND
+========================================================= */
+
+.cta-band{
+    position:relative;
+
+    overflow:hidden;
+
+    padding:
+        80px
+        max(25px, calc((100vw - var(--container))/2));
+
+    background:#c52231;
+
+    color:#fff;
+}
+
+.cta-band::after{
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    right:-150px;
+    top:-250px;
+
+    border-radius:50%;
+
+    border:80px solid rgba(255,255,255,.06);
+}
+
+.cta-band-inner{
+    position:relative;
+    z-index:2;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:30px;
+}
+
+.cta-band h2{
+    font-family:var(--display);
+
+    font-size:clamp(
+        2.2rem,
+        4vw,
+        4rem
+    );
+
+    line-height:.95;
+
+    letter-spacing:-.07em;
+}
+
+.cta-band p{
+    max-width:380px;
+
+    margin-top:10px;
+
+    color:rgba(255,255,255,.72);
+
+    font-size:.76rem;
+
+    line-height:1.7;
+}
+
+.cta-button{
+    min-height:52px;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:0 23px;
+
+    background:#fff;
+
+    color:#111;
+
+    font-size:.62rem;
+    font-weight:800;
+
+    text-transform:uppercase;
+    letter-spacing:.1em;
+
+    transition:.25s;
+}
+
+.cta-button:hover{
+    transform:translateY(-3px);
+
+    background:#111;
+    color:#fff;
+}
+
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
 footer{
-    padding:55px 50px 30px;
-    border-top:1px solid #24211e;
-    background:#090909;
+    padding:
+        65px
+        max(25px, calc((100vw - var(--container))/2))
+        30px;
+
+    background:#080808;
+
+    border-top:1px solid #211f1c;
 }
 
 .footer-top{
     display:flex;
-    align-items:center;
+    align-items:flex-start;
     justify-content:space-between;
-    flex-wrap:wrap;
-    gap:25px;
-    padding-bottom:35px;
+
+    gap:40px;
+
+    padding-bottom:45px;
 }
 
 .footer-logo{
     font-family:var(--display);
-    font-size:1.35rem;
+
+    font-size:1.45rem;
     font-weight:700;
+
+    letter-spacing:-.06em;
 }
 
 .footer-logo span{
     color:var(--red);
 }
 
+.footer-tagline{
+    max-width:240px;
+
+    margin-top:12px;
+
+    color:#5f5a54;
+
+    font-size:.68rem;
+
+    line-height:1.7;
+}
+
 .footer-links{
     display:flex;
-    gap:25px;
-    flex-wrap:wrap;
+    flex-direction:column;
+
+    gap:12px;
 }
 
 .footer-links a{
-    color:#77736d;
-    font-size:.67rem;
+    color:#77726b;
+
+    font-size:.6rem;
+    font-weight:700;
+
     text-transform:uppercase;
-    letter-spacing:.08em;
+    letter-spacing:.1em;
+
+    transition:.25s;
+}
+
+.footer-links a:hover{
+    color:#fff;
+}
+
+.footer-contact{
+    display:flex;
+    flex-direction:column;
+
+    gap:9px;
+}
+
+.footer-contact a{
+    color:#8b867f;
+
+    font-size:.68rem;
+
+    transition:.25s;
+}
+
+.footer-contact a:hover{
+    color:var(--red);
+}
+
+.footer-bottom{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:20px;
+
+    padding-top:25px;
+
+    border-top:1px solid #1c1917;
 }
 
 .footer-copy{
-    padding-top:25px;
-    border-top:1px solid #1c1916;
     color:#4d4944;
-    font-size:.64rem;
+
+    font-size:.59rem;
 }
 
-/* =========================
+.footer-status{
+    display:flex;
+    align-items:center;
+
+    gap:7px;
+
+    color:#55504a;
+
+    font-size:.55rem;
+
+    text-transform:uppercase;
+    letter-spacing:.1em;
+}
+
+/* =========================================================
+   SCROLL TOP
+========================================================= */
+
+.scroll-top{
+    position:fixed;
+
+    right:22px;
+    bottom:22px;
+
+    z-index:500;
+
+    width:44px;
+    height:44px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid #393530;
+
+    background:rgba(17,16,14,.9);
+
+    color:#fff;
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:translateY(10px);
+
+    transition:.3s;
+}
+
+.scroll-top.visible{
+    opacity:1;
+    visibility:visible;
+
+    transform:translateY(0);
+}
+
+.scroll-top:hover{
+    background:var(--red);
+    border-color:var(--red);
+}
+
+/* =========================================================
    REVEAL
-========================= */
+========================================================= */
 
 .reveal{
     opacity:0;
-    transform:translateY(22px);
-    transition:.65s ease;
+
+    transform:translateY(25px);
+
+    transition:
+        opacity .7s ease,
+        transform .7s ease;
 }
 
 .reveal.visible{
     opacity:1;
+
     transform:translateY(0);
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* =========================================================
+   RESPONSIVE — 1200
+========================================================= */
 
-@media(max-width:1100px){
+@media(max-width:1200px){
 
     .hero-visual{
-        right:1%;
-        transform:translateY(-50%) scale(.84);
-        transform-origin:center right;
+        right:10px;
+
+        transform:
+            translateY(-50%)
+            scale(.86);
+
+        transform-origin:right center;
+    }
+
+    .portfolio-grid{
+        grid-template-columns:
+            repeat(3,1fr);
     }
 }
 
+/* =========================================================
+   RESPONSIVE — 1000
+========================================================= */
+
 @media(max-width:1000px){
 
+    .nav-center{
+        gap:20px;
+    }
+
+    #hero{
+        padding-right:35px;
+        padding-left:35px;
+    }
+
+    .hero-visual{
+        right:-60px;
+
+        opacity:.42;
+    }
+
     .services-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
     .service-card:nth-child(2){
@@ -1049,61 +2189,198 @@ footer{
 
     .service-card:nth-child(3),
     .service-card:nth-child(4){
-        border-top:1px solid #302c27;
+        border-top:1px solid #2b2824;
     }
 
     .booking-inner{
         grid-template-columns:1fr;
-        gap:50px;
+
+        gap:55px;
     }
 
-    .hero-visual{
-        right:-55px;
-        opacity:.48;
+    .about-strip{
+        gap:40px;
     }
 }
 
-@media(max-width:700px){
+/* =========================================================
+   RESPONSIVE — 760
+========================================================= */
+
+@media(max-width:760px){
+
+    html{
+        scroll-padding-top:75px;
+    }
 
     nav{
         height:65px;
-        padding:0 20px;
+
+        padding:
+            0 18px;
     }
 
-    .nav-logo{
-        font-size:1.12rem;
+    nav.scrolled{
+        height:62px;
     }
 
-    .nav-links{
+    .nav-center,
+    .nav-instagram{
         display:none;
     }
 
+    .nav-actions{
+        gap:8px;
+    }
+
     .nav-cta{
-        padding:10px 15px;
+        display:none;
+    }
+
+    .mobile-menu-btn{
+        display:flex;
     }
 
     #hero{
-        min-height:92vh;
-        padding:120px 20px 70px;
+        min-height:100svh;
+
+        padding:
+            125px
+            20px
+            85px;
+
+        align-items:flex-start;
     }
 
-    .hero-visual{
-        right:-115px;
-        top:56%;
+    .hero-grid{
+        background-size:55px 55px;
 
-        transform:
-        translateY(-50%)
-        scale(.65);
+        mask-image:
+            linear-gradient(
+                to bottom,
+                black,
+                transparent 85%
+            );
+    }
 
-        opacity:.24;
+    .hero-glow{
+        width:300px;
+        height:300px;
+
+        right:-100px;
+        top:45%;
+
+        opacity:.6;
+    }
+
+    .hero-content{
+        width:100%;
+    }
+
+    .hero-eyebrow{
+        margin-bottom:20px;
+
+        font-size:.54rem;
+    }
+
+    .hero-eyebrow::before{
+        width:24px;
     }
 
     .hero-title{
-        font-size:clamp(3.3rem,17vw,6rem);
+        font-size:
+            clamp(
+                3.6rem,
+                17vw,
+                6rem
+            );
+
+        line-height:.85;
+
+        margin-bottom:26px;
     }
 
-    section{
-        padding:80px 20px;
+    .hero-description{
+        max-width:400px;
+
+        font-size:.76rem;
+
+        line-height:1.8;
+
+        margin-bottom:25px;
+    }
+
+    .hero-buttons{
+        width:100%;
+
+        flex-direction:column;
+
+        align-items:stretch;
+    }
+
+    .btn-red,
+    .btn-outline{
+        width:100%;
+        min-height:50px;
+    }
+
+    .hero-visual{
+        width:380px;
+        height:500px;
+
+        right:-145px;
+        top:58%;
+
+        transform:
+            translateY(-50%)
+            scale(.72);
+
+        opacity:.22;
+    }
+
+    .creator-image-box{
+        width:290px;
+        height:450px;
+    }
+
+    .adobe-logos{
+        top:65px;
+    }
+
+    .hero-bottom{
+        left:20px;
+        right:20px;
+        bottom:20px;
+    }
+
+    .hero-availability{
+        display:none;
+    }
+
+    section:not(#hero){
+        padding:
+            80px 20px;
+    }
+
+    .section-title{
+        margin-bottom:38px;
+
+        font-size:
+            clamp(
+                2.8rem,
+                13vw,
+                4rem
+            );
+    }
+
+    .services-heading{
+        display:block;
+
+        margin-bottom:38px;
+    }
+
+    .services-heading-text{
+        margin-top:18px;
     }
 
     .services-grid{
@@ -1111,22 +2388,72 @@ footer{
     }
 
     .service-card{
+        min-height:310px;
+
         border-right:0;
-        border-bottom:1px solid #302c27;
+
+        border-bottom:1px solid #2b2824;
     }
 
     .service-card:last-child{
         border-bottom:0;
     }
 
+    .service-number{
+        margin-bottom:35px;
+    }
+
+    .service-tag{
+        bottom:25px;
+    }
+
+    .about-strip{
+        grid-template-columns:1fr;
+
+        gap:25px;
+
+        padding:
+            75px 20px;
+    }
+
+    .about-copy{
+        max-width:500px;
+
+        font-size:.76rem;
+    }
+
+    .about-stats{
+        grid-column:auto;
+
+        grid-template-columns:
+            repeat(3,1fr);
+
+        margin-top:20px;
+
+        padding-top:25px;
+    }
+
+    .stat strong{
+        font-size:1.5rem;
+    }
+
+    .stat span{
+        font-size:.5rem;
+    }
+
     .portfolio-header{
         align-items:flex-start;
+
         flex-direction:column;
+
+        margin-bottom:32px;
     }
 
     .portfolio-grid{
-        grid-template-columns:repeat(2,1fr);
-        gap:10px;
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap:9px;
     }
 
     .portfolio-item{
@@ -1140,515 +2467,1189 @@ footer{
     }
 
     .caption-title{
-        font-size:.72rem;
+        font-size:.67rem;
     }
 
     .caption-type{
-        font-size:.47rem;
+        font-size:.42rem;
     }
 
     .reel-play{
-        top:9px;
-        right:9px;
-        width:32px;
-        height:32px;
+        top:8px;
+        right:8px;
+
+        width:31px;
+        height:31px;
+
+        font-size:.62rem;
+    }
+
+    .booking-inner{
+        gap:40px;
+    }
+
+    .booking-left h2{
+        font-size:
+            clamp(
+                3rem,
+                14vw,
+                4.5rem
+            );
+    }
+
+    .booking-left>p{
+        font-size:.76rem;
+    }
+
+    .booking-form-box{
+        padding:20px 16px;
     }
 
     .form-row{
         grid-template-columns:1fr;
     }
 
+    .cta-band{
+        padding:
+            65px 20px;
+    }
+
+    .cta-band-inner{
+        flex-direction:column;
+
+        align-items:flex-start;
+    }
+
+    .cta-button{
+        width:100%;
+    }
+
     footer{
-        padding:45px 20px 25px;
+        padding:
+            55px 20px 25px;
     }
 
     .footer-top{
+        display:grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap:35px;
+    }
+
+    .footer-brand{
+        grid-column:1/-1;
+    }
+
+    .footer-contact{
+        grid-column:1/-1;
+    }
+
+    .footer-bottom{
         align-items:flex-start;
+
         flex-direction:column;
+    }
+
+    .scroll-top{
+        right:15px;
+        bottom:15px;
+    }
+
+    .modal-content{
+        width:calc(100vw - 24px);
+
+        height:calc(100svh - 50px);
+    }
+
+    .modal-close{
+        right:5px;
+        top:5px;
+
+        background:rgba(0,0,0,.7);
     }
 }
 
-@media(max-width:400px){
+/* =========================================================
+   RESPONSIVE — 420
+========================================================= */
 
-    .portfolio-grid{
-        grid-template-columns:1fr;
+@media(max-width:420px){
+
+    .nav-logo{
+        font-size:1.05rem;
+    }
+
+    #hero{
+        padding-top:115px;
     }
 
     .hero-title{
-        font-size:3.2rem;
+        font-size:3.45rem;
+    }
+
+    .hero-description{
+        font-size:.72rem;
+    }
+
+    .portfolio-grid{
+        gap:7px;
+    }
+
+    .portfolio-item{
+        aspect-ratio:9/14;
+    }
+
+    .caption-title{
+        font-size:.61rem;
+    }
+
+    .caption-type{
+        font-size:.39rem;
+    }
+
+    .about-stats{
+        gap:10px;
+    }
+
+    .stat strong{
+        font-size:1.3rem;
+    }
+
+    .stat span{
+        font-size:.45rem;
     }
 
     .hero-visual{
-        right:-150px;
-        opacity:.18;
+        right:-185px;
+
+        opacity:.15;
     }
 }
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        scroll-behavior:auto !important;
+        animation:none !important;
+        transition:none !important;
+    }
+
+    .reveal{
+        opacity:1;
+        transform:none;
+    }
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<nav>
+<!-- =====================================================
+     LOADER
+===================================================== -->
 
-<a href="#hero" class="nav-logo">
-    krishhhh<span>.verse</span>
-</a>
+<div class="site-loader" id="siteLoader">
 
-<ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#portfolio">Work</a></li>
-    <li><a href="#booking">Book</a></li>
-</ul>
+    <div class="loader-inner">
 
-<a href="#booking" class="nav-cta">
-    Book Now
-</a>
+        <div class="loader-logo">
+            krishhhh<span>.verse</span>
+        </div>
+
+        <div class="loader-line"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav id="navbar">
+
+    <a href="#hero" class="nav-logo">
+        krishhhh<span>.verse</span>
+    </a>
+
+    <div class="nav-center">
+
+        <a href="#services">Services</a>
+        <a href="#portfolio">Work</a>
+        <a href="#about">About</a>
+        <a href="#booking">Book</a>
+
+    </div>
+
+    <div class="nav-actions">
+
+        <a
+            href="https://www.instagram.com/krishhhh.verse"
+            target="_blank"
+            rel="noopener"
+            class="nav-instagram"
+            aria-label="Instagram">
+            ◎
+        </a>
+
+        <a href="#booking" class="nav-cta">
+            Book Now
+        </a>
+
+        <button
+            class="mobile-menu-btn"
+            id="mobileMenuBtn"
+            aria-label="Open menu">
+            ☰
+        </button>
+
+    </div>
 
 </nav>
 
 
-<!-- HERO -->
+<!-- =====================================================
+     MOBILE MENU
+===================================================== -->
+
+<div class="mobile-menu" id="mobileMenu">
+
+    <a href="#services" class="mobile-link">
+        <span>01</span> Services
+    </a>
+
+    <a href="#portfolio" class="mobile-link">
+        <span>02</span> Work
+    </a>
+
+    <a href="#about" class="mobile-link">
+        <span>03</span> About
+    </a>
+
+    <a href="#booking" class="mobile-link">
+        <span>04</span> Book a Project
+    </a>
+
+    <div class="mobile-menu-bottom">
+
+        <p>Follow the work</p>
+
+        <div class="mobile-menu-social">
+
+            <a
+                href="https://www.instagram.com/krishhhh.verse"
+                target="_blank"
+                rel="noopener">
+                ◎
+            </a>
+
+            <a
+                href="https://wa.me/919940826494"
+                target="_blank"
+                rel="noopener">
+                ◇
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
 <section id="hero">
 
-<div class="hero-grid"></div>
+    <div class="hero-grid"></div>
 
-<div class="hero-visual">
-
-<div class="creator-image-box">
-
-<img id="heroCreatorImage" alt="Krishhhh Video Editor">
-
-<div class="hero-image-fallback" id="heroImageFallback">
-    Visual Creator
-</div>
-
-</div>
-
-<div class="adobe-logos">
-
-<div class="adobe-logo">
-    <div class="pr-logo">Pr</div>
-    <span class="adobe-logo-label">Premiere Pro</span>
-</div>
-
-<div class="adobe-logo">
-    <div class="ae-logo">Ae</div>
-    <span class="adobe-logo-label">After Effects</span>
-</div>
-
-</div>
-
-</div>
+    <div class="hero-glow"></div>
 
 
-<div class="hero-content reveal">
+    <div class="hero-visual">
 
-<div class="hero-eyebrow">
-    Video Editor · Visual Creator
-</div>
+        <div class="creator-image-box">
 
-<h1 class="hero-title">
+            <img
+                id="heroCreatorImage"
+                alt="Krishhhh Video Editor">
 
-    I MAKE<br>
+            <div
+                class="hero-image-fallback"
+                id="heroImageFallback">
 
-    <span class="red">VIDEOS</span>
+                Visual Creator
 
-    <br>
+            </div>
 
-    <span class="outline">
-        THAT HIT.
-    </span>
+        </div>
 
-</h1>
 
-<p class="hero-description">
-    Cinematic edits, reels, motion graphics and visual
-    stories crafted with intention. Clean cuts, strong
-    pacing and visuals that make people stop scrolling.
-</p>
+        <div class="adobe-logos">
 
-<div class="hero-buttons">
+            <div class="adobe-logo">
 
-<a href="#portfolio" class="btn-red">
-    View My Work →
-</a>
+                <div class="pr-logo">
+                    Pr
+                </div>
 
-<a href="#booking" class="btn-outline">
-    Start a Project
-</a>
+                <span class="adobe-logo-label">
+                    Premiere Pro
+                </span>
 
-</div>
+            </div>
 
-</div>
+
+            <div class="adobe-logo">
+
+                <div class="ae-logo">
+                    Ae
+                </div>
+
+                <span class="adobe-logo-label">
+                    After Effects
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-content reveal">
+
+        <div class="hero-eyebrow">
+            Video Editor · Visual Creator
+        </div>
+
+
+        <h1 class="hero-title">
+
+            I MAKE<br>
+
+            <span class="red">
+                VIDEOS
+            </span>
+
+            <br>
+
+            <span class="outline">
+                THAT HIT.
+            </span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Cinematic edits, high-retention reels,
+            motion graphics and visual stories
+            crafted to make people stop scrolling.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="#portfolio"
+                class="btn-red">
+                View My Work
+                <span>→</span>
+            </a>
+
+            <a
+                href="#booking"
+                class="btn-outline">
+                Start a Project
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-bottom">
+
+        <div class="hero-scroll">
+
+            <span class="scroll-line"></span>
+
+            Scroll to explore
+
+        </div>
+
+
+        <div class="hero-availability">
+
+            <span class="availability-dot"></span>
+
+            Available for projects
+
+        </div>
+
+    </div>
 
 </section>
 
 
-<!-- SERVICES -->
+<!-- =====================================================
+     SERVICES
+===================================================== -->
+
 <section id="services">
 
-<div class="section-label reveal">
-    What I Do
-</div>
+    <div class="services-heading">
 
-<h2 class="section-title reveal">
-    Services
-</h2>
+        <div>
 
-<div class="services-grid reveal">
+            <div class="section-label reveal">
+                What I Do
+            </div>
 
-<div class="service-card">
-    <div class="service-number">01</div>
-    <div class="service-icon">🎬</div>
-    <h3>Video Editing</h3>
-    <p>
-        High-retention reels, cinematic edits,
-        pacing, sound design and color grading.
-    </p>
-    <span class="service-tag">Premiere Pro</span>
-</div>
+            <h2 class="section-title reveal">
+                Services
+            </h2>
 
-<div class="service-card">
-    <div class="service-number">02</div>
-    <div class="service-icon">⚡</div>
-    <h3>Motion Graphics</h3>
-    <p>
-        Dynamic titles, transitions, visual effects
-        and motion design for modern content.
-    </p>
-    <span class="service-tag">After Effects</span>
-</div>
+        </div>
 
-<div class="service-card">
-    <div class="service-number">03</div>
-    <div class="service-icon">📸</div>
-    <h3>Photo Shoot</h3>
-    <p>
-        Portrait, product and lifestyle photography
-        for creators, brands and businesses.
-    </p>
-    <span class="service-tag">Photography</span>
-</div>
 
-<div class="service-card">
-    <div class="service-number">04</div>
-    <div class="service-icon">🎥</div>
-    <h3>Video Shoot</h3>
-    <p>
-        Creative on-location video production for
-        events, creators and businesses.
-    </p>
-    <span class="service-tag">Videography</span>
-</div>
+        <p class="services-heading-text reveal">
 
-</div>
+            From a single reel to complete visual
+            production — every project is built around
+            strong storytelling, clean visuals and
+            attention-grabbing execution.
+
+        </p>
+
+    </div>
+
+
+    <div class="services-grid reveal">
+
+        <div class="service-card">
+
+            <div class="service-number">
+                01
+            </div>
+
+            <div class="service-icon">
+                🎬
+            </div>
+
+            <h3>
+                Video Editing
+            </h3>
+
+            <p>
+                High-retention reels, cinematic edits,
+                pacing, sound design, transitions and
+                professional color grading.
+            </p>
+
+            <span class="service-tag">
+                Premiere Pro
+            </span>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <div class="service-number">
+                02
+            </div>
+
+            <div class="service-icon">
+                ⚡
+            </div>
+
+            <h3>
+                Motion Graphics
+            </h3>
+
+            <p>
+                Dynamic titles, motion design,
+                transitions, visual effects and
+                modern animations.
+            </p>
+
+            <span class="service-tag">
+                After Effects
+            </span>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <div class="service-number">
+                03
+            </div>
+
+            <div class="service-icon">
+                📸
+            </div>
+
+            <h3>
+                Photo Shoot
+            </h3>
+
+            <p>
+                Portrait, product and lifestyle
+                photography for creators, brands
+                and businesses.
+            </p>
+
+            <span class="service-tag">
+                Photography
+            </span>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <div class="service-number">
+                04
+            </div>
+
+            <div class="service-icon">
+                🎥
+            </div>
+
+            <h3>
+                Video Shoot
+            </h3>
+
+            <p>
+                Creative on-location video production
+                for events, creators, businesses and
+                social media content.
+            </p>
+
+            <span class="service-tag">
+                Videography
+            </span>
+
+        </div>
+
+    </div>
+
 </section>
 
 
-<!-- PORTFOLIO -->
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section id="about" class="about-strip">
+
+    <div class="about-title reveal">
+
+        Visuals that
+        <span>
+            feel.
+        </span>
+
+        Stories that
+        <span>
+            stay.
+        </span>
+
+    </div>
+
+
+    <div class="about-copy reveal">
+
+        I focus on more than just cutting clips.
+
+        <br><br>
+
+        Every edit is built around rhythm,
+        emotion, sound and visual storytelling —
+        whether it's a 15-second reel or a complete
+        brand video.
+
+        <br><br>
+
+        The goal is simple:
+
+        <strong>
+            make people watch.
+        </strong>
+
+    </div>
+
+
+    <div class="about-stats reveal">
+
+        <div class="stat">
+
+            <strong>
+                01
+            </strong>
+
+            <span>
+                Creative Direction
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <strong>
+                02
+            </strong>
+
+            <span>
+                Clean Editing
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <strong>
+                03
+            </strong>
+
+            <span>
+                Fast Delivery
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PORTFOLIO
+===================================================== -->
+
 <section id="portfolio">
 
-<div class="portfolio-header">
+    <div class="portfolio-header">
 
-<div>
+        <div>
 
-<div class="section-label reveal">
-    Selected Work
-</div>
+            <div class="section-label reveal">
+                Selected Work
+            </div>
 
-<h2 class="section-title reveal">
-    My Reels
-</h2>
+            <h2 class="section-title reveal">
+                My Reels
+            </h2>
 
-</div>
-
-<a
-href="https://www.instagram.com/krishhhh.verse"
-target="_blank"
-rel="noopener"
-class="instagram-btn reveal">
-
-◎ Instagram
-
-</a>
-
-</div>
+        </div>
 
 
-<div class="portfolio-grid" id="portfolioGrid">
+        <a
+            href="https://www.instagram.com/krishhhh.verse"
+            target="_blank"
+            rel="noopener"
+            class="instagram-btn reveal">
 
-<div class="portfolio-empty">
+            ◎ Instagram
 
-<div>◌</div>
+        </a>
 
-<p>Loading reels...</p>
+    </div>
 
-</div>
 
-</div>
+    <div
+        class="portfolio-grid"
+        id="portfolioGrid">
+
+        <div class="portfolio-loading"></div>
+        <div class="portfolio-loading"></div>
+        <div class="portfolio-loading"></div>
+        <div class="portfolio-loading"></div>
+
+    </div>
 
 </section>
 
 
-<!-- VIDEO MODAL -->
-<div class="video-modal" id="videoModal">
+<!-- =====================================================
+     VIDEO MODAL
+===================================================== -->
 
-<div class="modal-content">
+<div
+    class="video-modal"
+    id="videoModal">
 
-<button class="modal-close" id="modalClose">
-    ✕
-</button>
+    <div class="modal-content">
 
-<video
-id="modalVideo"
-controls
-playsinline
-loop>
-</video>
+        <button
+            class="modal-close"
+            id="modalClose"
+            aria-label="Close video">
 
-<div class="modal-title" id="modalTitle"></div>
+            ✕
+
+        </button>
+
+
+        <video
+            id="modalVideo"
+            controls
+            playsinline
+            loop>
+        </video>
+
+
+        <div
+            class="modal-title"
+            id="modalTitle">
+        </div>
+
+    </div>
 
 </div>
 
-</div>
 
+<!-- =====================================================
+     BOOKING
+===================================================== -->
 
-<!-- BOOKING -->
 <section id="booking">
 
-<div class="booking-inner">
+    <div class="booking-inner">
 
-<div class="booking-left reveal">
 
-<div class="section-label">
-    Let's Create
-</div>
+        <div class="booking-left reveal">
 
-<h2>
-    Have a project<br>
-    in mind?
-</h2>
+            <div class="section-label">
+                Let's Create
+            </div>
 
-<p>
-    Tell me what you're working on. Whether it's a
-    reel, brand video, event shoot or something
-    completely different — let's make it happen.
-</p>
 
-<div class="booking-detail">
+            <h2>
 
-<div class="booking-detail-icon">
-    📍
-</div>
+                Have a project
+                <br>
 
-<div>
-<strong>Location</strong>
-<span>On-site & remote projects</span>
-</div>
+                <span>
+                    in mind?
+                </span>
 
-</div>
+            </h2>
 
-<div class="booking-detail">
 
-<div class="booking-detail-icon">
-    💬
-</div>
+            <p>
 
-<div>
-<strong>WhatsApp</strong>
-<span>+91 99408 26494</span>
-</div>
+                Tell me what you're working on.
 
-</div>
+                Whether it's a reel, brand video,
+                event shoot or something completely
+                different — let's make it happen.
 
-<div class="booking-detail">
+            </p>
 
-<div class="booking-detail-icon">
-    ◎
-</div>
 
-<div>
-<strong>Instagram</strong>
-<span>@krishhhh.verse</span>
-</div>
+            <div class="booking-details">
 
-</div>
 
-</div>
+                <div class="booking-detail">
 
+                    <div class="booking-detail-icon">
+                        📍
+                    </div>
 
-<div class="reveal">
+                    <div>
 
-<form id="bookingForm">
+                        <strong>
+                            Location
+                        </strong>
 
-<div class="form-row">
+                        <span>
+                            On-site & remote projects
+                        </span>
 
-<div>
-<label>Your Name</label>
-<input
-type="text"
-id="fname"
-placeholder="Full name"
-required>
-</div>
+                    </div>
 
-<div>
-<label>Phone / WhatsApp</label>
-<input
-type="tel"
-id="phone"
-placeholder="+91 00000 00000"
-required>
-</div>
+                </div>
 
-</div>
 
+                <div class="booking-detail">
 
-<div>
+                    <div class="booking-detail-icon">
+                        💬
+                    </div>
 
-<label>Email Address</label>
+                    <div>
 
-<input
-type="email"
-id="email"
-placeholder="you@email.com"
-required>
+                        <strong>
+                            WhatsApp
+                        </strong>
 
-</div>
+                        <span>
+                            +91 99408 26494
+                        </span>
 
+                    </div>
 
-<div>
+                </div>
 
-<label>Service Required</label>
 
-<select id="service" required>
+                <div class="booking-detail">
 
-<option value="">
-Select a service...
-</option>
+                    <div class="booking-detail-icon">
+                        ◎
+                    </div>
 
-<option value="Video Editing">
-Video Editing
-</option>
+                    <div>
 
-<option value="Motion Graphics / After Effects">
-Motion Graphics / After Effects
-</option>
+                        <strong>
+                            Instagram
+                        </strong>
 
-<option value="Photo Shoot">
-Photo Shoot
-</option>
+                        <span>
+                            @krishhhh.verse
+                        </span>
 
-<option value="Video Shoot">
-Video Shoot
-</option>
+                    </div>
 
-<option value="Photo + Video Shoot Combo">
-Photo + Video Shoot Combo
-</option>
+                </div>
 
-<option value="Full Production Package">
-Full Production Package
-</option>
+            </div>
 
-</select>
+        </div>
 
-</div>
 
+        <div class="booking-form-box reveal">
 
-<div>
+            <form id="bookingForm">
 
-<label>Preferred Date</label>
 
-<input
-type="date"
-id="date"
-required>
+                <div class="form-row">
 
-</div>
+                    <div class="form-group">
 
+                        <label>
+                            Your Name
+                        </label>
 
-<div>
+                        <input
+                            type="text"
+                            id="fname"
+                            placeholder="Full name"
+                            autocomplete="name"
+                            required>
 
-<label>Project Details</label>
+                    </div>
 
-<textarea
-id="message"
-placeholder="Tell me about your project...">
-</textarea>
 
-</div>
+                    <div class="form-group">
 
+                        <label>
+                            Phone / WhatsApp
+                        </label>
 
-<button
-type="submit"
-class="form-submit">
+                        <input
+                            type="tel"
+                            id="phone"
+                            placeholder="+91 00000 00000"
+                            autocomplete="tel"
+                            required>
 
-Continue on WhatsApp →
+                    </div>
 
-</button>
+                </div>
 
 
-<div
-class="form-success"
-id="formSuccess">
+                <div class="form-group">
 
-✅ Booking saved successfully!
-Opening WhatsApp...
+                    <label>
+                        Email Address
+                    </label>
 
-</div>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="you@email.com"
+                        autocomplete="email"
+                        required>
 
+                </div>
 
-<div
-class="form-error"
-id="formError">
-</div>
 
-</form>
+                <div class="form-group">
 
-</div>
+                    <label>
+                        Service Required
+                    </label>
 
-</div>
+                    <select
+                        id="service"
+                        required>
+
+                        <option value="">
+                            Select a service...
+                        </option>
+
+                        <option value="Video Editing">
+                            Video Editing
+                        </option>
+
+                        <option value="Motion Graphics / After Effects">
+                            Motion Graphics / After Effects
+                        </option>
+
+                        <option value="Photo Shoot">
+                            Photo Shoot
+                        </option>
+
+                        <option value="Video Shoot">
+                            Video Shoot
+                        </option>
+
+                        <option value="Photo + Video Shoot Combo">
+                            Photo + Video Shoot Combo
+                        </option>
+
+                        <option value="Full Production Package">
+                            Full Production Package
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Preferred Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="date"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Project Details
+                    </label>
+
+                    <textarea
+                        id="message"
+                        placeholder="Tell me about your project..."></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="form-submit">
+
+                    Continue on WhatsApp →
+
+                </button>
+
+
+                <div
+                    class="form-success"
+                    id="formSuccess">
+
+                    ✅ Booking saved successfully!
+                    <br>
+                    Opening WhatsApp...
+
+                </div>
+
+
+                <div
+                    class="form-error"
+                    id="formError">
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
 
 </section>
 
 
-<!-- FOOTER -->
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="cta-band">
+
+    <div class="cta-band-inner">
+
+        <div>
+
+            <h2>
+                Let's make
+                <br>
+                something hit.
+            </h2>
+
+            <p>
+                Have an idea? Let's turn it into
+                something people remember.
+            </p>
+
+        </div>
+
+
+        <a
+            href="#booking"
+            class="cta-button">
+
+            Start a Project →
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
 <footer>
 
-<div class="footer-top">
+    <div class="footer-top">
 
-<div class="footer-logo">
-    krishhhh<span>.verse</span>
-</div>
 
-<div class="footer-links">
+        <div class="footer-brand">
 
-<a href="#services">Services</a>
-<a href="#portfolio">Work</a>
-<a href="#booking">Book</a>
-<a href="admin-login.html">Admin</a>
+            <div class="footer-logo">
+                krishhhh<span>.verse</span>
+            </div>
 
-</div>
+            <p class="footer-tagline">
 
-<a
-href="https://www.instagram.com/krishhhh.verse"
-target="_blank"
-rel="noopener"
-class="instagram-btn">
+                Video Editor · Visual Creator
 
-Instagram →
+                <br>
 
-</a>
+                Making content worth watching.
 
-</div>
+            </p>
 
-<div class="footer-copy">
-© 2026 krishhhh.verse · All rights reserved.
-</div>
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="#services">
+                Services
+            </a>
+
+            <a href="#portfolio">
+                Work
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            <a href="#booking">
+                Book
+            </a>
+
+            <a href="admin-login.html">
+                Admin
+            </a>
+
+        </div>
+
+
+        <div class="footer-contact">
+
+            <a
+                href="https://wa.me/919940826494"
+                target="_blank"
+                rel="noopener">
+
+                WhatsApp
+            </a>
+
+            <a
+                href="https://www.instagram.com/krishhhh.verse"
+                target="_blank"
+                rel="noopener">
+
+                Instagram
+            </a>
+
+            <a href="#booking">
+                Start a Project
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <div class="footer-copy">
+
+            © 2026 krishhhh.verse · All rights reserved.
+
+        </div>
+
+
+        <div class="footer-status">
+
+            <span class="availability-dot"></span>
+
+            Available for projects
+
+        </div>
+
+    </div>
 
 </footer>
+
+
+<!-- =====================================================
+     SCROLL TOP
+===================================================== -->
+
+<button
+    class="scroll-top"
+    id="scrollTop"
+    aria-label="Back to top">
+
+    ↑
+
+</button>
 
 
 <script>
@@ -1668,67 +3669,85 @@ const SUPABASE_KEY =
    SUPABASE FETCH
 ========================================================= */
 
-async function supabaseFetch(endpoint,options={}){
+async function supabaseFetch(
+    endpoint,
+    options={}
+){
 
-const response=await fetch(
-SUPABASE_URL+endpoint,
-{
-...options,
+    const response =
+        await fetch(
+            SUPABASE_URL + endpoint,
+            {
+                ...options,
 
-headers:{
-apikey:SUPABASE_KEY,
+                headers:{
+                    apikey:SUPABASE_KEY,
 
-Authorization:
-"Bearer "+SUPABASE_KEY,
+                    Authorization:
+                        "Bearer " + SUPABASE_KEY,
 
-...(options.headers||{})
-}
-}
-);
+                    ...(options.headers || {})
+                }
+            }
+        );
 
-const text=await response.text();
 
-let data=null;
+    const text =
+        await response.text();
 
-try{
-data=text?JSON.parse(text):null;
-}
-catch{
-data=text;
-}
 
-if(!response.ok){
+    let data=null;
 
-console.error(
-"SUPABASE ERROR",
-response.status,
-data
-);
 
-throw new Error(
-typeof data==="string"
-?data
-:JSON.stringify(data)
-);
+    try{
 
-}
+        data =
+            text
+            ? JSON.parse(text)
+            : null;
 
-return data;
+    }
+    catch{
+
+        data=text;
+
+    }
+
+
+    if(!response.ok){
+
+        console.error(
+            "SUPABASE ERROR",
+            response.status,
+            data
+        );
+
+        throw new Error(
+            typeof data==="string"
+                ? data
+                : JSON.stringify(data)
+        );
+
+    }
+
+
+    return data;
+
 }
 
 
 /* =========================================================
-   ESCAPE
+   ESCAPE HTML
 ========================================================= */
 
 function escapeHTML(value){
 
-return String(value??"")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
@@ -1739,39 +3758,41 @@ return String(value??"")
 
 function normaliseType(type){
 
-return String(type||"")
-.toLowerCase()
-.trim();
+    return String(type || "")
+        .toLowerCase()
+        .trim();
 
 }
+
 
 function isImageType(type){
 
-return [
-"photo",
-"image",
-"jpg",
-"jpeg",
-"png",
-"webp",
-"gif"
-].includes(
-normaliseType(type)
-);
+    return [
+        "photo",
+        "image",
+        "jpg",
+        "jpeg",
+        "png",
+        "webp",
+        "gif"
+    ].includes(
+        normaliseType(type)
+    );
 
 }
 
+
 function isVideoType(type){
 
-return [
-"video",
-"mp4",
-"mov",
-"webm",
-"m4v"
-].includes(
-normaliseType(type)
-);
+    return [
+        "video",
+        "mp4",
+        "mov",
+        "webm",
+        "m4v"
+    ].includes(
+        normaliseType(type)
+    );
 
 }
 
@@ -1782,64 +3803,91 @@ normaliseType(type)
 
 function getMediaURL(item){
 
-let url=String(item?.url||"").trim();
+    let url =
+        String(item?.url || "")
+        .trim();
 
-if(!url) return "";
 
-if(
-url.startsWith("http://")||
-url.startsWith("https://")||
-url.startsWith("data:")
-){
-return url;
-}
+    if(!url){
+        return "";
+    }
 
-url=url.replace(/^\/+/,"");
 
-url=url.replace(
-/^portfolio\//i,
-""
-);
+    if(
+        url.startsWith("http://") ||
+        url.startsWith("https://") ||
+        url.startsWith("data:")
+    ){
 
-return(
-SUPABASE_URL+
-"/storage/v1/object/public/portfolio/"+
-url
-);
+        return url;
+
+    }
+
+
+    url =
+        url.replace(/^\/+/,"");
+
+
+    url =
+        url.replace(
+            /^portfolio\//i,
+            ""
+        );
+
+
+    return (
+        SUPABASE_URL +
+        "/storage/v1/object/public/portfolio/" +
+        url
+    );
 
 }
 
 
 /* =========================================================
-   YOUTUBE
+   YOUTUBE ID
 ========================================================= */
 
 function extractYouTubeID(url){
 
-if(!url)return"";
+    if(!url){
+        return "";
+    }
 
-const match=String(url).match(
-/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&?\/]+)/
-);
 
-return match?match[1]:"";
+    const match =
+        String(url).match(
+            /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&?\/]+)/
+        );
+
+
+    return match
+        ? match[1]
+        : "";
 
 }
 
 
 /* =========================================================
-   VIMEO
+   VIMEO ID
 ========================================================= */
 
 function extractVimeoID(url){
 
-if(!url)return"";
+    if(!url){
+        return "";
+    }
 
-const match=String(url).match(
-/vimeo\.com\/(?:video\/)?(\d+)/
-);
 
-return match?match[1]:"";
+    const match =
+        String(url).match(
+            /vimeo\.com\/(?:video\/)?(\d+)/
+        );
+
+
+    return match
+        ? match[1]
+        : "";
 
 }
 
@@ -1850,67 +3898,80 @@ return match?match[1]:"";
 
 async function loadHeroImage(){
 
-const image=
-document.getElementById("heroCreatorImage");
+    const image =
+        document.getElementById(
+            "heroCreatorImage"
+        );
 
-const fallback=
-document.getElementById("heroImageFallback");
 
-try{
+    const fallback =
+        document.getElementById(
+            "heroImageFallback"
+        );
 
-const items=
-await supabaseFetch(
-"/rest/v1/portfolio"+
-"?select=*"+
-"&order=created_at.desc"
-);
 
-const heroItem=
-(items||[]).find(
-item=>
-isImageType(item.type)&&
-item.url
-);
+    try{
 
-if(!heroItem){
+        const items =
+            await supabaseFetch(
+                "/rest/v1/portfolio" +
+                "?select=*" +
+                "&order=created_at.desc"
+            );
 
-console.log(
-"No hero image uploaded."
-);
 
-return;
-}
+        const heroItem =
+            (items || []).find(
+                item =>
+                    isImageType(item.type) &&
+                    item.url
+            );
 
-const imageURL=
-getMediaURL(heroItem);
 
-image.src=imageURL;
+        if(!heroItem){
 
-image.onload=()=>{
+            console.log(
+                "No hero image uploaded."
+            );
 
-image.style.display="block";
+            return;
 
-fallback.style.display="none";
+        }
 
-};
 
-image.onerror=()=>{
+        const imageURL =
+            getMediaURL(heroItem);
 
-image.style.display="none";
 
-fallback.style.display="flex";
+        image.src=imageURL;
 
-};
 
-}
-catch(error){
+        image.onload=()=>{
 
-console.error(
-"HERO IMAGE ERROR:",
-error
-);
+            image.style.display="block";
 
-}
+            fallback.style.display="none";
+
+        };
+
+
+        image.onerror=()=>{
+
+            image.style.display="none";
+
+            fallback.style.display="flex";
+
+        };
+
+    }
+    catch(error){
+
+        console.error(
+            "HERO IMAGE ERROR:",
+            error
+        );
+
+    }
 
 }
 
@@ -1921,428 +3982,493 @@ error
 
 async function loadPortfolio(){
 
-const grid=
-document.getElementById(
-"portfolioGrid"
-);
+    const grid =
+        document.getElementById(
+            "portfolioGrid"
+        );
 
-try{
 
-const allItems=
-await supabaseFetch(
-"/rest/v1/portfolio"+
-"?select=*"+
-"&order=created_at.desc"
-);
+    try{
 
+        const allItems =
+            await supabaseFetch(
+                "/rest/v1/portfolio" +
+                "?select=*" +
+                "&order=created_at.desc"
+            );
 
-/*
- IMPORTANT:
 
- PHOTO / IMAGE RECORDS ARE
- NEVER SHOWN IN MY REELS.
-*/
+        /*
+         PHOTO / IMAGE RECORDS
+         ARE NOT SHOWN IN REELS
+        */
 
-const items=
-(allItems||[]).filter(
-item=>
-!isImageType(item.type)
-);
+        const items =
+            (allItems || []).filter(
+                item =>
+                    !isImageType(item.type)
+            );
 
-if(
-!Array.isArray(items)||
-items.length===0
-){
 
-grid.innerHTML=`
+        if(
+            !Array.isArray(items) ||
+            items.length===0
+        ){
 
-<div class="portfolio-empty">
+            grid.innerHTML=`
 
-<div>🎬</div>
+                <div class="portfolio-empty">
 
-<p>
-No videos uploaded yet.
-</p>
+                    <div>🎬</div>
 
-<small style="
-display:block;
-margin-top:10px;
-color:#555;
-">
-Upload videos from the admin page.
-</small>
+                    <p>
+                        No videos uploaded yet.
+                    </p>
 
-</div>
+                    <small>
+                        Upload videos from the admin page.
+                    </small>
 
-`;
+                </div>
 
-return;
+            `;
 
-}
+            return;
 
-grid.innerHTML="";
+        }
 
 
-items.forEach(
-(item,index)=>{
+        grid.innerHTML="";
 
-const div=
-document.createElement("div");
 
-div.className=
-"portfolio-item reveal";
+        items.forEach(
+            (item,index)=>{
 
-const title=
-escapeHTML(
-item.title||
-"My Work"
-);
+                const div =
+                    document.createElement(
+                        "div"
+                    );
 
-const rawURL=
-String(item.url||"").trim();
 
-const url=
-getMediaURL(item);
+                div.className =
+                    "portfolio-item reveal";
 
-const type=
-normaliseType(item.type);
 
+                const title =
+                    escapeHTML(
+                        item.title ||
+                        "My Work"
+                    );
 
-/* VIDEO */
 
-if(isVideoType(type)){
+                const rawURL =
+                    String(
+                        item.url || ""
+                    ).trim();
 
-div.innerHTML=`
 
-<video
-muted
-autoplay
-loop
-playsinline
-preload="metadata"
-src="${escapeHTML(url)}">
-</video>
+                const url =
+                    getMediaURL(item);
 
-<div class="reel-play">
-▶
-</div>
 
-<div class="portfolio-caption">
+                const type =
+                    normaliseType(
+                        item.type
+                    );
 
-<div class="caption-title">
-${title}
-</div>
 
-<div class="caption-type">
-Video · Click to view
-</div>
+                /* =========================================
+                   DIRECT VIDEO
+                ========================================= */
 
-</div>
+                if(isVideoType(type)){
 
-`;
+                    div.innerHTML=`
 
-const video=
-div.querySelector("video");
+                        <video
+                            muted
+                            autoplay
+                            loop
+                            playsinline
+                            preload="metadata"
+                            src="${escapeHTML(url)}">
+                        </video>
 
-setupVideoObserver(video);
+                        <div class="reel-play">
+                            ▶
+                        </div>
 
-div.addEventListener(
-"click",
-()=>{
-openVideoModal(
-url,
-title
-);
-}
-);
+                        <div class="portfolio-caption">
 
-}
+                            <div class="caption-title">
+                                ${title}
+                            </div>
 
+                            <div class="caption-type">
+                                Video · Click to view
+                            </div>
 
-/* YOUTUBE */
+                        </div>
 
-else if(type==="youtube"){
+                    `;
 
-const id=
-extractYouTubeID(rawURL);
 
-if(!id)return;
+                    const video =
+                        div.querySelector(
+                            "video"
+                        );
 
-div.innerHTML=`
 
-<iframe
-src="https://www.youtube.com/embed/${id}?rel=0&modestbranding=1"
-title="${title}"
-loading="lazy"
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-allowfullscreen>
-</iframe>
+                    setupVideoObserver(
+                        video
+                    );
 
-<div class="reel-play">▶</div>
 
-<div class="portfolio-caption">
+                    div.addEventListener(
+                        "click",
+                        ()=>{
+                            openVideoModal(
+                                url,
+                                title
+                            );
+                        }
+                    );
 
-<div class="caption-title">
-${title}
-</div>
+                }
 
-<div class="caption-type">
-YouTube
-</div>
 
-</div>
+                /* =========================================
+                   YOUTUBE
+                ========================================= */
 
-`;
+                else if(
+                    type==="youtube"
+                ){
 
-}
+                    const id =
+                        extractYouTubeID(
+                            rawURL
+                        );
 
 
-/* VIMEO */
+                    if(!id){
+                        return;
+                    }
 
-else if(type==="vimeo"){
 
-const id=
-extractVimeoID(rawURL);
+                    div.innerHTML=`
 
-if(!id)return;
+                        <iframe
+                            src="https://www.youtube.com/embed/${id}?rel=0&modestbranding=1"
+                            title="${title}"
+                            loading="lazy"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
 
-div.innerHTML=`
+                        <div class="reel-play">
+                            ▶
+                        </div>
 
-<iframe
-src="https://player.vimeo.com/video/${id}"
-title="${title}"
-loading="lazy"
-allow="autoplay; fullscreen; picture-in-picture"
-allowfullscreen>
-</iframe>
+                        <div class="portfolio-caption">
 
-<div class="reel-play">▶</div>
+                            <div class="caption-title">
+                                ${title}
+                            </div>
 
-<div class="portfolio-caption">
+                            <div class="caption-type">
+                                YouTube
+                            </div>
 
-<div class="caption-title">
-${title}
-</div>
+                        </div>
 
-<div class="caption-type">
-Vimeo
-</div>
+                    `;
 
-</div>
+                }
 
-`;
 
-}
+                /* =========================================
+                   VIMEO
+                ========================================= */
 
+                else if(
+                    type==="vimeo"
+                ){
 
-/* INSTAGRAM */
+                    const id =
+                        extractVimeoID(
+                            rawURL
+                        );
 
-else if(
-type==="instagram"||
-type==="insta"
-){
 
-let instagramURL=rawURL;
+                    if(!id){
+                        return;
+                    }
 
-if(
-instagramURL.includes(
-"instagram.com/reel/"
-)
-&&
-!instagramURL.includes(
-"/embed"
-)
-){
 
-instagramURL=
-instagramURL.replace(
-/\/?$/,
-"/embed"
-);
+                    div.innerHTML=`
 
-}
+                        <iframe
+                            src="https://player.vimeo.com/video/${id}"
+                            title="${title}"
+                            loading="lazy"
+                            allow="autoplay; fullscreen; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
 
-div.innerHTML=`
+                        <div class="reel-play">
+                            ▶
+                        </div>
 
-<iframe
-src="${escapeHTML(instagramURL)}"
-title="${title}"
-loading="lazy"
-allowfullscreen>
-</iframe>
+                        <div class="portfolio-caption">
 
-<div class="reel-play">
-◎
-</div>
+                            <div class="caption-title">
+                                ${title}
+                            </div>
 
-<div class="portfolio-caption">
+                            <div class="caption-type">
+                                Vimeo
+                            </div>
 
-<div class="caption-title">
-${title}
-</div>
+                        </div>
 
-<div class="caption-type">
-Instagram Reel
-</div>
+                    `;
 
-</div>
+                }
 
-`;
 
-}
+                /* =========================================
+                   INSTAGRAM
+                ========================================= */
 
+                else if(
+                    type==="instagram" ||
+                    type==="insta"
+                ){
 
-/* UNKNOWN */
+                    let instagramURL =
+                        rawURL;
 
-else{
 
-if(
-url&&
-/\.(mp4|webm|mov|m4v)(\?.*)?$/i
-.test(url)
-){
+                    if(
+                        instagramURL.includes(
+                            "instagram.com/reel/"
+                        ) &&
+                        !instagramURL.includes(
+                            "/embed"
+                        )
+                    ){
 
-div.innerHTML=`
+                        instagramURL =
+                            instagramURL.replace(
+                                /\/?$/,
+                                "/embed"
+                            );
 
-<video
-muted
-autoplay
-loop
-playsinline
-preload="metadata"
-src="${escapeHTML(url)}">
-</video>
+                    }
 
-<div class="reel-play">▶</div>
 
-<div class="portfolio-caption">
+                    div.innerHTML=`
 
-<div class="caption-title">
-${title}
-</div>
+                        <iframe
+                            src="${escapeHTML(instagramURL)}"
+                            title="${title}"
+                            loading="lazy"
+                            allowfullscreen>
+                        </iframe>
 
-<div class="caption-type">
-Video
-</div>
+                        <div class="reel-play">
+                            ◎
+                        </div>
 
-</div>
+                        <div class="portfolio-caption">
 
-`;
+                            <div class="caption-title">
+                                ${title}
+                            </div>
 
-const video=
-div.querySelector("video");
+                            <div class="caption-type">
+                                Instagram Reel
+                            </div>
 
-setupVideoObserver(video);
+                        </div>
 
-div.addEventListener(
-"click",
-()=>{
-openVideoModal(
-url,
-title
-);
-}
-);
+                    `;
 
-}
-else{
+                }
 
-return;
 
-}
+                /* =========================================
+                   UNKNOWN BUT DIRECT VIDEO
+                ========================================= */
 
-}
+                else{
 
+                    if(
+                        url &&
+                        /\.(mp4|webm|mov|m4v)(\?.*)?$/i.test(url)
+                    ){
 
-grid.appendChild(div);
+                        div.innerHTML=`
 
-setTimeout(
-()=>{
-div.classList.add("visible");
-},
-Math.min(index*70,500)
-);
+                            <video
+                                muted
+                                autoplay
+                                loop
+                                playsinline
+                                preload="metadata"
+                                src="${escapeHTML(url)}">
+                            </video>
 
-}
-);
+                            <div class="reel-play">
+                                ▶
+                            </div>
 
-}
-catch(error){
+                            <div class="portfolio-caption">
 
-console.error(
-"PORTFOLIO ERROR:",
-error
-);
+                                <div class="caption-title">
+                                    ${title}
+                                </div>
 
-grid.innerHTML=`
+                                <div class="caption-type">
+                                    Video
+                                </div>
 
-<div class="portfolio-empty">
+                            </div>
 
-<div>⚠️</div>
+                        `;
 
-<p>
-Portfolio could not be loaded.
-</p>
 
-<small style="
-display:block;
-margin-top:12px;
-color:#777;
-">
-Check Supabase and browser console.
-</small>
+                        const video =
+                            div.querySelector(
+                                "video"
+                            );
 
-</div>
 
-`;
+                        setupVideoObserver(
+                            video
+                        );
 
-}
+
+                        div.addEventListener(
+                            "click",
+                            ()=>{
+                                openVideoModal(
+                                    url,
+                                    title
+                                );
+                            }
+                        );
+
+                    }
+                    else{
+
+                        return;
+
+                    }
+
+                }
+
+
+                grid.appendChild(div);
+
+
+                setTimeout(
+                    ()=>{
+                        div.classList.add(
+                            "visible"
+                        );
+                    },
+                    Math.min(
+                        index * 70,
+                        500
+                    )
+                );
+
+            }
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "PORTFOLIO ERROR:",
+            error
+        );
+
+
+        grid.innerHTML=`
+
+            <div class="portfolio-empty">
+
+                <div>⚠️</div>
+
+                <p>
+                    Portfolio could not be loaded.
+                </p>
+
+                <small>
+                    Check Supabase and browser console.
+                </small>
+
+            </div>
+
+        `;
+
+    }
 
 }
 
 
 /* =========================================================
-   VIDEO AUTOPLAY
+   VIDEO AUTOPLAY OBSERVER
 ========================================================= */
 
-const videoObserver=
-new IntersectionObserver(
-entries=>{
+const videoObserver =
+    new IntersectionObserver(
+        entries=>{
 
-entries.forEach(
-entry=>{
+            entries.forEach(
+                entry=>{
 
-const video=
-entry.target;
+                    const video =
+                        entry.target;
 
-if(entry.isIntersecting){
 
-video.play().catch(()=>{});
+                    if(entry.isIntersecting){
 
-}
-else{
+                        video
+                            .play()
+                            .catch(
+                                ()=>{}
+                            );
 
-video.pause();
+                    }
+                    else{
 
-}
+                        video.pause();
 
-}
-);
+                    }
 
-},
-{
-threshold:.55
-}
-);
+                }
+            );
+
+        },
+        {
+            threshold:.45
+        }
+    );
 
 
 function setupVideoObserver(video){
 
-if(video){
+    if(video){
 
-videoObserver.observe(video);
+        videoObserver.observe(
+            video
+        );
 
-}
+    }
 
 }
 
@@ -2351,103 +4477,275 @@ videoObserver.observe(video);
    VIDEO MODAL
 ========================================================= */
 
-const videoModal=
-document.getElementById(
-"videoModal"
-);
+const videoModal =
+    document.getElementById(
+        "videoModal"
+    );
 
-const modalVideo=
-document.getElementById(
-"modalVideo"
-);
 
-const modalTitle=
-document.getElementById(
-"modalTitle"
-);
+const modalVideo =
+    document.getElementById(
+        "modalVideo"
+    );
 
-const modalClose=
-document.getElementById(
-"modalClose"
-);
+
+const modalTitle =
+    document.getElementById(
+        "modalTitle"
+    );
+
+
+const modalClose =
+    document.getElementById(
+        "modalClose"
+    );
 
 
 function openVideoModal(
-url,
-title
+    url,
+    title
 ){
 
-modalVideo.src=url;
+    modalVideo.src=url;
 
-modalTitle.textContent=title;
+    modalTitle.textContent=title;
 
-videoModal.classList.add(
-"active"
-);
 
-document.body.classList.add(
-"modal-open"
-);
+    videoModal.classList.add(
+        "active"
+    );
 
-modalVideo.play().catch(()=>{});
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+
+    modalVideo
+        .play()
+        .catch(
+            ()=>{}
+        );
 
 }
 
 
 function closeVideoModal(){
 
-modalVideo.pause();
+    modalVideo.pause();
 
-modalVideo.removeAttribute(
-"src"
-);
+    modalVideo.removeAttribute(
+        "src"
+    );
 
-modalVideo.load();
+    modalVideo.load();
 
-videoModal.classList.remove(
-"active"
-);
 
-document.body.classList.remove(
-"modal-open"
-);
+    videoModal.classList.remove(
+        "active"
+    );
+
+
+    document.body.classList.remove(
+        "modal-open"
+    );
 
 }
 
 
 modalClose.addEventListener(
-"click",
-closeVideoModal
+    "click",
+    closeVideoModal
 );
 
 
 videoModal.addEventListener(
-"click",
-event=>{
+    "click",
+    event=>{
 
-if(
-event.target===videoModal
-){
+        if(
+            event.target ===
+            videoModal
+        ){
 
-closeVideoModal();
+            closeVideoModal();
 
-}
+        }
 
-}
+    }
 );
 
 
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
+
 document.addEventListener(
-"keydown",
-event=>{
+    "keydown",
+    event=>{
 
-if(event.key==="Escape"){
+        if(
+            event.key==="Escape" &&
+            videoModal.classList.contains(
+                "active"
+            )
+        ){
 
-closeVideoModal();
+            closeVideoModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const mobileMenuBtn =
+    document.getElementById(
+        "mobileMenuBtn"
+    );
+
+
+const mobileMenu =
+    document.getElementById(
+        "mobileMenu"
+    );
+
+
+const mobileLinks =
+    document.querySelectorAll(
+        ".mobile-link"
+    );
+
+
+function toggleMobileMenu(){
+
+    mobileMenu.classList.toggle(
+        "active"
+    );
+
+
+    if(
+        mobileMenu.classList.contains(
+            "active"
+        )
+    ){
+
+        mobileMenuBtn.textContent="✕";
+
+        document.body.style.overflow="hidden";
+
+    }
+    else{
+
+        mobileMenuBtn.textContent="☰";
+
+        document.body.style.overflow="";
+
+    }
 
 }
 
-}
+
+mobileMenuBtn.addEventListener(
+    "click",
+    toggleMobileMenu
+);
+
+
+mobileLinks.forEach(
+    link=>{
+
+        link.addEventListener(
+            "click",
+            ()=>{
+
+                mobileMenu.classList.remove(
+                    "active"
+                );
+
+                mobileMenuBtn.textContent="☰";
+
+                document.body.style.overflow="";
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   NAVBAR SCROLL
+========================================================= */
+
+const navbar =
+    document.getElementById(
+        "navbar"
+    );
+
+
+const scrollTop =
+    document.getElementById(
+        "scrollTop"
+    );
+
+
+window.addEventListener(
+    "scroll",
+    ()=>{
+
+        if(window.scrollY > 30){
+
+            navbar.classList.add(
+                "scrolled"
+            );
+
+        }
+        else{
+
+            navbar.classList.remove(
+                "scrolled"
+            );
+
+        }
+
+
+        if(window.scrollY > 500){
+
+            scrollTop.classList.add(
+                "visible"
+            );
+
+        }
+        else{
+
+            scrollTop.classList.remove(
+                "visible"
+            );
+
+        }
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+scrollTop.addEventListener(
+    "click",
+    ()=>{
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+    }
 );
 
 
@@ -2455,168 +4753,195 @@ closeVideoModal();
    BOOKING
 ========================================================= */
 
-const bookingForm=
-document.getElementById(
-"bookingForm"
-);
+const bookingForm =
+    document.getElementById(
+        "bookingForm"
+    );
 
 
 bookingForm.addEventListener(
-"submit",
-async event=>{
+    "submit",
+    async event=>{
 
-event.preventDefault();
-
-const name=
-document.getElementById(
-"fname"
-).value.trim();
-
-const phone=
-document.getElementById(
-"phone"
-).value.trim();
-
-const email=
-document.getElementById(
-"email"
-).value.trim();
-
-const service=
-document.getElementById(
-"service"
-).value;
-
-const preferredDate=
-document.getElementById(
-"date"
-).value;
-
-const message=
-document.getElementById(
-"message"
-).value.trim();
-
-const button=
-bookingForm.querySelector(
-".form-submit"
-);
-
-const success=
-document.getElementById(
-"formSuccess"
-);
-
-const errorBox=
-document.getElementById(
-"formError"
-);
-
-success.style.display="none";
-errorBox.style.display="none";
-
-if(
-!name||
-!phone||
-!email||
-!service||
-!preferredDate
-){
-
-errorBox.textContent=
-"Please fill all required fields.";
-
-errorBox.style.display="block";
-
-return;
-
-}
-
-button.disabled=true;
-
-button.textContent=
-"Saving booking...";
-
-try{
-
-const bookingData={
-
-name:name,
-
-phone:phone,
-
-email:email,
-
-service:service,
-
-preffereddate:
-preferredDate,
-
-message:
-message||null
-
-};
+        event.preventDefault();
 
 
-const response=
-await fetch(
-SUPABASE_URL+
-"/rest/v1/bookings",
-{
-
-method:"POST",
-
-headers:{
-
-apikey:
-SUPABASE_KEY,
-
-Authorization:
-"Bearer "+SUPABASE_KEY,
-
-"Content-Type":
-"application/json",
-
-Prefer:
-"return=minimal"
-
-},
-
-body:
-JSON.stringify(
-bookingData
-)
-
-}
-);
+        const name =
+            document
+                .getElementById("fname")
+                .value
+                .trim();
 
 
-const responseText=
-await response.text();
+        const phone =
+            document
+                .getElementById("phone")
+                .value
+                .trim();
 
 
-if(!response.ok){
-
-throw new Error(
-responseText||
-"Booking save failed."
-);
-
-}
+        const email =
+            document
+                .getElementById("email")
+                .value
+                .trim();
 
 
-success.style.display=
-"block";
-
-button.textContent=
-"Opening WhatsApp...";
-
-
-const whatsappNumber=
-"919940826494";
+        const service =
+            document
+                .getElementById("service")
+                .value;
 
 
-const whatsappMessage=
+        const preferredDate =
+            document
+                .getElementById("date")
+                .value;
+
+
+        const message =
+            document
+                .getElementById("message")
+                .value
+                .trim();
+
+
+        const button =
+            bookingForm.querySelector(
+                ".form-submit"
+            );
+
+
+        const success =
+            document.getElementById(
+                "formSuccess"
+            );
+
+
+        const errorBox =
+            document.getElementById(
+                "formError"
+            );
+
+
+        success.style.display="none";
+
+        errorBox.style.display="none";
+
+
+        if(
+            !name ||
+            !phone ||
+            !email ||
+            !service ||
+            !preferredDate
+        ){
+
+            errorBox.textContent =
+                "Please fill all required fields.";
+
+            errorBox.style.display="block";
+
+            return;
+
+        }
+
+
+        button.disabled=true;
+
+        button.textContent=
+            "Saving booking...";
+
+
+        try{
+
+
+            /*
+             KEEPING YOUR EXISTING
+             DATABASE COLUMN NAME
+             'preffereddate'
+            */
+
+            const bookingData = {
+
+                name:name,
+
+                phone:phone,
+
+                email:email,
+
+                service:service,
+
+                preffereddate:
+                    preferredDate,
+
+                message:
+                    message || null
+
+            };
+
+
+            const response =
+                await fetch(
+                    SUPABASE_URL +
+                    "/rest/v1/bookings",
+                    {
+
+                        method:"POST",
+
+                        headers:{
+
+                            apikey:
+                                SUPABASE_KEY,
+
+                            Authorization:
+                                "Bearer " +
+                                SUPABASE_KEY,
+
+                            "Content-Type":
+                                "application/json",
+
+                            Prefer:
+                                "return=minimal"
+
+                        },
+
+                        body:
+                            JSON.stringify(
+                                bookingData
+                            )
+
+                    }
+                );
+
+
+            const responseText =
+                await response.text();
+
+
+            if(!response.ok){
+
+                throw new Error(
+                    responseText ||
+                    "Booking save failed."
+                );
+
+            }
+
+
+            success.style.display =
+                "block";
+
+
+            button.textContent =
+                "Opening WhatsApp...";
+
+
+            const whatsappNumber =
+                "919940826494";
+
+
+            const whatsappMessage =
 `Hello Krish! 👋
 
 I would like to book your service.
@@ -2639,119 +4964,172 @@ ${service}
 ${preferredDate}
 
 📝 Project Details:
-${message||"Not provided"}
+${message || "Not provided"}
 
 ━━━━━━━━━━━━━━━━━━
 
 Sent from krishhhh.verse website.`;
 
 
-const whatsappURL=
-"https://wa.me/"+
-whatsappNumber+
-"?text="+
-encodeURIComponent(
-whatsappMessage
-);
+            const whatsappURL =
+                "https://wa.me/" +
+                whatsappNumber +
+                "?text=" +
+                encodeURIComponent(
+                    whatsappMessage
+                );
 
 
-window.open(
-whatsappURL,
-"_blank",
-"noopener,noreferrer"
-);
+            window.open(
+                whatsappURL,
+                "_blank",
+                "noopener,noreferrer"
+            );
 
-bookingForm.reset();
 
-}
-catch(error){
+            bookingForm.reset();
 
-console.error(
-"BOOKING ERROR:",
-error
-);
 
-errorBox.textContent=
-"❌ Booking could not be saved.\n\n"+
-error.message;
+        }
+        catch(error){
 
-errorBox.style.display="block";
+            console.error(
+                "BOOKING ERROR:",
+                error
+            );
 
-}
-finally{
 
-button.disabled=false;
+            errorBox.textContent =
+                "❌ Booking could not be saved.\n\n" +
+                error.message;
 
-button.textContent=
-"Continue on WhatsApp →";
 
-}
+            errorBox.style.display =
+                "block";
 
-}
+        }
+        finally{
+
+            button.disabled=false;
+
+            button.textContent =
+                "Continue on WhatsApp →";
+
+        }
+
+    }
 );
 
 
 /* =========================================================
-   MINIMUM DATE
+   MINIMUM BOOKING DATE
 ========================================================= */
 
-const dateInput=
-document.getElementById("date");
+const dateInput =
+    document.getElementById(
+        "date"
+    );
 
-dateInput.min=
-new Date()
-.toISOString()
-.split("T")[0];
+
+const today =
+    new Date();
+
+
+const localDate =
+    new Date(
+        today.getTime() -
+        today.getTimezoneOffset()*60000
+    )
+    .toISOString()
+    .split("T")[0];
+
+
+dateInput.min =
+    localDate;
 
 
 /* =========================================================
-   REVEAL
+   REVEAL OBSERVER
 ========================================================= */
 
-const revealObserver=
-new IntersectionObserver(
-entries=>{
+const revealObserver =
+    new IntersectionObserver(
+        entries=>{
 
-entries.forEach(
-entry=>{
+            entries.forEach(
+                entry=>{
 
-if(entry.isIntersecting){
+                    if(
+                        entry.isIntersecting
+                    ){
 
-entry.target.classList.add(
-"visible"
-);
+                        entry.target.classList.add(
+                            "visible"
+                        );
 
-revealObserver.unobserve(
-entry.target
-);
 
-}
+                        revealObserver.unobserve(
+                            entry.target
+                        );
 
-}
-);
+                    }
 
-},
-{
-threshold:.08
-}
-);
+                }
+            );
+
+        },
+        {
+            threshold:.08
+        }
+    );
 
 
 function setupReveal(){
 
-document
-.querySelectorAll(".reveal")
-.forEach(
-element=>{
+    document
+        .querySelectorAll(
+            ".reveal"
+        )
+        .forEach(
+            element=>{
 
-revealObserver.observe(
-element
-);
+                revealObserver.observe(
+                    element
+                );
+
+            }
+        );
 
 }
-);
 
-}
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+window.addEventListener(
+    "load",
+    ()=>{
+
+        setTimeout(
+            ()=>{
+
+                const loader =
+                    document.getElementById(
+                        "siteLoader"
+                    );
+
+
+                loader.classList.add(
+                    "hidden"
+                );
+
+            },
+            500
+        );
+
+    }
+);
 
 
 /* =========================================================
@@ -2759,16 +5137,16 @@ element
 ========================================================= */
 
 document.addEventListener(
-"DOMContentLoaded",
-()=>{
+    "DOMContentLoaded",
+    ()=>{
 
-loadHeroImage();
+        loadHeroImage();
 
-loadPortfolio();
+        loadPortfolio();
 
-setupReveal();
+        setupReveal();
 
-}
+    }
 );
 
 </script>
