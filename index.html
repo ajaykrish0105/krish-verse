@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,17 +8,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
-rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
 *{
     margin:0;
     padding:0;
@@ -44,21 +34,16 @@ body.modal-open{
 
 :root{
     --black:#090909;
-    --black-2:#0d0c0b;
-    --charcoal:#12110f;
-    --charcoal-2:#171512;
-    --warm:#1d1916;
+    --black2:#0d0c0b;
+    --card:#151412;
+    --card2:#1b1916;
     --white:#f1eee8;
-    --white-soft:#d8d4cc;
     --muted:#8b8780;
-    --muted-dark:#5f5b55;
+    --muted2:#625e58;
     --border:#292622;
-    --border-light:#36312c;
     --red:#b51f2b;
-    --red-dark:#8e1822;
-
+    --red2:#8e1822;
     --display:'Space Grotesk',sans-serif;
-    --body:'Manrope',sans-serif;
 }
 
 a{
@@ -70,11 +55,11 @@ button,
 input,
 select,
 textarea{
-    font-family:var(--body);
+    font-family:inherit;
 }
 
 button{
-    outline:none;
+    cursor:pointer;
 }
 
 ::selection{
@@ -82,36 +67,32 @@ button{
     color:#fff;
 }
 
-
-/* =========================================================
-   TEXTURE
-========================================================= */
+/* =========================
+   BACKGROUND
+========================= */
 
 body::before{
     content:"";
     position:fixed;
     inset:0;
     pointer-events:none;
-    z-index:-10;
+    z-index:-5;
     opacity:.035;
-
     background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
 }
 
-
-/* =========================================================
+/* =========================
    NAVBAR
-========================================================= */
+========================= */
 
 nav{
     position:fixed;
     top:0;
     left:0;
     right:0;
-    z-index:1000;
-
     height:76px;
+    z-index:1000;
 
     display:flex;
     align-items:center;
@@ -119,12 +100,11 @@ nav{
 
     padding:0 50px;
 
-    background:rgba(9,9,9,.94);
+    background:rgba(9,9,9,.9);
+    border-bottom:1px solid rgba(255,255,255,.07);
 
-    border-bottom:1px solid rgba(255,255,255,.075);
-
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
 }
 
 .nav-logo{
@@ -132,7 +112,6 @@ nav{
     font-size:1.38rem;
     font-weight:700;
     letter-spacing:-.055em;
-    white-space:nowrap;
 }
 
 .nav-logo span{
@@ -146,157 +125,90 @@ nav{
 }
 
 .nav-links a{
-    position:relative;
-
     color:#85817b;
-
     font-size:.68rem;
-    font-weight:700;
-
+    font-weight:800;
     text-transform:uppercase;
     letter-spacing:.15em;
-
-    transition:.25s ease;
-}
-
-.nav-links a::after{
-    content:"";
-
-    position:absolute;
-
-    left:0;
-    bottom:-9px;
-
-    width:0;
-    height:1px;
-
-    background:var(--red);
-
-    transition:.25s ease;
+    transition:.25s;
 }
 
 .nav-links a:hover{
-    color:var(--white);
-}
-
-.nav-links a:hover::after{
-    width:100%;
+    color:#fff;
 }
 
 .nav-cta{
     padding:12px 21px;
-
     background:var(--red);
     color:#fff;
-
     font-size:.66rem;
     font-weight:800;
-
     text-transform:uppercase;
     letter-spacing:.1em;
-
-    transition:.25s ease;
+    transition:.25s;
 }
 
 .nav-cta:hover{
-    background:var(--white);
+    background:#fff;
     color:#111;
     transform:translateY(-2px);
 }
 
-
-/* =========================================================
+/* =========================
    HERO
-========================================================= */
+========================= */
 
 #hero{
     min-height:100vh;
+    position:relative;
+    overflow:hidden;
 
     display:flex;
     align-items:center;
 
-    position:relative;
-
     padding:140px 50px 100px;
 
-    overflow:hidden;
-
     background:
-        linear-gradient(
-            115deg,
-            #090909 0%,
-            #0b0a09 45%,
-            #14110f 100%
-        );
-}
-
-#hero::before{
-    content:"";
-
-    position:absolute;
-
-    top:0;
-    right:0;
-
-    width:47%;
-    height:100%;
-
-    background:
-        linear-gradient(
-            90deg,
-            #090909 0%,
-            rgba(9,9,9,.38) 22%,
-            transparent 70%
-        );
-
-    z-index:1;
-
-    pointer-events:none;
+    radial-gradient(
+        circle at 80% 50%,
+        rgba(181,31,43,.08),
+        transparent 30%
+    ),
+    linear-gradient(
+        115deg,
+        #090909,
+        #0c0b0a 50%,
+        #15110f
+    );
 }
 
 .hero-grid{
     position:absolute;
     inset:0;
-
     opacity:.28;
 
     background-image:
-        linear-gradient(
-            rgba(255,255,255,.018) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.018) 1px,
-            transparent 1px
-        );
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
 
     background-size:90px 90px;
 
-    mask-image:
-        linear-gradient(
-            to right,
-            black 0%,
-            transparent 80%
-        );
-
-    pointer-events:none;
+    mask-image:linear-gradient(
+        to right,
+        black,
+        transparent 85%
+    );
 }
 
 .hero-content{
     position:relative;
-
     z-index:10;
-
-    width:100%;
-
     max-width:870px;
 }
 
 .hero-eyebrow{
     display:flex;
     align-items:center;
-
     gap:12px;
 
     margin-bottom:25px;
@@ -305,34 +217,24 @@ nav{
 
     font-size:.65rem;
     font-weight:800;
-
     text-transform:uppercase;
     letter-spacing:.2em;
 }
 
 .hero-eyebrow::before{
     content:"";
-
     width:34px;
     height:1px;
-
     background:var(--red);
 }
 
 .hero-title{
     font-family:var(--display);
-
     font-size:clamp(4rem,8vw,8.2rem);
-
     line-height:.86;
-
     letter-spacing:-.075em;
-
     font-weight:600;
-
     margin-bottom:34px;
-
-    color:var(--white);
 }
 
 .hero-title .red{
@@ -341,20 +243,14 @@ nav{
 
 .hero-title .outline{
     color:transparent;
-
-    -webkit-text-stroke:
-        1px rgba(241,238,232,.62);
+    -webkit-text-stroke:1px rgba(241,238,232,.62);
 }
 
 .hero-description{
     max-width:550px;
-
     color:#8d8982;
-
     font-size:.91rem;
-
     line-height:1.85;
-
     margin-bottom:37px;
 }
 
@@ -367,75 +263,60 @@ nav{
 .btn-red,
 .btn-outline{
     display:inline-flex;
-
     align-items:center;
     justify-content:center;
-
     gap:10px;
 
     font-size:.68rem;
     font-weight:800;
-
     text-transform:uppercase;
     letter-spacing:.1em;
 
-    transition:.25s ease;
+    transition:.25s;
 }
 
 .btn-red{
     padding:16px 26px;
-
     background:var(--red);
     color:#fff;
 }
 
 .btn-red:hover{
-    background:var(--white);
+    background:#fff;
     color:#111;
-
     transform:translateY(-3px);
 }
 
 .btn-outline{
     padding:15px 26px;
-
     border:1px solid #37332e;
-
-    color:var(--white);
+    color:#fff;
 }
 
 .btn-outline:hover{
     border-color:var(--red);
-
     color:var(--red);
-
-    transform:translateY(-2px);
 }
 
-
-/* =========================================================
+/* =========================
    HERO IMAGE
-========================================================= */
+========================= */
 
 .hero-visual{
     position:absolute;
-
     right:7%;
     top:50%;
-
     transform:translateY(-50%);
 
     width:470px;
     height:620px;
 
     z-index:4;
-
     pointer-events:none;
 }
 
 .creator-image-box{
     position:absolute;
-
     right:0;
     bottom:0;
 
@@ -445,45 +326,24 @@ nav{
     overflow:hidden;
 
     background:#171512;
-
     border:1px solid #332e29;
 
-    box-shadow:
-        0 35px 90px rgba(0,0,0,.62);
+    box-shadow:0 35px 90px rgba(0,0,0,.62);
 }
 
 .creator-image-box::before{
     content:"";
-
     position:absolute;
-
     inset:0;
-
     z-index:2;
 
     background:
-        linear-gradient(
-            to top,
-            rgba(0,0,0,.82),
-            rgba(0,0,0,.08) 58%,
-            transparent
-        );
-
-    pointer-events:none;
-}
-
-.creator-image-box::after{
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    border:1px solid rgba(255,255,255,.035);
-
-    z-index:3;
-
-    pointer-events:none;
+    linear-gradient(
+        to top,
+        rgba(0,0,0,.82),
+        rgba(0,0,0,.08) 58%,
+        transparent
+    );
 }
 
 .creator-image-box img{
@@ -491,28 +351,15 @@ nav{
     height:100%;
 
     display:none;
-
     object-fit:cover;
-    object-position:center;
 
-    filter:
-        saturate(.86)
-        contrast(1.04)
-        brightness(.92);
+    filter:saturate(.86) contrast(1.04) brightness(.92);
 
-    transition:
-        transform .7s ease,
-        filter .7s ease;
+    transition:.7s;
 }
 
-.hero-visual:hover
-.creator-image-box img{
-    transform:scale(1.018);
-
-    filter:
-        saturate(.94)
-        contrast(1.04)
-        brightness(.98);
+.creator-image-box:hover img{
+    transform:scale(1.02);
 }
 
 .hero-image-fallback{
@@ -520,7 +367,6 @@ nav{
     inset:0;
 
     display:flex;
-
     align-items:flex-end;
 
     padding:25px;
@@ -528,32 +374,24 @@ nav{
     color:#55504a;
 
     font-family:var(--display);
-
     font-size:.75rem;
 
     text-transform:uppercase;
-
     letter-spacing:.14em;
 }
 
-
-/* =========================================================
+/* =========================
    SOFTWARE
-========================================================= */
+========================= */
 
 .adobe-logos{
     position:absolute;
-
     left:0;
     top:115px;
 
     display:flex;
-
     flex-direction:column;
-
     gap:15px;
-
-    z-index:10;
 }
 
 .adobe-logo{
@@ -563,25 +401,17 @@ nav{
     height:76px;
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 
     background:#141311;
-
     border:1px solid #302c27;
 
-    box-shadow:
-        0 18px 38px rgba(0,0,0,.45);
-
-    transition:
-        transform .3s ease,
-        border-color .3s ease;
+    transition:.3s;
 }
 
 .adobe-logo:hover{
     transform:translateX(7px);
-
     border-color:var(--red);
 }
 
@@ -591,17 +421,13 @@ nav{
     height:45px;
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 
     background:#11105b;
-
     border:1px solid #6868bc;
 
     color:#aaa9e9;
-
-    font-family:Arial,sans-serif;
 
     font-size:17px;
     font-weight:800;
@@ -609,18 +435,16 @@ nav{
 
 .adobe-logo-label{
     position:absolute;
-
     left:91px;
     top:50%;
 
     transform:translate(-8px,-50%);
 
-    white-space:nowrap;
-
     padding:8px 11px;
 
-    background:#151311;
+    white-space:nowrap;
 
+    background:#151311;
     border:1px solid #302c27;
 
     color:#aaa49c;
@@ -628,83 +452,45 @@ nav{
     font-size:.57rem;
     font-weight:700;
 
-    text-transform:uppercase;
-    letter-spacing:.1em;
-
     opacity:0;
-
     transition:.25s;
-
-    pointer-events:none;
 }
 
-.adobe-logo:hover
-.adobe-logo-label{
+.adobe-logo:hover .adobe-logo-label{
     opacity:1;
-
     transform:translate(0,-50%);
 }
 
-.hero-side{
-    position:absolute;
-
-    right:38px;
-    bottom:50px;
-
-    writing-mode:vertical-rl;
-
-    color:#504b45;
-
-    font-size:.57rem;
-
-    letter-spacing:.3em;
-
-    text-transform:uppercase;
-
-    z-index:8;
-}
-
-
-/* =========================================================
+/* =========================
    SECTIONS
-========================================================= */
+========================= */
 
 section{
     padding:110px 50px;
-
     border-top:1px solid #24211e;
 }
 
 .section-label{
     color:var(--red);
-
     font-size:.63rem;
     font-weight:800;
-
     text-transform:uppercase;
     letter-spacing:.2em;
-
     margin-bottom:14px;
 }
 
 .section-title{
     font-family:var(--display);
-
     font-size:clamp(2.7rem,5vw,4.6rem);
-
     line-height:.94;
-
     letter-spacing:-.06em;
-
     font-weight:600;
-
     margin-bottom:55px;
 }
 
-
-/* =========================================================
+/* =========================
    SERVICES
-========================================================= */
+========================= */
 
 #services{
     background:#11100f;
@@ -712,21 +498,15 @@ section{
 
 .services-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
+    grid-template-columns:repeat(4,1fr);
     border:1px solid #302c27;
 }
 
 .service-card{
     padding:42px 30px;
-
     background:#151412;
-
     border-right:1px solid #302c27;
-
-    transition:.3s ease;
+    transition:.3s;
 }
 
 .service-card:last-child{
@@ -735,65 +515,47 @@ section{
 
 .service-card:hover{
     background:#1a1815;
-
     transform:translateY(-4px);
 }
 
 .service-number{
     color:#49453f;
-
     font-family:var(--display);
-
     font-size:.78rem;
-
     margin-bottom:34px;
 }
 
 .service-icon{
     font-size:1.75rem;
-
     margin-bottom:20px;
 }
 
 .service-card h3{
     font-family:var(--display);
-
     font-size:1.1rem;
-    font-weight:600;
-
     margin-bottom:12px;
 }
 
 .service-card p{
     color:#817d76;
-
     font-size:.79rem;
-
     line-height:1.8;
 }
 
 .service-tag{
     display:inline-block;
-
     margin-top:22px;
-
     padding:5px 9px;
-
     border:1px solid #34302b;
-
     color:#88837b;
-
     font-size:.57rem;
-
     text-transform:uppercase;
-
     letter-spacing:.1em;
 }
 
-
-/* =========================================================
+/* =========================
    PORTFOLIO
-========================================================= */
+========================= */
 
 #portfolio{
     background:#090909;
@@ -801,13 +563,9 @@ section{
 
 .portfolio-header{
     display:flex;
-
     align-items:flex-end;
-
     justify-content:space-between;
-
     gap:30px;
-
     margin-bottom:50px;
 }
 
@@ -817,10 +575,8 @@ section{
 
 .instagram-btn{
     display:inline-flex;
-
     align-items:center;
     justify-content:center;
-
     gap:8px;
 
     padding:12px 18px;
@@ -833,25 +589,19 @@ section{
     text-transform:uppercase;
     letter-spacing:.08em;
 
-    transition:.25s ease;
+    transition:.25s;
 }
 
 .instagram-btn:hover{
     border-color:var(--red);
-
     color:var(--red);
-
-    transform:translateY(-2px);
 }
 
 .portfolio-grid{
     display:grid;
 
     grid-template-columns:
-        repeat(
-            auto-fill,
-            minmax(240px,1fr)
-        );
+    repeat(auto-fill,minmax(240px,1fr));
 
     gap:17px;
 }
@@ -860,73 +610,56 @@ section{
     position:relative;
 
     aspect-ratio:9/16;
-
     max-height:650px;
-
-    background:#12110f;
 
     overflow:hidden;
 
+    background:#12110f;
     border:1px solid #292622;
 
     cursor:pointer;
 
-    transition:
-        transform .35s ease,
-        border-color .35s ease,
-        box-shadow .35s ease;
+    transition:.35s;
 }
 
 .portfolio-item:hover{
     transform:translateY(-6px);
-
     border-color:#493036;
-
-    box-shadow:
-        0 25px 65px rgba(0,0,0,.5);
+    box-shadow:0 25px 65px rgba(0,0,0,.5);
 }
 
 .portfolio-item video,
-.portfolio-item img,
-.portfolio-item iframe{
+.portfolio-item iframe,
+.portfolio-item img{
     width:100%;
     height:100%;
 
     display:block;
 
     border:0;
-
     object-fit:cover;
-}
-
-.portfolio-item video{
-    background:#000;
 }
 
 .portfolio-item::after{
     content:"";
-
     position:absolute;
-
     left:0;
     right:0;
     bottom:0;
-
     height:48%;
 
     background:
-        linear-gradient(
-            to top,
-            rgba(0,0,0,.92),
-            transparent
-        );
+    linear-gradient(
+        to top,
+        rgba(0,0,0,.92),
+        transparent
+    );
 
     pointer-events:none;
 }
 
 .reel-play{
     position:absolute;
-
     top:14px;
     right:14px;
 
@@ -934,89 +667,64 @@ section{
     height:39px;
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 
     border-radius:50%;
 
     background:rgba(0,0,0,.62);
-
     border:1px solid rgba(255,255,255,.16);
 
     color:#fff;
-
-    font-size:.72rem;
-
-    z-index:4;
-
-    backdrop-filter:blur(8px);
+    z-index:5;
 }
 
 .portfolio-caption{
     position:absolute;
-
     left:18px;
     right:18px;
     bottom:17px;
-
-    z-index:5;
-
-    pointer-events:none;
+    z-index:6;
 }
 
 .caption-title{
     font-family:var(--display);
-
     font-size:.95rem;
-
     font-weight:600;
-
     margin-bottom:5px;
 }
 
 .caption-type{
     color:var(--red);
-
     font-size:.55rem;
-
     font-weight:800;
-
     text-transform:uppercase;
-
     letter-spacing:.12em;
 }
 
 .portfolio-empty{
     grid-column:1/-1;
-
     padding:100px 20px;
-
     text-align:center;
-
     color:#625e58;
 }
 
 .portfolio-empty div{
     font-size:2.8rem;
-
     margin-bottom:15px;
 }
 
-
-/* =========================================================
+/* =========================
    MODAL
-========================================================= */
+========================= */
 
 .video-modal{
     position:fixed;
-
     inset:0;
 
     z-index:3000;
 
     display:none;
-
     align-items:center;
     justify-content:center;
 
@@ -1035,29 +743,21 @@ section{
     position:relative;
 
     width:min(95vw,500px);
-
     height:min(92vh,850px);
 
     background:#000;
-
     border:1px solid #35312c;
-
-    box-shadow:
-        0 30px 100px rgba(0,0,0,.8);
 }
 
 .modal-content video{
     width:100%;
     height:100%;
-
     object-fit:contain;
-
     background:#000;
 }
 
 .modal-close{
     position:absolute;
-
     top:-15px;
     right:-15px;
 
@@ -1065,19 +765,14 @@ section{
     height:42px;
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 
     border:1px solid #444;
-
     border-radius:50%;
 
     background:#151311;
-
     color:#fff;
-
-    cursor:pointer;
 
     z-index:20;
 }
@@ -1088,7 +783,6 @@ section{
 
 .modal-title{
     position:absolute;
-
     left:0;
     right:0;
     bottom:0;
@@ -1096,23 +790,18 @@ section{
     padding:50px 20px 18px;
 
     background:
-        linear-gradient(
-            to top,
-            rgba(0,0,0,.94),
-            transparent
-        );
+    linear-gradient(
+        to top,
+        rgba(0,0,0,.94),
+        transparent
+    );
 
     font-family:var(--display);
-
-    font-size:1rem;
-
-    pointer-events:none;
 }
 
-
-/* =========================================================
+/* =========================
    BOOKING
-========================================================= */
+========================= */
 
 #booking{
     background:#151310;
@@ -1122,43 +811,29 @@ section{
     max-width:1150px;
 
     display:grid;
-
-    grid-template-columns:
-        .9fr
-        1.1fr;
+    grid-template-columns:.9fr 1.1fr;
 
     gap:80px;
 }
 
 .booking-left h2{
     font-family:var(--display);
-
     font-size:clamp(2.8rem,5vw,4.6rem);
-
     line-height:.95;
-
     letter-spacing:-.06em;
-
-    font-weight:600;
-
     margin-bottom:25px;
 }
 
 .booking-left>p{
     color:#858078;
-
     line-height:1.8;
-
     max-width:470px;
-
     margin-bottom:35px;
 }
 
 .booking-detail{
     display:flex;
-
     gap:15px;
-
     margin-bottom:20px;
 }
 
@@ -1167,12 +842,10 @@ section{
     height:38px;
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 
     background:#1c1916;
-
     border:1px solid #302c27;
 
     flex-shrink:0;
@@ -1180,38 +853,29 @@ section{
 
 .booking-detail strong{
     display:block;
-
     font-size:.82rem;
-
     margin-bottom:3px;
 }
 
 .booking-detail span{
     color:#77736d;
-
     font-size:.72rem;
 }
 
 form{
     display:flex;
-
     flex-direction:column;
-
     gap:16px;
 }
 
 .form-row{
     display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
+    grid-template-columns:1fr 1fr;
     gap:16px;
 }
 
 label{
     display:block;
-
     margin-bottom:7px;
 
     color:#77736d;
@@ -1220,7 +884,6 @@ label{
     font-weight:800;
 
     text-transform:uppercase;
-
     letter-spacing:.12em;
 }
 
@@ -1234,7 +897,6 @@ textarea{
     border:1px solid #302c27;
 
     background:#11100f;
-
     color:#fff;
 
     outline:none;
@@ -1250,102 +912,76 @@ textarea:focus{
 
 textarea{
     min-height:130px;
-
     resize:vertical;
 }
 
 .form-submit{
     width:100%;
-
     padding:16px;
 
     border:0;
 
     background:var(--red);
-
     color:#fff;
 
-    cursor:pointer;
-
     font-weight:800;
-
     text-transform:uppercase;
-
     letter-spacing:.08em;
+
+    transition:.25s;
+}
+
+.form-submit:hover{
+    background:#fff;
+    color:#111;
 }
 
 .form-submit:disabled{
     opacity:.5;
-
-    cursor:not-allowed;
 }
 
-.form-success{
+.form-success,
+.form-error{
     display:none;
-
     padding:16px;
-
-    border:1px solid #244b2b;
-
-    background:#0d1b10;
-
-    color:#66d878;
-
-    text-align:center;
-
     font-size:.8rem;
 }
 
-.form-error{
-    display:none;
-
-    padding:16px;
-
-    border:1px solid #542323;
-
-    background:#1b0b0b;
-
-    color:#ff7373;
-
-    font-size:.78rem;
-
-    white-space:pre-wrap;
-
-    word-break:break-word;
+.form-success{
+    border:1px solid #244b2b;
+    background:#0d1b10;
+    color:#66d878;
 }
 
+.form-error{
+    border:1px solid #542323;
+    background:#1b0b0b;
+    color:#ff7373;
+    white-space:pre-wrap;
+}
 
-/* =========================================================
+/* =========================
    FOOTER
-========================================================= */
+========================= */
 
 footer{
     padding:55px 50px 30px;
-
     border-top:1px solid #24211e;
-
     background:#090909;
 }
 
 .footer-top{
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     flex-wrap:wrap;
-
     gap:25px;
-
     padding-bottom:35px;
 }
 
 .footer-logo{
     font-family:var(--display);
-
     font-size:1.35rem;
-
     font-weight:700;
 }
 
@@ -1355,80 +991,56 @@ footer{
 
 .footer-links{
     display:flex;
-
     gap:25px;
-
     flex-wrap:wrap;
 }
 
 .footer-links a{
     color:#77736d;
-
     font-size:.67rem;
-
     text-transform:uppercase;
-
     letter-spacing:.08em;
 }
 
 .footer-copy{
     padding-top:25px;
-
     border-top:1px solid #1c1916;
-
     color:#4d4944;
-
     font-size:.64rem;
 }
 
-
-/* =========================================================
+/* =========================
    REVEAL
-========================================================= */
+========================= */
 
 .reveal{
     opacity:0;
-
     transform:translateY(22px);
-
-    transition:
-        opacity .65s ease,
-        transform .65s ease;
+    transition:.65s ease;
 }
 
 .reveal.visible{
     opacity:1;
-
     transform:translateY(0);
 }
 
-
-/* =========================================================
+/* =========================
    RESPONSIVE
-========================================================= */
+========================= */
 
 @media(max-width:1100px){
 
     .hero-visual{
         right:1%;
-
-        transform:
-            translateY(-50%)
-            scale(.84);
-
+        transform:translateY(-50%) scale(.84);
         transform-origin:center right;
-    }
-
-    .hero-content{
-        max-width:760px;
     }
 }
 
 @media(max-width:1000px){
 
     .services-grid{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
 
     .service-card:nth-child(2){
@@ -1442,13 +1054,11 @@ footer{
 
     .booking-inner{
         grid-template-columns:1fr;
-
         gap:50px;
     }
 
     .hero-visual{
         right:-55px;
-
         opacity:.48;
     }
 }
@@ -1457,7 +1067,6 @@ footer{
 
     nav{
         height:65px;
-
         padding:0 20px;
     }
 
@@ -1471,47 +1080,30 @@ footer{
 
     .nav-cta{
         padding:10px 15px;
-
-        font-size:.6rem;
     }
 
     #hero{
         min-height:92vh;
-
-        padding:
-            120px
-            20px
-            70px;
+        padding:120px 20px 70px;
     }
 
     .hero-visual{
         right:-115px;
-
         top:56%;
 
         transform:
-            translateY(-50%)
-            scale(.65);
+        translateY(-50%)
+        scale(.65);
 
         opacity:.24;
     }
 
     .hero-title{
-        font-size:
-            clamp(
-                3.3rem,
-                17vw,
-                6rem
-            );
-    }
-
-    .hero-side{
-        display:none;
+        font-size:clamp(3.3rem,17vw,6rem);
     }
 
     section{
-        padding:
-            80px 20px;
+        padding:80px 20px;
     }
 
     .services-grid{
@@ -1520,7 +1112,6 @@ footer{
 
     .service-card{
         border-right:0;
-
         border-bottom:1px solid #302c27;
     }
 
@@ -1530,14 +1121,11 @@ footer{
 
     .portfolio-header{
         align-items:flex-start;
-
         flex-direction:column;
     }
 
     .portfolio-grid{
-        grid-template-columns:
-            repeat(2,1fr);
-
+        grid-template-columns:repeat(2,1fr);
         gap:10px;
     }
 
@@ -1562,7 +1150,6 @@ footer{
     .reel-play{
         top:9px;
         right:9px;
-
         width:32px;
         height:32px;
     }
@@ -1572,13 +1159,11 @@ footer{
     }
 
     footer{
-        padding:
-            45px 20px 25px;
+        padding:45px 20px 25px;
     }
 
     .footer-top{
         align-items:flex-start;
-
         flex-direction:column;
     }
 }
@@ -1589,652 +1174,479 @@ footer{
         grid-template-columns:1fr;
     }
 
-    .portfolio-item{
-        aspect-ratio:9/14;
+    .hero-title{
+        font-size:3.2rem;
     }
 
     .hero-visual{
         right:-150px;
-
         opacity:.18;
     }
-
-    .hero-title{
-        font-size:3.2rem;
-    }
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =========================================================
-     NAVBAR
-========================================================= -->
-
+<!-- NAVBAR -->
 <nav>
 
-    <a href="#" class="nav-logo">
-        krishhhh<span>.verse</span>
-    </a>
+<a href="#hero" class="nav-logo">
+    krishhhh<span>.verse</span>
+</a>
 
-    <ul class="nav-links">
+<ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#booking">Book</a></li>
+</ul>
 
-        <li>
-            <a href="#services">
-                Services
-            </a>
-        </li>
-
-        <li>
-            <a href="#portfolio">
-                Work
-            </a>
-        </li>
-
-        <li>
-            <a href="#booking">
-                Book
-            </a>
-        </li>
-
-    </ul>
-
-    <a href="#booking" class="nav-cta">
-        Book Now
-    </a>
+<a href="#booking" class="nav-cta">
+    Book Now
+</a>
 
 </nav>
 
 
-<!-- =========================================================
-     HERO
-========================================================= -->
-
+<!-- HERO -->
 <section id="hero">
 
-    <div class="hero-grid"></div>
+<div class="hero-grid"></div>
 
-    <div class="hero-visual">
+<div class="hero-visual">
 
-        <div class="creator-image-box">
+<div class="creator-image-box">
 
-            <img
-                id="heroCreatorImage"
-                alt="Krishhhh Video Editor"
-            >
+<img id="heroCreatorImage" alt="Krishhhh Video Editor">
 
-            <div
-                class="hero-image-fallback"
-                id="heroImageFallback"
-            >
-                Visual Creator
-            </div>
+<div class="hero-image-fallback" id="heroImageFallback">
+    Visual Creator
+</div>
 
-        </div>
+</div>
 
+<div class="adobe-logos">
 
-        <div class="adobe-logos">
+<div class="adobe-logo">
+    <div class="pr-logo">Pr</div>
+    <span class="adobe-logo-label">Premiere Pro</span>
+</div>
 
-            <div class="adobe-logo">
+<div class="adobe-logo">
+    <div class="ae-logo">Ae</div>
+    <span class="adobe-logo-label">After Effects</span>
+</div>
 
-                <div class="pr-logo">
-                    Pr
-                </div>
-
-                <span class="adobe-logo-label">
-                    Premiere Pro
-                </span>
-
-            </div>
-
-            <div class="adobe-logo">
-
-                <div class="ae-logo">
-                    Ae
-                </div>
-
-                <span class="adobe-logo-label">
-                    After Effects
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="hero-content reveal">
-
-        <div class="hero-eyebrow">
-            Video Editor · Visual Creator
-        </div>
-
-        <h1 class="hero-title">
-
-            I MAKE<br>
-
-            <span class="red">
-                VIDEOS
-            </span>
-
-            <br>
-
-            <span class="outline">
-                THAT HIT.
-            </span>
-
-        </h1>
-
-        <p class="hero-description">
-
-            Cinematic edits, reels, motion graphics and
-            visual stories crafted with intention.
-            Clean cuts, strong pacing and visuals that
-            make people stop scrolling.
-
-        </p>
-
-        <div class="hero-buttons">
-
-            <a
-                href="#portfolio"
-                class="btn-red"
-            >
-                View My Work →
-            </a>
-
-            <a
-                href="#booking"
-                class="btn-outline"
-            >
-                Start a Project
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <div class="hero-side">
-        krishhhh.verse · visual storytelling
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     SERVICES
-========================================================= -->
-
-<section id="services">
-
-    <div class="section-label reveal">
-        What I Do
-    </div>
-
-    <h2 class="section-title reveal">
-        Services
-    </h2>
-
-    <div class="services-grid reveal">
-
-        <div class="service-card">
-
-            <div class="service-number">01</div>
-
-            <div class="service-icon">🎬</div>
-
-            <h3>Video Editing</h3>
-
-            <p>
-                High-retention reels, cinematic edits,
-                pacing, sound design and color grading.
-            </p>
-
-            <span class="service-tag">
-                Premiere Pro
-            </span>
-
-        </div>
-
-
-        <div class="service-card">
-
-            <div class="service-number">02</div>
-
-            <div class="service-icon">⚡</div>
-
-            <h3>Motion Graphics</h3>
-
-            <p>
-                Dynamic titles, transitions, visual effects
-                and motion design for modern content.
-            </p>
-
-            <span class="service-tag">
-                After Effects
-            </span>
-
-        </div>
-
-
-        <div class="service-card">
-
-            <div class="service-number">03</div>
-
-            <div class="service-icon">📸</div>
-
-            <h3>Photo Shoot</h3>
-
-            <p>
-                Portrait, product and lifestyle photography
-                for creators, brands and businesses.
-            </p>
-
-            <span class="service-tag">
-                Photography
-            </span>
-
-        </div>
-
-
-        <div class="service-card">
-
-            <div class="service-number">04</div>
-
-            <div class="service-icon">🎥</div>
-
-            <h3>Video Shoot</h3>
-
-            <p>
-                Creative on-location video production for
-                events, creators and businesses.
-            </p>
-
-            <span class="service-tag">
-                Videography
-            </span>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     PORTFOLIO
-========================================================= -->
-
-<section id="portfolio">
-
-    <div class="portfolio-header">
-
-        <div>
-
-            <div class="section-label reveal">
-                Selected Work
-            </div>
-
-            <h2 class="section-title reveal">
-                My Reels
-            </h2>
-
-        </div>
-
-
-        <a
-            href="https://www.instagram.com/krishhhh.verse"
-            target="_blank"
-            rel="noopener"
-            class="instagram-btn reveal"
-        >
-            ◎ Instagram
-        </a>
-
-    </div>
-
-
-    <div
-        class="portfolio-grid"
-        id="portfolioGrid"
-    >
-
-        <div class="portfolio-empty">
-
-            <div>◌</div>
-
-            <p>
-                Loading reels...
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     VIDEO MODAL
-========================================================= -->
-
-<div
-    class="video-modal"
-    id="videoModal"
->
-
-    <div class="modal-content">
-
-        <button
-            class="modal-close"
-            id="modalClose"
-        >
-            ✕
-        </button>
-
-        <video
-            id="modalVideo"
-            controls
-            playsinline
-            loop
-        ></video>
-
-        <div
-            class="modal-title"
-            id="modalTitle"
-        ></div>
-
-    </div>
+</div>
 
 </div>
 
 
-<!-- =========================================================
-     BOOKING
-========================================================= -->
+<div class="hero-content reveal">
 
-<section id="booking">
+<div class="hero-eyebrow">
+    Video Editor · Visual Creator
+</div>
 
-    <div class="booking-inner">
+<h1 class="hero-title">
 
-        <div class="booking-left reveal">
+    I MAKE<br>
 
-            <div class="section-label">
-                Let's Create
-            </div>
+    <span class="red">VIDEOS</span>
 
-            <h2>
-                Have a project<br>
-                in mind?
-            </h2>
+    <br>
 
-            <p>
-                Tell me what you're working on.
-                Whether it's a reel, brand video,
-                event shoot or something completely
-                different — let's make it happen.
-            </p>
+    <span class="outline">
+        THAT HIT.
+    </span>
 
-            <div class="booking-detail">
+</h1>
 
-                <div class="booking-detail-icon">
-                    📍
-                </div>
+<p class="hero-description">
+    Cinematic edits, reels, motion graphics and visual
+    stories crafted with intention. Clean cuts, strong
+    pacing and visuals that make people stop scrolling.
+</p>
 
-                <div>
+<div class="hero-buttons">
 
-                    <strong>Location</strong>
+<a href="#portfolio" class="btn-red">
+    View My Work →
+</a>
 
-                    <span>
-                        On-site & remote projects
-                    </span>
+<a href="#booking" class="btn-outline">
+    Start a Project
+</a>
 
-                </div>
+</div>
 
-            </div>
-
-
-            <div class="booking-detail">
-
-                <div class="booking-detail-icon">
-                    💬
-                </div>
-
-                <div>
-
-                    <strong>WhatsApp</strong>
-
-                    <span>
-                        +91 99408 26494
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="booking-detail">
-
-                <div class="booking-detail-icon">
-                    ◎
-                </div>
-
-                <div>
-
-                    <strong>Instagram</strong>
-
-                    <span>
-                        @krishhhh.verse
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="reveal">
-
-            <form id="bookingForm">
-
-                <div class="form-row">
-
-                    <div>
-
-                        <label>Your Name</label>
-
-                        <input
-                            type="text"
-                            id="fname"
-                            placeholder="Full name"
-                            required
-                        >
-
-                    </div>
-
-
-                    <div>
-
-                        <label>
-                            Phone / WhatsApp
-                        </label>
-
-                        <input
-                            type="tel"
-                            id="phone"
-                            placeholder="+91 00000 00000"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <div>
-
-                    <label>Email Address</label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="you@email.com"
-                        required
-                    >
-
-                </div>
-
-
-                <div>
-
-                    <label>Service Required</label>
-
-                    <select id="service" required>
-
-                        <option value="">
-                            Select a service...
-                        </option>
-
-                        <option value="Video Editing">
-                            Video Editing
-                        </option>
-
-                        <option value="Motion Graphics / After Effects">
-                            Motion Graphics / After Effects
-                        </option>
-
-                        <option value="Photo Shoot">
-                            Photo Shoot
-                        </option>
-
-                        <option value="Video Shoot">
-                            Video Shoot
-                        </option>
-
-                        <option value="Photo + Video Shoot Combo">
-                            Photo + Video Shoot Combo
-                        </option>
-
-                        <option value="Full Production Package">
-                            Full Production Package
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div>
-
-                    <label>Preferred Date</label>
-
-                    <input
-                        type="date"
-                        id="date"
-                        required
-                    >
-
-                </div>
-
-
-                <div>
-
-                    <label>Project Details</label>
-
-                    <textarea
-                        id="message"
-                        placeholder="Tell me about your project..."
-                    ></textarea>
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    class="form-submit"
-                >
-                    Continue on WhatsApp →
-                </button>
-
-
-                <div
-                    class="form-success"
-                    id="formSuccess"
-                >
-                    ✅ Booking saved successfully!
-                    Opening WhatsApp...
-                </div>
-
-
-                <div
-                    class="form-error"
-                    id="formError"
-                ></div>
-
-            </form>
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 
 
-<!-- =========================================================
-     FOOTER
-========================================================= -->
+<!-- SERVICES -->
+<section id="services">
 
+<div class="section-label reveal">
+    What I Do
+</div>
+
+<h2 class="section-title reveal">
+    Services
+</h2>
+
+<div class="services-grid reveal">
+
+<div class="service-card">
+    <div class="service-number">01</div>
+    <div class="service-icon">🎬</div>
+    <h3>Video Editing</h3>
+    <p>
+        High-retention reels, cinematic edits,
+        pacing, sound design and color grading.
+    </p>
+    <span class="service-tag">Premiere Pro</span>
+</div>
+
+<div class="service-card">
+    <div class="service-number">02</div>
+    <div class="service-icon">⚡</div>
+    <h3>Motion Graphics</h3>
+    <p>
+        Dynamic titles, transitions, visual effects
+        and motion design for modern content.
+    </p>
+    <span class="service-tag">After Effects</span>
+</div>
+
+<div class="service-card">
+    <div class="service-number">03</div>
+    <div class="service-icon">📸</div>
+    <h3>Photo Shoot</h3>
+    <p>
+        Portrait, product and lifestyle photography
+        for creators, brands and businesses.
+    </p>
+    <span class="service-tag">Photography</span>
+</div>
+
+<div class="service-card">
+    <div class="service-number">04</div>
+    <div class="service-icon">🎥</div>
+    <h3>Video Shoot</h3>
+    <p>
+        Creative on-location video production for
+        events, creators and businesses.
+    </p>
+    <span class="service-tag">Videography</span>
+</div>
+
+</div>
+</section>
+
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+
+<div class="portfolio-header">
+
+<div>
+
+<div class="section-label reveal">
+    Selected Work
+</div>
+
+<h2 class="section-title reveal">
+    My Reels
+</h2>
+
+</div>
+
+<a
+href="https://www.instagram.com/krishhhh.verse"
+target="_blank"
+rel="noopener"
+class="instagram-btn reveal">
+
+◎ Instagram
+
+</a>
+
+</div>
+
+
+<div class="portfolio-grid" id="portfolioGrid">
+
+<div class="portfolio-empty">
+
+<div>◌</div>
+
+<p>Loading reels...</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- VIDEO MODAL -->
+<div class="video-modal" id="videoModal">
+
+<div class="modal-content">
+
+<button class="modal-close" id="modalClose">
+    ✕
+</button>
+
+<video
+id="modalVideo"
+controls
+playsinline
+loop>
+</video>
+
+<div class="modal-title" id="modalTitle"></div>
+
+</div>
+
+</div>
+
+
+<!-- BOOKING -->
+<section id="booking">
+
+<div class="booking-inner">
+
+<div class="booking-left reveal">
+
+<div class="section-label">
+    Let's Create
+</div>
+
+<h2>
+    Have a project<br>
+    in mind?
+</h2>
+
+<p>
+    Tell me what you're working on. Whether it's a
+    reel, brand video, event shoot or something
+    completely different — let's make it happen.
+</p>
+
+<div class="booking-detail">
+
+<div class="booking-detail-icon">
+    📍
+</div>
+
+<div>
+<strong>Location</strong>
+<span>On-site & remote projects</span>
+</div>
+
+</div>
+
+<div class="booking-detail">
+
+<div class="booking-detail-icon">
+    💬
+</div>
+
+<div>
+<strong>WhatsApp</strong>
+<span>+91 99408 26494</span>
+</div>
+
+</div>
+
+<div class="booking-detail">
+
+<div class="booking-detail-icon">
+    ◎
+</div>
+
+<div>
+<strong>Instagram</strong>
+<span>@krishhhh.verse</span>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="reveal">
+
+<form id="bookingForm">
+
+<div class="form-row">
+
+<div>
+<label>Your Name</label>
+<input
+type="text"
+id="fname"
+placeholder="Full name"
+required>
+</div>
+
+<div>
+<label>Phone / WhatsApp</label>
+<input
+type="tel"
+id="phone"
+placeholder="+91 00000 00000"
+required>
+</div>
+
+</div>
+
+
+<div>
+
+<label>Email Address</label>
+
+<input
+type="email"
+id="email"
+placeholder="you@email.com"
+required>
+
+</div>
+
+
+<div>
+
+<label>Service Required</label>
+
+<select id="service" required>
+
+<option value="">
+Select a service...
+</option>
+
+<option value="Video Editing">
+Video Editing
+</option>
+
+<option value="Motion Graphics / After Effects">
+Motion Graphics / After Effects
+</option>
+
+<option value="Photo Shoot">
+Photo Shoot
+</option>
+
+<option value="Video Shoot">
+Video Shoot
+</option>
+
+<option value="Photo + Video Shoot Combo">
+Photo + Video Shoot Combo
+</option>
+
+<option value="Full Production Package">
+Full Production Package
+</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Preferred Date</label>
+
+<input
+type="date"
+id="date"
+required>
+
+</div>
+
+
+<div>
+
+<label>Project Details</label>
+
+<textarea
+id="message"
+placeholder="Tell me about your project...">
+</textarea>
+
+</div>
+
+
+<button
+type="submit"
+class="form-submit">
+
+Continue on WhatsApp →
+
+</button>
+
+
+<div
+class="form-success"
+id="formSuccess">
+
+✅ Booking saved successfully!
+Opening WhatsApp...
+
+</div>
+
+
+<div
+class="form-error"
+id="formError">
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
 <footer>
 
-    <div class="footer-top">
+<div class="footer-top">
 
-        <div class="footer-logo">
-            krishhhh<span>.verse</span>
-        </div>
+<div class="footer-logo">
+    krishhhh<span>.verse</span>
+</div>
 
-        <div class="footer-links">
+<div class="footer-links">
 
-            <a href="#services">
-                Services
-            </a>
+<a href="#services">Services</a>
+<a href="#portfolio">Work</a>
+<a href="#booking">Book</a>
+<a href="admin-login.html">Admin</a>
 
-            <a href="#portfolio">
-                Work
-            </a>
+</div>
 
-            <a href="#booking">
-                Book
-            </a>
+<a
+href="https://www.instagram.com/krishhhh.verse"
+target="_blank"
+rel="noopener"
+class="instagram-btn">
 
-            <a href="admin-login.html">
-                Admin
-            </a>
+Instagram →
 
-        </div>
+</a>
 
-        <a
-            href="https://www.instagram.com/krishhhh.verse"
-            target="_blank"
-            rel="noopener"
-            class="instagram-btn"
-        >
-            Instagram →
-        </a>
+</div>
 
-    </div>
-
-
-    <div class="footer-copy">
-        © 2026 krishhhh.verse · All rights reserved.
-    </div>
+<div class="footer-copy">
+© 2026 krishhhh.verse · All rights reserved.
+</div>
 
 </footer>
 
@@ -2242,7 +1654,7 @@ footer{
 <script>
 
 /* =========================================================
-   SUPABASE CONFIG
+   SUPABASE
 ========================================================= */
 
 const SUPABASE_URL =
@@ -2253,132 +1665,113 @@ const SUPABASE_KEY =
 
 
 /* =========================================================
-   HTML ESCAPE
+   SUPABASE FETCH
+========================================================= */
+
+async function supabaseFetch(endpoint,options={}){
+
+const response=await fetch(
+SUPABASE_URL+endpoint,
+{
+...options,
+
+headers:{
+apikey:SUPABASE_KEY,
+
+Authorization:
+"Bearer "+SUPABASE_KEY,
+
+...(options.headers||{})
+}
+}
+);
+
+const text=await response.text();
+
+let data=null;
+
+try{
+data=text?JSON.parse(text):null;
+}
+catch{
+data=text;
+}
+
+if(!response.ok){
+
+console.error(
+"SUPABASE ERROR",
+response.status,
+data
+);
+
+throw new Error(
+typeof data==="string"
+?data
+:JSON.stringify(data)
+);
+
+}
+
+return data;
+}
+
+
+/* =========================================================
+   ESCAPE
 ========================================================= */
 
 function escapeHTML(value){
 
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+return String(value??"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
 
 /* =========================================================
-   SUPABASE REQUEST
+   TYPE HELPERS
 ========================================================= */
 
-async function supabaseFetch(
-    endpoint,
-    options = {}
-){
+function normaliseType(type){
 
-    const response =
-        await fetch(
-            SUPABASE_URL + endpoint,
-            {
-                ...options,
-
-                headers:{
-                    "apikey":
-                        SUPABASE_KEY,
-
-                    "Authorization":
-                        "Bearer " +
-                        SUPABASE_KEY,
-
-                    ...(options.headers || {})
-                }
-            }
-        );
-
-
-    const text =
-        await response.text();
-
-
-    let data = null;
-
-
-    try{
-
-        data =
-            text
-                ? JSON.parse(text)
-                : null;
-
-    }
-    catch{
-
-        data = text;
-
-    }
-
-
-    if(!response.ok){
-
-        console.error(
-            "SUPABASE ERROR:",
-            response.status,
-            data
-        );
-
-        throw new Error(
-            typeof data === "string"
-                ? data
-                : JSON.stringify(data)
-        );
-
-    }
-
-
-    return data;
+return String(type||"")
+.toLowerCase()
+.trim();
 
 }
 
+function isImageType(type){
 
-/* =========================================================
-   YOUTUBE ID
-========================================================= */
-
-function extractYouTubeID(url){
-
-    if(!url)
-        return "";
-
-    const match =
-        String(url).match(
-            /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&?\/]+)/
-        );
-
-    return match
-        ? match[1]
-        : "";
+return [
+"photo",
+"image",
+"jpg",
+"jpeg",
+"png",
+"webp",
+"gif"
+].includes(
+normaliseType(type)
+);
 
 }
 
+function isVideoType(type){
 
-/* =========================================================
-   VIMEO ID
-========================================================= */
-
-function extractVimeoID(url){
-
-    if(!url)
-        return "";
-
-    const match =
-        String(url).match(
-            /vimeo\.com\/(?:video\/)?(\d+)/
-        );
-
-    return match
-        ? match[1]
-        : "";
+return [
+"video",
+"mp4",
+"mov",
+"webm",
+"m4v"
+].includes(
+normaliseType(type)
+);
 
 }
 
@@ -2389,789 +1782,567 @@ function extractVimeoID(url){
 
 function getMediaURL(item){
 
-    let url =
-        String(item?.url || "")
-            .trim();
+let url=String(item?.url||"").trim();
 
+if(!url) return "";
 
-    if(!url)
-        return "";
+if(
+url.startsWith("http://")||
+url.startsWith("https://")||
+url.startsWith("data:")
+){
+return url;
+}
 
+url=url.replace(/^\/+/,"");
 
-    if(
-        url.startsWith("http://") ||
-        url.startsWith("https://") ||
-        url.startsWith("data:")
-    ){
+url=url.replace(
+/^portfolio\//i,
+""
+);
 
-        return url;
-
-    }
-
-
-    url =
-        url.replace(/^\/+/,"");
-
-
-    url =
-        url.replace(
-            /^portfolio\//i,
-            ""
-        );
-
-
-    return (
-        SUPABASE_URL +
-        "/storage/v1/object/public/portfolio/" +
-        url
-    );
+return(
+SUPABASE_URL+
+"/storage/v1/object/public/portfolio/"+
+url
+);
 
 }
 
 
 /* =========================================================
-   DETECT IMAGE TYPE
+   YOUTUBE
 ========================================================= */
 
-function isImageType(type){
+function extractYouTubeID(url){
 
-    type =
-        String(type || "")
-            .toLowerCase()
-            .trim();
+if(!url)return"";
 
+const match=String(url).match(
+/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&?\/]+)/
+);
 
-    return [
-        "photo",
-        "image",
-        "jpg",
-        "jpeg",
-        "png",
-        "webp",
-        "gif"
-    ].includes(type);
+return match?match[1]:"";
 
 }
 
 
 /* =========================================================
-   DETECT VIDEO TYPE
+   VIMEO
 ========================================================= */
 
-function isVideoType(type){
+function extractVimeoID(url){
 
-    type =
-        String(type || "")
-            .toLowerCase()
-            .trim();
+if(!url)return"";
 
+const match=String(url).match(
+/vimeo\.com\/(?:video\/)?(\d+)/
+);
 
-    return [
-        "video",
-        "mp4",
-        "mov",
-        "webm",
-        "m4v"
-    ].includes(type);
+return match?match[1]:"";
 
 }
 
 
 /* =========================================================
    HERO IMAGE
-   IMPORTANT:
-   HERO USES IMAGE ONLY
 ========================================================= */
 
 async function loadHeroImage(){
 
-    const image =
-        document.getElementById(
-            "heroCreatorImage"
-        );
+const image=
+document.getElementById("heroCreatorImage");
 
+const fallback=
+document.getElementById("heroImageFallback");
 
-    const fallback =
-        document.getElementById(
-            "heroImageFallback"
-        );
+try{
 
+const items=
+await supabaseFetch(
+"/rest/v1/portfolio"+
+"?select=*"+
+"&order=created_at.desc"
+);
 
-    try{
+const heroItem=
+(items||[]).find(
+item=>
+isImageType(item.type)&&
+item.url
+);
 
-        const items =
-            await supabaseFetch(
-                "/rest/v1/portfolio" +
-                "?select=*" +
-                "&order=created_at.desc"
-            );
+if(!heroItem){
 
+console.log(
+"No hero image uploaded."
+);
 
-        console.log(
-            "ALL PORTFOLIO:",
-            items
-        );
+return;
+}
 
+const imageURL=
+getMediaURL(heroItem);
 
-        /*
-           Find first photo/image.
+image.src=imageURL;
 
-           This photo is ONLY used
-           for the hero.
-        */
+image.onload=()=>{
 
-        const heroItem =
-            (items || []).find(
-                item =>
-                    isImageType(
-                        item.type
-                    ) &&
-                    item.url
-            );
+image.style.display="block";
 
+fallback.style.display="none";
 
-        if(
-            !heroItem
-        ){
+};
 
-            console.warn(
-                "No hero image found."
-            );
+image.onerror=()=>{
 
-            return;
+image.style.display="none";
 
-        }
+fallback.style.display="flex";
 
+};
 
-        const imageURL =
-            getMediaURL(
-                heroItem
-            );
+}
+catch(error){
 
+console.error(
+"HERO IMAGE ERROR:",
+error
+);
 
-        console.log(
-            "HERO IMAGE:",
-            imageURL
-        );
-
-
-        image.src =
-            imageURL;
-
-
-        image.onload =
-            function(){
-
-                image.style.display =
-                    "block";
-
-                fallback.style.display =
-                    "none";
-
-            };
-
-
-        image.onerror =
-            function(){
-
-                console.error(
-                    "HERO IMAGE FAILED:",
-                    imageURL
-                );
-
-                image.style.display =
-                    "none";
-
-                fallback.style.display =
-                    "flex";
-
-            };
-
-    }
-    catch(error){
-
-        console.error(
-            "HERO IMAGE ERROR:",
-            error
-        );
-
-    }
+}
 
 }
 
 
 /* =========================================================
-   LOAD PORTFOLIO
-   IMPORTANT:
-   IMAGE/PHOTO IS EXCLUDED HERE
+   PORTFOLIO
 ========================================================= */
 
 async function loadPortfolio(){
 
-    const grid =
-        document.getElementById(
-            "portfolioGrid"
-        );
+const grid=
+document.getElementById(
+"portfolioGrid"
+);
 
+try{
 
-    try{
+const allItems=
+await supabaseFetch(
+"/rest/v1/portfolio"+
+"?select=*"+
+"&order=created_at.desc"
+);
 
-        /*
-           Get everything from Supabase.
-        */
 
-        const allItems =
-            await supabaseFetch(
-                "/rest/v1/portfolio" +
-                "?select=*" +
-                "&order=created_at.desc"
-            );
+/*
+ IMPORTANT:
 
+ PHOTO / IMAGE RECORDS ARE
+ NEVER SHOWN IN MY REELS.
+*/
 
-        console.log(
-            "ALL PORTFOLIO DATA:",
-            allItems
-        );
+const items=
+(allItems||[]).filter(
+item=>
+!isImageType(item.type)
+);
 
+if(
+!Array.isArray(items)||
+items.length===0
+){
 
-        /*
-           VERY IMPORTANT
+grid.innerHTML=`
 
-           Remove ALL image/photo records.
+<div class="portfolio-empty">
 
-           So hero image will NOT appear
-           inside My Reels.
-        */
+<div>🎬</div>
 
-        const items =
-            (allItems || []).filter(
-                item => {
+<p>
+No videos uploaded yet.
+</p>
 
-                    const type =
-                        String(
-                            item.type || ""
-                        )
-                        .toLowerCase()
-                        .trim();
+<small style="
+display:block;
+margin-top:10px;
+color:#555;
+">
+Upload videos from the admin page.
+</small>
 
+</div>
 
-                    return !isImageType(
-                        type
-                    );
+`;
 
-                }
-            );
+return;
 
+}
 
-        console.log(
-            "WORK ITEMS ONLY:",
-            items
-        );
+grid.innerHTML="";
 
 
-        if(
-            !Array.isArray(items) ||
-            items.length === 0
-        ){
+items.forEach(
+(item,index)=>{
 
-            grid.innerHTML = `
+const div=
+document.createElement("div");
 
-                <div class="portfolio-empty">
+div.className=
+"portfolio-item reveal";
 
-                    <div>🎬</div>
+const title=
+escapeHTML(
+item.title||
+"My Work"
+);
 
-                    <p>
-                        No videos uploaded yet.
-                    </p>
+const rawURL=
+String(item.url||"").trim();
 
-                    <small style="
-                        display:block;
-                        margin-top:10px;
-                        color:#555;
-                    ">
-                        Upload your videos from the admin page.
-                    </small>
+const url=
+getMediaURL(item);
 
-                </div>
+const type=
+normaliseType(item.type);
 
-            `;
 
-            return;
+/* VIDEO */
 
-        }
+if(isVideoType(type)){
 
+div.innerHTML=`
 
-        grid.innerHTML = "";
+<video
+muted
+autoplay
+loop
+playsinline
+preload="metadata"
+src="${escapeHTML(url)}">
+</video>
 
+<div class="reel-play">
+▶
+</div>
 
-        items.forEach(
-            (item,index)=>{
+<div class="portfolio-caption">
 
-                const div =
-                    document.createElement(
-                        "div"
-                    );
+<div class="caption-title">
+${title}
+</div>
 
+<div class="caption-type">
+Video · Click to view
+</div>
 
-                div.className =
-                    "portfolio-item reveal";
+</div>
 
+`;
 
-                const title =
-                    escapeHTML(
-                        item.title ||
-                        "My Work"
-                    );
+const video=
+div.querySelector("video");
 
+setupVideoObserver(video);
 
-                const rawURL =
-                    String(
-                        item.url || ""
-                    )
-                    .trim();
+div.addEventListener(
+"click",
+()=>{
+openVideoModal(
+url,
+title
+);
+}
+);
 
+}
 
-                const url =
-                    getMediaURL(
-                        item
-                    );
 
+/* YOUTUBE */
 
-                const type =
-                    String(
-                        item.type || ""
-                    )
-                    .toLowerCase()
-                    .trim();
+else if(type==="youtube"){
 
+const id=
+extractYouTubeID(rawURL);
 
-                console.log(
-                    "WORK ITEM:",
-                    {
-                        title:item.title,
-                        type:item.type,
-                        url:rawURL,
-                        finalURL:url
-                    }
-                );
+if(!id)return;
 
+div.innerHTML=`
 
-                /* =================================================
-                   NORMAL VIDEO
-                ================================================= */
+<iframe
+src="https://www.youtube.com/embed/${id}?rel=0&modestbranding=1"
+title="${title}"
+loading="lazy"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+allowfullscreen>
+</iframe>
 
-                if(
-                    isVideoType(type)
-                ){
+<div class="reel-play">▶</div>
 
-                    div.innerHTML = `
+<div class="portfolio-caption">
 
-                        <video
-                            muted
-                            autoplay
-                            loop
-                            playsinline
-                            preload="metadata"
-                            src="${escapeHTML(url)}"
-                        ></video>
+<div class="caption-title">
+${title}
+</div>
 
-                        <div class="reel-play">
-                            ▶
-                        </div>
+<div class="caption-type">
+YouTube
+</div>
 
-                        <div class="portfolio-caption">
+</div>
 
-                            <div class="caption-title">
-                                ${title}
-                            </div>
+`;
 
-                            <div class="caption-type">
-                                Video · Click to view
-                            </div>
+}
 
-                        </div>
 
-                    `;
+/* VIMEO */
 
+else if(type==="vimeo"){
 
-                    const video =
-                        div.querySelector(
-                            "video"
-                        );
+const id=
+extractVimeoID(rawURL);
 
+if(!id)return;
 
-                    setupVideoObserver(
-                        video
-                    );
+div.innerHTML=`
 
+<iframe
+src="https://player.vimeo.com/video/${id}"
+title="${title}"
+loading="lazy"
+allow="autoplay; fullscreen; picture-in-picture"
+allowfullscreen>
+</iframe>
 
-                    div.addEventListener(
-                        "click",
-                        function(){
+<div class="reel-play">▶</div>
 
-                            openVideoModal(
-                                url,
-                                title
-                            );
+<div class="portfolio-caption">
 
-                        }
-                    );
+<div class="caption-title">
+${title}
+</div>
 
-                }
+<div class="caption-type">
+Vimeo
+</div>
 
+</div>
 
-                /* =================================================
-                   YOUTUBE
-                ================================================= */
+`;
 
-                else if(
-                    type === "youtube"
-                ){
+}
 
-                    const id =
-                        extractYouTubeID(
-                            rawURL
-                        );
 
+/* INSTAGRAM */
 
-                    if(id){
+else if(
+type==="instagram"||
+type==="insta"
+){
 
-                        div.innerHTML = `
+let instagramURL=rawURL;
 
-                            <iframe
-                                src="https://www.youtube.com/embed/${id}?rel=0&modestbranding=1"
-                                title="${title}"
-                                loading="lazy"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen>
-                            </iframe>
+if(
+instagramURL.includes(
+"instagram.com/reel/"
+)
+&&
+!instagramURL.includes(
+"/embed"
+)
+){
 
-                            <div class="reel-play">
-                                ▶
-                            </div>
+instagramURL=
+instagramURL.replace(
+/\/?$/,
+"/embed"
+);
 
-                            <div class="portfolio-caption">
+}
 
-                                <div class="caption-title">
-                                    ${title}
-                                </div>
+div.innerHTML=`
 
-                                <div class="caption-type">
-                                    YouTube
-                                </div>
+<iframe
+src="${escapeHTML(instagramURL)}"
+title="${title}"
+loading="lazy"
+allowfullscreen>
+</iframe>
 
-                            </div>
+<div class="reel-play">
+◎
+</div>
 
-                        `;
+<div class="portfolio-caption">
 
-                    }
+<div class="caption-title">
+${title}
+</div>
 
-                }
+<div class="caption-type">
+Instagram Reel
+</div>
 
+</div>
 
-                /* =================================================
-                   VIMEO
-                ================================================= */
+`;
 
-                else if(
-                    type === "vimeo"
-                ){
+}
 
-                    const id =
-                        extractVimeoID(
-                            rawURL
-                        );
 
+/* UNKNOWN */
 
-                    if(id){
+else{
 
-                        div.innerHTML = `
+if(
+url&&
+/\.(mp4|webm|mov|m4v)(\?.*)?$/i
+.test(url)
+){
 
-                            <iframe
-                                src="https://player.vimeo.com/video/${id}"
-                                title="${title}"
-                                loading="lazy"
-                                allow="autoplay; fullscreen; picture-in-picture"
-                                allowfullscreen>
-                            </iframe>
+div.innerHTML=`
 
-                            <div class="reel-play">
-                                ▶
-                            </div>
+<video
+muted
+autoplay
+loop
+playsinline
+preload="metadata"
+src="${escapeHTML(url)}">
+</video>
 
-                            <div class="portfolio-caption">
+<div class="reel-play">▶</div>
 
-                                <div class="caption-title">
-                                    ${title}
-                                </div>
+<div class="portfolio-caption">
 
-                                <div class="caption-type">
-                                    Vimeo
-                                </div>
+<div class="caption-title">
+${title}
+</div>
 
-                            </div>
+<div class="caption-type">
+Video
+</div>
 
-                        `;
+</div>
 
-                    }
+`;
 
-                }
+const video=
+div.querySelector("video");
 
+setupVideoObserver(video);
 
-                /* =================================================
-                   INSTAGRAM
-                ================================================= */
+div.addEventListener(
+"click",
+()=>{
+openVideoModal(
+url,
+title
+);
+}
+);
 
-                else if(
-                    type === "instagram" ||
-                    type === "insta"
-                ){
+}
+else{
 
-                    /*
-                       Instagram direct URL inside iframe
-                       may not work depending on URL.
+return;
 
-                       We still show it if admin stored
-                       an embed URL.
-                    */
+}
 
-                    div.innerHTML = `
+}
 
-                        <iframe
-                            src="${escapeHTML(rawURL)}"
-                            title="${title}"
-                            loading="lazy"
-                            allowfullscreen>
-                        </iframe>
 
-                        <div class="reel-play">
-                            ◎
-                        </div>
+grid.appendChild(div);
 
-                        <div class="portfolio-caption">
+setTimeout(
+()=>{
+div.classList.add("visible");
+},
+Math.min(index*70,500)
+);
 
-                            <div class="caption-title">
-                                ${title}
-                            </div>
+}
+);
 
-                            <div class="caption-type">
-                                Instagram Reel
-                            </div>
+}
+catch(error){
 
-                        </div>
+console.error(
+"PORTFOLIO ERROR:",
+error
+);
 
-                    `;
+grid.innerHTML=`
 
-                }
+<div class="portfolio-empty">
 
+<div>⚠️</div>
 
-                /* =================================================
-                   UNKNOWN MEDIA
-                ================================================= */
+<p>
+Portfolio could not be loaded.
+</p>
 
-                else{
+<small style="
+display:block;
+margin-top:12px;
+color:#777;
+">
+Check Supabase and browser console.
+</small>
 
-                    console.warn(
-                        "UNKNOWN WORK TYPE:",
-                        item
-                    );
+</div>
 
+`;
 
-                    /*
-                       If type is unknown,
-                       try it as video.
-
-                       IMPORTANT:
-                       We DON'T show images here.
-                    */
-
-                    if(
-                        url &&
-                        /\.(mp4|webm|mov|m4v)(\?.*)?$/i
-                            .test(url)
-                    ){
-
-                        div.innerHTML = `
-
-                            <video
-                                muted
-                                autoplay
-                                loop
-                                playsinline
-                                preload="metadata"
-                                src="${escapeHTML(url)}"
-                            ></video>
-
-                            <div class="reel-play">
-                                ▶
-                            </div>
-
-                            <div class="portfolio-caption">
-
-                                <div class="caption-title">
-                                    ${title}
-                                </div>
-
-                                <div class="caption-type">
-                                    Video
-                                </div>
-
-                            </div>
-
-                        `;
-
-
-                        const video =
-                            div.querySelector(
-                                "video"
-                            );
-
-
-                        setupVideoObserver(
-                            video
-                        );
-
-
-                        div.addEventListener(
-                            "click",
-                            function(){
-
-                                openVideoModal(
-                                    url,
-                                    title
-                                );
-
-                            }
-                        );
-
-                    }
-                    else{
-
-                        /*
-                           Unknown image/media:
-                           don't display it.
-
-                           This protects the hero image
-                           from appearing in My Reels.
-                        */
-
-                        return;
-
-                    }
-
-                }
-
-
-                grid.appendChild(
-                    div
-                );
-
-
-                setTimeout(
-                    ()=>{
-                        div.classList.add(
-                            "visible"
-                        );
-                    },
-                    Math.min(
-                        index * 70,
-                        500
-                    )
-                );
-
-            }
-        );
-
-
-    }
-    catch(error){
-
-        console.error(
-            "PORTFOLIO ERROR:",
-            error
-        );
-
-
-        grid.innerHTML = `
-
-            <div class="portfolio-empty">
-
-                <div>⚠️</div>
-
-                <p>
-                    Portfolio could not be loaded.
-                </p>
-
-                <small style="
-                    display:block;
-                    margin-top:12px;
-                    color:#777;
-                ">
-                    Check browser console for details.
-                </small>
-
-            </div>
-
-        `;
-
-    }
+}
 
 }
 
 
 /* =========================================================
-   VIDEO OBSERVER
+   VIDEO AUTOPLAY
 ========================================================= */
 
-const videoObserver =
-    new IntersectionObserver(
+const videoObserver=
+new IntersectionObserver(
+entries=>{
 
-        entries => {
+entries.forEach(
+entry=>{
 
-            entries.forEach(
-                entry => {
+const video=
+entry.target;
 
-                    const video =
-                        entry.target;
+if(entry.isIntersecting){
 
+video.play().catch(()=>{});
 
-                    if(
-                        entry.isIntersecting
-                    ){
+}
+else{
 
-                        video.play()
-                            .catch(
-                                ()=>{}
-                            );
+video.pause();
 
-                    }
-                    else{
+}
 
-                        video.pause();
+}
+);
 
-                    }
-
-                }
-            );
-
-        },
-
-        {
-            threshold:.55
-        }
-
-    );
+},
+{
+threshold:.55
+}
+);
 
 
 function setupVideoObserver(video){
 
-    if(video){
+if(video){
 
-        videoObserver.observe(
-            video
-        );
+videoObserver.observe(video);
 
-    }
+}
 
 }
 
@@ -3180,122 +2351,103 @@ function setupVideoObserver(video){
    VIDEO MODAL
 ========================================================= */
 
-const videoModal =
-    document.getElementById(
-        "videoModal"
-    );
+const videoModal=
+document.getElementById(
+"videoModal"
+);
 
+const modalVideo=
+document.getElementById(
+"modalVideo"
+);
 
-const modalVideo =
-    document.getElementById(
-        "modalVideo"
-    );
+const modalTitle=
+document.getElementById(
+"modalTitle"
+);
 
-
-const modalTitle =
-    document.getElementById(
-        "modalTitle"
-    );
-
-
-const modalClose =
-    document.getElementById(
-        "modalClose"
-    );
+const modalClose=
+document.getElementById(
+"modalClose"
+);
 
 
 function openVideoModal(
-    url,
-    title
+url,
+title
 ){
 
-    modalVideo.src =
-        url;
+modalVideo.src=url;
 
+modalTitle.textContent=title;
 
-    modalTitle.textContent =
-        title;
+videoModal.classList.add(
+"active"
+);
 
+document.body.classList.add(
+"modal-open"
+);
 
-    videoModal.classList.add(
-        "active"
-    );
-
-
-    document.body.classList.add(
-        "modal-open"
-    );
-
-
-    modalVideo.play()
-        .catch(
-            ()=>{}
-        );
+modalVideo.play().catch(()=>{});
 
 }
 
 
 function closeVideoModal(){
 
-    modalVideo.pause();
+modalVideo.pause();
 
+modalVideo.removeAttribute(
+"src"
+);
 
-    modalVideo.removeAttribute(
-        "src"
-    );
+modalVideo.load();
 
+videoModal.classList.remove(
+"active"
+);
 
-    modalVideo.load();
-
-
-    videoModal.classList.remove(
-        "active"
-    );
-
-
-    document.body.classList.remove(
-        "modal-open"
-    );
+document.body.classList.remove(
+"modal-open"
+);
 
 }
 
 
 modalClose.addEventListener(
-    "click",
-    closeVideoModal
+"click",
+closeVideoModal
 );
 
 
 videoModal.addEventListener(
-    "click",
-    event => {
+"click",
+event=>{
 
-        if(
-            event.target ===
-            videoModal
-        ){
+if(
+event.target===videoModal
+){
 
-            closeVideoModal();
+closeVideoModal();
 
-        }
+}
 
-    }
+}
 );
 
 
 document.addEventListener(
-    "keydown",
-    event => {
+"keydown",
+event=>{
 
-        if(
-            event.key === "Escape"
-        ){
+if(event.key==="Escape"){
 
-            closeVideoModal();
+closeVideoModal();
 
-        }
+}
 
-    }
+}
 );
 
 
@@ -3303,202 +2455,168 @@ document.addEventListener(
    BOOKING
 ========================================================= */
 
-const bookingForm =
-    document.getElementById(
-        "bookingForm"
-    );
+const bookingForm=
+document.getElementById(
+"bookingForm"
+);
 
 
 bookingForm.addEventListener(
-    "submit",
-    async function(event){
+"submit",
+async event=>{
 
-        event.preventDefault();
+event.preventDefault();
 
+const name=
+document.getElementById(
+"fname"
+).value.trim();
 
-        const name =
-            document
-                .getElementById("fname")
-                .value
-                .trim();
+const phone=
+document.getElementById(
+"phone"
+).value.trim();
 
+const email=
+document.getElementById(
+"email"
+).value.trim();
 
-        const phone =
-            document
-                .getElementById("phone")
-                .value
-                .trim();
+const service=
+document.getElementById(
+"service"
+).value;
 
+const preferredDate=
+document.getElementById(
+"date"
+).value;
 
-        const email =
-            document
-                .getElementById("email")
-                .value
-                .trim();
+const message=
+document.getElementById(
+"message"
+).value.trim();
 
+const button=
+bookingForm.querySelector(
+".form-submit"
+);
 
-        const service =
-            document
-                .getElementById("service")
-                .value;
+const success=
+document.getElementById(
+"formSuccess"
+);
 
+const errorBox=
+document.getElementById(
+"formError"
+);
 
-        const preferredDate =
-            document
-                .getElementById("date")
-                .value;
+success.style.display="none";
+errorBox.style.display="none";
 
+if(
+!name||
+!phone||
+!email||
+!service||
+!preferredDate
+){
 
-        const message =
-            document
-                .getElementById("message")
-                .value
-                .trim();
+errorBox.textContent=
+"Please fill all required fields.";
 
+errorBox.style.display="block";
 
-        const button =
-            bookingForm.querySelector(
-                ".form-submit"
-            );
+return;
 
+}
 
-        const success =
-            document.getElementById(
-                "formSuccess"
-            );
+button.disabled=true;
 
+button.textContent=
+"Saving booking...";
 
-        const errorBox =
-            document.getElementById(
-                "formError"
-            );
+try{
 
+const bookingData={
 
-        success.style.display =
-            "none";
+name:name,
 
+phone:phone,
 
-        errorBox.style.display =
-            "none";
+email:email,
 
+service:service,
 
-        if(
-            !name ||
-            !phone ||
-            !email ||
-            !service ||
-            !preferredDate
-        ){
+preffereddate:
+preferredDate,
 
-            errorBox.textContent =
-                "Please fill all required fields.";
+message:
+message||null
 
+};
 
-            errorBox.style.display =
-                "block";
 
+const response=
+await fetch(
+SUPABASE_URL+
+"/rest/v1/bookings",
+{
 
-            return;
+method:"POST",
 
-        }
+headers:{
 
+apikey:
+SUPABASE_KEY,
 
-        button.disabled =
-            true;
+Authorization:
+"Bearer "+SUPABASE_KEY,
 
+"Content-Type":
+"application/json",
 
-        button.textContent =
-            "Saving booking...";
+Prefer:
+"return=minimal"
 
+},
 
-        try{
+body:
+JSON.stringify(
+bookingData
+)
 
-            const bookingData = {
+}
+);
 
-                name:name,
 
-                phone:phone,
+const responseText=
+await response.text();
 
-                email:email,
 
-                service:service,
+if(!response.ok){
 
-                preffereddate:
-                    preferredDate,
+throw new Error(
+responseText||
+"Booking save failed."
+);
 
-                message:
-                    message || null
+}
 
-            };
 
+success.style.display=
+"block";
 
-            const saveResponse =
-                await fetch(
+button.textContent=
+"Opening WhatsApp...";
 
-                    SUPABASE_URL +
-                    "/rest/v1/bookings",
 
-                    {
+const whatsappNumber=
+"919940826494";
 
-                        method:"POST",
 
-                        headers:{
-
-                            "apikey":
-                                SUPABASE_KEY,
-
-                            "Authorization":
-                                "Bearer " +
-                                SUPABASE_KEY,
-
-                            "Content-Type":
-                                "application/json",
-
-                            "Prefer":
-                                "return=minimal"
-
-                        },
-
-                        body:
-                            JSON.stringify(
-                                bookingData
-                            )
-
-                    }
-
-                );
-
-
-            const saveText =
-                await saveResponse.text();
-
-
-            if(
-                !saveResponse.ok
-            ){
-
-                throw new Error(
-                    saveText ||
-                    "Supabase rejected booking."
-                );
-
-            }
-
-
-            success.style.display =
-                "block";
-
-
-            button.textContent =
-                "Opening WhatsApp...";
-
-
-            const whatsappNumber =
-                "919940826494";
-
-
-            const whatsappMessage =
-
+const whatsappMessage=
 `Hello Krish! 👋
 
 I would like to book your service.
@@ -3521,61 +2639,55 @@ ${service}
 ${preferredDate}
 
 📝 Project Details:
-${message || "Not provided"}
+${message||"Not provided"}
 
 ━━━━━━━━━━━━━━━━━━
 
 Sent from krishhhh.verse website.`;
 
 
-            const whatsappURL =
-                "https://wa.me/" +
-                whatsappNumber +
-                "?text=" +
-                encodeURIComponent(
-                    whatsappMessage
-                );
+const whatsappURL=
+"https://wa.me/"+
+whatsappNumber+
+"?text="+
+encodeURIComponent(
+whatsappMessage
+);
 
 
-            window.open(
-                whatsappURL,
-                "_blank",
-                "noopener,noreferrer"
-            );
+window.open(
+whatsappURL,
+"_blank",
+"noopener,noreferrer"
+);
 
+bookingForm.reset();
 
-            bookingForm.reset();
+}
+catch(error){
 
-        }
-        catch(error){
+console.error(
+"BOOKING ERROR:",
+error
+);
 
-            console.error(
-                "BOOKING ERROR:",
-                error
-            );
+errorBox.textContent=
+"❌ Booking could not be saved.\n\n"+
+error.message;
 
+errorBox.style.display="block";
 
-            errorBox.textContent =
-                "❌ Booking could not be saved.\n\n" +
-                error.message;
+}
+finally{
 
+button.disabled=false;
 
-            errorBox.style.display =
-                "block";
+button.textContent=
+"Continue on WhatsApp →";
 
-        }
-        finally{
+}
 
-            button.disabled =
-                false;
-
-
-            button.textContent =
-                "Continue on WhatsApp →";
-
-        }
-
-    }
+}
 );
 
 
@@ -3583,95 +2695,80 @@ Sent from krishhhh.verse website.`;
    MINIMUM DATE
 ========================================================= */
 
-const dateInput =
-    document.getElementById(
-        "date"
-    );
+const dateInput=
+document.getElementById("date");
 
-
-const today =
-    new Date();
-
-
-dateInput.min =
-    today
-        .toISOString()
-        .split("T")[0];
+dateInput.min=
+new Date()
+.toISOString()
+.split("T")[0];
 
 
 /* =========================================================
    REVEAL
 ========================================================= */
 
-const revealObserver =
-    new IntersectionObserver(
+const revealObserver=
+new IntersectionObserver(
+entries=>{
 
-        entries => {
+entries.forEach(
+entry=>{
 
-            entries.forEach(
-                entry => {
+if(entry.isIntersecting){
 
-                    if(
-                        entry.isIntersecting
-                    ){
+entry.target.classList.add(
+"visible"
+);
 
-                        entry.target.classList.add(
-                            "visible"
-                        );
+revealObserver.unobserve(
+entry.target
+);
 
+}
 
-                        revealObserver.unobserve(
-                            entry.target
-                        );
+}
+);
 
-                    }
-
-                }
-            );
-
-        },
-
-        {
-            threshold:.08
-        }
-
-    );
+},
+{
+threshold:.08
+}
+);
 
 
 function setupReveal(){
 
-    document
-        .querySelectorAll(
-            ".reveal"
-        )
-        .forEach(
-            element => {
+document
+.querySelectorAll(".reveal")
+.forEach(
+element=>{
 
-                revealObserver.observe(
-                    element
-                );
+revealObserver.observe(
+element
+);
 
-            }
-        );
+}
+);
 
 }
 
 
 /* =========================================================
-   START WEBSITE
+   START
 ========================================================= */
 
 document.addEventListener(
-    "DOMContentLoaded",
-    function(){
+"DOMContentLoaded",
+()=>{
 
-        loadHeroImage();
+loadHeroImage();
 
-        loadPortfolio();
+loadPortfolio();
 
-        setupReveal();
+setupReveal();
 
-    }
+}
 );
 
 </script>
