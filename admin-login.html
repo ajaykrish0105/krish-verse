@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -12,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap"
+href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
 rel="stylesheet">
 
 <style>
@@ -24,307 +22,154 @@ rel="stylesheet">
 }
 
 :root{
-    --red:#ff1f1f;
-    --black:#050505;
-    --dark:#0b0b0b;
-    --border:#242424;
-    --muted:#777;
+    --red:#b51f2b;
+    --red-dark:#8e1822;
+    --black:#090909;
+    --card:#12110f;
+    --card2:#171512;
+    --border:#2d2925;
+    --text:#f1eee8;
+    --muted:#858078;
 }
 
 body{
-
     min-height:100vh;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    background:var(--black);
-
-    color:#fff;
-
-    font-family:'Inter',sans-serif;
-
     padding:20px;
 
-    overflow:hidden;
+    background:
+        radial-gradient(
+            circle at 75% 20%,
+            rgba(181,31,43,.12),
+            transparent 30%
+        ),
+        #090909;
 
+    color:var(--text);
+
+    font-family:'Manrope',sans-serif;
 }
-
-
-/* =========================
-   BACKGROUND EFFECT
-========================= */
 
 body::before{
-
     content:"";
 
     position:fixed;
-
-    width:550px;
-    height:550px;
-
-    top:-280px;
-    right:-220px;
-
-    background:rgba(255,31,31,.13);
-
-    filter:blur(110px);
-
-    border-radius:50%;
+    inset:0;
 
     pointer-events:none;
 
+    opacity:.035;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-
-body::after{
-
-    content:"";
-
-    position:fixed;
-
-    width:350px;
-    height:350px;
-
-    bottom:-200px;
-    left:-150px;
-
-    background:rgba(255,31,31,.07);
-
-    filter:blur(100px);
-
-    border-radius:50%;
-
-    pointer-events:none;
-
-}
-
-
-/* =========================
-   LOGIN BOX
-========================= */
 
 .login-box{
-
-    position:relative;
-
-    width:100%;
-    max-width:430px;
-
-    background:#0b0b0b;
-
-    border:1px solid #242424;
+    width:min(430px,100%);
 
     padding:42px;
 
+    background:rgba(18,17,15,.96);
+
+    border:1px solid var(--border);
+
     box-shadow:
-        0 30px 100px rgba(0,0,0,.65);
-
-    z-index:2;
-
+        0 35px 100px rgba(0,0,0,.6);
 }
 
-
-/* =========================
-   LOGO
-========================= */
-
 .logo{
+    font-family:'Space Grotesk',sans-serif;
 
-    font-family:'Syne',sans-serif;
-
-    font-size:1.8rem;
-
-    font-weight:800;
+    font-size:1.5rem;
+    font-weight:700;
 
     letter-spacing:-.05em;
 
-    margin-bottom:8px;
-
+    margin-bottom:45px;
 }
 
 .logo span{
     color:var(--red);
 }
 
+.admin-label{
+    color:var(--red);
 
-/* =========================
-   SUBTITLE
-========================= */
+    font-size:.62rem;
+    font-weight:800;
+
+    text-transform:uppercase;
+    letter-spacing:.2em;
+
+    margin-bottom:12px;
+}
+
+h1{
+    font-family:'Space Grotesk',sans-serif;
+
+    font-size:2.8rem;
+
+    line-height:.95;
+
+    letter-spacing:-.06em;
+
+    margin-bottom:12px;
+}
 
 .subtitle{
-
-    color:#777;
+    color:var(--muted);
 
     font-size:.78rem;
 
-    margin-bottom:35px;
+    line-height:1.7;
 
+    margin-bottom:32px;
 }
 
-
-/* =========================
-   ADMIN BADGE
-========================= */
-
-.admin-badge{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:7px;
-
-    padding:7px 10px;
-
-    margin-bottom:25px;
-
-    background:#111;
-
-    border:1px solid #292929;
-
-    color:#888;
-
-    font-size:.58rem;
-
-    font-weight:600;
-
-    text-transform:uppercase;
-
-    letter-spacing:.1em;
-
-}
-
-.admin-dot{
-
-    width:6px;
-    height:6px;
-
-    border-radius:50%;
-
-    background:#48d86a;
-
-    box-shadow:
-        0 0 8px rgba(72,216,106,.5);
-
-}
-
-
-/* =========================
-   INPUT
-========================= */
-
-.input-group{
-
+.field{
     margin-bottom:18px;
-
 }
 
-.label{
-
+label{
     display:block;
-
-    color:#777;
-
-    font-size:.63rem;
-
-    font-weight:600;
-
-    text-transform:uppercase;
-
-    letter-spacing:.12em;
 
     margin-bottom:8px;
 
+    color:#77736d;
+
+    font-size:.62rem;
+    font-weight:800;
+
+    text-transform:uppercase;
+    letter-spacing:.12em;
 }
 
 input{
-
     width:100%;
 
     padding:15px;
 
-    background:#111;
+    background:#0d0c0b;
 
     color:#fff;
 
-    border:1px solid #292929;
+    border:1px solid var(--border);
 
     outline:none;
 
-    font-family:'Inter',sans-serif;
-
-    font-size:.84rem;
-
-    transition:.2s;
-
-}
-
-input::placeholder{
-    color:#444;
+    font-family:inherit;
+    font-size:.82rem;
 }
 
 input:focus{
-
     border-color:var(--red);
-
-    box-shadow:
-        0 0 0 2px rgba(255,31,31,.08);
-
 }
-
-
-/* =========================
-   PASSWORD WRAPPER
-========================= */
-
-.password-wrapper{
-
-    position:relative;
-
-}
-
-.password-wrapper input{
-
-    padding-right:55px;
-
-}
-
-.show-password{
-
-    position:absolute;
-
-    right:0;
-    top:0;
-
-    height:100%;
-
-    width:50px;
-
-    border:0;
-
-    background:transparent;
-
-    color:#555;
-
-    cursor:pointer;
-
-    font-size:.85rem;
-
-}
-
-.show-password:hover{
-    color:#fff;
-}
-
-
-/* =========================
-   LOGIN BUTTON
-========================= */
 
 .login-btn{
-
     width:100%;
 
     padding:16px;
@@ -337,271 +182,111 @@ input:focus{
 
     cursor:pointer;
 
-    font-family:'Syne',sans-serif;
-
-    font-size:.72rem;
-
-    font-weight:700;
+    font-size:.68rem;
+    font-weight:800;
 
     text-transform:uppercase;
-
     letter-spacing:.1em;
 
     transition:.25s;
-
-    margin-top:5px;
-
 }
 
 .login-btn:hover{
-
     background:#fff;
-
-    color:#000;
-
+    color:#111;
 }
 
 .login-btn:disabled{
-
-    opacity:.5;
-
+    opacity:.55;
     cursor:not-allowed;
-
 }
-
-
-/* =========================
-   LOADING
-========================= */
-
-.login-btn.loading{
-
-    position:relative;
-
-}
-
-.login-btn.loading::after{
-
-    content:"";
-
-    display:inline-block;
-
-    width:10px;
-    height:10px;
-
-    margin-left:8px;
-
-    border:2px solid rgba(255,255,255,.35);
-
-    border-top-color:#fff;
-
-    border-radius:50%;
-
-    animation:spin .7s linear infinite;
-
-}
-
-@keyframes spin{
-
-    to{
-        transform:rotate(360deg);
-    }
-
-}
-
-
-/* =========================
-   ERROR
-========================= */
 
 .error{
-
     display:none;
 
-    margin-top:18px;
+    margin-bottom:18px;
 
     padding:13px;
 
-    background:#1b0b0b;
-
     border:1px solid #542323;
 
-    color:#ff7373;
+    background:#1b0b0b;
+
+    color:#ff7474;
 
     font-size:.72rem;
 
     line-height:1.5;
-
 }
-
-.error.show{
-    display:block;
-}
-
-
-/* =========================
-   SUCCESS
-========================= */
-
-.success{
-
-    display:none;
-
-    margin-top:18px;
-
-    padding:13px;
-
-    background:#0b180e;
-
-    border:1px solid #214b28;
-
-    color:#68db79;
-
-    font-size:.72rem;
-
-}
-
-.success.show{
-    display:block;
-}
-
-
-/* =========================
-   BACK
-========================= */
 
 .back{
-
     display:block;
 
     margin-top:25px;
 
     text-align:center;
 
-    color:#555;
+    color:#65615b;
 
-    font-size:.68rem;
+    font-size:.65rem;
 
-    text-decoration:none;
+    text-transform:uppercase;
 
-    transition:.2s;
-
+    letter-spacing:.1em;
 }
 
 .back:hover{
     color:#fff;
 }
 
-
-/* =========================
-   FOOTER
-========================= */
-
-.footer{
-
-    margin-top:30px;
-
-    padding-top:18px;
-
-    border-top:1px solid #1c1c1c;
-
-    text-align:center;
-
-    color:#3f3f3f;
-
-    font-size:.58rem;
-
-    text-transform:uppercase;
-
-    letter-spacing:.08em;
-
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
 @media(max-width:500px){
 
-    body{
-        padding:15px;
-    }
-
     .login-box{
-
-        padding:30px 22px;
-
+        padding:30px 24px;
     }
 
-    .logo{
-
-        font-size:1.6rem;
-
+    h1{
+        font-size:2.35rem;
     }
 
 }
 
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =========================
-     LOGIN BOX
-========================= -->
-
 <div class="login-box">
 
-
-    <!-- LOGO -->
-
     <div class="logo">
-
         krishhhh<span>.verse</span>
-
     </div>
 
-
-    <div class="subtitle">
-
-        Admin Dashboard
-
+    <div class="admin-label">
+        Private Area
     </div>
 
+    <h1>
+        Admin<br>Login
+    </h1>
 
-    <!-- STATUS -->
+    <p class="subtitle">
+        Sign in to manage your portfolio, upload videos
+        and view customer bookings.
+    </p>
 
-    <div class="admin-badge">
-
-        <span class="admin-dot"></span>
-
-        Secure Admin Access
-
-    </div>
-
-
-    <!-- LOGIN FORM -->
+    <div
+        class="error"
+        id="loginError"
+    ></div>
 
     <form id="loginForm">
 
+        <div class="field">
 
-        <!-- EMAIL -->
-
-        <div class="input-group">
-
-            <label
-                class="label"
-                for="email"
-            >
-
-                Email
-
+            <label>
+                Admin Email
             </label>
-
 
             <input
                 type="email"
@@ -613,510 +298,165 @@ input:focus{
 
         </div>
 
+        <div class="field">
 
-        <!-- PASSWORD -->
-
-        <div class="input-group">
-
-            <label
-                class="label"
-                for="password"
-            >
-
+            <label>
                 Password
-
             </label>
 
-
-            <div class="password-wrapper">
-
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter password"
-                    autocomplete="current-password"
-                    required
-                >
-
-
-                <button
-                    type="button"
-                    class="show-password"
-                    id="showPassword"
-                    aria-label="Show password"
-                >
-
-                    👁
-
-                </button>
-
-            </div>
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter password"
+                autocomplete="current-password"
+                required
+            >
 
         </div>
-
-
-        <!-- LOGIN -->
 
         <button
-            type="submit"
             class="login-btn"
             id="loginBtn"
+            type="submit"
         >
-
-            Login to Dashboard
-
+            Login to Dashboard →
         </button>
 
-
-        <!-- ERROR -->
-
-        <div
-            class="error"
-            id="errorBox"
-        ></div>
-
-
-        <!-- SUCCESS -->
-
-        <div
-            class="success"
-            id="successBox"
-        >
-
-            ✅ Login successful. Opening dashboard...
-
-        </div>
-
-
     </form>
-
-
-    <!-- BACK -->
 
     <a
         href="index.html"
         class="back"
     >
-
         ← Back to website
-
     </a>
-
-
-    <div class="footer">
-
-        krishhhh.verse · Admin Panel
-
-    </div>
-
 
 </div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 
-
-/* =========================================================
-   SUPABASE CONFIG
-========================================================= */
-
 const SUPABASE_URL =
-    "https://idnaxcwiskgzyodrlhzi.supabase.co";
-
+"https://idnaxcwiskgzyodrlhzi.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC";
+"sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC";
 
 
-/* =========================================================
-   ELEMENTS
-========================================================= */
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
 
 const loginForm =
-    document.getElementById(
-        "loginForm"
-    );
-
+    document.getElementById("loginForm");
 
 const loginBtn =
-    document.getElementById(
-        "loginBtn"
-    );
+    document.getElementById("loginBtn");
 
+const loginError =
+    document.getElementById("loginError");
 
-const errorBox =
-    document.getElementById(
-        "errorBox"
-    );
-
-
-const successBox =
-    document.getElementById(
-        "successBox"
-    );
-
-
-const emailInput =
-    document.getElementById(
-        "email"
-    );
-
-
-const passwordInput =
-    document.getElementById(
-        "password"
-    );
-
-
-const showPassword =
-    document.getElementById(
-        "showPassword"
-    );
-
-
-/* =========================================================
-   CHECK EXISTING SESSION
-========================================================= */
-
-const existingSession =
-    localStorage.getItem(
-        "krish_admin_session"
-    );
-
-
-if(existingSession){
-
-    try{
-
-        const session =
-            JSON.parse(
-                existingSession
-            );
-
-
-        /*
-           Check whether access token
-           actually exists.
-        */
-
-        if(
-            session &&
-            session.access_token
-        ){
-
-            window.location.href =
-                "admin.html";
-
-        }
-
-    }
-    catch(error){
-
-        localStorage.removeItem(
-            "krish_admin_session"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   SHOW / HIDE PASSWORD
-========================================================= */
-
-showPassword.addEventListener(
-    "click",
-    function(){
-
-        if(
-            passwordInput.type ===
-            "password"
-        ){
-
-            passwordInput.type =
-                "text";
-
-            showPassword.textContent =
-                "🙈";
-
-        }
-        else{
-
-            passwordInput.type =
-                "password";
-
-            showPassword.textContent =
-                "👁";
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   HIDE MESSAGES
-========================================================= */
-
-function hideMessages(){
-
-    errorBox.classList.remove(
-        "show"
-    );
-
-    successBox.classList.remove(
-        "show"
-    );
-
-    errorBox.textContent =
-        "";
-
-}
-
-
-/* =========================================================
-   SHOW ERROR
-========================================================= */
 
 function showError(message){
 
-    errorBox.textContent =
-        "❌ " + message;
+    loginError.textContent =
+        message;
 
-    errorBox.classList.add(
-        "show"
-    );
+    loginError.style.display =
+        "block";
 
 }
 
 
-/* =========================================================
-   LOGIN
-========================================================= */
+async function checkExistingSession(){
+
+    const {
+        data
+    } =
+    await supabaseClient.auth.getSession();
+
+    if(
+        data &&
+        data.session
+    ){
+
+        window.location.href =
+            "admin.html";
+
+    }
+
+}
+
 
 loginForm.addEventListener(
     "submit",
-    async function(e){
+    async function(event){
 
-        e.preventDefault();
+        event.preventDefault();
 
+        loginError.style.display =
+            "none";
 
         const email =
-            emailInput.value.trim();
-
+            document
+                .getElementById("email")
+                .value
+                .trim();
 
         const password =
-            passwordInput.value;
-
-
-        hideMessages();
-
-
-        if(!email){
-
-            showError(
-                "Please enter your email."
-            );
-
-            emailInput.focus();
-
-            return;
-
-        }
-
-
-        if(!password){
-
-            showError(
-                "Please enter your password."
-            );
-
-            passwordInput.focus();
-
-            return;
-
-        }
+            document
+                .getElementById("password")
+                .value;
 
 
         loginBtn.disabled =
             true;
 
-
-        loginBtn.classList.add(
-            "loading"
-        );
-
-
         loginBtn.textContent =
-            "Logging in...";
+            "Signing in...";
 
 
         try{
 
+            const {
+                data,
+                error
+            } =
+            await supabaseClient.auth.signInWithPassword({
 
-            /* =================================================
-               SUPABASE AUTH
-            ================================================= */
+                email:email,
 
-            const response =
-                await fetch(
+                password:password
 
-                    SUPABASE_URL +
-                    "/auth/v1/token?grant_type=password",
-
-                    {
-
-                        method:"POST",
-
-                        headers:{
-
-                            "apikey":
-                                SUPABASE_KEY,
-
-                            "Content-Type":
-                                "application/json",
-
-                            "Accept":
-                                "application/json"
-
-                        },
-
-                        body:
-                            JSON.stringify({
-
-                                email:
-                                    email,
-
-                                password:
-                                    password
-
-                            })
-
-                    }
-
-                );
+            });
 
 
-            let data;
+            if(error){
 
-
-            try{
-
-                data =
-                    await response.json();
-
-            }
-            catch{
-
-                data = {};
+                throw error;
 
             }
 
-
-            /* =================================================
-               LOGIN ERROR
-            ================================================= */
-
-            if(!response.ok){
-
-                let errorMessage =
-                    "Invalid email or password.";
-
-
-                if(
-                    data.error_description
-                ){
-
-                    errorMessage =
-                        data.error_description;
-
-                }
-                else if(
-                    data.msg
-                ){
-
-                    errorMessage =
-                        data.msg;
-
-                }
-                else if(
-                    data.message
-                ){
-
-                    errorMessage =
-                        data.message;
-
-                }
-
-
-                throw new Error(
-                    errorMessage
-                );
-
-            }
-
-
-            /* =================================================
-               VALIDATE SESSION
-            ================================================= */
 
             if(
-                !data.access_token
+                !data ||
+                !data.session
             ){
 
                 throw new Error(
-                    "Login succeeded but no access token was received."
+                    "Login session could not be created."
                 );
 
             }
 
 
-            /* =================================================
-               SAVE SESSION
-            ================================================= */
-
-            localStorage.setItem(
-
-                "krish_admin_session",
-
-                JSON.stringify(data)
-
-            );
-
-
-            /* =================================================
-               SUCCESS
-            ================================================= */
-
-            successBox.classList.add(
-                "show"
-            );
-
-
-            loginBtn.textContent =
-                "Success ✓";
-
-
-            loginBtn.classList.remove(
-                "loading"
-            );
-
-
-            /* =================================================
-               REDIRECT
-            ================================================= */
-
-            setTimeout(
-                function(){
-
-                    window.location.href =
-                        "admin.html";
-
-                },
-                700
-            );
-
+            window.location.href =
+                "admin.html";
 
         }
         catch(error){
@@ -1129,21 +469,15 @@ loginForm.addEventListener(
 
             showError(
                 error.message ||
-                "Unable to login. Please try again."
+                "Invalid email or password."
             );
 
 
             loginBtn.disabled =
                 false;
 
-
-            loginBtn.classList.remove(
-                "loading"
-            );
-
-
             loginBtn.textContent =
-                "Login to Dashboard";
+                "Login to Dashboard →";
 
         }
 
@@ -1151,29 +485,9 @@ loginForm.addEventListener(
 );
 
 
-/* =========================================================
-   ENTER KEY SUPPORT
-========================================================= */
-
-passwordInput.addEventListener(
-    "keydown",
-    function(e){
-
-        if(
-            e.key === "Enter"
-        ){
-
-            loginForm.requestSubmit();
-
-        }
-
-    }
-);
-
+checkExistingSession();
 
 </script>
 
-
 </body>
-
 </html>
