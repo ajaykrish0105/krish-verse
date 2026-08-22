@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -22,42 +23,77 @@ rel="stylesheet">
 }
 
 :root{
+
     --red:#b51f2b;
     --red-dark:#8e1822;
+
     --black:#090909;
+    --black2:#0d0c0b;
+
     --card:#12110f;
     --card2:#171512;
+
     --border:#2d2925;
-    --text:#f1eee8;
+
+    --white:#f1eee8;
     --muted:#858078;
+    --muted2:#5e5a54;
+
+    --green:#5ddd78;
+
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
+
     min-height:100vh;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     padding:20px;
 
     background:
+
         radial-gradient(
-            circle at 75% 20%,
-            rgba(181,31,43,.12),
+            circle at 20% 20%,
+            rgba(181,31,43,.10),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 80% 75%,
+            rgba(181,31,43,.08),
             transparent 30%
         ),
+
         #090909;
 
-    color:var(--text);
+    color:var(--white);
 
     font-family:'Manrope',sans-serif;
+
+    overflow-x:hidden;
+
 }
 
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
 body::before{
+
     content:"";
 
     position:fixed;
+
     inset:0;
 
     pointer-events:none;
@@ -65,93 +101,425 @@ body::before{
     opacity:.035;
 
     background-image:
+
         url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
 }
 
-.login-box{
-    width:min(430px,100%);
 
-    padding:42px;
+/* =========================================================
+   DECORATIVE GRID
+========================================================= */
 
-    background:rgba(18,17,15,.96);
+.bg-grid{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:.08;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size:50px 50px;
+
+    mask-image:
+        radial-gradient(
+            circle,
+            black,
+            transparent 75%
+        );
+
+}
+
+
+/* =========================================================
+   LOGIN WRAPPER
+========================================================= */
+
+.login-wrapper{
+
+    position:relative;
+
+    z-index:2;
+
+    width:min(950px,100%);
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
 
     border:1px solid var(--border);
 
+    background:#0f0e0d;
+
     box-shadow:
-        0 35px 100px rgba(0,0,0,.6);
+        0 40px 120px rgba(0,0,0,.65);
+
 }
 
+
+/* =========================================================
+   LEFT PANEL
+========================================================= */
+
+.login-info{
+
+    min-height:620px;
+
+    padding:50px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    border-right:1px solid var(--border);
+
+    background:
+
+        radial-gradient(
+            circle at 20% 30%,
+            rgba(181,31,43,.12),
+            transparent 35%
+        ),
+
+        #0d0c0b;
+
+}
+
+
 .logo{
+
     font-family:'Space Grotesk',sans-serif;
 
     font-size:1.5rem;
+
     font-weight:700;
 
     letter-spacing:-.05em;
 
-    margin-bottom:45px;
 }
+
 
 .logo span{
+
     color:var(--red);
+
 }
 
+
+.info-content{
+
+    max-width:360px;
+
+}
+
+
 .admin-label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
     color:var(--red);
 
-    font-size:.62rem;
+    font-size:.6rem;
+
     font-weight:800;
 
     text-transform:uppercase;
+
     letter-spacing:.2em;
 
-    margin-bottom:12px;
+    margin-bottom:18px;
+
 }
 
-h1{
+
+.admin-dot{
+
+    width:7px;
+
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--red);
+
+    box-shadow:
+        0 0 12px rgba(181,31,43,.7);
+
+}
+
+
+.info-title{
+
     font-family:'Space Grotesk',sans-serif;
 
-    font-size:2.8rem;
+    font-size:clamp(3rem,5vw,5rem);
+
+    line-height:.88;
+
+    letter-spacing:-.07em;
+
+    margin-bottom:25px;
+
+}
+
+
+.info-title span{
+
+    color:var(--red);
+
+}
+
+
+.info-description{
+
+    max-width:330px;
+
+    color:#6f6a63;
+
+    font-size:.72rem;
+
+    line-height:1.8;
+
+}
+
+
+.info-footer{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+
+.info-footer-line{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:#4f4b46;
+
+    font-size:.58rem;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:.1em;
+
+}
+
+
+.info-footer-line span:first-child{
+
+    color:var(--red);
+
+}
+
+
+/* =========================================================
+   LOGIN PANEL
+========================================================= */
+
+.login-panel{
+
+    min-height:620px;
+
+    padding:50px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    background:#12110f;
+
+}
+
+
+.panel-heading{
+
+    margin-bottom:30px;
+
+}
+
+
+.panel-eyebrow{
+
+    color:#65615b;
+
+    font-size:.58rem;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:.18em;
+
+    margin-bottom:9px;
+
+}
+
+
+h1{
+
+    font-family:'Space Grotesk',sans-serif;
+
+    font-size:2.6rem;
 
     line-height:.95;
 
     letter-spacing:-.06em;
 
-    margin-bottom:12px;
 }
 
-.subtitle{
-    color:var(--muted);
 
-    font-size:.78rem;
+.subtitle{
+
+    margin-top:12px;
+
+    color:#706c66;
+
+    font-size:.7rem;
 
     line-height:1.7;
 
-    margin-bottom:32px;
 }
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.error{
+
+    display:none;
+
+    margin-bottom:18px;
+
+    padding:13px 14px;
+
+    border:1px solid #542323;
+
+    background:#1b0b0b;
+
+    color:#ff7474;
+
+    font-size:.68rem;
+
+    line-height:1.5;
+
+}
+
+
+.error.show{
+
+    display:block;
+
+}
+
+
+/* =========================================================
+   SUCCESS
+========================================================= */
+
+.success{
+
+    display:none;
+
+    margin-bottom:18px;
+
+    padding:13px 14px;
+
+    border:1px solid #244b2b;
+
+    background:#0c1b10;
+
+    color:var(--green);
+
+    font-size:.68rem;
+
+    line-height:1.5;
+
+}
+
+
+.success.show{
+
+    display:block;
+
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
 
 .field{
+
     margin-bottom:18px;
+
 }
 
+
 label{
+
     display:block;
 
     margin-bottom:8px;
 
     color:#77736d;
 
-    font-size:.62rem;
+    font-size:.59rem;
+
     font-weight:800;
 
     text-transform:uppercase;
+
     letter-spacing:.12em;
+
 }
 
+
+.input-wrap{
+
+    position:relative;
+
+}
+
+
 input{
+
     width:100%;
 
-    padding:15px;
+    padding:15px 45px 15px 14px;
 
     background:#0d0c0b;
 
@@ -162,17 +530,80 @@ input{
     outline:none;
 
     font-family:inherit;
-    font-size:.82rem;
+
+    font-size:.78rem;
+
+    transition:.2s;
+
 }
+
+
+input::placeholder{
+
+    color:#4f4b46;
+
+}
+
 
 input:focus{
+
     border-color:var(--red);
+
+    box-shadow:
+        0 0 0 1px rgba(181,31,43,.12);
+
 }
 
+
+/* =========================================================
+   PASSWORD TOGGLE
+========================================================= */
+
+.password-toggle{
+
+    position:absolute;
+
+    top:50%;
+
+    right:10px;
+
+    transform:translateY(-50%);
+
+    width:32px;
+
+    height:32px;
+
+    border:0;
+
+    background:transparent;
+
+    color:#67625b;
+
+    cursor:pointer;
+
+    font-size:.9rem;
+
+}
+
+
+.password-toggle:hover{
+
+    color:#fff;
+
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
 .login-btn{
+
     width:100%;
 
     padding:16px;
+
+    margin-top:5px;
 
     border:0;
 
@@ -182,164 +613,534 @@ input:focus{
 
     cursor:pointer;
 
-    font-size:.68rem;
+    font-size:.62rem;
+
     font-weight:800;
 
     text-transform:uppercase;
+
     letter-spacing:.1em;
 
     transition:.25s;
+
 }
+
 
 .login-btn:hover{
+
     background:#fff;
+
     color:#111;
+
 }
+
 
 .login-btn:disabled{
+
     opacity:.55;
+
     cursor:not-allowed;
+
 }
 
-.error{
-    display:none;
 
-    margin-bottom:18px;
+/* =========================================================
+   BUTTON LOADER
+========================================================= */
 
-    padding:13px;
+.btn-loading{
 
-    border:1px solid #542323;
+    display:inline-flex;
 
-    background:#1b0b0b;
+    align-items:center;
 
-    color:#ff7474;
+    justify-content:center;
 
-    font-size:.72rem;
+    gap:9px;
 
-    line-height:1.5;
 }
+
+
+.spinner{
+
+    width:12px;
+
+    height:12px;
+
+    border:2px solid rgba(255,255,255,.35);
+
+    border-top-color:#fff;
+
+    border-radius:50%;
+
+    animation:spin .7s linear infinite;
+
+}
+
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   BACK LINK
+========================================================= */
 
 .back{
+
     display:block;
 
     margin-top:25px;
+
+    padding-top:20px;
+
+    border-top:1px solid #24211e;
 
     text-align:center;
 
     color:#65615b;
 
-    font-size:.65rem;
+    font-size:.59rem;
+
+    font-weight:800;
 
     text-transform:uppercase;
 
     letter-spacing:.1em;
+
+    transition:.2s;
+
 }
 
+
 .back:hover{
+
     color:#fff;
+
 }
+
+
+.back span{
+
+    color:var(--red);
+
+}
+
+
+/* =========================================================
+   SECURITY INFO
+========================================================= */
+
+.security{
+
+    margin-top:20px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:7px;
+
+    color:#4e4a45;
+
+    font-size:.52rem;
+
+    text-transform:uppercase;
+
+    letter-spacing:.08em;
+
+}
+
+
+.security-icon{
+
+    color:#5d9d68;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:800px){
+
+    .login-wrapper{
+
+        grid-template-columns:1fr;
+
+        max-width:500px;
+
+    }
+
+
+    .login-info{
+
+        min-height:auto;
+
+        padding:35px;
+
+        border-right:0;
+
+        border-bottom:1px solid var(--border);
+
+    }
+
+
+    .info-content{
+
+        margin-top:45px;
+
+        margin-bottom:40px;
+
+    }
+
+
+    .info-title{
+
+        font-size:3.5rem;
+
+    }
+
+
+    .login-panel{
+
+        min-height:auto;
+
+        padding:35px;
+
+    }
+
+}
+
 
 @media(max-width:500px){
 
-    .login-box{
-        padding:30px 24px;
+    body{
+
+        padding:12px;
+
     }
 
+
+    .login-info{
+
+        padding:28px 24px;
+
+    }
+
+
+    .login-panel{
+
+        padding:28px 24px;
+
+    }
+
+
+    .info-title{
+
+        font-size:3rem;
+
+    }
+
+
     h1{
-        font-size:2.35rem;
+
+        font-size:2.25rem;
+
+    }
+
+
+    .info-description{
+
+        font-size:.68rem;
+
     }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
-<div class="login-box">
+<div class="bg-grid"></div>
 
-    <div class="logo">
-        krishhhh<span>.verse</span>
-    </div>
 
-    <div class="admin-label">
-        Private Area
-    </div>
+<div class="login-wrapper">
 
-    <h1>
-        Admin<br>Login
-    </h1>
 
-    <p class="subtitle">
-        Sign in to manage your portfolio, upload videos
-        and view customer bookings.
-    </p>
+    <!-- =====================================================
+         LEFT INFO
+    ====================================================== -->
 
-    <div
-        class="error"
-        id="loginError"
-    ></div>
+    <section class="login-info">
 
-    <form id="loginForm">
 
-        <div class="field">
+        <div class="logo">
 
-            <label>
-                Admin Email
-            </label>
-
-            <input
-                type="email"
-                id="email"
-                placeholder="admin@email.com"
-                autocomplete="email"
-                required
-            >
+            krishhhh<span>.verse</span>
 
         </div>
 
-        <div class="field">
 
-            <label>
-                Password
-            </label>
+        <div class="info-content">
 
-            <input
-                type="password"
-                id="password"
-                placeholder="Enter password"
-                autocomplete="current-password"
-                required
-            >
+            <div class="admin-label">
+
+                <span class="admin-dot"></span>
+
+                Private Area
+
+            </div>
+
+
+            <div class="info-title">
+
+                Create.<br>
+
+                Edit.<br>
+
+                <span>Repeat.</span>
+
+            </div>
+
+
+            <p class="info-description">
+
+                Your private control panel for managing
+                portfolio work, videos, images and
+                customer bookings.
+
+            </p>
 
         </div>
 
-        <button
-            class="login-btn"
-            id="loginBtn"
-            type="submit"
+
+        <div class="info-footer">
+
+            <div class="info-footer-line">
+
+                <span>●</span>
+
+                Portfolio Management
+
+            </div>
+
+            <div class="info-footer-line">
+
+                <span>●</span>
+
+                Media Upload System
+
+            </div>
+
+            <div class="info-footer-line">
+
+                <span>●</span>
+
+                Customer Bookings
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         LOGIN PANEL
+    ====================================================== -->
+
+    <section class="login-panel">
+
+
+        <div class="panel-heading">
+
+            <div class="panel-eyebrow">
+
+                Admin Control
+
+            </div>
+
+
+            <h1>
+
+                Admin<br>Login
+
+            </h1>
+
+
+            <p class="subtitle">
+
+                Sign in to continue to your
+                krishhhh.verse dashboard.
+
+            </p>
+
+        </div>
+
+
+        <!-- ERROR -->
+
+        <div
+            class="error"
+            id="loginError"
+        ></div>
+
+
+        <!-- SUCCESS -->
+
+        <div
+            class="success"
+            id="loginSuccess"
+        ></div>
+
+
+
+        <!-- FORM -->
+
+        <form
+            id="loginForm"
+            autocomplete="on"
         >
-            Login to Dashboard →
-        </button>
 
-    </form>
 
-    <a
-        href="index.html"
-        class="back"
-    >
-        ← Back to website
-    </a>
+            <div class="field">
+
+                <label for="email">
+
+                    Admin Email
+
+                </label>
+
+
+                <div class="input-wrap">
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="admin@email.com"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <div class="field">
+
+                <label for="password">
+
+                    Password
+
+                </label>
+
+
+                <div class="input-wrap">
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        id="passwordToggle"
+                        aria-label="Show password"
+                    >
+
+                        ◉
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <button
+                class="login-btn"
+                id="loginBtn"
+                type="submit"
+            >
+
+                Login to Dashboard →
+
+            </button>
+
+
+        </form>
+
+
+
+        <a
+            href="index.html"
+            class="back"
+        >
+
+            <span>←</span>
+            Back to website
+
+        </a>
+
+
+        <div class="security">
+
+            <span class="security-icon">
+                🔒
+            </span>
+
+            Secure Supabase Authentication
+
+        </div>
+
+
+    </section>
+
 
 </div>
 
 
+
+<!-- =========================================================
+     SUPABASE
+========================================================= -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
+/* =========================================================
+   SUPABASE CONFIG
+========================================================= */
+
 const SUPABASE_URL =
 "https://idnaxcwiskgzyodrlhzi.supabase.co";
+
 
 const SUPABASE_KEY =
 "sb_publishable_I4tdxFDZe6P8Wq215eRlLg_J3c85jAC";
@@ -352,46 +1153,202 @@ const supabaseClient =
     );
 
 
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
 const loginForm =
-    document.getElementById("loginForm");
+    document.getElementById(
+        "loginForm"
+    );
+
 
 const loginBtn =
-    document.getElementById("loginBtn");
+    document.getElementById(
+        "loginBtn"
+    );
+
 
 const loginError =
-    document.getElementById("loginError");
+    document.getElementById(
+        "loginError"
+    );
 
+
+const loginSuccess =
+    document.getElementById(
+        "loginSuccess"
+    );
+
+
+const passwordInput =
+    document.getElementById(
+        "password"
+    );
+
+
+const passwordToggle =
+    document.getElementById(
+        "passwordToggle"
+    );
+
+
+/* =========================================================
+   SHOW ERROR
+========================================================= */
 
 function showError(message){
+
+    loginSuccess.classList.remove(
+        "show"
+    );
+
 
     loginError.textContent =
         message;
 
-    loginError.style.display =
-        "block";
+
+    loginError.classList.add(
+        "show"
+    );
 
 }
 
 
+/* =========================================================
+   SHOW SUCCESS
+========================================================= */
+
+function showSuccess(message){
+
+    loginError.classList.remove(
+        "show"
+    );
+
+
+    loginSuccess.textContent =
+        message;
+
+
+    loginSuccess.classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   PASSWORD SHOW / HIDE
+========================================================= */
+
+passwordToggle.addEventListener(
+    "click",
+    function(){
+
+        const isPassword =
+            passwordInput.type ===
+            "password";
+
+
+        passwordInput.type =
+            isPassword
+            ? "text"
+            : "password";
+
+
+        this.textContent =
+            isPassword
+            ? "◉"
+            : "◎";
+
+
+        this.setAttribute(
+            "aria-label",
+            isPassword
+            ? "Hide password"
+            : "Show password"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   CHECK EXISTING SESSION
+========================================================= */
+
 async function checkExistingSession(){
 
-    const {
-        data
-    } =
-    await supabaseClient.auth.getSession();
+    try{
 
-    if(
-        data &&
-        data.session
-    ){
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.auth.getSession();
 
-        window.location.href =
-            "admin.html";
+
+        if(error){
+
+            console.error(
+                "SESSION CHECK ERROR:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        if(
+            data &&
+            data.session
+        ){
+
+            window.location.replace(
+                "admin.html"
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "SESSION CHECK ERROR:",
+            error
+        );
 
     }
 
 }
 
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+    function(event, session){
+
+        if(
+            event === "SIGNED_IN" &&
+            session
+        ){
+
+            window.location.replace(
+                "admin.html"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
 
 loginForm.addEventListener(
     "submit",
@@ -399,26 +1356,70 @@ loginForm.addEventListener(
 
         event.preventDefault();
 
-        loginError.style.display =
-            "none";
+
+        loginError.classList.remove(
+            "show"
+        );
+
+        loginSuccess.classList.remove(
+            "show"
+        );
+
 
         const email =
             document
-                .getElementById("email")
+                .getElementById(
+                    "email"
+                )
                 .value
                 .trim();
 
+
         const password =
             document
-                .getElementById("password")
+                .getElementById(
+                    "password"
+                )
                 .value;
+
+
+        if(!email){
+
+            showError(
+                "Please enter your admin email."
+            );
+
+            return;
+
+        }
+
+
+        if(!password){
+
+            showError(
+                "Please enter your password."
+            );
+
+            return;
+
+        }
 
 
         loginBtn.disabled =
             true;
 
-        loginBtn.textContent =
-            "Signing in...";
+
+        loginBtn.innerHTML = `
+
+            <span class="btn-loading">
+
+                <span class="spinner"></span>
+
+                Signing in...
+
+            </span>
+
+        `;
 
 
         try{
@@ -427,13 +1428,14 @@ loginForm.addEventListener(
                 data,
                 error
             } =
-            await supabaseClient.auth.signInWithPassword({
+            await supabaseClient.auth
+                .signInWithPassword({
 
-                email:email,
+                    email:email,
 
-                password:password
+                    password:password
 
-            });
+                });
 
 
             if(error){
@@ -455,8 +1457,25 @@ loginForm.addEventListener(
             }
 
 
-            window.location.href =
-                "admin.html";
+            showSuccess(
+                "Login successful. Opening dashboard..."
+            );
+
+
+            loginBtn.innerHTML =
+                "Opening Dashboard...";
+
+
+            setTimeout(
+                function(){
+
+                    window.location.replace(
+                        "admin.html"
+                    );
+
+                },
+                400
+            );
 
         }
         catch(error){
@@ -467,14 +1486,62 @@ loginForm.addEventListener(
             );
 
 
+            let message =
+                "Invalid email or password.";
+
+
+            if(
+                error &&
+                error.message
+            ){
+
+                message =
+                    error.message;
+
+            }
+
+
+            /*
+               Make Supabase errors
+               easier for the admin to understand.
+            */
+
+            if(
+                message
+                    .toLowerCase()
+                    .includes(
+                        "invalid login credentials"
+                    )
+            ){
+
+                message =
+                    "Invalid admin email or password.";
+
+            }
+
+
+            if(
+                message
+                    .toLowerCase()
+                    .includes(
+                        "email not confirmed"
+                    )
+            ){
+
+                message =
+                    "Your admin email has not been confirmed in Supabase.";
+
+            }
+
+
             showError(
-                error.message ||
-                "Invalid email or password."
+                "❌ " + message
             );
 
 
             loginBtn.disabled =
                 false;
+
 
             loginBtn.textContent =
                 "Login to Dashboard →";
@@ -484,6 +1551,30 @@ loginForm.addEventListener(
     }
 );
 
+
+/* =========================================================
+   ENTER KEY
+========================================================= */
+
+passwordInput.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Enter"
+        ){
+
+            loginForm.requestSubmit();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   START
+========================================================= */
 
 checkExistingSession();
 
