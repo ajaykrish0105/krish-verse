@@ -4,6 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -20,6 +21,10 @@ rel="stylesheet">
 
 <style>
 
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
     margin:0;
     padding:0;
@@ -30,6 +35,7 @@ rel="stylesheet">
 
     --red:#b51f2b;
     --red-dark:#8e1822;
+    --red-soft:#d52a37;
 
     --black:#090909;
     --black2:#0d0c0b;
@@ -45,6 +51,8 @@ rel="stylesheet">
 
     --green:#5ddd78;
 
+    --ease:cubic-bezier(.22,1,.36,1);
+
 }
 
 html{
@@ -55,11 +63,19 @@ body{
 
     min-height:100vh;
 
-    background:#090909;
+    background:
+        radial-gradient(
+            circle at 80% 0%,
+            rgba(181,31,43,.055),
+            transparent 28%
+        ),
+        #090909;
 
     color:var(--white);
 
     font-family:'Manrope',sans-serif;
+
+    overflow-x:hidden;
 
 }
 
@@ -77,6 +93,35 @@ button{
 a{
     color:inherit;
     text-decoration:none;
+}
+
+
+/* =========================================================
+   GLOBAL LIGHT EFFECT
+========================================================= */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,.012) 1px,
+            transparent 1px
+        );
+
+    background-size:100% 4px;
+
+    opacity:.12;
+
+    z-index:9999;
+
 }
 
 
@@ -123,6 +168,16 @@ a{
 
     letter-spacing:-.05em;
 
+    transition:
+        transform .25s var(--ease);
+
+}
+
+.logo:hover{
+
+    transform:
+        translateY(-2px);
+
 }
 
 .logo span{
@@ -157,7 +212,11 @@ a{
 
     letter-spacing:.08em;
 
-    transition:.2s;
+    transition:
+        border-color .2s,
+        color .2s,
+        background .2s,
+        transform .2s;
 
 }
 
@@ -167,6 +226,9 @@ a{
 
     color:#fff;
 
+    transform:
+        translateY(-1px);
+
 }
 
 .logout-btn:hover{
@@ -174,6 +236,97 @@ a{
     background:var(--red);
 
     border-color:var(--red);
+
+}
+
+
+/* =========================================================
+   FLOATING ADOBE BADGES
+========================================================= */
+
+.adobe-floating{
+
+    position:fixed;
+
+    z-index:20;
+
+    pointer-events:none;
+
+    user-select:none;
+
+}
+
+.adobe-badge{
+
+    width:46px;
+    height:46px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:#111;
+
+    border:1px solid #302c28;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
+
+    font-family:'Space Grotesk',sans-serif;
+
+    font-weight:800;
+
+    font-size:.85rem;
+
+    transition:
+        transform .3s var(--ease);
+
+}
+
+.premiere-float{
+
+    right:24px;
+
+    bottom:24px;
+
+    animation:
+        adobeFloat 5s ease-in-out infinite;
+
+}
+
+.aftereffects-float{
+
+    right:78px;
+
+    bottom:46px;
+
+    animation:
+        adobeFloat 6s ease-in-out infinite reverse;
+
+}
+
+.pr-badge{
+
+    color:#39a9ff;
+
+}
+
+.ae-badge{
+
+    color:#9b75ff;
+
+}
+
+@keyframes adobeFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
 
 }
 
@@ -263,6 +416,12 @@ a{
 
     letter-spacing:.06em;
 
+    transition:
+        background .2s,
+        border-color .2s,
+        color .2s,
+        transform .2s;
+
 }
 
 .side-link:hover,
@@ -273,6 +432,9 @@ a{
     border-color:#2b2723;
 
     color:#fff;
+
+    transform:
+        translateX(2px);
 
 }
 
@@ -312,11 +474,28 @@ a{
 
     display:none;
 
+    animation:
+        pageIn .35s var(--ease);
+
 }
 
 .page.active{
 
     display:block;
+
+}
+
+@keyframes pageIn{
+
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 
 }
 
@@ -401,11 +580,48 @@ a{
 
 .stat{
 
+    position:relative;
+
+    overflow:hidden;
+
     padding:22px;
 
     background:var(--card);
 
     border:1px solid var(--border);
+
+    transition:
+        transform .25s var(--ease),
+        border-color .25s;
+
+}
+
+.stat::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:80px;
+    height:80px;
+
+    right:-35px;
+    bottom:-35px;
+
+    border-radius:50%;
+
+    background:
+        rgba(181,31,43,.06);
+
+}
+
+.stat:hover{
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        #413a35;
 
 }
 
@@ -457,6 +673,16 @@ a{
     padding:25px;
 
     margin-bottom:20px;
+
+    transition:
+        border-color .25s;
+
+}
+
+.card:hover{
+
+    border-color:
+        #39342f;
 
 }
 
@@ -528,7 +754,10 @@ a{
 
     background:#0d0c0b;
 
-    transition:.25s;
+    transition:
+        border-color .25s,
+        background .25s,
+        transform .25s var(--ease);
 
 }
 
@@ -537,6 +766,9 @@ a{
     border-color:var(--red);
 
     background:#12100f;
+
+    transform:
+        translateY(-2px);
 
 }
 
@@ -594,6 +826,11 @@ a{
 
     letter-spacing:.08em;
 
+    transition:
+        background .2s,
+        color .2s,
+        transform .2s;
+
 }
 
 .file-btn:hover{
@@ -602,12 +839,76 @@ a{
 
     color:#111;
 
+    transform:
+        translateY(-1px);
+
 }
 
 input[type="file"]{
 
     display:none;
 
+}
+
+
+/* =========================================================
+   ADOBE UPLOAD BRANDING
+========================================================= */
+
+.adobe-upload-brand{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:9px;
+
+    margin-top:18px;
+
+    padding-top:14px;
+
+    border-top:1px solid #25221f;
+
+    color:#55514b;
+
+    font-size:.52rem;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:.12em;
+
+}
+
+.adobe-mini{
+
+    width:23px;
+    height:23px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:#151311;
+
+    border:1px solid #2d2925;
+
+    font-family:'Space Grotesk',sans-serif;
+
+    font-size:.5rem;
+
+}
+
+.adobe-mini.pr{
+    color:#39a9ff;
+}
+
+.adobe-mini.ae{
+    color:#9b75ff;
 }
 
 
@@ -675,6 +976,10 @@ textarea{
 
     font-size:.75rem;
 
+    transition:
+        border-color .2s,
+        background .2s;
+
 }
 
 input:focus,
@@ -682,6 +987,8 @@ select:focus,
 textarea:focus{
 
     border-color:var(--red);
+
+    background:#100f0e;
 
 }
 
@@ -711,6 +1018,11 @@ textarea{
 
     letter-spacing:.08em;
 
+    transition:
+        background .2s,
+        color .2s,
+        transform .2s;
+
 }
 
 .primary-btn:hover{
@@ -719,6 +1031,9 @@ textarea{
 
     color:#111;
 
+    transform:
+        translateY(-1px);
+
 }
 
 .primary-btn:disabled{
@@ -726,6 +1041,8 @@ textarea{
     opacity:.45;
 
     cursor:not-allowed;
+
+    transform:none;
 
 }
 
@@ -848,6 +1165,20 @@ textarea{
 
     border:1px solid var(--border);
 
+    transition:
+        transform .3s var(--ease),
+        border-color .25s;
+
+}
+
+.portfolio-card:hover{
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        #423b36;
+
 }
 
 .media-preview{
@@ -877,12 +1208,51 @@ textarea{
 
 }
 
+.media-preview video{
+
+    cursor:pointer;
+
+}
+
+.media-preview img{
+
+    cursor:pointer;
+
+}
+
+.media-preview iframe{
+
+    pointer-events:auto;
+
+}
+
+.media-preview::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent 65%,
+            rgba(0,0,0,.45)
+        );
+
+}
+
 .media-type{
 
     position:absolute;
 
     top:10px;
     left:10px;
+
+    z-index:2;
 
     padding:5px 8px;
 
@@ -899,6 +1269,34 @@ textarea{
     text-transform:uppercase;
 
     letter-spacing:.08em;
+
+}
+
+.preview-hint{
+
+    position:absolute;
+
+    right:10px;
+
+    bottom:10px;
+
+    z-index:3;
+
+    padding:6px 8px;
+
+    background:rgba(0,0,0,.72);
+
+    border:1px solid rgba(255,255,255,.1);
+
+    color:#ddd;
+
+    font-size:.48rem;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:.06em;
 
 }
 
@@ -962,6 +1360,11 @@ textarea{
 
     letter-spacing:.05em;
 
+    transition:
+        border-color .2s,
+        color .2s,
+        background .2s;
+
 }
 
 .small-btn:hover{
@@ -1015,6 +1418,19 @@ textarea{
     background:#0d0c0b;
 
     border:1px solid var(--border);
+
+    transition:
+        border-color .2s,
+        transform .2s;
+
+}
+
+.booking-item:hover{
+
+    border-color:#403a35;
+
+    transform:
+        translateY(-1px);
 
 }
 
@@ -1073,6 +1489,18 @@ textarea{
     text-transform:uppercase;
 
     letter-spacing:.07em;
+
+    transition:.2s;
+
+}
+
+.status:hover{
+
+    background:var(--red);
+
+    border-color:var(--red);
+
+    color:#fff;
 
 }
 
@@ -1158,27 +1586,133 @@ textarea{
 
 }
 
-.hero-info h3{
 
-    font-family:'Space Grotesk',sans-serif;
+/* =========================================================
+   VIDEO VIEWER MODAL
+========================================================= */
 
-    margin-bottom:8px;
+.viewer-modal{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:6000;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:25px;
+
+    background:
+        rgba(0,0,0,.92);
+
+    backdrop-filter:
+        blur(12px);
 
 }
 
-.hero-info p{
+.viewer-modal.active{
 
-    color:#68645e;
+    display:flex;
 
-    font-size:.68rem;
+    animation:
+        viewerIn .25s var(--ease);
 
-    line-height:1.7;
+}
+
+@keyframes viewerIn{
+
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:1;
+    }
+
+}
+
+.viewer-box{
+
+    position:relative;
+
+    width:min(900px,100%);
+
+    max-height:90vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.viewer-box video,
+.viewer-box img{
+
+    max-width:100%;
+
+    max-height:82vh;
+
+    display:block;
+
+    object-fit:contain;
+
+    background:#000;
+
+}
+
+.viewer-close{
+
+    position:absolute;
+
+    top:-45px;
+
+    right:0;
+
+    width:36px;
+    height:36px;
+
+    border:1px solid #39342f;
+
+    background:#151311;
+
+    color:#fff;
+
+    font-size:1rem;
+
+}
+
+.viewer-close:hover{
+
+    background:var(--red);
+
+    border-color:var(--red);
+
+}
+
+.viewer-title{
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-38px;
+
+    color:#aaa49c;
+
+    font-size:.65rem;
 
 }
 
 
 /* =========================================================
-   MODAL
+   CONFIRM MODAL
 ========================================================= */
 
 .modal{
@@ -1358,7 +1892,8 @@ textarea{
 
     .stats{
 
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
 
     }
 
@@ -1400,6 +1935,22 @@ textarea{
 
     }
 
+    .premiere-float{
+
+        right:15px;
+
+        bottom:15px;
+
+    }
+
+    .aftereffects-float{
+
+        right:68px;
+
+        bottom:32px;
+
+    }
+
 }
 
 @media(max-width:450px){
@@ -1423,6 +1974,42 @@ textarea{
 
     }
 
+    .card{
+
+        padding:18px;
+
+    }
+
+    .page-title{
+
+        font-size:2.3rem;
+
+    }
+
+    .adobe-floating{
+
+        display:none;
+
+    }
+
+}
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+
+        animation-duration:.01ms !important;
+
+        animation-iteration-count:1 !important;
+
+        transition-duration:.01ms !important;
+
+        scroll-behavior:auto !important;
+
+    }
+
 }
 
 </style>
@@ -1431,6 +2018,28 @@ textarea{
 
 
 <body>
+
+
+<!-- =========================================================
+     FLOATING PREMIERE / AFTER EFFECTS
+========================================================= -->
+
+<div class="adobe-floating premiere-float">
+
+    <div class="adobe-badge pr-badge">
+        Pr
+    </div>
+
+</div>
+
+
+<div class="adobe-floating aftereffects-float">
+
+    <div class="adobe-badge ae-badge">
+        Ae
+    </div>
+
+</div>
 
 
 <!-- =========================================================
@@ -1787,6 +2396,10 @@ textarea{
 
             </div>
 
+            <div class="adobe-mini pr">
+                Pr
+            </div>
+
         </div>
 
 
@@ -1864,6 +2477,20 @@ textarea{
                         Browse PC
                     </span>
 
+                    <div class="adobe-upload-brand">
+
+                        <span class="adobe-mini pr">
+                            Pr
+                        </span>
+
+                        Premiere Pro workflow
+
+                        <span class="adobe-mini ae">
+                            Ae
+                        </span>
+
+                    </div>
+
                 </label>
 
                 <input
@@ -1930,6 +2557,10 @@ textarea{
                     Add YouTube, Vimeo or Instagram embeds
                 </div>
 
+            </div>
+
+            <div class="adobe-mini ae">
+                Ae
             </div>
 
         </div>
@@ -2043,7 +2674,10 @@ textarea{
     ></div>
 
 
-    <div class="portfolio-grid" id="adminPortfolioGrid">
+    <div
+        class="portfolio-grid"
+        id="adminPortfolioGrid"
+    >
 
         <div class="empty">
 
@@ -2200,6 +2834,10 @@ textarea{
 
             </div>
 
+            <div class="adobe-mini ae">
+                Ae
+            </div>
+
         </div>
 
 
@@ -2297,6 +2935,36 @@ textarea{
 
 
 </main>
+
+</div>
+
+
+<!-- =========================================================
+     VIDEO VIEWER
+========================================================= -->
+
+<div
+    class="viewer-modal"
+    id="viewerModal"
+>
+
+    <div class="viewer-box">
+
+        <button
+            class="viewer-close"
+            id="viewerClose"
+        >
+            ✕
+        </button>
+
+        <div id="viewerContent"></div>
+
+        <div
+            class="viewer-title"
+            id="viewerTitle"
+        ></div>
+
+    </div>
 
 </div>
 
@@ -2562,15 +3230,19 @@ document
     .getElementById("refreshBtn")
     .addEventListener(
         "click",
-        function(){
+        async function(){
 
-            loadStats();
+            this.disabled = true;
 
-            loadPortfolio();
+            await loadStats();
 
-            loadBookings();
+            await loadPortfolio();
 
-            loadCurrentHero();
+            await loadBookings();
+
+            await loadCurrentHero();
+
+            this.disabled = false;
 
         }
     );
@@ -2694,6 +3366,7 @@ async function loadStats(){
 
 
         let videos = 0;
+
         let images = 0;
 
 
@@ -2876,7 +3549,13 @@ async function loadPortfolio(){
                         <img
                             src="${escapeHTML(url)}"
                             alt="${title}"
+                            loading="lazy"
+                            data-preview="image"
                         >
+
+                        <div class="preview-hint">
+                            Click to view
+                        </div>
 
                     `;
 
@@ -2891,9 +3570,16 @@ async function loadPortfolio(){
                         <video
                             src="${escapeHTML(url)}"
                             muted
+                            autoplay
+                            loop
                             playsinline
                             preload="metadata"
+                            data-preview="video"
                         ></video>
+
+                        <div class="preview-hint">
+                            Click to view
+                        </div>
 
                     `;
 
@@ -2913,8 +3599,9 @@ async function loadPortfolio(){
                         ? `
 
                             <iframe
-                                src="https://www.youtube.com/embed/${escapeHTML(id)}?rel=0"
+                                src="https://www.youtube.com/embed/${escapeHTML(id)}?autoplay=0&mute=1&loop=1&playlist=${escapeHTML(id)}&rel=0"
                                 loading="lazy"
+                                allow="autoplay; fullscreen"
                             ></iframe>
 
                           `
@@ -2936,8 +3623,9 @@ async function loadPortfolio(){
                         ? `
 
                             <iframe
-                                src="https://player.vimeo.com/video/${escapeHTML(id)}"
+                                src="https://player.vimeo.com/video/${escapeHTML(id)}?autoplay=0&muted=1&loop=1"
                                 loading="lazy"
+                                allow="autoplay; fullscreen"
                             ></iframe>
 
                           `
@@ -3016,6 +3704,34 @@ async function loadPortfolio(){
                     </div>
 
                 `;
+
+
+                /* =================================================
+                   CLICK VIDEO / IMAGE FOR LARGE VIEW
+                ================================================= */
+
+                const previewElement =
+                    card.querySelector(
+                        "[data-preview]"
+                    );
+
+
+                if(previewElement){
+
+                    previewElement.addEventListener(
+                        "click",
+                        function(){
+
+                            openViewer(
+                                url,
+                                this.dataset.preview,
+                                item.title || "Portfolio Preview"
+                            );
+
+                        }
+                    );
+
+                }
 
 
                 card
@@ -3107,6 +3823,146 @@ async function loadPortfolio(){
     }
 
 }
+
+
+/* =========================================================
+   VIDEO / IMAGE VIEWER
+========================================================= */
+
+function openViewer(
+    url,
+    type,
+    title
+){
+
+    if(!url)
+        return;
+
+
+    const modal =
+        document.getElementById(
+            "viewerModal"
+        );
+
+
+    const content =
+        document.getElementById(
+            "viewerContent"
+        );
+
+
+    const titleElement =
+        document.getElementById(
+            "viewerTitle"
+        );
+
+
+    titleElement.textContent =
+        title || "Preview";
+
+
+    if(type === "video"){
+
+        content.innerHTML = `
+
+            <video
+                src="${escapeHTML(url)}"
+                controls
+                autoplay
+                muted
+                playsinline
+            ></video>
+
+        `;
+
+    }
+    else{
+
+        content.innerHTML = `
+
+            <img
+                src="${escapeHTML(url)}"
+                alt="${escapeHTML(title)}"
+            >
+
+        `;
+
+    }
+
+
+    modal.classList.add(
+        "active"
+    );
+
+}
+
+
+function closeViewer(){
+
+    const modal =
+        document.getElementById(
+            "viewerModal"
+        );
+
+
+    const content =
+        document.getElementById(
+            "viewerContent"
+        );
+
+
+    modal.classList.remove(
+        "active"
+    );
+
+
+    content.innerHTML = "";
+
+}
+
+
+document
+    .getElementById("viewerClose")
+    .addEventListener(
+        "click",
+        closeViewer
+    );
+
+
+document
+    .getElementById("viewerModal")
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target === this
+            ){
+
+                closeViewer();
+
+            }
+
+        }
+    );
+
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closeViewer();
+
+            closeDeleteModal();
+
+        }
+
+    }
+);
 
 
 /* =========================================================
@@ -3259,12 +4115,6 @@ async function uploadVideo(){
     }
 
 
-    /*
-       Basic file size protection.
-       Supabase project settings can allow
-       larger files depending on configuration.
-    */
-
     if(
         file.size >
         100 * 1024 * 1024
@@ -3393,14 +4243,6 @@ async function uploadVideo(){
         progressPercent.textContent =
             "70%";
 
-
-        /*
-           Store path only.
-
-           index.html already converts
-           relative portfolio paths to
-           public Supabase URLs.
-        */
 
         const {
             error:dbError
@@ -4034,10 +4876,6 @@ document
 
             try{
 
-                /*
-                   Delete database record first.
-                */
-
                 const {
                     error:dbError
                 } =
@@ -4053,11 +4891,6 @@ document
                 if(dbError)
                     throw dbError;
 
-
-                /*
-                   If it is a local Supabase
-                   storage file, delete it too.
-                */
 
                 if(
                     item.url &&
@@ -4346,11 +5179,6 @@ async function loadBookings(){
 
                         <button
                             class="status"
-                            onclick='openWhatsApp(
-                                ${JSON.stringify(
-                                    booking.phone || ""
-                                )}
-                            )'
                         >
                             WhatsApp
                         </button>
@@ -4358,6 +5186,22 @@ async function loadBookings(){
                     </div>
 
                 `;
+
+
+                item
+                    .querySelector(
+                        ".status"
+                    )
+                    .addEventListener(
+                        "click",
+                        function(){
+
+                            openWhatsApp(
+                                booking.phone || ""
+                            );
+
+                        }
+                    );
 
 
                 list.appendChild(
